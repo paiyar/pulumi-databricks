@@ -45,8 +45,12 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 	return nil
 }
 
+func stripDatabricksPrefix(source string) string {
+	return strings.TrimPrefix(source, "databricks_")
+}
+
 func sanitizeDatabricksSourceName(source string) string {
-	return strcase.ToCamel(strings.TrimPrefix(source, "databricks_"))
+	return strcase.ToCamel(stripDatabricksPrefix(source))
 }
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
@@ -57,8 +61,16 @@ func Provider() tfbridge.ProviderInfo {
 	// Ref: https://github.com/pulumi/pulumi-tf-provider-boilerplate#adding-mappings-building-the-provider-and-sdks
 	resourceMap := make(map[string]*tfbridge.ResourceInfo)
 	for resource := range databricks.DatabricksProvider().ResourcesMap {
+		shortName := stripDatabricksPrefix(resource)
 		resourceMap[resource] = &tfbridge.ResourceInfo{
 			Tok: tfbridge.MakeResource(mainPkg, mainMod, sanitizeDatabricksSourceName(resource)),
+			Fields: map[string]*tfbridge.SchemaInfo{
+				shortName: {
+					// We don't use C#, this is just to get around build errors.
+					// (There is 0 thought put into prefixing names with CS)
+					CSharpName: strcase.ToCamel(fmt.Sprintf("CS%s", shortName)),
+				},
+			},
 		}
 	}
 
