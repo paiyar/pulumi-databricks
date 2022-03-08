@@ -23,7 +23,7 @@ import (
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/paiyar/pulumi-databricks/provider/pkg/version"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/terraform-providers/terraform-provider-databricks/databricks"
+	databricks "github.com/databrickslabs/terraform-provider-databricks/provider"
 )
 
 // all of the token components used below.
