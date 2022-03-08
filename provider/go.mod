@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz/provider
+module github.com/paiyar/pulumi-databricks/provider
 
 go 1.16
 
