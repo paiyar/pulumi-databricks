@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-databricks/sdk
+module github.com/paiyar/pulumi-databricks/sdk
 
 go 1.16
 

@@ -21,7 +21,7 @@ import (
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
-	"github.com/pulumi/pulumi-databricks/provider/pkg/version"
+	"github.com/paiyar/pulumi-databricks/provider/pkg/version"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/terraform-providers/terraform-provider-databricks/databricks"
 )
@@ -77,7 +77,7 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:   []string{"pulumi", "databricks", "category/cloud"},
 		License:    "Apache-2.0",
 		Homepage:   "https://www.pulumi.com",
-		Repository: "https://github.com/pulumi/pulumi-databricks",
+		Repository: "https://github.com/paiyar/pulumi-databricks",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
 		GitHubOrg: "",
 		Config:     map[string]*tfbridge.SchemaInfo{
