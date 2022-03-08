@@ -20,12 +20,12 @@ import (
 	"path/filepath"
 	"strings"
 
+	databricks "github.com/databrickslabs/terraform-provider-databricks/provider"
+	"github.com/paiyar/pulumi-databricks/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
-	"github.com/paiyar/pulumi-databricks/provider/pkg/version"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	databricks "github.com/databrickslabs/terraform-provider-databricks/provider"
 )
 
 // all of the token components used below.
@@ -77,7 +77,10 @@ func Provider() tfbridge.ProviderInfo {
 	dataSourceMap := make(map[string]*tfbridge.DataSourceInfo)
 	for source := range databricks.DatabricksProvider().DataSourcesMap {
 		dataSourceMap[source] = &tfbridge.DataSourceInfo{
-			Tok: tfbridge.MakeDataSource(mainPkg, mainMod, fmt.Sprintf("get%s", strings.Title(sanitizeDatabricksSourceName(source)))),
+			Tok: tfbridge.MakeDataSource(
+				mainPkg, mainMod,
+				fmt.Sprintf("get%s", strings.Title(sanitizeDatabricksSourceName(source))),
+			),
 		}
 	}
 
@@ -105,8 +108,8 @@ func Provider() tfbridge.ProviderInfo {
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:           p,
-		Name:        "databricks",
+		P:    p,
+		Name: "databricks",
 		// DisplayName is a way to be able to change the casing of the provider
 		// name when being displayed on the Pulumi registry
 		DisplayName: "",
@@ -120,12 +123,12 @@ func Provider() tfbridge.ProviderInfo {
 		//
 		// You may host a logo on a domain you control or add an SVG logo for your package
 		// in your repository and use the raw content URL for that file as your logo URL.
-		LogoURL:     "",
+		LogoURL: "",
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// e.g https://github.com/org/pulumi-provider-name/releases/
 		PluginDownloadURL: "",
-		Description: "A Pulumi package for creating and managing databricks cloud resources.",
+		Description:       "A Pulumi package for creating and managing databricks cloud resources.",
 		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
 		// For all available categories, see `Keywords` in
 		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
@@ -134,11 +137,11 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:   "https://www.pulumi.com",
 		Repository: "https://github.com/paiyar/pulumi-databricks",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg: "databrickslabs",
-		Config: configMap,
+		GitHubOrg:            "databrickslabs",
+		Config:               configMap,
 		PreConfigureCallback: preConfigureCallback,
-		Resources: resourceMap,
-		DataSources: dataSourceMap,
+		Resources:            resourceMap,
+		DataSources:          dataSourceMap,
 		JavaScript: &tfbridge.JavaScriptInfo{
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
