@@ -9,6 +9,7 @@ replace (
 
 require (
 	github.com/databrickslabs/terraform-provider-databricks v0.5.2
+	github.com/iancoleman/strcase v0.2.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.18.0
 	github.com/pulumi/pulumi/sdk/v3 v3.25.1
 )

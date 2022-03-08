@@ -16,7 +16,9 @@ package databricks
 
 import (
 	"fmt"
+	"github.com/iancoleman/strcase"
 	"path/filepath"
+	"strings"
 
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
@@ -43,10 +45,51 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 	return nil
 }
 
+func sanitizeDatabricksSourceName(source string) string {
+	return strcase.ToCamel(strings.TrimPrefix(source, "databricks_"))
+}
+
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(databricks.Provider())
+	p := shimv2.NewProvider(databricks.DatabricksProvider())
+
+	// Ref: https://github.com/pulumi/pulumi-tf-provider-boilerplate#adding-mappings-building-the-provider-and-sdks
+	resourceMap := make(map[string]*tfbridge.ResourceInfo)
+	for resource := range databricks.DatabricksProvider().ResourcesMap {
+		resourceMap[resource] = &tfbridge.ResourceInfo{
+			Tok: tfbridge.MakeResource(mainPkg, mainMod, sanitizeDatabricksSourceName(resource)),
+		}
+	}
+
+	dataSourceMap := make(map[string]*tfbridge.DataSourceInfo)
+	for source := range databricks.DatabricksProvider().DataSourcesMap {
+		dataSourceMap[source] = &tfbridge.DataSourceInfo{
+			Tok: tfbridge.MakeDataSource(mainPkg, mainMod, fmt.Sprintf("get%s", strings.Title(sanitizeDatabricksSourceName(source)))),
+		}
+	}
+
+	// Ref: https://github.com/databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#environment-variables
+	// NOTE: Intentionally elided AZURE related configurations
+	configMap := make(map[string]*tfbridge.SchemaInfo)
+	for _, config := range []string{
+		"host",
+		"token",
+		"username",
+		"password",
+		"account_id",
+		"config_file",
+		"profile",
+		"debug_truncate_bytes",
+		"debug_headers",
+		"rate_limit",
+	} {
+		configMap[config] = &tfbridge.SchemaInfo{
+			Default: &tfbridge.DefaultInfo{
+				EnvVars: []string{strings.ToUpper(fmt.Sprintf("databricks_%s", config))},
+			},
+		}
+	}
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -79,37 +122,11 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:   "https://www.pulumi.com",
 		Repository: "https://github.com/paiyar/pulumi-databricks",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg: "",
-		Config:     map[string]*tfbridge.SchemaInfo{
-			// Add any required configuration here, or remove the example below if
-			// no additional points are required.
-			// "region": {
-			// 	Type: tfbridge.MakeType("region", "Region"),
-			// 	Default: &tfbridge.DefaultInfo{
-			// 		EnvVars: []string{"AWS_REGION", "AWS_DEFAULT_REGION"},
-			// 	},
-			// },
-		},
+		GitHubOrg: "databrickslabs",
+		Config: configMap,
 		PreConfigureCallback: preConfigureCallback,
-		Resources:            map[string]*tfbridge.ResourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi type. Two examples
-			// are below - the single line form is the common case. The multi-line form is
-			// needed only if you wish to override types or other default options.
-			//
-			// "aws_iam_role": {Tok: tfbridge.MakeResource(mainMod, "IamRole")}
-			//
-			// "aws_acm_certificate": {
-			// 	Tok: tfbridge.MakeResource(mainMod, "Certificate"),
-			// 	Fields: map[string]*tfbridge.SchemaInfo{
-			// 		"tags": {Type: tfbridge.MakeType(mainPkg, "Tags")},
-			// 	},
-			// },
-		},
-		DataSources: map[string]*tfbridge.DataSourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi function. An example
-			// is below.
-			// "aws_ami": {Tok: tfbridge.MakeDataSource(mainMod, "getAmi")},
-		},
+		Resources: resourceMap,
+		DataSources: dataSourceMap,
 		JavaScript: &tfbridge.JavaScriptInfo{
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
@@ -132,7 +149,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/pulumi/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/paiyar/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
