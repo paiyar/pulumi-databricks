@@ -26,29 +26,51 @@ namespace Pulumi.Databricks.Inputs
         [Input("description")]
         public Input<string>? Description { get; set; }
 
+        /// <summary>
+        /// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
+        /// </summary>
         [Input("emailNotifications")]
         public Input<Inputs.JobTaskEmailNotificationsArgs>? EmailNotifications { get; set; }
 
+        /// <summary>
+        /// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `new_cluster` for greater reliability.
+        /// </summary>
         [Input("existingClusterId")]
         public Input<string>? ExistingClusterId { get; set; }
 
+        /// <summary>
+        /// Identifier that can be referenced in `task` block, so that cluster is shared between tasks
+        /// </summary>
         [Input("jobClusterKey")]
         public Input<string>? JobClusterKey { get; set; }
 
         [Input("libraries")]
         private InputList<Inputs.JobTaskLibraryArgs>? _libraries;
+
+        /// <summary>
+        /// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for databricks.Cluster resource.
+        /// </summary>
         public InputList<Inputs.JobTaskLibraryArgs> Libraries
         {
             get => _libraries ?? (_libraries = new InputList<Inputs.JobTaskLibraryArgs>());
             set => _libraries = value;
         }
 
+        /// <summary>
+        /// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED result_state or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
+        /// </summary>
         [Input("maxRetries")]
         public Input<int>? MaxRetries { get; set; }
 
+        /// <summary>
+        /// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+        /// </summary>
         [Input("minRetryIntervalMillis")]
         public Input<int>? MinRetryIntervalMillis { get; set; }
 
+        /// <summary>
+        /// Same set of parameters as for databricks.Cluster resource.
+        /// </summary>
         [Input("newCluster")]
         public Input<Inputs.JobTaskNewClusterArgs>? NewCluster { get; set; }
 
@@ -61,6 +83,9 @@ namespace Pulumi.Databricks.Inputs
         [Input("pythonWheelTask")]
         public Input<Inputs.JobTaskPythonWheelTaskArgs>? PythonWheelTask { get; set; }
 
+        /// <summary>
+        /// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
+        /// </summary>
         [Input("retryOnTimeout")]
         public Input<bool>? RetryOnTimeout { get; set; }
 
@@ -79,6 +104,9 @@ namespace Pulumi.Databricks.Inputs
         [Input("taskKey")]
         public Input<string>? TaskKey { get; set; }
 
+        /// <summary>
+        /// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
+        /// </summary>
         [Input("timeoutSeconds")]
         public Input<int>? TimeoutSeconds { get; set; }
 

@@ -4,6 +4,53 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * > **Note** This resource has an evolving API, which may change in future versions of the provider.
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as aws from "@pulumi/aws";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const config = new pulumi.Config();
+ * const databricksAccountId = config.requireObject("databricksAccountId");
+ * const thisAwsAssumeRolePolicy = databricks.getAwsAssumeRolePolicy({
+ *     externalId: databricksAccountId,
+ * });
+ * const crossAccountRole = new aws.iam.Role("crossAccountRole", {
+ *     assumeRolePolicy: thisAwsAssumeRolePolicy.then(thisAwsAssumeRolePolicy => thisAwsAssumeRolePolicy.json),
+ *     tags: _var.tags,
+ * });
+ * const thisAwsCrossaccountPolicy = databricks.getAwsCrossaccountPolicy({});
+ * const thisRolePolicy = new aws.iam.RolePolicy("thisRolePolicy", {
+ *     role: crossAccountRole.id,
+ *     policy: thisAwsCrossaccountPolicy.then(thisAwsCrossaccountPolicy => thisAwsCrossaccountPolicy.json),
+ * });
+ * const thisMwsCredentials = new databricks.MwsCredentials("thisMwsCredentials", {
+ *     accountId: databricksAccountId,
+ *     credentialsName: `${local.prefix}-creds`,
+ *     roleArn: crossAccountRole.arn,
+ * }, {
+ *     provider: databricks.mws,
+ * });
+ * ```
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * Provisioning Databricks on AWS guide.
+ * * databricks.MwsCustomerManagedKeys to configure KMS keys for new workspaces within AWS.
+ * * databricks.MwsLogDelivery to configure delivery of [billable usage logs](https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html) and [audit logs](https://docs.databricks.com/administration-guide/account-settings/audit-logs.html).
+ * * databricks.MwsNetworks to [configure VPC](https://docs.databricks.com/administration-guide/cloud-configurations/aws/customer-managed-vpc.html) & subnets for new workspaces within AWS.
+ * * databricks.MwsStorageConfigurations to configure root bucket new workspaces within AWS.
+ * * databricks.MwsWorkspaces to set up [workspaces in E2 architecture on AWS](https://docs.databricks.com/getting-started/overview.html#e2-architecture-1).
+ *
+ * ## Import
+ *
+ * -> **Note** Importing this resource is not currently supported.
+ */
 export class MwsCredentials extends pulumi.CustomResource {
     /**
      * Get an existing MwsCredentials resource's state with the given name, ID, and optional extra
@@ -32,11 +79,26 @@ export class MwsCredentials extends pulumi.CustomResource {
         return obj['__pulumiType'] === MwsCredentials.__pulumiType;
     }
 
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+     */
     public readonly accountId!: pulumi.Output<string>;
+    /**
+     * (Integer) time of credentials registration
+     */
     public /*out*/ readonly creationTime!: pulumi.Output<number>;
+    /**
+     * (String) identifier of credentials
+     */
     public /*out*/ readonly credentialsId!: pulumi.Output<string>;
+    /**
+     * name of credentials to register
+     */
     public readonly credentialsName!: pulumi.Output<string>;
     public /*out*/ readonly externalId!: pulumi.Output<string>;
+    /**
+     * ARN of cross-account role
+     */
     public readonly roleArn!: pulumi.Output<string>;
 
     /**
@@ -85,11 +147,26 @@ export class MwsCredentials extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MwsCredentials resources.
  */
 export interface MwsCredentialsState {
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+     */
     accountId?: pulumi.Input<string>;
+    /**
+     * (Integer) time of credentials registration
+     */
     creationTime?: pulumi.Input<number>;
+    /**
+     * (String) identifier of credentials
+     */
     credentialsId?: pulumi.Input<string>;
+    /**
+     * name of credentials to register
+     */
     credentialsName?: pulumi.Input<string>;
     externalId?: pulumi.Input<string>;
+    /**
+     * ARN of cross-account role
+     */
     roleArn?: pulumi.Input<string>;
 }
 
@@ -97,7 +174,16 @@ export interface MwsCredentialsState {
  * The set of arguments for constructing a MwsCredentials resource.
  */
 export interface MwsCredentialsArgs {
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+     */
     accountId: pulumi.Input<string>;
+    /**
+     * name of credentials to register
+     */
     credentialsName: pulumi.Input<string>;
+    /**
+     * ARN of cross-account role
+     */
     roleArn: pulumi.Input<string>;
 }

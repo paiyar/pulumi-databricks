@@ -11,9 +11,105 @@ namespace Pulumi.Databricks
 {
     public static class GetUser
     {
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Adding user to administrative group
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var admins = Output.Create(Databricks.GetGroup.InvokeAsync(new Databricks.GetGroupArgs
+        ///         {
+        ///             DisplayName = "admins",
+        ///         }));
+        ///         var me = Output.Create(Databricks.GetUser.InvokeAsync(new Databricks.GetUserArgs
+        ///         {
+        ///             UserName = "me@example.com",
+        ///         }));
+        ///         var myMemberA = new Databricks.GroupMember("myMemberA", new Databricks.GroupMemberArgs
+        ///         {
+        ///             GroupId = admins.Apply(admins =&gt; admins.Id),
+        ///             MemberId = me.Apply(me =&gt; me.Id),
+        ///         });
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.getCurrentUser data to retrieve information about databricks.User or databricks_service_principal, that is calling Databricks REST API.
+        /// * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
+        /// * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
+        /// * databricks.GroupInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_group.
+        /// * databricks.GroupMember to attach users and groups as group members.
+        /// * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
+        /// * databricks.User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to databricks.Group within the workspace.
+        /// * databricks.UserInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_user.
+        /// </summary>
         public static Task<GetUserResult> InvokeAsync(GetUserArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetUserResult>("databricks:index/getUser:getUser", args ?? new GetUserArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Adding user to administrative group
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var admins = Output.Create(Databricks.GetGroup.InvokeAsync(new Databricks.GetGroupArgs
+        ///         {
+        ///             DisplayName = "admins",
+        ///         }));
+        ///         var me = Output.Create(Databricks.GetUser.InvokeAsync(new Databricks.GetUserArgs
+        ///         {
+        ///             UserName = "me@example.com",
+        ///         }));
+        ///         var myMemberA = new Databricks.GroupMember("myMemberA", new Databricks.GroupMemberArgs
+        ///         {
+        ///             GroupId = admins.Apply(admins =&gt; admins.Id),
+        ///             MemberId = me.Apply(me =&gt; me.Id),
+        ///         });
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.getCurrentUser data to retrieve information about databricks.User or databricks_service_principal, that is calling Databricks REST API.
+        /// * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
+        /// * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
+        /// * databricks.GroupInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_group.
+        /// * databricks.GroupMember to attach users and groups as group members.
+        /// * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
+        /// * databricks.User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to databricks.Group within the workspace.
+        /// * databricks.UserInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_user.
+        /// </summary>
         public static Output<GetUserResult> Invoke(GetUserInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetUserResult>("databricks:index/getUser:getUser", args ?? new GetUserInvokeArgs(), options.WithDefaults());
     }
@@ -21,9 +117,15 @@ namespace Pulumi.Databricks
 
     public sealed class GetUserArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// ID of the user.
+        /// </summary>
         [Input("userId")]
         public string? UserId { get; set; }
 
+        /// <summary>
+        /// User name of the user. The user must exist before this resource can be planned.
+        /// </summary>
         [Input("userName")]
         public string? UserName { get; set; }
 
@@ -34,9 +136,15 @@ namespace Pulumi.Databricks
 
     public sealed class GetUserInvokeArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// ID of the user.
+        /// </summary>
         [Input("userId")]
         public Input<string>? UserId { get; set; }
 
+        /// <summary>
+        /// User name of the user. The user must exist before this resource can be planned.
+        /// </summary>
         [Input("userName")]
         public Input<string>? UserName { get; set; }
 
@@ -49,17 +157,35 @@ namespace Pulumi.Databricks
     [OutputType]
     public sealed class GetUserResult
     {
+        /// <summary>
+        /// Alphanumeric representation of user local name. e.g. `mr_foo`.
+        /// </summary>
         public readonly string Alphanumeric;
         public readonly string ApplicationId;
+        /// <summary>
+        /// Display name of the user, e.g. `Mr Foo`.
+        /// </summary>
         public readonly string DisplayName;
+        /// <summary>
+        /// ID of the user in an external identity provider.
+        /// </summary>
         public readonly string ExternalId;
+        /// <summary>
+        /// Home folder of the user, e.g. `/Users/mr.foo@example.com`.
+        /// </summary>
         public readonly string Home;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// Personal Repos location of the user, e.g. `/Repos/mr.foo@example.com`.
+        /// </summary>
         public readonly string Repos;
         public readonly string? UserId;
+        /// <summary>
+        /// Name of the user, e.g. `mr.foo@example.com`.
+        /// </summary>
         public readonly string? UserName;
 
         [OutputConstructor]

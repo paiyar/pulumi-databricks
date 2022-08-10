@@ -5,6 +5,15 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * ## Import
+ *
+ * The resource instance pool can be imported using it's idbash
+ *
+ * ```sh
+ *  $ pulumi import databricks:index/instancePool:InstancePool this <instance-pool-id>
+ * ```
+ */
 export class InstancePool extends pulumi.CustomResource {
     /**
      * Get an existing InstancePool resource's state with the given name, ID, and optional extra
@@ -35,18 +44,42 @@ export class InstancePool extends pulumi.CustomResource {
 
     public readonly awsAttributes!: pulumi.Output<outputs.InstancePoolAwsAttributes>;
     public readonly azureAttributes!: pulumi.Output<outputs.InstancePoolAzureAttributes | undefined>;
+    /**
+     * (Map) Additional tags for instance pool resources. Databricks tags all pool resources (e.g. AWS & Azure instances and Disk volumes). *Databricks allows at most 43 custom tags.*
+     */
     public readonly customTags!: pulumi.Output<{[key: string]: any} | undefined>;
     public readonly diskSpec!: pulumi.Output<outputs.InstancePoolDiskSpec | undefined>;
+    /**
+     * (Bool) Autoscaling Local Storage: when enabled, the instances in the pool dynamically acquire additional disk space when they are running low on disk space.
+     */
     public readonly enableElasticDisk!: pulumi.Output<boolean | undefined>;
     public readonly gcpAttributes!: pulumi.Output<outputs.InstancePoolGcpAttributes | undefined>;
+    /**
+     * (Integer) The number of minutes that idle instances in excess of the minIdleInstances are maintained by the pool before being terminated. If not specified, excess idle instances are terminated automatically after a default timeout period. If specified, the time must be between 0 and 10000 minutes. If you specify 0, excess idle instances are removed as soon as possible.
+     */
     public readonly idleInstanceAutoterminationMinutes!: pulumi.Output<number>;
     public readonly instancePoolFleetAttributes!: pulumi.Output<outputs.InstancePoolInstancePoolFleetAttributes | undefined>;
     public readonly instancePoolId!: pulumi.Output<string>;
+    /**
+     * (String) The name of the instance pool. This is required for create and edit operations. It must be unique, non-empty, and less than 100 characters.
+     */
     public readonly instancePoolName!: pulumi.Output<string>;
+    /**
+     * (Integer) The maximum number of instances the pool can contain, including both idle instances and ones in use by clusters. Once the maximum capacity is reached, you cannot create new clusters from the pool and existing clusters cannot autoscale up until some instances are made idle in the pool via cluster termination or down-scaling.
+     */
     public readonly maxCapacity!: pulumi.Output<number | undefined>;
+    /**
+     * (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.
+     */
     public readonly minIdleInstances!: pulumi.Output<number | undefined>;
+    /**
+     * (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool’s idle instances are allocated based on this type. You can retrieve a list of available node types by using the [List Node Types API](https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterclusterservicelistnodetypes) call.
+     */
     public readonly nodeTypeId!: pulumi.Output<string | undefined>;
     public readonly preloadedDockerImages!: pulumi.Output<outputs.InstancePoolPreloadedDockerImage[] | undefined>;
+    /**
+     * (List) A list with at most one runtime version the pool installs on each instance. Pool clusters that use a preloaded runtime version start faster as they do not have to wait for the image to download. You can retrieve them via databricks.getSparkVersion data source or via  [Runtime Versions API](https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterclusterservicelistsparkversions) call.
+     */
     public readonly preloadedSparkVersions!: pulumi.Output<string[] | undefined>;
 
     /**
@@ -112,18 +145,42 @@ export class InstancePool extends pulumi.CustomResource {
 export interface InstancePoolState {
     awsAttributes?: pulumi.Input<inputs.InstancePoolAwsAttributes>;
     azureAttributes?: pulumi.Input<inputs.InstancePoolAzureAttributes>;
+    /**
+     * (Map) Additional tags for instance pool resources. Databricks tags all pool resources (e.g. AWS & Azure instances and Disk volumes). *Databricks allows at most 43 custom tags.*
+     */
     customTags?: pulumi.Input<{[key: string]: any}>;
     diskSpec?: pulumi.Input<inputs.InstancePoolDiskSpec>;
+    /**
+     * (Bool) Autoscaling Local Storage: when enabled, the instances in the pool dynamically acquire additional disk space when they are running low on disk space.
+     */
     enableElasticDisk?: pulumi.Input<boolean>;
     gcpAttributes?: pulumi.Input<inputs.InstancePoolGcpAttributes>;
+    /**
+     * (Integer) The number of minutes that idle instances in excess of the minIdleInstances are maintained by the pool before being terminated. If not specified, excess idle instances are terminated automatically after a default timeout period. If specified, the time must be between 0 and 10000 minutes. If you specify 0, excess idle instances are removed as soon as possible.
+     */
     idleInstanceAutoterminationMinutes?: pulumi.Input<number>;
     instancePoolFleetAttributes?: pulumi.Input<inputs.InstancePoolInstancePoolFleetAttributes>;
     instancePoolId?: pulumi.Input<string>;
+    /**
+     * (String) The name of the instance pool. This is required for create and edit operations. It must be unique, non-empty, and less than 100 characters.
+     */
     instancePoolName?: pulumi.Input<string>;
+    /**
+     * (Integer) The maximum number of instances the pool can contain, including both idle instances and ones in use by clusters. Once the maximum capacity is reached, you cannot create new clusters from the pool and existing clusters cannot autoscale up until some instances are made idle in the pool via cluster termination or down-scaling.
+     */
     maxCapacity?: pulumi.Input<number>;
+    /**
+     * (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.
+     */
     minIdleInstances?: pulumi.Input<number>;
+    /**
+     * (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool’s idle instances are allocated based on this type. You can retrieve a list of available node types by using the [List Node Types API](https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterclusterservicelistnodetypes) call.
+     */
     nodeTypeId?: pulumi.Input<string>;
     preloadedDockerImages?: pulumi.Input<pulumi.Input<inputs.InstancePoolPreloadedDockerImage>[]>;
+    /**
+     * (List) A list with at most one runtime version the pool installs on each instance. Pool clusters that use a preloaded runtime version start faster as they do not have to wait for the image to download. You can retrieve them via databricks.getSparkVersion data source or via  [Runtime Versions API](https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterclusterservicelistsparkversions) call.
+     */
     preloadedSparkVersions?: pulumi.Input<pulumi.Input<string>[]>;
 }
 
@@ -133,17 +190,41 @@ export interface InstancePoolState {
 export interface InstancePoolArgs {
     awsAttributes?: pulumi.Input<inputs.InstancePoolAwsAttributes>;
     azureAttributes?: pulumi.Input<inputs.InstancePoolAzureAttributes>;
+    /**
+     * (Map) Additional tags for instance pool resources. Databricks tags all pool resources (e.g. AWS & Azure instances and Disk volumes). *Databricks allows at most 43 custom tags.*
+     */
     customTags?: pulumi.Input<{[key: string]: any}>;
     diskSpec?: pulumi.Input<inputs.InstancePoolDiskSpec>;
+    /**
+     * (Bool) Autoscaling Local Storage: when enabled, the instances in the pool dynamically acquire additional disk space when they are running low on disk space.
+     */
     enableElasticDisk?: pulumi.Input<boolean>;
     gcpAttributes?: pulumi.Input<inputs.InstancePoolGcpAttributes>;
+    /**
+     * (Integer) The number of minutes that idle instances in excess of the minIdleInstances are maintained by the pool before being terminated. If not specified, excess idle instances are terminated automatically after a default timeout period. If specified, the time must be between 0 and 10000 minutes. If you specify 0, excess idle instances are removed as soon as possible.
+     */
     idleInstanceAutoterminationMinutes: pulumi.Input<number>;
     instancePoolFleetAttributes?: pulumi.Input<inputs.InstancePoolInstancePoolFleetAttributes>;
     instancePoolId?: pulumi.Input<string>;
+    /**
+     * (String) The name of the instance pool. This is required for create and edit operations. It must be unique, non-empty, and less than 100 characters.
+     */
     instancePoolName: pulumi.Input<string>;
+    /**
+     * (Integer) The maximum number of instances the pool can contain, including both idle instances and ones in use by clusters. Once the maximum capacity is reached, you cannot create new clusters from the pool and existing clusters cannot autoscale up until some instances are made idle in the pool via cluster termination or down-scaling.
+     */
     maxCapacity?: pulumi.Input<number>;
+    /**
+     * (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.
+     */
     minIdleInstances?: pulumi.Input<number>;
+    /**
+     * (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool’s idle instances are allocated based on this type. You can retrieve a list of available node types by using the [List Node Types API](https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterclusterservicelistnodetypes) call.
+     */
     nodeTypeId?: pulumi.Input<string>;
     preloadedDockerImages?: pulumi.Input<pulumi.Input<inputs.InstancePoolPreloadedDockerImage>[]>;
+    /**
+     * (List) A list with at most one runtime version the pool installs on each instance. Pool clusters that use a preloaded runtime version start faster as they do not have to wait for the image to download. You can retrieve them via databricks.getSparkVersion data source or via  [Runtime Versions API](https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterclusterservicelistsparkversions) call.
+     */
     preloadedSparkVersions?: pulumi.Input<pulumi.Input<string>[]>;
 }

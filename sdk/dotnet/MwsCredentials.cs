@@ -9,24 +9,98 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// &gt; **Note** This resource has an evolving API, which may change in future versions of the provider.
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Aws = Pulumi.Aws;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var config = new Config();
+    ///         var databricksAccountId = config.RequireObject&lt;dynamic&gt;("databricksAccountId");
+    ///         var thisAwsAssumeRolePolicy = Output.Create(Databricks.GetAwsAssumeRolePolicy.InvokeAsync(new Databricks.GetAwsAssumeRolePolicyArgs
+    ///         {
+    ///             ExternalId = databricksAccountId,
+    ///         }));
+    ///         var crossAccountRole = new Aws.Iam.Role("crossAccountRole", new Aws.Iam.RoleArgs
+    ///         {
+    ///             AssumeRolePolicy = thisAwsAssumeRolePolicy.Apply(thisAwsAssumeRolePolicy =&gt; thisAwsAssumeRolePolicy.Json),
+    ///             Tags = @var.Tags,
+    ///         });
+    ///         var thisAwsCrossaccountPolicy = Output.Create(Databricks.GetAwsCrossaccountPolicy.InvokeAsync());
+    ///         var thisRolePolicy = new Aws.Iam.RolePolicy("thisRolePolicy", new Aws.Iam.RolePolicyArgs
+    ///         {
+    ///             Role = crossAccountRole.Id,
+    ///             Policy = thisAwsCrossaccountPolicy.Apply(thisAwsCrossaccountPolicy =&gt; thisAwsCrossaccountPolicy.Json),
+    ///         });
+    ///         var thisMwsCredentials = new Databricks.MwsCredentials("thisMwsCredentials", new Databricks.MwsCredentialsArgs
+    ///         {
+    ///             AccountId = databricksAccountId,
+    ///             CredentialsName = $"{local.Prefix}-creds",
+    ///             RoleArn = crossAccountRole.Arn,
+    ///         }, new CustomResourceOptions
+    ///         {
+    ///             Provider = databricks.Mws,
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// ## Related Resources
+    /// 
+    /// The following resources are used in the same context:
+    /// 
+    /// * Provisioning Databricks on AWS guide.
+    /// * databricks.MwsCustomerManagedKeys to configure KMS keys for new workspaces within AWS.
+    /// * databricks.MwsLogDelivery to configure delivery of [billable usage logs](https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html) and [audit logs](https://docs.databricks.com/administration-guide/account-settings/audit-logs.html).
+    /// * databricks.MwsNetworks to [configure VPC](https://docs.databricks.com/administration-guide/cloud-configurations/aws/customer-managed-vpc.html) &amp; subnets for new workspaces within AWS.
+    /// * databricks.MwsStorageConfigurations to configure root bucket new workspaces within AWS.
+    /// * databricks.MwsWorkspaces to set up [workspaces in E2 architecture on AWS](https://docs.databricks.com/getting-started/overview.html#e2-architecture-1).
+    /// 
+    /// ## Import
+    /// 
+    /// -&gt; **Note** Importing this resource is not currently supported.
+    /// </summary>
     [DatabricksResourceType("databricks:index/mwsCredentials:MwsCredentials")]
     public partial class MwsCredentials : Pulumi.CustomResource
     {
+        /// <summary>
+        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+        /// </summary>
         [Output("accountId")]
         public Output<string> AccountId { get; private set; } = null!;
 
+        /// <summary>
+        /// (Integer) time of credentials registration
+        /// </summary>
         [Output("creationTime")]
         public Output<int> CreationTime { get; private set; } = null!;
 
+        /// <summary>
+        /// (String) identifier of credentials
+        /// </summary>
         [Output("credentialsId")]
         public Output<string> CredentialsId { get; private set; } = null!;
 
+        /// <summary>
+        /// name of credentials to register
+        /// </summary>
         [Output("credentialsName")]
         public Output<string> CredentialsName { get; private set; } = null!;
 
         [Output("externalId")]
         public Output<string> ExternalId { get; private set; } = null!;
 
+        /// <summary>
+        /// ARN of cross-account role
+        /// </summary>
         [Output("roleArn")]
         public Output<string> RoleArn { get; private set; } = null!;
 
@@ -76,12 +150,21 @@ namespace Pulumi.Databricks
 
     public sealed class MwsCredentialsArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+        /// </summary>
         [Input("accountId", required: true)]
         public Input<string> AccountId { get; set; } = null!;
 
+        /// <summary>
+        /// name of credentials to register
+        /// </summary>
         [Input("credentialsName", required: true)]
         public Input<string> CredentialsName { get; set; } = null!;
 
+        /// <summary>
+        /// ARN of cross-account role
+        /// </summary>
         [Input("roleArn", required: true)]
         public Input<string> RoleArn { get; set; } = null!;
 
@@ -92,21 +175,36 @@ namespace Pulumi.Databricks
 
     public sealed class MwsCredentialsState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+        /// </summary>
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
 
+        /// <summary>
+        /// (Integer) time of credentials registration
+        /// </summary>
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
+        /// <summary>
+        /// (String) identifier of credentials
+        /// </summary>
         [Input("credentialsId")]
         public Input<string>? CredentialsId { get; set; }
 
+        /// <summary>
+        /// name of credentials to register
+        /// </summary>
         [Input("credentialsName")]
         public Input<string>? CredentialsName { get; set; }
 
         [Input("externalId")]
         public Input<string>? ExternalId { get; set; }
 
+        /// <summary>
+        /// ARN of cross-account role
+        /// </summary>
         [Input("roleArn")]
         public Input<string>? RoleArn { get; set; }
 

@@ -128,25 +128,52 @@ export interface ClusterWorkloadTypeClients {
 
 export interface GetClusterClusterInfo {
     autoscale?: outputs.GetClusterClusterInfoAutoscale;
+    /**
+     * Automatically terminate the cluster after being inactive for this time in minutes. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination.
+     */
     autoterminationMinutes?: number;
     awsAttributes?: outputs.GetClusterClusterInfoAwsAttributes;
     azureAttributes?: outputs.GetClusterClusterInfoAzureAttributes;
     clusterCores?: number;
+    /**
+     * The id of the cluster
+     */
     clusterId?: string;
     clusterLogConf?: outputs.GetClusterClusterInfoClusterLogConf;
     clusterLogStatus?: outputs.GetClusterClusterInfoClusterLogStatus;
     clusterMemoryMb?: number;
+    /**
+     * Cluster name, which doesn’t have to be unique.
+     */
     clusterName?: string;
     clusterSource?: string;
     creatorUserName?: string;
+    /**
+     * Additional tags for cluster resources.
+     */
     customTags?: {[key: string]: any};
+    /**
+     * Security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
+     */
     dataSecurityMode?: string;
     defaultTags: {[key: string]: any};
     dockerImage?: outputs.GetClusterClusterInfoDockerImage;
     driver?: outputs.GetClusterClusterInfoDriver;
+    /**
+     * similar to `instancePoolId`, but for driver node.
+     */
     driverInstancePoolId: string;
+    /**
+     * The node type of the Spark driver.
+     */
     driverNodeTypeId?: string;
+    /**
+     * Use autoscaling local storage.
+     */
     enableElasticDisk?: boolean;
+    /**
+     * Enable local disk encryption.
+     */
     enableLocalDiskEncryption?: boolean;
     executors?: outputs.GetClusterClusterInfoExecutor[];
     gcpAttributes?: outputs.GetClusterClusterInfoGcpAttributes;
@@ -155,14 +182,36 @@ export interface GetClusterClusterInfo {
     jdbcPort?: number;
     lastActivityTime?: number;
     lastStateLossTime?: number;
+    /**
+     * Any supported databricks.getNodeType id.
+     * * `instancePoolId` The pool of idle instances the cluster is attached to.
+     */
     nodeTypeId?: string;
     numWorkers?: number;
+    /**
+     * Identifier of Cluster Policy to validate cluster and preset certain defaults.
+     */
     policyId?: string;
+    /**
+     * The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
+     */
     singleUserName?: string;
+    /**
+     * Map with key-value pairs to fine-tune Spark clusters.
+     */
     sparkConf?: {[key: string]: any};
     sparkContextId?: number;
+    /**
+     * Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
+     */
     sparkEnvVars?: {[key: string]: any};
+    /**
+     * [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster.
+     */
     sparkVersion: string;
+    /**
+     * SSH public key contents that will be added to each Spark node in this cluster.
+     */
     sshPublicKeys?: string[];
     startTime?: number;
     state: string;
@@ -290,15 +339,24 @@ export interface GetClusterClusterInfoTerminationReason {
 
 export interface GetDbfsFilePathsPathList {
     fileSize?: number;
+    /**
+     * Path on DBFS for the file to perform listing
+     */
     path?: string;
 }
 
 export interface GetNotebookPathsNotebookPathList {
     language?: string;
+    /**
+     * Path to workspace directory
+     */
     path?: string;
 }
 
 export interface GetSqlWarehouseChannel {
+    /**
+     * Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
+     */
     name?: string;
 }
 
@@ -325,18 +383,39 @@ export interface GrantsGrant {
 }
 
 export interface InstancePoolAwsAttributes {
+    /**
+     * Availability type used for all nodes. Valid values are `PREEMPTIBLE_GCP`, `PREEMPTIBLE_WITH_FALLBACK_GCP` and `ON_DEMAND_GCP`, default: `ON_DEMAND_GCP`.
+     */
     availability?: string;
+    /**
+     * (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type’s on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the *default value is 100*. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. *For safety, this field cannot be greater than 10000.*
+     */
     spotBidPricePercent?: number;
+    /**
+     * (String) Identifier for the availability zone/datacenter in which the instance pool resides. This string is of the form like `"us-west-2a"`. The provided availability zone must be in the same region as the Databricks deployment. For example, `"us-west-2a"` is not a valid zone ID if the Databricks deployment resides in the `"us-east-1"` region. This is an optional field. If not specified, a default zone is used. You can find the list of available zones as well as the default value by using the [List Zones API](https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterclusterservicelistavailablezones).
+     */
     zoneId: string;
 }
 
 export interface InstancePoolAzureAttributes {
+    /**
+     * Availability type used for all nodes. Valid values are `PREEMPTIBLE_GCP`, `PREEMPTIBLE_WITH_FALLBACK_GCP` and `ON_DEMAND_GCP`, default: `ON_DEMAND_GCP`.
+     */
     availability?: string;
+    /**
+     * The max price for Azure spot instances.  Use `-1` to specify the lowest price.
+     */
     spotBidMaxPrice?: number;
 }
 
 export interface InstancePoolDiskSpec {
+    /**
+     * (Integer) The number of disks to attach to each instance. This feature is only enabled for supported node types. Users can choose up to the limit of the disks supported by the node type. For node types with no local disk, at least one disk needs to be specified.
+     */
     diskCount?: number;
+    /**
+     * (Integer) The size of each disk (in GiB) to attach.
+     */
     diskSize?: number;
     diskType?: outputs.InstancePoolDiskSpecDiskType;
 }
@@ -347,6 +426,9 @@ export interface InstancePoolDiskSpecDiskType {
 }
 
 export interface InstancePoolGcpAttributes {
+    /**
+     * Availability type used for all nodes. Valid values are `PREEMPTIBLE_GCP`, `PREEMPTIBLE_WITH_FALLBACK_GCP` and `ON_DEMAND_GCP`, default: `ON_DEMAND_GCP`.
+     */
     availability?: string;
 }
 
@@ -383,22 +465,55 @@ export interface InstancePoolPreloadedDockerImageBasicAuth {
 
 export interface JobEmailNotifications {
     alertOnLastAttempt?: boolean;
+    /**
+     * (Bool) don't send alert for skipped runs
+     */
     noAlertForSkippedRuns?: boolean;
+    /**
+     * (List) list of emails to notify on failure
+     */
     onFailures?: string[];
+    /**
+     * (List) list of emails to notify on failure
+     */
     onStarts?: string[];
+    /**
+     * (List) list of emails to notify on failure
+     */
     onSuccesses?: string[];
 }
 
 export interface JobGitSource {
+    /**
+     * name of the Git branch to use. Conflicts with `tag` and `commit`.
+     */
     branch?: string;
+    /**
+     * hash of Git commit to use. Conflicts with `branch` and `tag`.
+     */
     commit?: string;
+    /**
+     * case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`.
+     */
     provider?: string;
+    /**
+     * name of the Git branch to use. Conflicts with `branch` and `commit`.
+     */
     tag?: string;
+    /**
+     * URL of the job on the given workspace
+     */
     url: string;
 }
 
 export interface JobJobCluster {
+    /**
+     * Identifier that can be referenced in `task` block, so that cluster is shared between tasks
+     */
     jobClusterKey?: string;
+    /**
+     * Same set of parameters as for databricks.Cluster resource.
+     */
     newCluster?: outputs.JobJobClusterNewCluster;
 }
 
@@ -475,6 +590,9 @@ export interface JobJobClusterNewClusterClusterLogConfS3 {
 
 export interface JobJobClusterNewClusterDockerImage {
     basicAuth?: outputs.JobJobClusterNewClusterDockerImageBasicAuth;
+    /**
+     * URL of the job on the given workspace
+     */
     url: string;
 }
 
@@ -627,6 +745,9 @@ export interface JobNewClusterClusterLogConfS3 {
 
 export interface JobNewClusterDockerImage {
     basicAuth?: outputs.JobNewClusterDockerImageBasicAuth;
+    /**
+     * URL of the job on the given workspace
+     */
     url: string;
 }
 
@@ -682,39 +803,84 @@ export interface JobNewClusterWorkloadTypeClients {
 }
 
 export interface JobNotebookTask {
+    /**
+     * (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in baseParameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s baseParameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using `dbutils.widgets.get`.
+     */
     baseParameters?: {[key: string]: any};
+    /**
+     * The absolute path of the databricks.Notebook to be run in the Databricks workspace. This path must begin with a slash. This field is required.
+     */
     notebookPath: string;
 }
 
 export interface JobPipelineTask {
+    /**
+     * The pipeline's unique ID.
+     */
     pipelineId: string;
 }
 
 export interface JobPythonWheelTask {
+    /**
+     * Python function as entry point for the task
+     */
     entryPoint?: string;
+    /**
+     * Named parameters for the task
+     */
     namedParameters?: {[key: string]: any};
+    /**
+     * Name of Python package
+     */
     packageName?: string;
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
 }
 
 export interface JobSchedule {
+    /**
+     * Indicate whether this schedule is paused or not. Either “PAUSED” or “UNPAUSED”. When the pauseStatus field is omitted and a schedule is provided, the server will default to using "UNPAUSED" as a value for pause_status.
+     */
     pauseStatus: string;
+    /**
+     * A [Cron expression using Quartz syntax](http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html) that describes the schedule for a job. This field is required.
+     */
     quartzCronExpression: string;
+    /**
+     * A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+     */
     timezoneId: string;
 }
 
 export interface JobSparkJarTask {
     jarUri?: string;
+    /**
+     * The full name of the class containing the main method to be executed. This class must be contained in a JAR provided as a library. The code should use `SparkContext.getOrCreate` to obtain a Spark context; otherwise, runs of the job will fail.
+     */
     mainClassName?: string;
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
 }
 
 export interface JobSparkPythonTask {
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
+    /**
+     * The URI of the Python file to be executed. databricks.DbfsFile and S3 paths are supported. This field is required.
+     */
     pythonFile: string;
 }
 
 export interface JobSparkSubmitTask {
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
 }
 
@@ -722,22 +888,49 @@ export interface JobTask {
     dbtTask?: outputs.JobTaskDbtTask;
     dependsOns?: outputs.JobTaskDependsOn[];
     description?: string;
+    /**
+     * (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
+     */
     emailNotifications?: outputs.JobTaskEmailNotifications;
+    /**
+     * If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `newCluster` for greater reliability.
+     */
     existingClusterId?: string;
+    /**
+     * Identifier that can be referenced in `task` block, so that cluster is shared between tasks
+     */
     jobClusterKey?: string;
+    /**
+     * (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for databricks.Cluster resource.
+     */
     libraries?: outputs.JobTaskLibrary[];
+    /**
+     * (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED resultState or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
+     */
     maxRetries?: number;
+    /**
+     * (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+     */
     minRetryIntervalMillis?: number;
+    /**
+     * Same set of parameters as for databricks.Cluster resource.
+     */
     newCluster?: outputs.JobTaskNewCluster;
     notebookTask?: outputs.JobTaskNotebookTask;
     pipelineTask?: outputs.JobTaskPipelineTask;
     pythonWheelTask?: outputs.JobTaskPythonWheelTask;
+    /**
+     * (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
+     */
     retryOnTimeout: boolean;
     sparkJarTask?: outputs.JobTaskSparkJarTask;
     sparkPythonTask?: outputs.JobTaskSparkPythonTask;
     sparkSubmitTask?: outputs.JobTaskSparkSubmitTask;
     sqlTask?: outputs.JobTaskSqlTask;
     taskKey?: string;
+    /**
+     * (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
+     */
     timeoutSeconds?: number;
 }
 
@@ -753,9 +946,21 @@ export interface JobTaskDependsOn {
 
 export interface JobTaskEmailNotifications {
     alertOnLastAttempt?: boolean;
+    /**
+     * (Bool) don't send alert for skipped runs
+     */
     noAlertForSkippedRuns?: boolean;
+    /**
+     * (List) list of emails to notify on failure
+     */
     onFailures?: string[];
+    /**
+     * (List) list of emails to notify on failure
+     */
     onStarts?: string[];
+    /**
+     * (List) list of emails to notify on failure
+     */
     onSuccesses?: string[];
 }
 
@@ -857,6 +1062,9 @@ export interface JobTaskNewClusterClusterLogConfS3 {
 
 export interface JobTaskNewClusterDockerImage {
     basicAuth?: outputs.JobTaskNewClusterDockerImageBasicAuth;
+    /**
+     * URL of the job on the given workspace
+     */
     url: string;
 }
 
@@ -912,39 +1120,78 @@ export interface JobTaskNewClusterWorkloadTypeClients {
 }
 
 export interface JobTaskNotebookTask {
+    /**
+     * (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in baseParameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s baseParameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using `dbutils.widgets.get`.
+     */
     baseParameters?: {[key: string]: any};
+    /**
+     * The absolute path of the databricks.Notebook to be run in the Databricks workspace. This path must begin with a slash. This field is required.
+     */
     notebookPath: string;
 }
 
 export interface JobTaskPipelineTask {
+    /**
+     * The pipeline's unique ID.
+     */
     pipelineId: string;
 }
 
 export interface JobTaskPythonWheelTask {
+    /**
+     * Python function as entry point for the task
+     */
     entryPoint?: string;
+    /**
+     * Named parameters for the task
+     */
     namedParameters?: {[key: string]: any};
+    /**
+     * Name of Python package
+     */
     packageName?: string;
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
 }
 
 export interface JobTaskSparkJarTask {
     jarUri?: string;
+    /**
+     * The full name of the class containing the main method to be executed. This class must be contained in a JAR provided as a library. The code should use `SparkContext.getOrCreate` to obtain a Spark context; otherwise, runs of the job will fail.
+     */
     mainClassName?: string;
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
 }
 
 export interface JobTaskSparkPythonTask {
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
+    /**
+     * The URI of the Python file to be executed. databricks.DbfsFile and S3 paths are supported. This field is required.
+     */
     pythonFile: string;
 }
 
 export interface JobTaskSparkSubmitTask {
+    /**
+     * Parameters for the task
+     */
     parameters?: string[];
 }
 
 export interface JobTaskSqlTask {
     alert?: outputs.JobTaskSqlTaskAlert;
     dashboard?: outputs.JobTaskSqlTaskDashboard;
+    /**
+     * Parameters for the task
+     */
     parameters?: {[key: string]: any};
     query?: outputs.JobTaskSqlTaskQuery;
     warehouseId?: string;
@@ -979,16 +1226,31 @@ export interface LibraryPypi {
 }
 
 export interface MetastoreDataAccessAwsIamRole {
+    /**
+     * The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form `arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF`
+     */
     roleArn: string;
 }
 
 export interface MetastoreDataAccessAzureManagedIdentity {
+    /**
+     * The Resource ID of the Azure Databricks Access Connector resource, of the form `/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-name/providers/Microsoft.Databricks/accessConnectors/connector-name`
+     */
     accessConnectorId: string;
 }
 
 export interface MetastoreDataAccessAzureServicePrincipal {
+    /**
+     * The application ID of the application registration within the referenced AAD tenant
+     */
     applicationId: string;
+    /**
+     * The client secret generated for the above app ID in AAD. **This field is redacted on output**
+     */
     clientSecret: string;
+    /**
+     * The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
+     */
     directoryId: string;
 }
 
@@ -998,15 +1260,33 @@ export interface MlflowModelTag {
 }
 
 export interface MlflowWebhookHttpUrlSpec {
+    /**
+     * Value of the authorization header that should be sent in the request sent by the wehbook.  It should be of the form `<auth type> <credentials>`, e.g. `Bearer <access_token>`. If set to an empty string, no authorization header will be included in the request.
+     */
     authorization?: string;
+    /**
+     * Enable/disable SSL certificate validation. Default is `true`. For self-signed certificates, this field must be `false` AND the destination server must disable certificate validation as well. For security purposes, it is encouraged to perform secret validation with the HMAC-encoded portion of the payload and acknowledge the risk associated with disabling hostname validation whereby it becomes more likely that requests can be maliciously routed to an unintended host.
+     */
     enableSslVerification?: boolean;
     string?: string;
+    /**
+     * External HTTPS URL called on event trigger (by using a POST request). Structure of payload depends on the event type, refer to [documentation](https://docs.databricks.com/applications/mlflow/model-registry-webhooks.html) for more details.
+     */
     url: string;
 }
 
 export interface MlflowWebhookJobSpec {
+    /**
+     * The personal access token used to authorize webhook's job runs.
+     */
     accessToken: string;
+    /**
+     * ID of the Databricks job that the webhook runs.
+     */
     jobId: string;
+    /**
+     * URL of the workspace containing the job that this webhook runs. If not specified, the job’s workspace URL is assumed to be the same as the workspace where the webhook is created.
+     */
     workspaceUrl?: string;
 }
 
@@ -1051,8 +1331,17 @@ export interface MountWasb {
 }
 
 export interface MwsCustomerManagedKeysAwsKeyInfo {
+    /**
+     * The AWS KMS key alias.
+     */
     keyAlias: string;
+    /**
+     * The AWS KMS key's Amazon Resource Name (ARN).
+     */
     keyArn: string;
+    /**
+     * (Computed) The AWS region in which KMS key is deployed to. This is not required.
+     */
     keyRegion: string;
 }
 
@@ -1105,9 +1394,21 @@ export interface MwsWorkspacesToken {
 }
 
 export interface PermissionsAccessControl {
+    /**
+     * name of the group. We recommend setting permissions on groups.
+     */
     groupName?: string;
+    /**
+     * permission level according to specific resource. See examples above for the reference.
+     */
     permissionLevel: string;
+    /**
+     * Application ID of the service_principal.
+     */
     servicePrincipalName?: string;
+    /**
+     * name of the user.
+     */
     userName?: string;
 }
 
@@ -1220,6 +1521,9 @@ export interface SecretScopeKeyvaultMetadata {
 }
 
 export interface SqlEndpointChannel {
+    /**
+     * Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
+     */
     name?: string;
 }
 
@@ -1241,7 +1545,13 @@ export interface SqlEndpointTagsCustomTag {
 }
 
 export interface SqlPermissionsPrivilegeAssignment {
+    /**
+     * `displayName` for a databricks.Group or databricks_user, `applicationId` for a databricks_service_principal.
+     */
     principal: string;
+    /**
+     * set of available privilege names in upper case.
+     */
     privileges: string[];
 }
 
@@ -1360,30 +1670,78 @@ export interface SqlWidgetPosition {
 }
 
 export interface StorageCredentialAwsIamRole {
+    /**
+     * The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form `arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF`
+     */
     roleArn: string;
 }
 
 export interface StorageCredentialAzureManagedIdentity {
+    /**
+     * The Resource ID of the Azure Databricks Access Connector resource, of the form `/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-name/providers/Microsoft.Databricks/accessConnectors/connector-name`
+     */
     accessConnectorId: string;
 }
 
 export interface StorageCredentialAzureServicePrincipal {
+    /**
+     * The application ID of the application registration within the referenced AAD tenant
+     */
     applicationId: string;
+    /**
+     * The client secret generated for the above app ID in AAD. **This field is redacted on output**
+     */
     clientSecret: string;
+    /**
+     * The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
+     */
     directoryId: string;
 }
 
 export interface TableColumn {
+    /**
+     * User-supplied free-form text.
+     */
     comment?: string;
+    /**
+     * User-visible name of column
+     */
     name: string;
+    /**
+     * Whether field is nullable (Default: `true`)
+     */
     nullable?: boolean;
+    /**
+     * Partition ID
+     */
     partitionIndex?: number;
+    /**
+     * Ordinal position of column, starting at 0.
+     */
     position: number;
+    /**
+     * Format of `INTERVAL` columns
+     */
     typeIntervalType?: string;
+    /**
+     * Column type spec (with metadata) as JSON string
+     */
     typeJson?: string;
+    /**
+     * Name of (outer) type
+     */
     typeName: string;
+    /**
+     * Digits of precision; applies to `DECIMAL` columns
+     */
     typePrecision?: number;
+    /**
+     * Digits to right of decimal; applies to `DECIMAL` columns
+     */
     typeScale?: number;
+    /**
+     * Column type spec (with metadata) as SQL text
+     */
     typeText: string;
 }
 

@@ -4,6 +4,21 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * > **Public Preview** This feature is in [Public Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
+ *
+ * A metastore is the top-level container of objects in Unity Catalog. It stores data assets (tables and views) and the permissions that govern access to them. Databricks account admins can create metastores and assign them to Databricks workspaces in order to control which workloads use each metastore.
+ *
+ * Unity Catalog offers a new metastore with built in security and auditing. This is distinct to the metastore used in previous versions of Databricks (based on the Hive Metastore).
+ *
+ * ## Import
+ *
+ * This resource can be imported by IDbash
+ *
+ * ```sh
+ *  $ pulumi import databricks:index/metastore:Metastore this <id>
+ * ```
+ */
 export class Metastore extends pulumi.CustomResource {
     /**
      * Get an existing Metastore resource's state with the given name, ID, and optional extra
@@ -36,14 +51,35 @@ export class Metastore extends pulumi.CustomResource {
     public readonly createdAt!: pulumi.Output<number>;
     public readonly createdBy!: pulumi.Output<string>;
     public readonly defaultDataAccessConfigId!: pulumi.Output<string | undefined>;
+    /**
+     * The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.
+     */
     public readonly deltaSharingOrganizationName!: pulumi.Output<string | undefined>;
+    /**
+     * Required along with `deltaSharingScope`. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.
+     */
     public readonly deltaSharingRecipientTokenLifetimeInSeconds!: pulumi.Output<number | undefined>;
+    /**
+     * Required along with `deltaSharingRecipientTokenLifetimeInSeconds`. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.
+     */
     public readonly deltaSharingScope!: pulumi.Output<string | undefined>;
+    /**
+     * Destroy metastore regardless of its contents.
+     */
     public readonly forceDestroy!: pulumi.Output<boolean | undefined>;
     public readonly globalMetastoreId!: pulumi.Output<string>;
+    /**
+     * Name of metastore.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * Username/groupname/sp applicationId Metastore owner.
+     */
     public readonly owner!: pulumi.Output<string>;
     public readonly region!: pulumi.Output<string>;
+    /**
+     * Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
+     */
     public readonly storageRoot!: pulumi.Output<string>;
     public readonly updatedAt!: pulumi.Output<number>;
     public readonly updatedBy!: pulumi.Output<string>;
@@ -110,14 +146,35 @@ export interface MetastoreState {
     createdAt?: pulumi.Input<number>;
     createdBy?: pulumi.Input<string>;
     defaultDataAccessConfigId?: pulumi.Input<string>;
+    /**
+     * The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.
+     */
     deltaSharingOrganizationName?: pulumi.Input<string>;
+    /**
+     * Required along with `deltaSharingScope`. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.
+     */
     deltaSharingRecipientTokenLifetimeInSeconds?: pulumi.Input<number>;
+    /**
+     * Required along with `deltaSharingRecipientTokenLifetimeInSeconds`. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.
+     */
     deltaSharingScope?: pulumi.Input<string>;
+    /**
+     * Destroy metastore regardless of its contents.
+     */
     forceDestroy?: pulumi.Input<boolean>;
     globalMetastoreId?: pulumi.Input<string>;
+    /**
+     * Name of metastore.
+     */
     name?: pulumi.Input<string>;
+    /**
+     * Username/groupname/sp applicationId Metastore owner.
+     */
     owner?: pulumi.Input<string>;
     region?: pulumi.Input<string>;
+    /**
+     * Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
+     */
     storageRoot?: pulumi.Input<string>;
     updatedAt?: pulumi.Input<number>;
     updatedBy?: pulumi.Input<string>;
@@ -131,14 +188,35 @@ export interface MetastoreArgs {
     createdAt?: pulumi.Input<number>;
     createdBy?: pulumi.Input<string>;
     defaultDataAccessConfigId?: pulumi.Input<string>;
+    /**
+     * The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.
+     */
     deltaSharingOrganizationName?: pulumi.Input<string>;
+    /**
+     * Required along with `deltaSharingScope`. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.
+     */
     deltaSharingRecipientTokenLifetimeInSeconds?: pulumi.Input<number>;
+    /**
+     * Required along with `deltaSharingRecipientTokenLifetimeInSeconds`. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.
+     */
     deltaSharingScope?: pulumi.Input<string>;
+    /**
+     * Destroy metastore regardless of its contents.
+     */
     forceDestroy?: pulumi.Input<boolean>;
     globalMetastoreId?: pulumi.Input<string>;
+    /**
+     * Name of metastore.
+     */
     name?: pulumi.Input<string>;
+    /**
+     * Username/groupname/sp applicationId Metastore owner.
+     */
     owner?: pulumi.Input<string>;
     region?: pulumi.Input<string>;
+    /**
+     * Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
+     */
     storageRoot: pulumi.Input<string>;
     updatedAt?: pulumi.Input<number>;
     updatedBy?: pulumi.Input<string>;

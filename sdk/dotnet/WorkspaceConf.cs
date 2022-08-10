@@ -9,9 +9,45 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// Allows specification of custom configuration properties for expert usage:
+    /// 
+    ///  * `enableIpAccessLists` - enables the use of databricks.IpAccessList resources
+    ///  * `maxTokenLifetimeDays` - (string) Maximum token lifetime of new tokens in days, as an integer. If zero, new tokens are permitted to have no lifetime limit. Negative numbers are unsupported. **WARNING:** This limit only applies to new tokens, so there may be tokens with lifetimes longer than this value, including unlimited lifetime. Such tokens may have been created before the current maximum token lifetime was set.
+    ///  * `enableTokensConfig` - (boolean) Enable or disable personal access tokens for this workspace.
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var @this = new Databricks.WorkspaceConf("this", new Databricks.WorkspaceConfArgs
+    ///         {
+    ///             CustomConfig = 
+    ///             {
+    ///                 { "enableIpAccessLists", true },
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// -&gt; **Note** Importing this resource is not currently supported.
+    /// </summary>
     [DatabricksResourceType("databricks:index/workspaceConf:WorkspaceConf")]
     public partial class WorkspaceConf : Pulumi.CustomResource
     {
+        /// <summary>
+        /// Key-value map of strings that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
+        /// </summary>
         [Output("customConfig")]
         public Output<ImmutableDictionary<string, object>?> CustomConfig { get; private set; } = null!;
 
@@ -63,6 +99,10 @@ namespace Pulumi.Databricks
     {
         [Input("customConfig")]
         private InputMap<object>? _customConfig;
+
+        /// <summary>
+        /// Key-value map of strings that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
+        /// </summary>
         public InputMap<object> CustomConfig
         {
             get => _customConfig ?? (_customConfig = new InputMap<object>());
@@ -78,6 +118,10 @@ namespace Pulumi.Databricks
     {
         [Input("customConfig")]
         private InputMap<object>? _customConfig;
+
+        /// <summary>
+        /// Key-value map of strings that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
+        /// </summary>
         public InputMap<object> CustomConfig
         {
             get => _customConfig ?? (_customConfig = new InputMap<object>());

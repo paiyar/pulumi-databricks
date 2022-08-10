@@ -9,24 +9,94 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// &gt; **Public Preview** This feature is in [Public Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
+    /// 
+    /// Within a metastore, Unity Catalog provides a 3-level namespace for organizing data: Catalogs, Databases (also called Schemas), and Tables / Views.
+    /// 
+    /// A `databricks.Schema` is contained within databricks.Catalog and can contain tables &amp; views.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var sandbox = new Databricks.Catalog("sandbox", new Databricks.CatalogArgs
+    ///         {
+    ///             MetastoreId = databricks_metastore.This.Id,
+    ///             Comment = "this catalog is managed by terraform",
+    ///             Properties = 
+    ///             {
+    ///                 { "purpose", "testing" },
+    ///             },
+    ///         });
+    ///         var things = new Databricks.Schema("things", new Databricks.SchemaArgs
+    ///         {
+    ///             CatalogName = sandbox.Id,
+    ///             Comment = "this database is managed by terraform",
+    ///             Properties = 
+    ///             {
+    ///                 { "kind", "various" },
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// ## Related Resources
+    /// 
+    /// The following resources are used in the same context:
+    /// 
+    /// * databricks.Table data to list tables within Unity Catalog.
+    /// * databricks.Schema data to list schemas within Unity Catalog.
+    /// * databricks.Catalog data to list catalogs within Unity Catalog.
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported by namebash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/schema:Schema this &lt;name&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/schema:Schema")]
     public partial class Schema : Pulumi.CustomResource
     {
+        /// <summary>
+        /// Name of parent catalog
+        /// </summary>
         [Output("catalogName")]
         public Output<string> CatalogName { get; private set; } = null!;
 
+        /// <summary>
+        /// User-supplied free-form text.
+        /// </summary>
         [Output("comment")]
         public Output<string?> Comment { get; private set; } = null!;
 
         [Output("metastoreId")]
         public Output<string> MetastoreId { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of Schema relative to parent catalog. Change forces creation of a new resource.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Username/groupname/sp application_id schema owner.
+        /// </summary>
         [Output("owner")]
         public Output<string> Owner { get; private set; } = null!;
 
+        /// <summary>
+        /// Extensible Schema properties.
+        /// </summary>
         [Output("properties")]
         public Output<ImmutableDictionary<string, object>?> Properties { get; private set; } = null!;
 
@@ -76,23 +146,39 @@ namespace Pulumi.Databricks
 
     public sealed class SchemaArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Name of parent catalog
+        /// </summary>
         [Input("catalogName", required: true)]
         public Input<string> CatalogName { get; set; } = null!;
 
+        /// <summary>
+        /// User-supplied free-form text.
+        /// </summary>
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
+        /// <summary>
+        /// Name of Schema relative to parent catalog. Change forces creation of a new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Username/groupname/sp application_id schema owner.
+        /// </summary>
         [Input("owner")]
         public Input<string>? Owner { get; set; }
 
         [Input("properties")]
         private InputMap<object>? _properties;
+
+        /// <summary>
+        /// Extensible Schema properties.
+        /// </summary>
         public InputMap<object> Properties
         {
             get => _properties ?? (_properties = new InputMap<object>());
@@ -106,23 +192,39 @@ namespace Pulumi.Databricks
 
     public sealed class SchemaState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Name of parent catalog
+        /// </summary>
         [Input("catalogName")]
         public Input<string>? CatalogName { get; set; }
 
+        /// <summary>
+        /// User-supplied free-form text.
+        /// </summary>
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
+        /// <summary>
+        /// Name of Schema relative to parent catalog. Change forces creation of a new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Username/groupname/sp application_id schema owner.
+        /// </summary>
         [Input("owner")]
         public Input<string>? Owner { get; set; }
 
         [Input("properties")]
         private InputMap<object>? _properties;
+
+        /// <summary>
+        /// Extensible Schema properties.
+        /// </summary>
         public InputMap<object> Properties
         {
             get => _properties ?? (_properties = new InputMap<object>());

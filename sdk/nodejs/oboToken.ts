@@ -4,6 +4,11 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Import
+ *
+ * -> **Note** Importing this resource is not currently supported.
+ */
 export class OboToken extends pulumi.CustomResource {
     /**
      * Get an existing OboToken resource's state with the given name, ID, and optional extra
@@ -32,9 +37,21 @@ export class OboToken extends pulumi.CustomResource {
         return obj['__pulumiType'] === OboToken.__pulumiType;
     }
 
+    /**
+     * Application ID of databricks.ServicePrincipal to create a PAT token for.
+     */
     public readonly applicationId!: pulumi.Output<string>;
+    /**
+     * Comment that describes the purpose of the token.
+     */
     public readonly comment!: pulumi.Output<string>;
+    /**
+     * The number of seconds before the token expires. Token resource is re-created when it expires.
+     */
     public readonly lifetimeSeconds!: pulumi.Output<number>;
+    /**
+     * **Sensitive** value of the newly-created token.
+     */
     public /*out*/ readonly tokenValue!: pulumi.Output<string>;
 
     /**
@@ -79,9 +96,21 @@ export class OboToken extends pulumi.CustomResource {
  * Input properties used for looking up and filtering OboToken resources.
  */
 export interface OboTokenState {
+    /**
+     * Application ID of databricks.ServicePrincipal to create a PAT token for.
+     */
     applicationId?: pulumi.Input<string>;
+    /**
+     * Comment that describes the purpose of the token.
+     */
     comment?: pulumi.Input<string>;
+    /**
+     * The number of seconds before the token expires. Token resource is re-created when it expires.
+     */
     lifetimeSeconds?: pulumi.Input<number>;
+    /**
+     * **Sensitive** value of the newly-created token.
+     */
     tokenValue?: pulumi.Input<string>;
 }
 
@@ -89,7 +118,16 @@ export interface OboTokenState {
  * The set of arguments for constructing a OboToken resource.
  */
 export interface OboTokenArgs {
+    /**
+     * Application ID of databricks.ServicePrincipal to create a PAT token for.
+     */
     applicationId: pulumi.Input<string>;
+    /**
+     * Comment that describes the purpose of the token.
+     */
     comment: pulumi.Input<string>;
+    /**
+     * The number of seconds before the token expires. Token resource is re-created when it expires.
+     */
     lifetimeSeconds: pulumi.Input<number>;
 }

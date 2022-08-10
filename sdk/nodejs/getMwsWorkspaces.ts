@@ -20,6 +20,9 @@ export function getMwsWorkspaces(args?: GetMwsWorkspacesArgs, opts?: pulumi.Invo
  * A collection of arguments for invoking getMwsWorkspaces.
  */
 export interface GetMwsWorkspacesArgs {
+    /**
+     * name-to-id map for all of the workspaces in the account
+     */
     ids?: {[key: string]: any};
 }
 
@@ -31,6 +34,9 @@ export interface GetMwsWorkspacesResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * name-to-id map for all of the workspaces in the account
+     */
     readonly ids: {[key: string]: any};
 }
 
@@ -42,5 +48,8 @@ export function getMwsWorkspacesOutput(args?: GetMwsWorkspacesOutputArgs, opts?:
  * A collection of arguments for invoking getMwsWorkspaces.
  */
 export interface GetMwsWorkspacesOutputArgs {
+    /**
+     * name-to-id map for all of the workspaces in the account
+     */
     ids?: pulumi.Input<{[key: string]: any}>;
 }

@@ -9,24 +9,90 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// This resource allows you to create [MLflow models](https://docs.databricks.com/applications/mlflow/models.html) in Databricks.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var test = new Databricks.MlflowModel("test", new Databricks.MlflowModelArgs
+    ///         {
+    ///             Description = "My MLflow model description",
+    ///             Tags = 
+    ///             {
+    ///                 new Databricks.Inputs.MlflowModelTagArgs
+    ///                 {
+    ///                     Key = "key1",
+    ///                     Value = "value1",
+    ///                 },
+    ///                 new Databricks.Inputs.MlflowModelTagArgs
+    ///                 {
+    ///                     Key = "key2",
+    ///                     Value = "value2",
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// ## Access Control
+    /// 
+    /// * databricks.Permissions can control which groups or individual users can *Read*, *Edit*, *Manage Staging Versions*, *Manage Production Versions*, and *Manage* individual models.
+    /// 
+    /// ## Related Resources
+    /// 
+    /// The following resources are often used in the same context:
+    /// 
+    /// * End to end workspace management guide.
+    /// * databricks.Directory to manage directories in [Databricks Workpace](https://docs.databricks.com/workspace/workspace-objects.html).
+    /// * databricks.MlflowExperiment to manage [MLflow experiments](https://docs.databricks.com/data/data-sources/mlflow-experiment.html) in Databricks.
+    /// * databricks.Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
+    /// * databricks.Notebook data to export a notebook from Databricks Workspace.
+    /// * databricks.Repo to manage [Databricks Repos](https://docs.databricks.com/repos.html).
+    /// 
+    /// ## Import
+    /// 
+    /// The model resource can be imported using the name bash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/mlflowModel:MlflowModel this &lt;name&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/mlflowModel:MlflowModel")]
     public partial class MlflowModel : Pulumi.CustomResource
     {
         [Output("creationTimestamp")]
         public Output<int> CreationTimestamp { get; private set; } = null!;
 
+        /// <summary>
+        /// The description of the MLflow model.
+        /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
 
         [Output("lastUpdatedTimestamp")]
         public Output<int> LastUpdatedTimestamp { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of MLflow model. Change of name triggers new resource.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         [Output("registeredModelId")]
         public Output<string> RegisteredModelId { get; private set; } = null!;
 
+        /// <summary>
+        /// Tags for the MLflow model.
+        /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<Outputs.MlflowModelTag>> Tags { get; private set; } = null!;
 
@@ -82,12 +148,18 @@ namespace Pulumi.Databricks
         [Input("creationTimestamp")]
         public Input<int>? CreationTimestamp { get; set; }
 
+        /// <summary>
+        /// The description of the MLflow model.
+        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         [Input("lastUpdatedTimestamp")]
         public Input<int>? LastUpdatedTimestamp { get; set; }
 
+        /// <summary>
+        /// Name of MLflow model. Change of name triggers new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -96,6 +168,10 @@ namespace Pulumi.Databricks
 
         [Input("tags")]
         private InputList<Inputs.MlflowModelTagArgs>? _tags;
+
+        /// <summary>
+        /// Tags for the MLflow model.
+        /// </summary>
         public InputList<Inputs.MlflowModelTagArgs> Tags
         {
             get => _tags ?? (_tags = new InputList<Inputs.MlflowModelTagArgs>());
@@ -115,12 +191,18 @@ namespace Pulumi.Databricks
         [Input("creationTimestamp")]
         public Input<int>? CreationTimestamp { get; set; }
 
+        /// <summary>
+        /// The description of the MLflow model.
+        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         [Input("lastUpdatedTimestamp")]
         public Input<int>? LastUpdatedTimestamp { get; set; }
 
+        /// <summary>
+        /// Name of MLflow model. Change of name triggers new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -129,6 +211,10 @@ namespace Pulumi.Databricks
 
         [Input("tags")]
         private InputList<Inputs.MlflowModelTagGetArgs>? _tags;
+
+        /// <summary>
+        /// Tags for the MLflow model.
+        /// </summary>
         public InputList<Inputs.MlflowModelTagGetArgs> Tags
         {
             get => _tags ?? (_tags = new InputList<Inputs.MlflowModelTagGetArgs>());

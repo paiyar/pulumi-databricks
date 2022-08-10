@@ -9,12 +9,79 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// This resource allows you to attach users, service_principal, and groups as group members.
+    /// 
+    /// To attach members to groups in the Databricks account, the provider must be configured with `host = "https://accounts.cloud.databricks.com"` on AWS deployments or `host = "https://accounts.azuredatabricks.net"` and authenticate using AAD tokens on Azure deployments
+    /// 
+    /// ## Example Usage
+    /// 
+    /// After the following example, Bradley would have direct membership in group B and transitive membership in group A.
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var @group = new Databricks.Group("group", new Databricks.GroupArgs
+    ///         {
+    ///             DisplayName = "A",
+    ///         });
+    ///         var index_groupGroup = new Databricks.Group("index/groupGroup", new Databricks.GroupArgs
+    ///         {
+    ///             DisplayName = "B",
+    ///         });
+    ///         var ab = new Databricks.GroupMember("ab", new Databricks.GroupMemberArgs
+    ///         {
+    ///             GroupId = @group.Id,
+    ///             MemberId = index / groupGroup.Id,
+    ///         });
+    ///         var bradley = new Databricks.User("bradley", new Databricks.UserArgs
+    ///         {
+    ///             UserName = "bradley@example.com",
+    ///         });
+    ///         var bb = new Databricks.GroupMember("bb", new Databricks.GroupMemberArgs
+    ///         {
+    ///             GroupId = index / groupGroup.Id,
+    ///             MemberId = bradley.Id,
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// ## Related Resources
+    /// 
+    /// The following resources are often used in the same context:
+    /// 
+    /// * End to end workspace management guide.
+    /// * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
+    /// * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
+    /// * databricks.GroupInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_group.
+    /// * databricks.IpAccessList to allow access from [predefined IP ranges](https://docs.databricks.com/security/network/ip-access-list.html).
+    /// * databricks.ServicePrincipal to grant access to a workspace to an automation tool or application.
+    /// * databricks.User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to databricks.Group within the workspace.
+    /// * databricks.User data to retrieve information about databricks_user.
+    /// * databricks.UserInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_user.
+    /// 
+    /// ## Import
+    /// 
+    /// -&gt; **Note** Importing this resource is not currently supported.
+    /// </summary>
     [DatabricksResourceType("databricks:index/groupMember:GroupMember")]
     public partial class GroupMember : Pulumi.CustomResource
     {
+        /// <summary>
+        /// This is the id of the group resource.
+        /// </summary>
         [Output("groupId")]
         public Output<string> GroupId { get; private set; } = null!;
 
+        /// <summary>
+        /// This is the id of the group, service principal, or user.
+        /// </summary>
         [Output("memberId")]
         public Output<string> MemberId { get; private set; } = null!;
 
@@ -64,9 +131,15 @@ namespace Pulumi.Databricks
 
     public sealed class GroupMemberArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// This is the id of the group resource.
+        /// </summary>
         [Input("groupId", required: true)]
         public Input<string> GroupId { get; set; } = null!;
 
+        /// <summary>
+        /// This is the id of the group, service principal, or user.
+        /// </summary>
         [Input("memberId", required: true)]
         public Input<string> MemberId { get; set; } = null!;
 
@@ -77,9 +150,15 @@ namespace Pulumi.Databricks
 
     public sealed class GroupMemberState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// This is the id of the group resource.
+        /// </summary>
         [Input("groupId")]
         public Input<string>? GroupId { get; set; }
 
+        /// <summary>
+        /// This is the id of the group, service principal, or user.
+        /// </summary>
         [Input("memberId")]
         public Input<string>? MemberId { get; set; }
 

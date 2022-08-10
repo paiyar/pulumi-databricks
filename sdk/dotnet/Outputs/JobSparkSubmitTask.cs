@@ -13,6 +13,9 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class JobSparkSubmitTask
     {
+        /// <summary>
+        /// Parameters for the task
+        /// </summary>
         public readonly ImmutableArray<string> Parameters;
 
         [OutputConstructor]

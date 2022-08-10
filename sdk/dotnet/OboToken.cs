@@ -9,18 +9,35 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// ## Import
+    /// 
+    /// -&gt; **Note** Importing this resource is not currently supported.
+    /// </summary>
     [DatabricksResourceType("databricks:index/oboToken:OboToken")]
     public partial class OboToken : Pulumi.CustomResource
     {
+        /// <summary>
+        /// Application ID of databricks.ServicePrincipal to create a PAT token for.
+        /// </summary>
         [Output("applicationId")]
         public Output<string> ApplicationId { get; private set; } = null!;
 
+        /// <summary>
+        /// Comment that describes the purpose of the token.
+        /// </summary>
         [Output("comment")]
         public Output<string> Comment { get; private set; } = null!;
 
+        /// <summary>
+        /// The number of seconds before the token expires. Token resource is re-created when it expires.
+        /// </summary>
         [Output("lifetimeSeconds")]
         public Output<int> LifetimeSeconds { get; private set; } = null!;
 
+        /// <summary>
+        /// **Sensitive** value of the newly-created token.
+        /// </summary>
         [Output("tokenValue")]
         public Output<string> TokenValue { get; private set; } = null!;
 
@@ -70,12 +87,21 @@ namespace Pulumi.Databricks
 
     public sealed class OboTokenArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Application ID of databricks.ServicePrincipal to create a PAT token for.
+        /// </summary>
         [Input("applicationId", required: true)]
         public Input<string> ApplicationId { get; set; } = null!;
 
+        /// <summary>
+        /// Comment that describes the purpose of the token.
+        /// </summary>
         [Input("comment", required: true)]
         public Input<string> Comment { get; set; } = null!;
 
+        /// <summary>
+        /// The number of seconds before the token expires. Token resource is re-created when it expires.
+        /// </summary>
         [Input("lifetimeSeconds", required: true)]
         public Input<int> LifetimeSeconds { get; set; } = null!;
 
@@ -86,15 +112,27 @@ namespace Pulumi.Databricks
 
     public sealed class OboTokenState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Application ID of databricks.ServicePrincipal to create a PAT token for.
+        /// </summary>
         [Input("applicationId")]
         public Input<string>? ApplicationId { get; set; }
 
+        /// <summary>
+        /// Comment that describes the purpose of the token.
+        /// </summary>
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
+        /// <summary>
+        /// The number of seconds before the token expires. Token resource is re-created when it expires.
+        /// </summary>
         [Input("lifetimeSeconds")]
         public Input<int>? LifetimeSeconds { get; set; }
 
+        /// <summary>
+        /// **Sensitive** value of the newly-created token.
+        /// </summary>
         [Input("tokenValue")]
         public Input<string>? TokenValue { get; set; }
 

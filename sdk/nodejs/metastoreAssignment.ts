@@ -4,6 +4,28 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * > **Public Preview** This feature is in [Public Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
+ *
+ * A single databricks.Metastore can be shared across Databricks workspaces, and each linked workspace has a consistent view of the data and a single set of access policies. It is only recommended to have multiple metastores when organizations wish to have hard isolation boundaries between data (note that data cannot be easily joined/queried across metastores).
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const thisMetastore = new databricks.Metastore("thisMetastore", {
+ *     storageRoot: `s3://${aws_s3_bucket.metastore.id}/metastore`,
+ *     owner: "uc admins",
+ *     forceDestroy: true,
+ * });
+ * const thisMetastoreAssignment = new databricks.MetastoreAssignment("thisMetastoreAssignment", {
+ *     metastoreId: thisMetastore.id,
+ *     workspaceId: local.workspace_id,
+ * });
+ * ```
+ */
 export class MetastoreAssignment extends pulumi.CustomResource {
     /**
      * Get an existing MetastoreAssignment resource's state with the given name, ID, and optional extra
@@ -32,8 +54,17 @@ export class MetastoreAssignment extends pulumi.CustomResource {
         return obj['__pulumiType'] === MetastoreAssignment.__pulumiType;
     }
 
+    /**
+     * Default catalog used for this assignment, default to `hiveMetastore`
+     */
     public readonly defaultCatalogName!: pulumi.Output<string | undefined>;
+    /**
+     * Unique identifier of the parent Metastore
+     */
     public readonly metastoreId!: pulumi.Output<string>;
+    /**
+     * id of the workspace for the assignment
+     */
     public readonly workspaceId!: pulumi.Output<number>;
 
     /**
@@ -73,8 +104,17 @@ export class MetastoreAssignment extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MetastoreAssignment resources.
  */
 export interface MetastoreAssignmentState {
+    /**
+     * Default catalog used for this assignment, default to `hiveMetastore`
+     */
     defaultCatalogName?: pulumi.Input<string>;
+    /**
+     * Unique identifier of the parent Metastore
+     */
     metastoreId?: pulumi.Input<string>;
+    /**
+     * id of the workspace for the assignment
+     */
     workspaceId?: pulumi.Input<number>;
 }
 
@@ -82,7 +122,16 @@ export interface MetastoreAssignmentState {
  * The set of arguments for constructing a MetastoreAssignment resource.
  */
 export interface MetastoreAssignmentArgs {
+    /**
+     * Default catalog used for this assignment, default to `hiveMetastore`
+     */
     defaultCatalogName?: pulumi.Input<string>;
+    /**
+     * Unique identifier of the parent Metastore
+     */
     metastoreId: pulumi.Input<string>;
+    /**
+     * id of the workspace for the assignment
+     */
     workspaceId: pulumi.Input<number>;
 }

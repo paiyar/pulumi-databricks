@@ -9,12 +9,68 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// &gt; **Note** This resource has an evolving API, which may change in future versions of the provider.
+    /// 
+    /// This resource allows you to attach databricks.InstanceProfile (AWS) to databricks_group.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var instanceProfile = new Databricks.InstanceProfile("instanceProfile", new Databricks.InstanceProfileArgs
+    ///         {
+    ///             InstanceProfileArn = "my_instance_profile_arn",
+    ///         });
+    ///         var myGroup = new Databricks.Group("myGroup", new Databricks.GroupArgs
+    ///         {
+    ///             DisplayName = "my_group_name",
+    ///         });
+    ///         var myGroupInstanceProfile = new Databricks.GroupInstanceProfile("myGroupInstanceProfile", new Databricks.GroupInstanceProfileArgs
+    ///         {
+    ///             GroupId = myGroup.Id,
+    ///             InstanceProfileId = instanceProfile.Id,
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// ## Related Resources
+    /// 
+    /// The following resources are often used in the same context:
+    /// 
+    /// * End to end workspace management guide.
+    /// * databricks.getAwsBucketPolicy data to configure a simple access policy for AWS S3 buckets, so that Databricks can access data in it.
+    /// * databricks.ClusterPolicy to create a databricks.Cluster policy, which limits the ability to create clusters based on a set of rules.
+    /// * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
+    /// * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
+    /// * databricks.GroupMember to attach users and groups as group members.
+    /// * databricks.InstancePool to manage [instance pools](https://docs.databricks.com/clusters/instance-pools/index.html) to reduce cluster start and auto-scaling times by maintaining a set of idle, ready-to-use instances.
+    /// * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
+    /// * databricks.UserInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_user.
+    /// 
+    /// ## Import
+    /// 
+    /// -&gt; **Note** Importing this resource is not currently supported.
+    /// </summary>
     [DatabricksResourceType("databricks:index/groupInstanceProfile:GroupInstanceProfile")]
     public partial class GroupInstanceProfile : Pulumi.CustomResource
     {
+        /// <summary>
+        /// This is the id of the group resource.
+        /// </summary>
         [Output("groupId")]
         public Output<string> GroupId { get; private set; } = null!;
 
+        /// <summary>
+        /// This is the id of the instance profile resource.
+        /// </summary>
         [Output("instanceProfileId")]
         public Output<string> InstanceProfileId { get; private set; } = null!;
 
@@ -64,9 +120,15 @@ namespace Pulumi.Databricks
 
     public sealed class GroupInstanceProfileArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// This is the id of the group resource.
+        /// </summary>
         [Input("groupId", required: true)]
         public Input<string> GroupId { get; set; } = null!;
 
+        /// <summary>
+        /// This is the id of the instance profile resource.
+        /// </summary>
         [Input("instanceProfileId", required: true)]
         public Input<string> InstanceProfileId { get; set; } = null!;
 
@@ -77,9 +139,15 @@ namespace Pulumi.Databricks
 
     public sealed class GroupInstanceProfileState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// This is the id of the group resource.
+        /// </summary>
         [Input("groupId")]
         public Input<string>? GroupId { get; set; }
 
+        /// <summary>
+        /// This is the id of the instance profile resource.
+        /// </summary>
         [Input("instanceProfileId")]
         public Input<string>? InstanceProfileId { get; set; }
 

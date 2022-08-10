@@ -9,6 +9,95 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// These resources are invoked in the account context. Provider must have `account_id` attribute configured.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// In account context, adding account-level group to a workspace:
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var dataEng = new Databricks.Group("dataEng", new Databricks.GroupArgs
+    ///         {
+    ///             DisplayName = "Data Engineering",
+    ///         });
+    ///         var addAdminGroup = new Databricks.MwsPermissionAssignment("addAdminGroup", new Databricks.MwsPermissionAssignmentArgs
+    ///         {
+    ///             WorkspaceId = databricks_mws_workspaces.This.Workspace_id,
+    ///             PrincipalId = dataEng.Id,
+    ///             Permissions = 
+    ///             {
+    ///                 "ADMIN",
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// 
+    /// In account context, adding account-level user to a workspace:
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var me = new Databricks.User("me", new Databricks.UserArgs
+    ///         {
+    ///             UserName = "me@example.com",
+    ///         });
+    ///         var addUser = new Databricks.MwsPermissionAssignment("addUser", new Databricks.MwsPermissionAssignmentArgs
+    ///         {
+    ///             WorkspaceId = databricks_mws_workspaces.This.Workspace_id,
+    ///             PrincipalId = me.Id,
+    ///             Permissions = 
+    ///             {
+    ///                 "USER",
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// 
+    /// In account context, adding account-level service principal to a workspace:
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var sp = new Databricks.ServicePrincipal("sp", new Databricks.ServicePrincipalArgs
+    ///         {
+    ///             DisplayName = "Automation-only SP",
+    ///         });
+    ///         var addAdminSpn = new Databricks.MwsPermissionAssignment("addAdminSpn", new Databricks.MwsPermissionAssignmentArgs
+    ///         {
+    ///             WorkspaceId = databricks_mws_workspaces.This.Workspace_id,
+    ///             PrincipalId = sp.Id,
+    ///             Permissions = 
+    ///             {
+    ///                 "ADMIN",
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/mwsPermissionAssignment:MwsPermissionAssignment")]
     public partial class MwsPermissionAssignment : Pulumi.CustomResource
     {

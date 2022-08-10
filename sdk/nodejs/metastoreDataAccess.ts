@@ -5,6 +5,15 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * > **Public Preview** This feature is in [Public Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
+ *
+ * Each databricks.Metastore requires an IAM role that will be assumed by Unity Catalog to access data. `databricks.MetastoreDataAccess` defines this
+ *
+ * ## Import
+ *
+ * -> **Note** Importing this resource is not currently supported.
+ */
 export class MetastoreDataAccess extends pulumi.CustomResource {
     /**
      * Get an existing MetastoreDataAccess resource's state with the given name, ID, and optional extra
@@ -37,9 +46,14 @@ export class MetastoreDataAccess extends pulumi.CustomResource {
     public readonly azureManagedIdentity!: pulumi.Output<outputs.MetastoreDataAccessAzureManagedIdentity | undefined>;
     public readonly azureServicePrincipal!: pulumi.Output<outputs.MetastoreDataAccessAzureServicePrincipal | undefined>;
     public readonly configurationType!: pulumi.Output<string>;
-    public readonly id!: pulumi.Output<string>;
     public readonly isDefault!: pulumi.Output<boolean | undefined>;
+    /**
+     * Unique identifier of the parent Metastore
+     */
     public readonly metastoreId!: pulumi.Output<string>;
+    /**
+     * Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+     */
     public readonly name!: pulumi.Output<string>;
 
     /**
@@ -59,7 +73,6 @@ export class MetastoreDataAccess extends pulumi.CustomResource {
             resourceInputs["azureManagedIdentity"] = state ? state.azureManagedIdentity : undefined;
             resourceInputs["azureServicePrincipal"] = state ? state.azureServicePrincipal : undefined;
             resourceInputs["configurationType"] = state ? state.configurationType : undefined;
-            resourceInputs["id"] = state ? state.id : undefined;
             resourceInputs["isDefault"] = state ? state.isDefault : undefined;
             resourceInputs["metastoreId"] = state ? state.metastoreId : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
@@ -72,7 +85,6 @@ export class MetastoreDataAccess extends pulumi.CustomResource {
             resourceInputs["azureManagedIdentity"] = args ? args.azureManagedIdentity : undefined;
             resourceInputs["azureServicePrincipal"] = args ? args.azureServicePrincipal : undefined;
             resourceInputs["configurationType"] = args ? args.configurationType : undefined;
-            resourceInputs["id"] = args ? args.id : undefined;
             resourceInputs["isDefault"] = args ? args.isDefault : undefined;
             resourceInputs["metastoreId"] = args ? args.metastoreId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
@@ -90,9 +102,14 @@ export interface MetastoreDataAccessState {
     azureManagedIdentity?: pulumi.Input<inputs.MetastoreDataAccessAzureManagedIdentity>;
     azureServicePrincipal?: pulumi.Input<inputs.MetastoreDataAccessAzureServicePrincipal>;
     configurationType?: pulumi.Input<string>;
-    id?: pulumi.Input<string>;
     isDefault?: pulumi.Input<boolean>;
+    /**
+     * Unique identifier of the parent Metastore
+     */
     metastoreId?: pulumi.Input<string>;
+    /**
+     * Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+     */
     name?: pulumi.Input<string>;
 }
 
@@ -104,8 +121,13 @@ export interface MetastoreDataAccessArgs {
     azureManagedIdentity?: pulumi.Input<inputs.MetastoreDataAccessAzureManagedIdentity>;
     azureServicePrincipal?: pulumi.Input<inputs.MetastoreDataAccessAzureServicePrincipal>;
     configurationType?: pulumi.Input<string>;
-    id?: pulumi.Input<string>;
     isDefault?: pulumi.Input<boolean>;
+    /**
+     * Unique identifier of the parent Metastore
+     */
     metastoreId: pulumi.Input<string>;
+    /**
+     * Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+     */
     name?: pulumi.Input<string>;
 }

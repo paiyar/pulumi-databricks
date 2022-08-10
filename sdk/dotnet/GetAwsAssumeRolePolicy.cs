@@ -24,9 +24,15 @@ namespace Pulumi.Databricks
         [Input("databricksAccountId")]
         public string? DatabricksAccountId { get; set; }
 
+        /// <summary>
+        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
+        /// </summary>
         [Input("externalId", required: true)]
         public string ExternalId { get; set; } = null!;
 
+        /// <summary>
+        /// Either or not this assume role policy should be created for usage log delivery. Defaults to false.
+        /// </summary>
         [Input("forLogDelivery")]
         public bool? ForLogDelivery { get; set; }
 
@@ -40,9 +46,15 @@ namespace Pulumi.Databricks
         [Input("databricksAccountId")]
         public Input<string>? DatabricksAccountId { get; set; }
 
+        /// <summary>
+        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
+        /// </summary>
         [Input("externalId", required: true)]
         public Input<string> ExternalId { get; set; } = null!;
 
+        /// <summary>
+        /// Either or not this assume role policy should be created for usage log delivery. Defaults to false.
+        /// </summary>
         [Input("forLogDelivery")]
         public Input<bool>? ForLogDelivery { get; set; }
 
@@ -62,6 +74,9 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// AWS IAM Policy JSON document
+        /// </summary>
         public readonly string Json;
 
         [OutputConstructor]

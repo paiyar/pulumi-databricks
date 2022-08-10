@@ -11,9 +11,59 @@ namespace Pulumi.Databricks
 {
     public static class GetNotebookPaths
     {
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var prod = Output.Create(Databricks.GetNotebookPaths.InvokeAsync(new Databricks.GetNotebookPathsArgs
+        ///         {
+        ///             Path = "/Production",
+        ///             Recursive = true,
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
         public static Task<GetNotebookPathsResult> InvokeAsync(GetNotebookPathsArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetNotebookPathsResult>("databricks:index/getNotebookPaths:getNotebookPaths", args ?? new GetNotebookPathsArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var prod = Output.Create(Databricks.GetNotebookPaths.InvokeAsync(new Databricks.GetNotebookPathsArgs
+        ///         {
+        ///             Path = "/Production",
+        ///             Recursive = true,
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
         public static Output<GetNotebookPathsResult> Invoke(GetNotebookPathsInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetNotebookPathsResult>("databricks:index/getNotebookPaths:getNotebookPaths", args ?? new GetNotebookPathsInvokeArgs(), options.WithDefaults());
     }
@@ -21,9 +71,15 @@ namespace Pulumi.Databricks
 
     public sealed class GetNotebookPathsArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Path to workspace directory
+        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
+        /// <summary>
+        /// Either or recursively walk given path
+        /// </summary>
         [Input("recursive", required: true)]
         public bool Recursive { get; set; }
 
@@ -34,9 +90,15 @@ namespace Pulumi.Databricks
 
     public sealed class GetNotebookPathsInvokeArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Path to workspace directory
+        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
+        /// <summary>
+        /// Either or recursively walk given path
+        /// </summary>
         [Input("recursive", required: true)]
         public Input<bool> Recursive { get; set; } = null!;
 
@@ -53,6 +115,9 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// list of objects with `path` and `language` attributes
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetNotebookPathsNotebookPathListResult> NotebookPathLists;
         public readonly string Path;
         public readonly bool Recursive;

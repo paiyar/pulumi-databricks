@@ -9,11 +9,55 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// This resource creates a cluster policy, which limits the ability to create clusters based on a set of rules. The policy rules limit the attributes or attribute values available for cluster creation. cluster policies have ACLs that limit their use to specific users and groups. Only admin users can create, edit, and delete policies. Admin users also have access to all policies.
+    /// 
+    /// Cluster policies let you:
+    /// 
+    /// * Limit users to create clusters with prescribed settings.
+    /// * Simplify the user interface and enable more users to create their own clusters (by fixing and hiding some values).
+    /// * Control cost by limiting per cluster maximum cost (by setting limits on attributes whose values contribute to hourly price).
+    /// 
+    /// Cluster policy permissions limit which policies a user can select in the Policy drop-down when the user creates a cluster:
+    /// 
+    /// * If no policies have been created in the workspace, the Policy drop-down does not display.
+    /// * A user who has cluster create permission can select the `Free form` policy and create fully-configurable clusters.
+    /// * A user who has both cluster create permission and access to cluster policies can select the Free form policy and policies they have access to.
+    /// * A user that has access to only cluster policies, can select the policies they have access to.
+    /// 
+    /// ## Related Resources
+    /// 
+    /// The following resources are often used in the same context:
+    /// 
+    /// * Dynamic Passthrough Clusters for a Group guide
+    /// * End to end workspace management guide
+    /// * databricks.getClusters data to retrieve a list of databricks.Cluster ids.
+    /// * databricks.Cluster to create [Databricks Clusters](https://docs.databricks.com/clusters/index.html).
+    /// * databricks.getCurrentUser data to retrieve information about databricks.User or databricks_service_principal, that is calling Databricks REST API.
+    /// * databricks.GlobalInitScript to manage [global init scripts](https://docs.databricks.com/clusters/init-scripts.html#global-init-scripts), which are run on all databricks.Cluster and databricks_job.
+    /// * databricks.InstancePool to manage [instance pools](https://docs.databricks.com/clusters/instance-pools/index.html) to reduce cluster start and auto-scaling times by maintaining a set of idle, ready-to-use instances.
+    /// * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
+    /// * databricks.IpAccessList to allow access from [predefined IP ranges](https://docs.databricks.com/security/network/ip-access-list.html).
+    /// * databricks.Library to install a [library](https://docs.databricks.com/libraries/index.html) on databricks_cluster.
+    /// * databricks.getNodeType data to get the smallest node type for databricks.Cluster that fits search criteria, like amount of RAM or number of cores.
+    /// * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
+    /// * databricks.getSparkVersion data to get [Databricks Runtime (DBR)](https://docs.databricks.com/runtime/dbr.html) version that could be used for `spark_version` parameter in databricks.Cluster and other resources.
+    /// * databricks.UserInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_user.
+    /// * databricks.WorkspaceConf to manage workspace configuration for expert usage.
+    /// 
+    /// ## Import
+    /// 
+    /// The resource cluster policy can be imported using the policy idbash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/clusterPolicy:ClusterPolicy this &lt;cluster-policy-id&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/clusterPolicy:ClusterPolicy")]
     public partial class ClusterPolicy : Pulumi.CustomResource
     {
         /// <summary>
-        /// Policy definition JSON document expressed in Databricks Policy Definition Language.
+        /// Policy definition JSON document expressed in [Databricks Policy Definition Language](https://docs.databricks.com/administration-guide/clusters/policies.html#cluster-policy-definition).
         /// </summary>
         [Output("definition")]
         public Output<string?> Definition { get; private set; } = null!;
@@ -24,6 +68,9 @@ namespace Pulumi.Databricks
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Canonical unique identifier for the cluster policy.
+        /// </summary>
         [Output("policyId")]
         public Output<string> PolicyId { get; private set; } = null!;
 
@@ -74,7 +121,7 @@ namespace Pulumi.Databricks
     public sealed class ClusterPolicyArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Policy definition JSON document expressed in Databricks Policy Definition Language.
+        /// Policy definition JSON document expressed in [Databricks Policy Definition Language](https://docs.databricks.com/administration-guide/clusters/policies.html#cluster-policy-definition).
         /// </summary>
         [Input("definition")]
         public Input<string>? Definition { get; set; }
@@ -93,7 +140,7 @@ namespace Pulumi.Databricks
     public sealed class ClusterPolicyState : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Policy definition JSON document expressed in Databricks Policy Definition Language.
+        /// Policy definition JSON document expressed in [Databricks Policy Definition Language](https://docs.databricks.com/administration-guide/clusters/policies.html#cluster-policy-definition).
         /// </summary>
         [Input("definition")]
         public Input<string>? Definition { get; set; }
@@ -104,6 +151,9 @@ namespace Pulumi.Databricks
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Canonical unique identifier for the cluster policy.
+        /// </summary>
         [Input("policyId")]
         public Input<string>? PolicyId { get; set; }
 

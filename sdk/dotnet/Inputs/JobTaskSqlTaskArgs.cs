@@ -20,6 +20,10 @@ namespace Pulumi.Databricks.Inputs
 
         [Input("parameters")]
         private InputMap<object>? _parameters;
+
+        /// <summary>
+        /// Parameters for the task
+        /// </summary>
         public InputMap<object> Parameters
         {
             get => _parameters ?? (_parameters = new InputMap<object>());

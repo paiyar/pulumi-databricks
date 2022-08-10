@@ -11,9 +11,75 @@ namespace Pulumi.Databricks
 {
     public static class GetDbfsFile
     {
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var report = Output.Create(Databricks.GetDbfsFile.InvokeAsync(new Databricks.GetDbfsFileArgs
+        ///         {
+        ///             LimitFileSize = 10240,
+        ///             Path = "dbfs:/reports/some.csv",
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.getDbfsFilePaths data to get list of file names from get file content from [Databricks File System (DBFS)](https://docs.databricks.com/data/databricks-file-system.html).
+        /// * databricks.DbfsFile to manage relatively small files on [Databricks File System (DBFS)](https://docs.databricks.com/data/databricks-file-system.html).
+        /// * databricks.Mount to [mount your cloud storage](https://docs.databricks.com/data/databricks-file-system.html#mount-object-storage-to-dbfs) on `dbfs:/mnt/name`.
+        /// </summary>
         public static Task<GetDbfsFileResult> InvokeAsync(GetDbfsFileArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetDbfsFileResult>("databricks:index/getDbfsFile:getDbfsFile", args ?? new GetDbfsFileArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var report = Output.Create(Databricks.GetDbfsFile.InvokeAsync(new Databricks.GetDbfsFileArgs
+        ///         {
+        ///             LimitFileSize = 10240,
+        ///             Path = "dbfs:/reports/some.csv",
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.getDbfsFilePaths data to get list of file names from get file content from [Databricks File System (DBFS)](https://docs.databricks.com/data/databricks-file-system.html).
+        /// * databricks.DbfsFile to manage relatively small files on [Databricks File System (DBFS)](https://docs.databricks.com/data/databricks-file-system.html).
+        /// * databricks.Mount to [mount your cloud storage](https://docs.databricks.com/data/databricks-file-system.html#mount-object-storage-to-dbfs) on `dbfs:/mnt/name`.
+        /// </summary>
         public static Output<GetDbfsFileResult> Invoke(GetDbfsFileInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetDbfsFileResult>("databricks:index/getDbfsFile:getDbfsFile", args ?? new GetDbfsFileInvokeArgs(), options.WithDefaults());
     }
@@ -21,9 +87,15 @@ namespace Pulumi.Databricks
 
     public sealed class GetDbfsFileArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Do lot load content for files smaller than this in bytes
+        /// </summary>
         [Input("limitFileSize", required: true)]
         public bool LimitFileSize { get; set; }
 
+        /// <summary>
+        /// Path on DBFS for the file to get content of
+        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
@@ -34,9 +106,15 @@ namespace Pulumi.Databricks
 
     public sealed class GetDbfsFileInvokeArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Do lot load content for files smaller than this in bytes
+        /// </summary>
         [Input("limitFileSize", required: true)]
         public Input<bool> LimitFileSize { get; set; } = null!;
 
+        /// <summary>
+        /// Path on DBFS for the file to get content of
+        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
@@ -49,7 +127,13 @@ namespace Pulumi.Databricks
     [OutputType]
     public sealed class GetDbfsFileResult
     {
+        /// <summary>
+        /// base64-encoded file contents
+        /// </summary>
         public readonly string Content;
+        /// <summary>
+        /// size of the file in bytes
+        /// </summary>
         public readonly int FileSize;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
