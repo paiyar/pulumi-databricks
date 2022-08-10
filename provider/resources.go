@@ -20,7 +20,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	databricks "github.com/databrickslabs/terraform-provider-databricks/provider"
+	databricks "github.com/databricks/terraform-provider-databricks/provider"
 	"github.com/paiyar/pulumi-databricks/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
@@ -84,7 +84,7 @@ func Provider() tfbridge.ProviderInfo {
 		}
 	}
 
-	// Ref: https://github.com/databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#environment-variables
+	// Ref: https://github.com/databricks/terraform-provider-databricks/blob/master/docs/index.md#environment-variables
 	// NOTE: Intentionally elided AZURE related configurations
 	configMap := make(map[string]*tfbridge.SchemaInfo)
 	for _, config := range []string{
