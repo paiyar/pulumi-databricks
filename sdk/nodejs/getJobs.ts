@@ -4,6 +4,13 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
+ */
 export function getJobs(args?: GetJobsArgs, opts?: pulumi.InvokeOptions): Promise<GetJobsResult> {
     args = args || {};
     if (!opts) {
@@ -20,6 +27,9 @@ export function getJobs(args?: GetJobsArgs, opts?: pulumi.InvokeOptions): Promis
  * A collection of arguments for invoking getJobs.
  */
 export interface GetJobsArgs {
+    /**
+     * map of databricks.Job names to ids
+     */
     ids?: {[key: string]: any};
 }
 
@@ -31,6 +41,9 @@ export interface GetJobsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * map of databricks.Job names to ids
+     */
     readonly ids: {[key: string]: any};
 }
 
@@ -42,5 +55,8 @@ export function getJobsOutput(args?: GetJobsOutputArgs, opts?: pulumi.InvokeOpti
  * A collection of arguments for invoking getJobs.
  */
 export interface GetJobsOutputArgs {
+    /**
+     * map of databricks.Job names to ids
+     */
     ids?: pulumi.Input<{[key: string]: any}>;
 }

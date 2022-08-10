@@ -4,6 +4,39 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * Adding service principal `11111111-2222-3333-4444-555666777888` to administrative group
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const admins = databricks.getGroup({
+ *     displayName: "admins",
+ * });
+ * const spn = databricks.getServicePrincipal({
+ *     applicationId: "11111111-2222-3333-4444-555666777888",
+ * });
+ * const myMemberA = new databricks.GroupMember("myMemberA", {
+ *     groupId: admins.then(admins => admins.id),
+ *     memberId: spn.then(spn => spn.id),
+ * });
+ * ```
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * End to end workspace management guide
+ * * databricks.getCurrentUser data to retrieve information about databricks.User or databricks_service_principal, that is calling Databricks REST API.
+ * * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
+ * * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
+ * * databricks.GroupInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_group.
+ * * databricks.GroupMember to attach users and groups as group members.
+ * * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
+ * * databricksService principal to manage service principals
+ */
 export function getServicePrincipal(args?: GetServicePrincipalArgs, opts?: pulumi.InvokeOptions): Promise<GetServicePrincipalResult> {
     args = args || {};
     if (!opts) {
@@ -26,12 +59,33 @@ export function getServicePrincipal(args?: GetServicePrincipalArgs, opts?: pulum
  * A collection of arguments for invoking getServicePrincipal.
  */
 export interface GetServicePrincipalArgs {
+    /**
+     * Whether service principal is active or not.
+     */
     active?: boolean;
+    /**
+     * ID of the service principal. The service principal must exist before this resource can be retrieved.
+     */
     applicationId?: string;
+    /**
+     * Display name of the service principal, e.g. `Foo SPN`.
+     */
     displayName?: string;
+    /**
+     * ID of the service principal in an external identity provider.
+     */
     externalId?: string;
+    /**
+     * Home folder of the service principal, e.g. `/Users/11111111-2222-3333-4444-555666777888`.
+     */
     home?: string;
+    /**
+     * Repos location of the service principal, e.g. `/Repos/11111111-2222-3333-4444-555666777888`.
+     */
     repos?: string;
+    /**
+     * The id of the service principal.
+     */
     spId?: string;
 }
 
@@ -39,16 +93,34 @@ export interface GetServicePrincipalArgs {
  * A collection of values returned by getServicePrincipal.
  */
 export interface GetServicePrincipalResult {
+    /**
+     * Whether service principal is active or not.
+     */
     readonly active: boolean;
     readonly applicationId: string;
+    /**
+     * Display name of the service principal, e.g. `Foo SPN`.
+     */
     readonly displayName: string;
+    /**
+     * ID of the service principal in an external identity provider.
+     */
     readonly externalId: string;
+    /**
+     * Home folder of the service principal, e.g. `/Users/11111111-2222-3333-4444-555666777888`.
+     */
     readonly home: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * Repos location of the service principal, e.g. `/Repos/11111111-2222-3333-4444-555666777888`.
+     */
     readonly repos: string;
+    /**
+     * The id of the service principal.
+     */
     readonly spId: string;
 }
 
@@ -60,11 +132,32 @@ export function getServicePrincipalOutput(args?: GetServicePrincipalOutputArgs, 
  * A collection of arguments for invoking getServicePrincipal.
  */
 export interface GetServicePrincipalOutputArgs {
+    /**
+     * Whether service principal is active or not.
+     */
     active?: pulumi.Input<boolean>;
+    /**
+     * ID of the service principal. The service principal must exist before this resource can be retrieved.
+     */
     applicationId?: pulumi.Input<string>;
+    /**
+     * Display name of the service principal, e.g. `Foo SPN`.
+     */
     displayName?: pulumi.Input<string>;
+    /**
+     * ID of the service principal in an external identity provider.
+     */
     externalId?: pulumi.Input<string>;
+    /**
+     * Home folder of the service principal, e.g. `/Users/11111111-2222-3333-4444-555666777888`.
+     */
     home?: pulumi.Input<string>;
+    /**
+     * Repos location of the service principal, e.g. `/Repos/11111111-2222-3333-4444-555666777888`.
+     */
     repos?: pulumi.Input<string>;
+    /**
+     * The id of the service principal.
+     */
     spId?: pulumi.Input<string>;
 }

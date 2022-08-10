@@ -4,6 +4,28 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * Listing all schemas in a _sandbox_ databricks_catalog:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const sandbox = databricks.getSchemas({
+ *     catalogName: "sandbox",
+ * });
+ * export const allSandboxSchemas = sandbox;
+ * ```
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * databricks.Table to manage tables within Unity Catalog.
+ * * databricks.Schema to manage schemas within Unity Catalog.
+ * * databricks.Catalog to manage catalogs within Unity Catalog.
+ */
 export function getSchemas(args: GetSchemasArgs, opts?: pulumi.InvokeOptions): Promise<GetSchemasResult> {
     if (!opts) {
         opts = {}
@@ -20,7 +42,13 @@ export function getSchemas(args: GetSchemasArgs, opts?: pulumi.InvokeOptions): P
  * A collection of arguments for invoking getSchemas.
  */
 export interface GetSchemasArgs {
+    /**
+     * Name of databricks_catalog
+     */
     catalogName: string;
+    /**
+     * set of databricks.Schema full names: *`catalog`.`schema`*
+     */
     ids?: string[];
 }
 
@@ -33,6 +61,9 @@ export interface GetSchemasResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * set of databricks.Schema full names: *`catalog`.`schema`*
+     */
     readonly ids: string[];
 }
 
@@ -44,6 +75,12 @@ export function getSchemasOutput(args: GetSchemasOutputArgs, opts?: pulumi.Invok
  * A collection of arguments for invoking getSchemas.
  */
 export interface GetSchemasOutputArgs {
+    /**
+     * Name of databricks_catalog
+     */
     catalogName: pulumi.Input<string>;
+    /**
+     * set of databricks.Schema full names: *`catalog`.`schema`*
+     */
     ids?: pulumi.Input<pulumi.Input<string>[]>;
 }

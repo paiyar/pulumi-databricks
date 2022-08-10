@@ -4,6 +4,15 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * databricks.Table to manage tables within Unity Catalog.
+ * * databricks.Schema to manage schemas within Unity Catalog.
+ * * databricks.Catalog to manage catalogs within Unity Catalog.
+ */
 export function getViews(args: GetViewsArgs, opts?: pulumi.InvokeOptions): Promise<GetViewsResult> {
     if (!opts) {
         opts = {}
@@ -21,8 +30,17 @@ export function getViews(args: GetViewsArgs, opts?: pulumi.InvokeOptions): Promi
  * A collection of arguments for invoking getViews.
  */
 export interface GetViewsArgs {
+    /**
+     * Name of databricks_catalog
+     */
     catalogName: string;
+    /**
+     * set of databricks.Table full names: *`catalog`.`schema`.`view`*
+     */
     ids?: string[];
+    /**
+     * Name of databricks_schema
+     */
     schemaName: string;
 }
 
@@ -35,6 +53,9 @@ export interface GetViewsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * set of databricks.Table full names: *`catalog`.`schema`.`view`*
+     */
     readonly ids: string[];
     readonly schemaName: string;
 }
@@ -47,7 +68,16 @@ export function getViewsOutput(args: GetViewsOutputArgs, opts?: pulumi.InvokeOpt
  * A collection of arguments for invoking getViews.
  */
 export interface GetViewsOutputArgs {
+    /**
+     * Name of databricks_catalog
+     */
     catalogName: pulumi.Input<string>;
+    /**
+     * set of databricks.Table full names: *`catalog`.`schema`.`view`*
+     */
     ids?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Name of databricks_schema
+     */
     schemaName: pulumi.Input<string>;
 }

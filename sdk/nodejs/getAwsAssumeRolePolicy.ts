@@ -22,7 +22,13 @@ export function getAwsAssumeRolePolicy(args: GetAwsAssumeRolePolicyArgs, opts?: 
  */
 export interface GetAwsAssumeRolePolicyArgs {
     databricksAccountId?: string;
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
+     */
     externalId: string;
+    /**
+     * Either or not this assume role policy should be created for usage log delivery. Defaults to false.
+     */
     forLogDelivery?: boolean;
 }
 
@@ -37,6 +43,9 @@ export interface GetAwsAssumeRolePolicyResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * AWS IAM Policy JSON document
+     */
     readonly json: string;
 }
 
@@ -49,6 +58,12 @@ export function getAwsAssumeRolePolicyOutput(args: GetAwsAssumeRolePolicyOutputA
  */
 export interface GetAwsAssumeRolePolicyOutputArgs {
     databricksAccountId?: pulumi.Input<string>;
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
+     */
     externalId: pulumi.Input<string>;
+    /**
+     * Either or not this assume role policy should be created for usage log delivery. Defaults to false.
+     */
     forLogDelivery?: pulumi.Input<boolean>;
 }

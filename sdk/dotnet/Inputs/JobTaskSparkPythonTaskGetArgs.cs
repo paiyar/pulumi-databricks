@@ -14,12 +14,19 @@ namespace Pulumi.Databricks.Inputs
     {
         [Input("parameters")]
         private InputList<string>? _parameters;
+
+        /// <summary>
+        /// Parameters for the task
+        /// </summary>
         public InputList<string> Parameters
         {
             get => _parameters ?? (_parameters = new InputList<string>());
             set => _parameters = value;
         }
 
+        /// <summary>
+        /// The URI of the Python file to be executed. databricks.DbfsFile and S3 paths are supported. This field is required.
+        /// </summary>
         [Input("pythonFile", required: true)]
         public Input<string> PythonFile { get; set; } = null!;
 

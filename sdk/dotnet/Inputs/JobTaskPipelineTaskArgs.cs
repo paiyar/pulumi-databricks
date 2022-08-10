@@ -12,6 +12,9 @@ namespace Pulumi.Databricks.Inputs
 
     public sealed class JobTaskPipelineTaskArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The pipeline's unique ID.
+        /// </summary>
         [Input("pipelineId", required: true)]
         public Input<string> PipelineId { get; set; } = null!;
 

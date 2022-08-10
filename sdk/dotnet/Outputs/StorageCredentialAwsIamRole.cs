@@ -13,6 +13,9 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class StorageCredentialAwsIamRole
     {
+        /// <summary>
+        /// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form `arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF`
+        /// </summary>
         public readonly string RoleArn;
 
         [OutputConstructor]

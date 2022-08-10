@@ -9,15 +9,33 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// ## Import
+    /// 
+    /// The resource cluster can be imported using ID of Git credential that could be obtained via REST APIbash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/gitCredential:GitCredential this &lt;git-credential-id&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/gitCredential:GitCredential")]
     public partial class GitCredential : Pulumi.CustomResource
     {
+        /// <summary>
+        /// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
+        /// </summary>
         [Output("force")]
         public Output<bool?> Force { get; private set; } = null!;
 
+        /// <summary>
+        /// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult [Git Credentials API documentation](https://docs.databricks.com/dev-tools/api/latest/gitcredentials.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`, `awsCodeCommit`.
+        /// </summary>
         [Output("gitProvider")]
         public Output<string> GitProvider { get; private set; } = null!;
 
+        /// <summary>
+        /// user name at Git provider.
+        /// </summary>
         [Output("gitUsername")]
         public Output<string> GitUsername { get; private set; } = null!;
 
@@ -70,12 +88,21 @@ namespace Pulumi.Databricks
 
     public sealed class GitCredentialArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
+        /// </summary>
         [Input("force")]
         public Input<bool>? Force { get; set; }
 
+        /// <summary>
+        /// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult [Git Credentials API documentation](https://docs.databricks.com/dev-tools/api/latest/gitcredentials.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`, `awsCodeCommit`.
+        /// </summary>
         [Input("gitProvider", required: true)]
         public Input<string> GitProvider { get; set; } = null!;
 
+        /// <summary>
+        /// user name at Git provider.
+        /// </summary>
         [Input("gitUsername", required: true)]
         public Input<string> GitUsername { get; set; } = null!;
 
@@ -89,12 +116,21 @@ namespace Pulumi.Databricks
 
     public sealed class GitCredentialState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
+        /// </summary>
         [Input("force")]
         public Input<bool>? Force { get; set; }
 
+        /// <summary>
+        /// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult [Git Credentials API documentation](https://docs.databricks.com/dev-tools/api/latest/gitcredentials.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`, `awsCodeCommit`.
+        /// </summary>
         [Input("gitProvider")]
         public Input<string>? GitProvider { get; set; }
 
+        /// <summary>
+        /// user name at Git provider.
+        /// </summary>
         [Input("gitUsername")]
         public Input<string>? GitUsername { get; set; }
 

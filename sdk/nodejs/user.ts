@@ -4,6 +4,111 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * This resource allows you to manage [users in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/users.html), [Databricks Account Console](https://accounts.cloud.databricks.com/) or [Azure Databricks Account Console](https://accounts.azuredatabricks.net). You can also associate Databricks users to databricks_group. Upon user creation the user will receive a password reset email. You can also get information about caller identity using databricks.getCurrentUser data source.
+ *
+ * To create users in the Databricks account, the provider must be configured with `host = "https://accounts.cloud.databricks.com"` on AWS deployments or `host = "https://accounts.azuredatabricks.net"` and authenticate using AAD tokens on Azure deployments
+ *
+ * ## Example Usage
+ *
+ * Creating regular user:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const me = new databricks.User("me", {
+ *     userName: "me@example.com",
+ * });
+ * ```
+ *
+ * Creating user with administrative permissions - referencing special `admins` databricks.Group in databricks.GroupMember resource:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const admins = databricks.getGroup({
+ *     displayName: "admins",
+ * });
+ * const me = new databricks.User("me", {userName: "me@example.com"});
+ * const i_am_admin = new databricks.GroupMember("i-am-admin", {
+ *     groupId: admins.then(admins => admins.id),
+ *     memberId: me.id,
+ * });
+ * ```
+ *
+ * Creating user with cluster create permissions:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const me = new databricks.User("me", {
+ *     allowClusterCreate: true,
+ *     displayName: "Example user",
+ *     userName: "me@example.com",
+ * });
+ * ```
+ *
+ * Creating user in AWS Databricks account:
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * // initialize provider at account-level
+ * const mws = new databricks.Provider("mws", {
+ *     host: "https://accounts.cloud.databricks.com",
+ *     accountId: "00000000-0000-0000-0000-000000000000",
+ *     username: _var.databricks_account_username,
+ *     password: _var.databricks_account_password,
+ * });
+ * const accountUser = new databricks.User("accountUser", {
+ *     userName: "me@example.com",
+ *     displayName: "Example user",
+ * }, {
+ *     provider: databricks.mws,
+ * });
+ * ```
+ *
+ * Creating user in Azure Databricks account:
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * // initialize provider at Azure account-level
+ * const azureAccount = new databricks.Provider("azureAccount", {
+ *     host: "https://accounts.azuredatabricks.net",
+ *     accountId: "00000000-0000-0000-0000-000000000000",
+ *     authType: "azure-cli",
+ * });
+ * const accountUser = new databricks.User("accountUser", {
+ *     userName: "me@example.com",
+ *     displayName: "Example user",
+ * }, {
+ *     provider: databricks.mws,
+ * });
+ * ```
+ * ## Related Resources
+ *
+ * The following resources are often used in the same context:
+ *
+ * * End to end workspace management guide.
+ * * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
+ * * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
+ * * databricks.GroupInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_group.
+ * * databricks.GroupMember to attach users and groups as group members.
+ * * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
+ * * databricks.User data to retrieve information about databricks_user.
+ *
+ * ## Import
+ *
+ * The resource scim user can be imported using idbash
+ *
+ * ```sh
+ *  $ pulumi import databricks:index/user:User me <user-id>
+ * ```
+ */
 export class User extends pulumi.CustomResource {
     /**
      * Get an existing User resource's state with the given name, ID, and optional extra
@@ -32,13 +137,34 @@ export class User extends pulumi.CustomResource {
         return obj['__pulumiType'] === User.__pulumiType;
     }
 
+    /**
+     * Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
+     */
     public readonly active!: pulumi.Output<boolean | undefined>;
+    /**
+     * Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
+     */
     public readonly allowClusterCreate!: pulumi.Output<boolean | undefined>;
+    /**
+     * Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and instancePoolId argument.
+     */
     public readonly allowInstancePoolCreate!: pulumi.Output<boolean | undefined>;
+    /**
+     * This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
+     */
     public readonly databricksSqlAccess!: pulumi.Output<boolean | undefined>;
+    /**
+     * This is an alias for the username that can be the full name of the user.
+     */
     public readonly displayName!: pulumi.Output<string>;
+    /**
+     * ID of the user in an external identity provider.
+     */
     public readonly externalId!: pulumi.Output<string | undefined>;
     public readonly force!: pulumi.Output<boolean | undefined>;
+    /**
+     * This is the username of the given user and will be their form of access and identity.
+     */
     public readonly userName!: pulumi.Output<string>;
     public readonly workspaceAccess!: pulumi.Output<boolean | undefined>;
 
@@ -88,13 +214,34 @@ export class User extends pulumi.CustomResource {
  * Input properties used for looking up and filtering User resources.
  */
 export interface UserState {
+    /**
+     * Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
+     */
     active?: pulumi.Input<boolean>;
+    /**
+     * Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
+     */
     allowClusterCreate?: pulumi.Input<boolean>;
+    /**
+     * Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and instancePoolId argument.
+     */
     allowInstancePoolCreate?: pulumi.Input<boolean>;
+    /**
+     * This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
+     */
     databricksSqlAccess?: pulumi.Input<boolean>;
+    /**
+     * This is an alias for the username that can be the full name of the user.
+     */
     displayName?: pulumi.Input<string>;
+    /**
+     * ID of the user in an external identity provider.
+     */
     externalId?: pulumi.Input<string>;
     force?: pulumi.Input<boolean>;
+    /**
+     * This is the username of the given user and will be their form of access and identity.
+     */
     userName?: pulumi.Input<string>;
     workspaceAccess?: pulumi.Input<boolean>;
 }
@@ -103,13 +250,34 @@ export interface UserState {
  * The set of arguments for constructing a User resource.
  */
 export interface UserArgs {
+    /**
+     * Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
+     */
     active?: pulumi.Input<boolean>;
+    /**
+     * Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
+     */
     allowClusterCreate?: pulumi.Input<boolean>;
+    /**
+     * Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and instancePoolId argument.
+     */
     allowInstancePoolCreate?: pulumi.Input<boolean>;
+    /**
+     * This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
+     */
     databricksSqlAccess?: pulumi.Input<boolean>;
+    /**
+     * This is an alias for the username that can be the full name of the user.
+     */
     displayName?: pulumi.Input<string>;
+    /**
+     * ID of the user in an external identity provider.
+     */
     externalId?: pulumi.Input<string>;
     force?: pulumi.Input<boolean>;
+    /**
+     * This is the username of the given user and will be their form of access and identity.
+     */
     userName: pulumi.Input<string>;
     workspaceAccess?: pulumi.Input<boolean>;
 }

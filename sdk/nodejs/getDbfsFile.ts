@@ -4,6 +4,27 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const report = pulumi.output(databricks.getDbfsFile({
+ *     limitFileSize: 10240,
+ *     path: "dbfs:/reports/some.csv",
+ * }));
+ * ```
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * End to end workspace management guide
+ * * databricks.getDbfsFilePaths data to get list of file names from get file content from [Databricks File System (DBFS)](https://docs.databricks.com/data/databricks-file-system.html).
+ * * databricks.DbfsFile to manage relatively small files on [Databricks File System (DBFS)](https://docs.databricks.com/data/databricks-file-system.html).
+ * * databricks.Mount to [mount your cloud storage](https://docs.databricks.com/data/databricks-file-system.html#mount-object-storage-to-dbfs) on `dbfs:/mnt/name`.
+ */
 export function getDbfsFile(args: GetDbfsFileArgs, opts?: pulumi.InvokeOptions): Promise<GetDbfsFileResult> {
     if (!opts) {
         opts = {}
@@ -20,7 +41,13 @@ export function getDbfsFile(args: GetDbfsFileArgs, opts?: pulumi.InvokeOptions):
  * A collection of arguments for invoking getDbfsFile.
  */
 export interface GetDbfsFileArgs {
+    /**
+     * Do lot load content for files smaller than this in bytes
+     */
     limitFileSize: boolean;
+    /**
+     * Path on DBFS for the file to get content of
+     */
     path: string;
 }
 
@@ -28,7 +55,13 @@ export interface GetDbfsFileArgs {
  * A collection of values returned by getDbfsFile.
  */
 export interface GetDbfsFileResult {
+    /**
+     * base64-encoded file contents
+     */
     readonly content: string;
+    /**
+     * size of the file in bytes
+     */
     readonly fileSize: number;
     /**
      * The provider-assigned unique ID for this managed resource.
@@ -46,6 +79,12 @@ export function getDbfsFileOutput(args: GetDbfsFileOutputArgs, opts?: pulumi.Inv
  * A collection of arguments for invoking getDbfsFile.
  */
 export interface GetDbfsFileOutputArgs {
+    /**
+     * Do lot load content for files smaller than this in bytes
+     */
     limitFileSize: pulumi.Input<boolean>;
+    /**
+     * Path on DBFS for the file to get content of
+     */
     path: pulumi.Input<string>;
 }

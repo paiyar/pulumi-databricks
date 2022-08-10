@@ -4,6 +4,26 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * Listing all catalogs:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const all = databricks.getCatalogs({});
+ * export const allCatalogs = all;
+ * ```
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * databricks.Table to manage tables within Unity Catalog.
+ * * databricks.Schema to manage schemas within Unity Catalog.
+ * * databricks.Catalog to manage catalogs within Unity Catalog.
+ */
 export function getCatalogs(args?: GetCatalogsArgs, opts?: pulumi.InvokeOptions): Promise<GetCatalogsResult> {
     args = args || {};
     if (!opts) {
@@ -20,6 +40,9 @@ export function getCatalogs(args?: GetCatalogsArgs, opts?: pulumi.InvokeOptions)
  * A collection of arguments for invoking getCatalogs.
  */
 export interface GetCatalogsArgs {
+    /**
+     * set of databricks.Catalog names
+     */
     ids?: string[];
 }
 
@@ -31,6 +54,9 @@ export interface GetCatalogsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * set of databricks.Catalog names
+     */
     readonly ids: string[];
 }
 
@@ -42,5 +68,8 @@ export function getCatalogsOutput(args?: GetCatalogsOutputArgs, opts?: pulumi.In
  * A collection of arguments for invoking getCatalogs.
  */
 export interface GetCatalogsOutputArgs {
+    /**
+     * set of databricks.Catalog names
+     */
     ids?: pulumi.Input<pulumi.Input<string>[]>;
 }

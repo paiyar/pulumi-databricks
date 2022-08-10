@@ -11,9 +11,75 @@ namespace Pulumi.Databricks
 {
     public static class GetCatalogs
     {
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Listing all catalogs:
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var all = Output.Create(Databricks.GetCatalogs.InvokeAsync());
+        ///         this.AllCatalogs = all;
+        ///     }
+        /// 
+        ///     [Output("allCatalogs")]
+        ///     public Output&lt;string&gt; AllCatalogs { get; set; }
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * databricks.Table to manage tables within Unity Catalog.
+        /// * databricks.Schema to manage schemas within Unity Catalog.
+        /// * databricks.Catalog to manage catalogs within Unity Catalog.
+        /// </summary>
         public static Task<GetCatalogsResult> InvokeAsync(GetCatalogsArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetCatalogsResult>("databricks:index/getCatalogs:getCatalogs", args ?? new GetCatalogsArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Listing all catalogs:
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var all = Output.Create(Databricks.GetCatalogs.InvokeAsync());
+        ///         this.AllCatalogs = all;
+        ///     }
+        /// 
+        ///     [Output("allCatalogs")]
+        ///     public Output&lt;string&gt; AllCatalogs { get; set; }
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * databricks.Table to manage tables within Unity Catalog.
+        /// * databricks.Schema to manage schemas within Unity Catalog.
+        /// * databricks.Catalog to manage catalogs within Unity Catalog.
+        /// </summary>
         public static Output<GetCatalogsResult> Invoke(GetCatalogsInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetCatalogsResult>("databricks:index/getCatalogs:getCatalogs", args ?? new GetCatalogsInvokeArgs(), options.WithDefaults());
     }
@@ -23,6 +89,10 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private List<string>? _ids;
+
+        /// <summary>
+        /// set of databricks.Catalog names
+        /// </summary>
         public List<string> Ids
         {
             get => _ids ?? (_ids = new List<string>());
@@ -38,6 +108,10 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private InputList<string>? _ids;
+
+        /// <summary>
+        /// set of databricks.Catalog names
+        /// </summary>
         public InputList<string> Ids
         {
             get => _ids ?? (_ids = new InputList<string>());
@@ -57,6 +131,9 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// set of databricks.Catalog names
+        /// </summary>
         public readonly ImmutableArray<string> Ids;
 
         [OutputConstructor]

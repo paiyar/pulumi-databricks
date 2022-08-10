@@ -12,6 +12,9 @@ namespace Pulumi.Databricks.Inputs
 
     public sealed class StorageCredentialAwsIamRoleGetArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form `arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF`
+        /// </summary>
         [Input("roleArn", required: true)]
         public Input<string> RoleArn { get; set; } = null!;
 

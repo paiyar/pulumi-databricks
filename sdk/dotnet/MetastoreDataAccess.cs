@@ -9,6 +9,15 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// &gt; **Public Preview** This feature is in [Public Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
+    /// 
+    /// Each databricks.Metastore requires an IAM role that will be assumed by Unity Catalog to access data. `databricks.MetastoreDataAccess` defines this
+    /// 
+    /// ## Import
+    /// 
+    /// -&gt; **Note** Importing this resource is not currently supported.
+    /// </summary>
     [DatabricksResourceType("databricks:index/metastoreDataAccess:MetastoreDataAccess")]
     public partial class MetastoreDataAccess : Pulumi.CustomResource
     {
@@ -24,15 +33,18 @@ namespace Pulumi.Databricks
         [Output("configurationType")]
         public Output<string> ConfigurationType { get; private set; } = null!;
 
-        [Output("id")]
-        public Output<string> Id { get; private set; } = null!;
-
         [Output("isDefault")]
         public Output<bool?> IsDefault { get; private set; } = null!;
 
+        /// <summary>
+        /// Unique identifier of the parent Metastore
+        /// </summary>
         [Output("metastoreId")]
         public Output<string> MetastoreId { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
@@ -94,15 +106,18 @@ namespace Pulumi.Databricks
         [Input("configurationType")]
         public Input<string>? ConfigurationType { get; set; }
 
-        [Input("id")]
-        public Input<string>? Id { get; set; }
-
         [Input("isDefault")]
         public Input<bool>? IsDefault { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the parent Metastore
+        /// </summary>
         [Input("metastoreId", required: true)]
         public Input<string> MetastoreId { get; set; } = null!;
 
+        /// <summary>
+        /// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -125,15 +140,18 @@ namespace Pulumi.Databricks
         [Input("configurationType")]
         public Input<string>? ConfigurationType { get; set; }
 
-        [Input("id")]
-        public Input<string>? Id { get; set; }
-
         [Input("isDefault")]
         public Input<bool>? IsDefault { get; set; }
 
+        /// <summary>
+        /// Unique identifier of the parent Metastore
+        /// </summary>
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
+        /// <summary>
+        /// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

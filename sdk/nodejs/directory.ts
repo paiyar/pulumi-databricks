@@ -4,6 +4,15 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Import
+ *
+ * The resource directory can be imported using directory path bash
+ *
+ * ```sh
+ *  $ pulumi import databricks:index/directory:Directory this /path/to/directory
+ * ```
+ */
 export class Directory extends pulumi.CustomResource {
     /**
      * Get an existing Directory resource's state with the given name, ID, and optional extra
@@ -33,7 +42,13 @@ export class Directory extends pulumi.CustomResource {
     }
 
     public readonly deleteRecursive!: pulumi.Output<boolean | undefined>;
+    /**
+     * Unique identifier for a DIRECTORY
+     */
     public readonly objectId!: pulumi.Output<number>;
+    /**
+     * The absolute path of the directory, beginning with "/", e.g. "/Demo".
+     */
     public readonly path!: pulumi.Output<string>;
 
     /**
@@ -71,7 +86,13 @@ export class Directory extends pulumi.CustomResource {
  */
 export interface DirectoryState {
     deleteRecursive?: pulumi.Input<boolean>;
+    /**
+     * Unique identifier for a DIRECTORY
+     */
     objectId?: pulumi.Input<number>;
+    /**
+     * The absolute path of the directory, beginning with "/", e.g. "/Demo".
+     */
     path?: pulumi.Input<string>;
 }
 
@@ -80,6 +101,12 @@ export interface DirectoryState {
  */
 export interface DirectoryArgs {
     deleteRecursive?: pulumi.Input<boolean>;
+    /**
+     * Unique identifier for a DIRECTORY
+     */
     objectId?: pulumi.Input<number>;
+    /**
+     * The absolute path of the directory, beginning with "/", e.g. "/Demo".
+     */
     path: pulumi.Input<string>;
 }

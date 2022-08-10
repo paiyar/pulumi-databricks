@@ -9,6 +9,79 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// This resource is used to manage [Databricks SQL Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html). To manage [SQLA resources](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricks_sql_access` on your databricks.Group or databricks_user.
+    /// 
+    /// **Note:** documentation for this resource is a work in progress.
+    /// 
+    /// A dashboard may have one or more widgets.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var d1 = new Databricks.SqlDashboard("d1", new Databricks.SqlDashboardArgs
+    ///         {
+    ///             Tags = 
+    ///             {
+    ///                 "some-tag",
+    ///                 "another-tag",
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// 
+    /// Example permission to share dashboard with all users:
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var d1 = new Databricks.Permissions("d1", new Databricks.PermissionsArgs
+    ///         {
+    ///             SqlDashboardId = databricks_sql_dashboard.D1.Id,
+    ///             AccessControls = 
+    ///             {
+    ///                 new Databricks.Inputs.PermissionsAccessControlArgs
+    ///                 {
+    ///                     GroupName = data.Databricks_group.Users.Display_name,
+    ///                     PermissionLevel = "CAN_RUN",
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// ## Related Resources
+    /// 
+    /// The following resources are often used in the same context:
+    /// 
+    /// * End to end workspace management guide.
+    /// * databricks.SqlEndpoint to manage Databricks SQL [Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html).
+    /// * databricks.SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all databricks.SqlEndpoint of workspace.
+    /// * databricks.SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
+    /// 
+    /// ## Import
+    /// 
+    /// You can import a `databricks_sql_dashboard` resource with ID like the followingbash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/sqlDashboard:SqlDashboard this &lt;dashboard-id&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/sqlDashboard:SqlDashboard")]
     public partial class SqlDashboard : Pulumi.CustomResource
     {

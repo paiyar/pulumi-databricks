@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * ## Import
+ *
+ * -> **Note** Importing this resource is not currently supported.
+ */
 export class MwsNetworks extends pulumi.CustomResource {
     /**
      * Get an existing MwsNetworks resource's state with the given name, ID, and optional extra
@@ -33,16 +38,34 @@ export class MwsNetworks extends pulumi.CustomResource {
         return obj['__pulumiType'] === MwsNetworks.__pulumiType;
     }
 
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+     */
     public readonly accountId!: pulumi.Output<string>;
     public readonly creationTime!: pulumi.Output<number>;
     public readonly errorMessages!: pulumi.Output<outputs.MwsNetworksErrorMessage[]>;
+    /**
+     * (String) id of network to be used for databricksMwsWorkspace resource.
+     */
     public readonly networkId!: pulumi.Output<string>;
+    /**
+     * name under which this network is registered
+     */
     public readonly networkName!: pulumi.Output<string>;
     public readonly securityGroupIds!: pulumi.Output<string[]>;
     public readonly subnetIds!: pulumi.Output<string[]>;
+    /**
+     * mapping of databricks.MwsVpcEndpoint for PrivateLink connections
+     */
     public readonly vpcEndpoints!: pulumi.Output<outputs.MwsNetworksVpcEndpoints>;
     public readonly vpcId!: pulumi.Output<string>;
+    /**
+     * (String) VPC attachment status
+     */
     public readonly vpcStatus!: pulumi.Output<string>;
+    /**
+     * (Integer) id of associated workspace
+     */
     public readonly workspaceId!: pulumi.Output<number>;
 
     /**
@@ -107,16 +130,34 @@ export class MwsNetworks extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MwsNetworks resources.
  */
 export interface MwsNetworksState {
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+     */
     accountId?: pulumi.Input<string>;
     creationTime?: pulumi.Input<number>;
     errorMessages?: pulumi.Input<pulumi.Input<inputs.MwsNetworksErrorMessage>[]>;
+    /**
+     * (String) id of network to be used for databricksMwsWorkspace resource.
+     */
     networkId?: pulumi.Input<string>;
+    /**
+     * name under which this network is registered
+     */
     networkName?: pulumi.Input<string>;
     securityGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
     subnetIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * mapping of databricks.MwsVpcEndpoint for PrivateLink connections
+     */
     vpcEndpoints?: pulumi.Input<inputs.MwsNetworksVpcEndpoints>;
     vpcId?: pulumi.Input<string>;
+    /**
+     * (String) VPC attachment status
+     */
     vpcStatus?: pulumi.Input<string>;
+    /**
+     * (Integer) id of associated workspace
+     */
     workspaceId?: pulumi.Input<number>;
 }
 
@@ -124,15 +165,33 @@ export interface MwsNetworksState {
  * The set of arguments for constructing a MwsNetworks resource.
  */
 export interface MwsNetworksArgs {
+    /**
+     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
+     */
     accountId: pulumi.Input<string>;
     creationTime?: pulumi.Input<number>;
     errorMessages?: pulumi.Input<pulumi.Input<inputs.MwsNetworksErrorMessage>[]>;
+    /**
+     * (String) id of network to be used for databricksMwsWorkspace resource.
+     */
     networkId?: pulumi.Input<string>;
+    /**
+     * name under which this network is registered
+     */
     networkName: pulumi.Input<string>;
     securityGroupIds: pulumi.Input<pulumi.Input<string>[]>;
     subnetIds: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * mapping of databricks.MwsVpcEndpoint for PrivateLink connections
+     */
     vpcEndpoints?: pulumi.Input<inputs.MwsNetworksVpcEndpoints>;
     vpcId: pulumi.Input<string>;
+    /**
+     * (String) VPC attachment status
+     */
     vpcStatus?: pulumi.Input<string>;
+    /**
+     * (Integer) id of associated workspace
+     */
     workspaceId?: pulumi.Input<number>;
 }

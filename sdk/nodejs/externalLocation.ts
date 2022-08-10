@@ -4,6 +4,21 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * > **Public Preview** This feature is in [Public Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
+ *
+ * To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
+ * - databricks.StorageCredential represent authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
+ * - `databricks.ExternalLocation` are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
+ *
+ * ## Import
+ *
+ * This resource can be imported by namebash
+ *
+ * ```sh
+ *  $ pulumi import databricks:index/externalLocation:ExternalLocation this <name>
+ * ```
+ */
 export class ExternalLocation extends pulumi.CustomResource {
     /**
      * Get an existing ExternalLocation resource's state with the given name, ID, and optional extra
@@ -32,12 +47,30 @@ export class ExternalLocation extends pulumi.CustomResource {
         return obj['__pulumiType'] === ExternalLocation.__pulumiType;
     }
 
+    /**
+     * User-supplied free-form text.
+     */
     public readonly comment!: pulumi.Output<string | undefined>;
+    /**
+     * Name of the databricks.StorageCredential to use with this External Location.
+     */
     public readonly credentialName!: pulumi.Output<string>;
     public readonly metastoreId!: pulumi.Output<string>;
+    /**
+     * Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+     */
     public readonly name!: pulumi.Output<string>;
+    /**
+     * Username/groupname/sp applicationId External Location owner.
+     */
     public readonly owner!: pulumi.Output<string>;
+    /**
+     * Suppress validation errors if any & force save the external location
+     */
     public readonly skipValidation!: pulumi.Output<boolean | undefined>;
+    /**
+     * Path URL in cloud storage, of the form: `s3://[bucket-host]/[bucket-dir]` (AWS), `abfss://[user]@[host]/[path]` (Azure).
+     */
     public readonly url!: pulumi.Output<string>;
 
     /**
@@ -85,12 +118,30 @@ export class ExternalLocation extends pulumi.CustomResource {
  * Input properties used for looking up and filtering ExternalLocation resources.
  */
 export interface ExternalLocationState {
+    /**
+     * User-supplied free-form text.
+     */
     comment?: pulumi.Input<string>;
+    /**
+     * Name of the databricks.StorageCredential to use with this External Location.
+     */
     credentialName?: pulumi.Input<string>;
     metastoreId?: pulumi.Input<string>;
+    /**
+     * Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+     */
     name?: pulumi.Input<string>;
+    /**
+     * Username/groupname/sp applicationId External Location owner.
+     */
     owner?: pulumi.Input<string>;
+    /**
+     * Suppress validation errors if any & force save the external location
+     */
     skipValidation?: pulumi.Input<boolean>;
+    /**
+     * Path URL in cloud storage, of the form: `s3://[bucket-host]/[bucket-dir]` (AWS), `abfss://[user]@[host]/[path]` (Azure).
+     */
     url?: pulumi.Input<string>;
 }
 
@@ -98,11 +149,29 @@ export interface ExternalLocationState {
  * The set of arguments for constructing a ExternalLocation resource.
  */
 export interface ExternalLocationArgs {
+    /**
+     * User-supplied free-form text.
+     */
     comment?: pulumi.Input<string>;
+    /**
+     * Name of the databricks.StorageCredential to use with this External Location.
+     */
     credentialName: pulumi.Input<string>;
     metastoreId?: pulumi.Input<string>;
+    /**
+     * Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+     */
     name?: pulumi.Input<string>;
+    /**
+     * Username/groupname/sp applicationId External Location owner.
+     */
     owner?: pulumi.Input<string>;
+    /**
+     * Suppress validation errors if any & force save the external location
+     */
     skipValidation?: pulumi.Input<boolean>;
+    /**
+     * Path URL in cloud storage, of the form: `s3://[bucket-host]/[bucket-dir]` (AWS), `abfss://[user]@[host]/[path]` (Azure).
+     */
     url: pulumi.Input<string>;
 }

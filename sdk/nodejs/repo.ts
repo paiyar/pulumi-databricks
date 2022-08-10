@@ -4,6 +4,15 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Import
+ *
+ * The resource Repo can be imported using the Repo ID (obtained via UI or using API) bash
+ *
+ * ```sh
+ *  $ pulumi import databricks:index/repo:Repo this repo_id
+ * ```
+ */
 export class Repo extends pulumi.CustomResource {
     /**
      * Get an existing Repo resource's state with the given name, ID, and optional extra
@@ -32,11 +41,29 @@ export class Repo extends pulumi.CustomResource {
         return obj['__pulumiType'] === Repo.__pulumiType;
     }
 
+    /**
+     * name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
+     */
     public readonly branch!: pulumi.Output<string>;
+    /**
+     * Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
+     */
     public readonly commitHash!: pulumi.Output<string>;
+    /**
+     * case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`, , `awsCodeCommit`.
+     */
     public readonly gitProvider!: pulumi.Output<string>;
+    /**
+     * path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If the value changes, repo is re-created.
+     */
     public readonly path!: pulumi.Output<string>;
+    /**
+     * name of the tag for initial checkout.  Conflicts with `branch`.
+     */
     public readonly tag!: pulumi.Output<string | undefined>;
+    /**
+     * The URL of the Git Repository to clone from. If the value changes, repo is re-created.
+     */
     public readonly url!: pulumi.Output<string>;
 
     /**
@@ -79,11 +106,29 @@ export class Repo extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Repo resources.
  */
 export interface RepoState {
+    /**
+     * name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
+     */
     branch?: pulumi.Input<string>;
+    /**
+     * Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
+     */
     commitHash?: pulumi.Input<string>;
+    /**
+     * case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`, , `awsCodeCommit`.
+     */
     gitProvider?: pulumi.Input<string>;
+    /**
+     * path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If the value changes, repo is re-created.
+     */
     path?: pulumi.Input<string>;
+    /**
+     * name of the tag for initial checkout.  Conflicts with `branch`.
+     */
     tag?: pulumi.Input<string>;
+    /**
+     * The URL of the Git Repository to clone from. If the value changes, repo is re-created.
+     */
     url?: pulumi.Input<string>;
 }
 
@@ -91,10 +136,28 @@ export interface RepoState {
  * The set of arguments for constructing a Repo resource.
  */
 export interface RepoArgs {
+    /**
+     * name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
+     */
     branch?: pulumi.Input<string>;
+    /**
+     * Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
+     */
     commitHash?: pulumi.Input<string>;
+    /**
+     * case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`, , `awsCodeCommit`.
+     */
     gitProvider?: pulumi.Input<string>;
+    /**
+     * path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If the value changes, repo is re-created.
+     */
     path?: pulumi.Input<string>;
+    /**
+     * name of the tag for initial checkout.  Conflicts with `branch`.
+     */
     tag?: pulumi.Input<string>;
+    /**
+     * The URL of the Git Repository to clone from. If the value changes, repo is re-created.
+     */
     url: pulumi.Input<string>;
 }

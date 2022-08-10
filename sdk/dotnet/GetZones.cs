@@ -11,6 +11,27 @@ namespace Pulumi.Databricks
 {
     public static class GetZones
     {
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var zones = Output.Create(Databricks.GetZones.InvokeAsync());
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
         public static Task<GetZonesResult> InvokeAsync(InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetZonesResult>("databricks:index/getZones:getZones", InvokeArgs.Empty, options.WithDefaults());
     }
@@ -19,11 +40,17 @@ namespace Pulumi.Databricks
     [OutputType]
     public sealed class GetZonesResult
     {
+        /// <summary>
+        /// This is the default zone that gets assigned to your workspace. This is the zone used by default for clusters and instance pools.
+        /// </summary>
         public readonly string DefaultZone;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// This is a list of all the zones available for your subnets in your Databricks workspace.
+        /// </summary>
         public readonly ImmutableArray<string> Zones;
 
         [OutputConstructor]

@@ -5,6 +5,52 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * This resource allows you to create [MLflow models](https://docs.databricks.com/applications/mlflow/models.html) in Databricks.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const test = new databricks.MlflowModel("test", {
+ *     description: "My MLflow model description",
+ *     tags: [
+ *         {
+ *             key: "key1",
+ *             value: "value1",
+ *         },
+ *         {
+ *             key: "key2",
+ *             value: "value2",
+ *         },
+ *     ],
+ * });
+ * ```
+ * ## Access Control
+ *
+ * * databricks.Permissions can control which groups or individual users can *Read*, *Edit*, *Manage Staging Versions*, *Manage Production Versions*, and *Manage* individual models.
+ *
+ * ## Related Resources
+ *
+ * The following resources are often used in the same context:
+ *
+ * * End to end workspace management guide.
+ * * databricks.Directory to manage directories in [Databricks Workpace](https://docs.databricks.com/workspace/workspace-objects.html).
+ * * databricks.MlflowExperiment to manage [MLflow experiments](https://docs.databricks.com/data/data-sources/mlflow-experiment.html) in Databricks.
+ * * databricks.Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
+ * * databricks.Notebook data to export a notebook from Databricks Workspace.
+ * * databricks.Repo to manage [Databricks Repos](https://docs.databricks.com/repos.html).
+ *
+ * ## Import
+ *
+ * The model resource can be imported using the name bash
+ *
+ * ```sh
+ *  $ pulumi import databricks:index/mlflowModel:MlflowModel this <name>
+ * ```
+ */
 export class MlflowModel extends pulumi.CustomResource {
     /**
      * Get an existing MlflowModel resource's state with the given name, ID, and optional extra
@@ -34,10 +80,19 @@ export class MlflowModel extends pulumi.CustomResource {
     }
 
     public readonly creationTimestamp!: pulumi.Output<number>;
+    /**
+     * The description of the MLflow model.
+     */
     public readonly description!: pulumi.Output<string | undefined>;
     public readonly lastUpdatedTimestamp!: pulumi.Output<number>;
+    /**
+     * Name of MLflow model. Change of name triggers new resource.
+     */
     public readonly name!: pulumi.Output<string>;
     public readonly registeredModelId!: pulumi.Output<string>;
+    /**
+     * Tags for the MLflow model.
+     */
     public readonly tags!: pulumi.Output<outputs.MlflowModelTag[] | undefined>;
     public readonly userId!: pulumi.Output<string>;
 
@@ -81,10 +136,19 @@ export class MlflowModel extends pulumi.CustomResource {
  */
 export interface MlflowModelState {
     creationTimestamp?: pulumi.Input<number>;
+    /**
+     * The description of the MLflow model.
+     */
     description?: pulumi.Input<string>;
     lastUpdatedTimestamp?: pulumi.Input<number>;
+    /**
+     * Name of MLflow model. Change of name triggers new resource.
+     */
     name?: pulumi.Input<string>;
     registeredModelId?: pulumi.Input<string>;
+    /**
+     * Tags for the MLflow model.
+     */
     tags?: pulumi.Input<pulumi.Input<inputs.MlflowModelTag>[]>;
     userId?: pulumi.Input<string>;
 }
@@ -94,10 +158,19 @@ export interface MlflowModelState {
  */
 export interface MlflowModelArgs {
     creationTimestamp?: pulumi.Input<number>;
+    /**
+     * The description of the MLflow model.
+     */
     description?: pulumi.Input<string>;
     lastUpdatedTimestamp?: pulumi.Input<number>;
+    /**
+     * Name of MLflow model. Change of name triggers new resource.
+     */
     name?: pulumi.Input<string>;
     registeredModelId?: pulumi.Input<string>;
+    /**
+     * Tags for the MLflow model.
+     */
     tags?: pulumi.Input<pulumi.Input<inputs.MlflowModelTag>[]>;
     userId?: pulumi.Input<string>;
 }

@@ -4,6 +4,53 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * These resources are invoked in the account context. Provider must have `accountId` attribute configured.
+ *
+ * ## Example Usage
+ *
+ * In account context, adding account-level group to a workspace:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const dataEng = new databricks.Group("dataEng", {displayName: "Data Engineering"});
+ * const addAdminGroup = new databricks.MwsPermissionAssignment("addAdminGroup", {
+ *     workspaceId: databricks_mws_workspaces["this"].workspace_id,
+ *     principalId: dataEng.id,
+ *     permissions: ["ADMIN"],
+ * });
+ * ```
+ *
+ * In account context, adding account-level user to a workspace:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const me = new databricks.User("me", {userName: "me@example.com"});
+ * const addUser = new databricks.MwsPermissionAssignment("addUser", {
+ *     workspaceId: databricks_mws_workspaces["this"].workspace_id,
+ *     principalId: me.id,
+ *     permissions: ["USER"],
+ * });
+ * ```
+ *
+ * In account context, adding account-level service principal to a workspace:
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as databricks from "@pulumi/databricks";
+ *
+ * const sp = new databricks.ServicePrincipal("sp", {displayName: "Automation-only SP"});
+ * const addAdminSpn = new databricks.MwsPermissionAssignment("addAdminSpn", {
+ *     workspaceId: databricks_mws_workspaces["this"].workspace_id,
+ *     principalId: sp.id,
+ *     permissions: ["ADMIN"],
+ * });
+ * ```
+ */
 export class MwsPermissionAssignment extends pulumi.CustomResource {
     /**
      * Get an existing MwsPermissionAssignment resource's state with the given name, ID, and optional extra

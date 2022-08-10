@@ -9,15 +9,67 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// This resource allows you to manage [MLflow experiments](https://docs.databricks.com/data/data-sources/mlflow-experiment.html) in Databricks.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Databricks = Pulumi.Databricks;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var me = Output.Create(Databricks.GetCurrentUser.InvokeAsync());
+    ///         var @this = new Databricks.MlflowExperiment("this", new Databricks.MlflowExperimentArgs
+    ///         {
+    ///             ArtifactLocation = "dbfs:/tmp/my-experiment",
+    ///             Description = "My MLflow experiment description",
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// ## Access Control
+    /// 
+    /// * databricks.Permissions can control which groups or individual users can *Read*, *Edit*, or *Manage* individual experiments.
+    /// 
+    /// ## Related Resources
+    /// 
+    /// The following resources are often used in the same context:
+    /// 
+    /// * End to end workspace management guide.
+    /// * databricks.Directory to manage directories in [Databricks Workpace](https://docs.databricks.com/workspace/workspace-objects.html).
+    /// * databricks.MlflowModel to create [MLflow models](https://docs.databricks.com/applications/mlflow/models.html) in Databricks.
+    /// * databricks.Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
+    /// * databricks.Notebook data to export a notebook from Databricks Workspace.
+    /// * databricks.Repo to manage [Databricks Repos](https://docs.databricks.com/repos.html).
+    /// 
+    /// ## Import
+    /// 
+    /// The experiment resource can be imported using the id of the experiment bash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/mlflowExperiment:MlflowExperiment this &lt;experiment-id&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/mlflowExperiment:MlflowExperiment")]
     public partial class MlflowExperiment : Pulumi.CustomResource
     {
+        /// <summary>
+        /// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
+        /// </summary>
         [Output("artifactLocation")]
         public Output<string?> ArtifactLocation { get; private set; } = null!;
 
         [Output("creationTime")]
         public Output<int> CreationTime { get; private set; } = null!;
 
+        /// <summary>
+        /// The description of the MLflow experiment.
+        /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
 
@@ -30,6 +82,9 @@ namespace Pulumi.Databricks
         [Output("lifecycleStage")]
         public Output<string> LifecycleStage { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/&lt;some-username&gt;/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
@@ -79,12 +134,18 @@ namespace Pulumi.Databricks
 
     public sealed class MlflowExperimentArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
+        /// </summary>
         [Input("artifactLocation")]
         public Input<string>? ArtifactLocation { get; set; }
 
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
+        /// <summary>
+        /// The description of the MLflow experiment.
+        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
@@ -97,6 +158,9 @@ namespace Pulumi.Databricks
         [Input("lifecycleStage")]
         public Input<string>? LifecycleStage { get; set; }
 
+        /// <summary>
+        /// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/&lt;some-username&gt;/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -107,12 +171,18 @@ namespace Pulumi.Databricks
 
     public sealed class MlflowExperimentState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
+        /// </summary>
         [Input("artifactLocation")]
         public Input<string>? ArtifactLocation { get; set; }
 
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
+        /// <summary>
+        /// The description of the MLflow experiment.
+        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
@@ -125,6 +195,9 @@ namespace Pulumi.Databricks
         [Input("lifecycleStage")]
         public Input<string>? LifecycleStage { get; set; }
 
+        /// <summary>
+        /// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/&lt;some-username&gt;/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

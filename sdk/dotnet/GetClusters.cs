@@ -11,9 +11,115 @@ namespace Pulumi.Databricks
 {
     public static class GetClusters
     {
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Retrieve all clusters on this workspace on AWS or GCP:
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var all = Output.Create(Databricks.GetClusters.InvokeAsync());
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// 
+        /// Retrieve all clusters with "Shared" in their cluster name on this Azure Databricks workspace:
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var allShared = Output.Create(Databricks.GetClusters.InvokeAsync(new Databricks.GetClustersArgs
+        ///         {
+        ///             ClusterNameContains = "shared",
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.Cluster to create [Databricks Clusters](https://docs.databricks.com/clusters/index.html).
+        /// * databricks.ClusterPolicy to create a databricks.Cluster policy, which limits the ability to create clusters based on a set of rules.
+        /// * databricks.InstancePool to manage [instance pools](https://docs.databricks.com/clusters/instance-pools/index.html) to reduce cluster start and auto-scaling times by maintaining a set of idle, ready-to-use instances.
+        /// * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
+        /// * databricks.Library to install a [library](https://docs.databricks.com/libraries/index.html) on databricks_cluster.
+        /// * databricks.Pipeline to deploy [Delta Live Tables](https://docs.databricks.com/data-engineering/delta-live-tables/index.html).
+        /// </summary>
         public static Task<GetClustersResult> InvokeAsync(GetClustersArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetClustersResult>("databricks:index/getClusters:getClusters", args ?? new GetClustersArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// Retrieve all clusters on this workspace on AWS or GCP:
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var all = Output.Create(Databricks.GetClusters.InvokeAsync());
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// 
+        /// Retrieve all clusters with "Shared" in their cluster name on this Azure Databricks workspace:
+        /// 
+        /// ```csharp
+        /// using Pulumi;
+        /// using Databricks = Pulumi.Databricks;
+        /// 
+        /// class MyStack : Stack
+        /// {
+        ///     public MyStack()
+        ///     {
+        ///         var allShared = Output.Create(Databricks.GetClusters.InvokeAsync(new Databricks.GetClustersArgs
+        ///         {
+        ///             ClusterNameContains = "shared",
+        ///         }));
+        ///     }
+        /// 
+        /// }
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.Cluster to create [Databricks Clusters](https://docs.databricks.com/clusters/index.html).
+        /// * databricks.ClusterPolicy to create a databricks.Cluster policy, which limits the ability to create clusters based on a set of rules.
+        /// * databricks.InstancePool to manage [instance pools](https://docs.databricks.com/clusters/instance-pools/index.html) to reduce cluster start and auto-scaling times by maintaining a set of idle, ready-to-use instances.
+        /// * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
+        /// * databricks.Library to install a [library](https://docs.databricks.com/libraries/index.html) on databricks_cluster.
+        /// * databricks.Pipeline to deploy [Delta Live Tables](https://docs.databricks.com/data-engineering/delta-live-tables/index.html).
+        /// </summary>
         public static Output<GetClustersResult> Invoke(GetClustersInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetClustersResult>("databricks:index/getClusters:getClusters", args ?? new GetClustersInvokeArgs(), options.WithDefaults());
     }
@@ -21,6 +127,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetClustersArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Only return databricks.Cluster ids that match the given name string.
+        /// </summary>
         [Input("clusterNameContains")]
         public string? ClusterNameContains { get; set; }
 
@@ -31,6 +140,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetClustersInvokeArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Only return databricks.Cluster ids that match the given name string.
+        /// </summary>
         [Input("clusterNameContains")]
         public Input<string>? ClusterNameContains { get; set; }
 
@@ -48,6 +160,9 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// list of databricks.Cluster ids
+        /// </summary>
         public readonly ImmutableArray<string> Ids;
 
         [OutputConstructor]

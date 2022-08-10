@@ -12,6 +12,9 @@ namespace Pulumi.Databricks.Inputs
 
     public sealed class InstancePoolGcpAttributesGetArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Availability type used for all nodes. Valid values are `PREEMPTIBLE_GCP`, `PREEMPTIBLE_WITH_FALLBACK_GCP` and `ON_DEMAND_GCP`, default: `ON_DEMAND_GCP`.
+        /// </summary>
         [Input("availability")]
         public Input<string>? Availability { get; set; }
 

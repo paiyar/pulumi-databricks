@@ -11,9 +11,27 @@ namespace Pulumi.Databricks
 {
     public static class GetTables
     {
+        /// <summary>
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * databricks.Table to manage tables within Unity Catalog.
+        /// * databricks.Schema to manage schemas within Unity Catalog.
+        /// * databricks.Catalog to manage catalogs within Unity Catalog.
+        /// </summary>
         public static Task<GetTablesResult> InvokeAsync(GetTablesArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetTablesResult>("databricks:index/getTables:getTables", args ?? new GetTablesArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * databricks.Table to manage tables within Unity Catalog.
+        /// * databricks.Schema to manage schemas within Unity Catalog.
+        /// * databricks.Catalog to manage catalogs within Unity Catalog.
+        /// </summary>
         public static Output<GetTablesResult> Invoke(GetTablesInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetTablesResult>("databricks:index/getTables:getTables", args ?? new GetTablesInvokeArgs(), options.WithDefaults());
     }
@@ -21,17 +39,27 @@ namespace Pulumi.Databricks
 
     public sealed class GetTablesArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Name of databricks_catalog
+        /// </summary>
         [Input("catalogName", required: true)]
         public string CatalogName { get; set; } = null!;
 
         [Input("ids")]
         private List<string>? _ids;
+
+        /// <summary>
+        /// set of databricks.Table full names: *`catalog`.`schema`.`table`*
+        /// </summary>
         public List<string> Ids
         {
             get => _ids ?? (_ids = new List<string>());
             set => _ids = value;
         }
 
+        /// <summary>
+        /// Name of databricks_schema
+        /// </summary>
         [Input("schemaName", required: true)]
         public string SchemaName { get; set; } = null!;
 
@@ -42,17 +70,27 @@ namespace Pulumi.Databricks
 
     public sealed class GetTablesInvokeArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Name of databricks_catalog
+        /// </summary>
         [Input("catalogName", required: true)]
         public Input<string> CatalogName { get; set; } = null!;
 
         [Input("ids")]
         private InputList<string>? _ids;
+
+        /// <summary>
+        /// set of databricks.Table full names: *`catalog`.`schema`.`table`*
+        /// </summary>
         public InputList<string> Ids
         {
             get => _ids ?? (_ids = new InputList<string>());
             set => _ids = value;
         }
 
+        /// <summary>
+        /// Name of databricks_schema
+        /// </summary>
         [Input("schemaName", required: true)]
         public Input<string> SchemaName { get; set; } = null!;
 
@@ -70,6 +108,9 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// set of databricks.Table full names: *`catalog`.`schema`.`table`*
+        /// </summary>
         public readonly ImmutableArray<string> Ids;
         public readonly string SchemaName;
 

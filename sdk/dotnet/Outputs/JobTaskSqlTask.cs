@@ -15,6 +15,9 @@ namespace Pulumi.Databricks.Outputs
     {
         public readonly Outputs.JobTaskSqlTaskAlert? Alert;
         public readonly Outputs.JobTaskSqlTaskDashboard? Dashboard;
+        /// <summary>
+        /// Parameters for the task
+        /// </summary>
         public readonly ImmutableDictionary<string, object>? Parameters;
         public readonly Outputs.JobTaskSqlTaskQuery? Query;
         public readonly string? WarehouseId;

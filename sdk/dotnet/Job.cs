@@ -9,15 +9,33 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// ## Import
+    /// 
+    /// The resource job can be imported using the id of the job bash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/job:Job this &lt;job-id&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/job:Job")]
     public partial class Job : Pulumi.CustomResource
     {
+        /// <summary>
+        /// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `spark_jar_task` or `spark_submit_task` or `spark_python_task` or `notebook_task` blocks.
+        /// </summary>
         [Output("alwaysRunning")]
         public Output<bool?> AlwaysRunning { get; private set; } = null!;
 
+        /// <summary>
+        /// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
+        /// </summary>
         [Output("emailNotifications")]
         public Output<Outputs.JobEmailNotifications?> EmailNotifications { get; private set; } = null!;
 
+        /// <summary>
+        /// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `new_cluster` for greater reliability.
+        /// </summary>
         [Output("existingClusterId")]
         public Output<string?> ExistingClusterId { get; private set; } = null!;
 
@@ -30,21 +48,39 @@ namespace Pulumi.Databricks
         [Output("jobClusters")]
         public Output<ImmutableArray<Outputs.JobJobCluster>> JobClusters { get; private set; } = null!;
 
+        /// <summary>
+        /// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for databricks.Cluster resource.
+        /// </summary>
         [Output("libraries")]
         public Output<ImmutableArray<Outputs.JobLibrary>> Libraries { get; private set; } = null!;
 
+        /// <summary>
+        /// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
+        /// </summary>
         [Output("maxConcurrentRuns")]
         public Output<int?> MaxConcurrentRuns { get; private set; } = null!;
 
+        /// <summary>
+        /// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED result_state or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
+        /// </summary>
         [Output("maxRetries")]
         public Output<int?> MaxRetries { get; private set; } = null!;
 
+        /// <summary>
+        /// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+        /// </summary>
         [Output("minRetryIntervalMillis")]
         public Output<int?> MinRetryIntervalMillis { get; private set; } = null!;
 
+        /// <summary>
+        /// An optional name for the job. The default value is Untitled.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Same set of parameters as for databricks.Cluster resource.
+        /// </summary>
         [Output("newCluster")]
         public Output<Outputs.JobNewCluster?> NewCluster { get; private set; } = null!;
 
@@ -57,9 +93,15 @@ namespace Pulumi.Databricks
         [Output("pythonWheelTask")]
         public Output<Outputs.JobPythonWheelTask?> PythonWheelTask { get; private set; } = null!;
 
+        /// <summary>
+        /// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
+        /// </summary>
         [Output("retryOnTimeout")]
         public Output<bool?> RetryOnTimeout { get; private set; } = null!;
 
+        /// <summary>
+        /// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
+        /// </summary>
         [Output("schedule")]
         public Output<Outputs.JobSchedule?> Schedule { get; private set; } = null!;
 
@@ -72,15 +114,24 @@ namespace Pulumi.Databricks
         [Output("sparkSubmitTask")]
         public Output<Outputs.JobSparkSubmitTask?> SparkSubmitTask { get; private set; } = null!;
 
+        /// <summary>
+        /// (Map) An optional map of the tags associated with the job. Specified tags will be used as cluster tags for job clusters.
+        /// </summary>
         [Output("tags")]
         public Output<ImmutableDictionary<string, object>?> Tags { get; private set; } = null!;
 
         [Output("tasks")]
         public Output<ImmutableArray<Outputs.JobTask>> Tasks { get; private set; } = null!;
 
+        /// <summary>
+        /// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
+        /// </summary>
         [Output("timeoutSeconds")]
         public Output<int?> TimeoutSeconds { get; private set; } = null!;
 
+        /// <summary>
+        /// URL of the job on the given workspace
+        /// </summary>
         [Output("url")]
         public Output<string> Url { get; private set; } = null!;
 
@@ -130,12 +181,21 @@ namespace Pulumi.Databricks
 
     public sealed class JobArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `spark_jar_task` or `spark_submit_task` or `spark_python_task` or `notebook_task` blocks.
+        /// </summary>
         [Input("alwaysRunning")]
         public Input<bool>? AlwaysRunning { get; set; }
 
+        /// <summary>
+        /// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
+        /// </summary>
         [Input("emailNotifications")]
         public Input<Inputs.JobEmailNotificationsArgs>? EmailNotifications { get; set; }
 
+        /// <summary>
+        /// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `new_cluster` for greater reliability.
+        /// </summary>
         [Input("existingClusterId")]
         public Input<string>? ExistingClusterId { get; set; }
 
@@ -155,24 +215,43 @@ namespace Pulumi.Databricks
 
         [Input("libraries")]
         private InputList<Inputs.JobLibraryArgs>? _libraries;
+
+        /// <summary>
+        /// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for databricks.Cluster resource.
+        /// </summary>
         public InputList<Inputs.JobLibraryArgs> Libraries
         {
             get => _libraries ?? (_libraries = new InputList<Inputs.JobLibraryArgs>());
             set => _libraries = value;
         }
 
+        /// <summary>
+        /// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
+        /// </summary>
         [Input("maxConcurrentRuns")]
         public Input<int>? MaxConcurrentRuns { get; set; }
 
+        /// <summary>
+        /// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED result_state or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
+        /// </summary>
         [Input("maxRetries")]
         public Input<int>? MaxRetries { get; set; }
 
+        /// <summary>
+        /// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+        /// </summary>
         [Input("minRetryIntervalMillis")]
         public Input<int>? MinRetryIntervalMillis { get; set; }
 
+        /// <summary>
+        /// An optional name for the job. The default value is Untitled.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Same set of parameters as for databricks.Cluster resource.
+        /// </summary>
         [Input("newCluster")]
         public Input<Inputs.JobNewClusterArgs>? NewCluster { get; set; }
 
@@ -185,9 +264,15 @@ namespace Pulumi.Databricks
         [Input("pythonWheelTask")]
         public Input<Inputs.JobPythonWheelTaskArgs>? PythonWheelTask { get; set; }
 
+        /// <summary>
+        /// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
+        /// </summary>
         [Input("retryOnTimeout")]
         public Input<bool>? RetryOnTimeout { get; set; }
 
+        /// <summary>
+        /// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
+        /// </summary>
         [Input("schedule")]
         public Input<Inputs.JobScheduleArgs>? Schedule { get; set; }
 
@@ -202,6 +287,10 @@ namespace Pulumi.Databricks
 
         [Input("tags")]
         private InputMap<object>? _tags;
+
+        /// <summary>
+        /// (Map) An optional map of the tags associated with the job. Specified tags will be used as cluster tags for job clusters.
+        /// </summary>
         public InputMap<object> Tags
         {
             get => _tags ?? (_tags = new InputMap<object>());
@@ -216,6 +305,9 @@ namespace Pulumi.Databricks
             set => _tasks = value;
         }
 
+        /// <summary>
+        /// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
+        /// </summary>
         [Input("timeoutSeconds")]
         public Input<int>? TimeoutSeconds { get; set; }
 
@@ -226,12 +318,21 @@ namespace Pulumi.Databricks
 
     public sealed class JobState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `spark_jar_task` or `spark_submit_task` or `spark_python_task` or `notebook_task` blocks.
+        /// </summary>
         [Input("alwaysRunning")]
         public Input<bool>? AlwaysRunning { get; set; }
 
+        /// <summary>
+        /// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
+        /// </summary>
         [Input("emailNotifications")]
         public Input<Inputs.JobEmailNotificationsGetArgs>? EmailNotifications { get; set; }
 
+        /// <summary>
+        /// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `new_cluster` for greater reliability.
+        /// </summary>
         [Input("existingClusterId")]
         public Input<string>? ExistingClusterId { get; set; }
 
@@ -251,24 +352,43 @@ namespace Pulumi.Databricks
 
         [Input("libraries")]
         private InputList<Inputs.JobLibraryGetArgs>? _libraries;
+
+        /// <summary>
+        /// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for databricks.Cluster resource.
+        /// </summary>
         public InputList<Inputs.JobLibraryGetArgs> Libraries
         {
             get => _libraries ?? (_libraries = new InputList<Inputs.JobLibraryGetArgs>());
             set => _libraries = value;
         }
 
+        /// <summary>
+        /// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
+        /// </summary>
         [Input("maxConcurrentRuns")]
         public Input<int>? MaxConcurrentRuns { get; set; }
 
+        /// <summary>
+        /// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED result_state or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
+        /// </summary>
         [Input("maxRetries")]
         public Input<int>? MaxRetries { get; set; }
 
+        /// <summary>
+        /// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+        /// </summary>
         [Input("minRetryIntervalMillis")]
         public Input<int>? MinRetryIntervalMillis { get; set; }
 
+        /// <summary>
+        /// An optional name for the job. The default value is Untitled.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Same set of parameters as for databricks.Cluster resource.
+        /// </summary>
         [Input("newCluster")]
         public Input<Inputs.JobNewClusterGetArgs>? NewCluster { get; set; }
 
@@ -281,9 +401,15 @@ namespace Pulumi.Databricks
         [Input("pythonWheelTask")]
         public Input<Inputs.JobPythonWheelTaskGetArgs>? PythonWheelTask { get; set; }
 
+        /// <summary>
+        /// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
+        /// </summary>
         [Input("retryOnTimeout")]
         public Input<bool>? RetryOnTimeout { get; set; }
 
+        /// <summary>
+        /// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
+        /// </summary>
         [Input("schedule")]
         public Input<Inputs.JobScheduleGetArgs>? Schedule { get; set; }
 
@@ -298,6 +424,10 @@ namespace Pulumi.Databricks
 
         [Input("tags")]
         private InputMap<object>? _tags;
+
+        /// <summary>
+        /// (Map) An optional map of the tags associated with the job. Specified tags will be used as cluster tags for job clusters.
+        /// </summary>
         public InputMap<object> Tags
         {
             get => _tags ?? (_tags = new InputMap<object>());
@@ -312,9 +442,15 @@ namespace Pulumi.Databricks
             set => _tasks = value;
         }
 
+        /// <summary>
+        /// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
+        /// </summary>
         [Input("timeoutSeconds")]
         public Input<int>? TimeoutSeconds { get; set; }
 
+        /// <summary>
+        /// URL of the job on the given workspace
+        /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }
 

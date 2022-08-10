@@ -23,6 +23,10 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private Dictionary<string, object>? _ids;
+
+        /// <summary>
+        /// name-to-id map for all of the workspaces in the account
+        /// </summary>
         public Dictionary<string, object> Ids
         {
             get => _ids ?? (_ids = new Dictionary<string, object>());
@@ -38,6 +42,10 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private InputMap<object>? _ids;
+
+        /// <summary>
+        /// name-to-id map for all of the workspaces in the account
+        /// </summary>
         public InputMap<object> Ids
         {
             get => _ids ?? (_ids = new InputMap<object>());
@@ -57,6 +65,9 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// name-to-id map for all of the workspaces in the account
+        /// </summary>
         public readonly ImmutableDictionary<string, object> Ids;
 
         [OutputConstructor]

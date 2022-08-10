@@ -11,9 +11,23 @@ namespace Pulumi.Databricks
 {
     public static class GetJobs
     {
+        /// <summary>
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
+        /// </summary>
         public static Task<GetJobsResult> InvokeAsync(GetJobsArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetJobsResult>("databricks:index/getJobs:getJobs", args ?? new GetJobsArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// ## Related Resources
+        /// 
+        /// The following resources are used in the same context:
+        /// 
+        /// * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
+        /// </summary>
         public static Output<GetJobsResult> Invoke(GetJobsInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetJobsResult>("databricks:index/getJobs:getJobs", args ?? new GetJobsInvokeArgs(), options.WithDefaults());
     }
@@ -23,6 +37,10 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private Dictionary<string, object>? _ids;
+
+        /// <summary>
+        /// map of databricks.Job names to ids
+        /// </summary>
         public Dictionary<string, object> Ids
         {
             get => _ids ?? (_ids = new Dictionary<string, object>());
@@ -38,6 +56,10 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private InputMap<object>? _ids;
+
+        /// <summary>
+        /// map of databricks.Job names to ids
+        /// </summary>
         public InputMap<object> Ids
         {
             get => _ids ?? (_ids = new InputMap<object>());
@@ -57,6 +79,9 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// map of databricks.Job names to ids
+        /// </summary>
         public readonly ImmutableDictionary<string, object> Ids;
 
         [OutputConstructor]

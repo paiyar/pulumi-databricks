@@ -9,6 +9,22 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
+    /// <summary>
+    /// &gt; **Public Preview** This feature is in [Public Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
+    /// 
+    /// To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
+    /// 
+    /// - `databricks.StorageCredential` represents authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal/managed identity for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
+    /// - databricks.ExternalLocation are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
+    /// 
+    /// ## Import
+    /// 
+    /// This resource can be imported by namebash
+    /// 
+    /// ```sh
+    ///  $ pulumi import databricks:index/storageCredential:StorageCredential this &lt;name&gt;
+    /// ```
+    /// </summary>
     [DatabricksResourceType("databricks:index/storageCredential:StorageCredential")]
     public partial class StorageCredential : Pulumi.CustomResource
     {
@@ -27,6 +43,9 @@ namespace Pulumi.Databricks
         [Output("metastoreId")]
         public Output<string> MetastoreId { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
@@ -94,6 +113,9 @@ namespace Pulumi.Databricks
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
+        /// <summary>
+        /// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -122,6 +144,9 @@ namespace Pulumi.Databricks
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
+        /// <summary>
+        /// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

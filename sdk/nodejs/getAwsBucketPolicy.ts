@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * This datasource configures a simple access policy for AWS S3 buckets, so that Databricks can access data in it.
+ *
+ * ## Related Resources
+ *
+ * The following resources are used in the same context:
+ *
+ * * Provisioning AWS Databricks E2 with a Hub & Spoke firewall for data exfiltration protection guide
+ * * End to end workspace management guide
+ * * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
+ * * databricks.Mount to [mount your cloud storage](https://docs.databricks.com/data/databricks-file-system.html#mount-object-storage-to-dbfs) on `dbfs:/mnt/name`.
+ */
 export function getAwsBucketPolicy(args: GetAwsBucketPolicyArgs, opts?: pulumi.InvokeOptions): Promise<GetAwsBucketPolicyResult> {
     if (!opts) {
         opts = {}
@@ -21,8 +33,14 @@ export function getAwsBucketPolicy(args: GetAwsBucketPolicyArgs, opts?: pulumi.I
  * A collection of arguments for invoking getAwsBucketPolicy.
  */
 export interface GetAwsBucketPolicyArgs {
+    /**
+     * AWS S3 Bucket name for which to generate the policy document.
+     */
     bucket: string;
     databricksAccountId?: string;
+    /**
+     * Data access role that can have full access for this bucket
+     */
     fullAccessRole?: string;
 }
 
@@ -37,6 +55,9 @@ export interface GetAwsBucketPolicyResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * (Read-only) AWS IAM Policy JSON document to grant Databricks full access to bucket.
+     */
     readonly json: string;
 }
 
@@ -48,7 +69,13 @@ export function getAwsBucketPolicyOutput(args: GetAwsBucketPolicyOutputArgs, opt
  * A collection of arguments for invoking getAwsBucketPolicy.
  */
 export interface GetAwsBucketPolicyOutputArgs {
+    /**
+     * AWS S3 Bucket name for which to generate the policy document.
+     */
     bucket: pulumi.Input<string>;
     databricksAccountId?: pulumi.Input<string>;
+    /**
+     * Data access role that can have full access for this bucket
+     */
     fullAccessRole?: pulumi.Input<string>;
 }

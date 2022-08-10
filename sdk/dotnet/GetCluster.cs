@@ -11,9 +11,35 @@ namespace Pulumi.Databricks
 {
     public static class GetCluster
     {
+        /// <summary>
+        /// ## Related Resources
+        /// 
+        /// The following resources are often used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.Cluster to create [Databricks Clusters](https://docs.databricks.com/clusters/index.html).
+        /// * databricks.ClusterPolicy to create a databricks.Cluster policy, which limits the ability to create clusters based on a set of rules.
+        /// * databricks.InstancePool to manage [instance pools](https://docs.databricks.com/clusters/instance-pools/index.html) to reduce cluster start and auto-scaling times by maintaining a set of idle, ready-to-use instances.
+        /// * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
+        /// * databricks.Library to install a [library](https://docs.databricks.com/libraries/index.html) on databricks_cluster.
+        /// * databricks.Pipeline to deploy [Delta Live Tables](https://docs.databricks.com/data-engineering/delta-live-tables/index.html).
+        /// </summary>
         public static Task<GetClusterResult> InvokeAsync(GetClusterArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetClusterResult>("databricks:index/getCluster:getCluster", args ?? new GetClusterArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// ## Related Resources
+        /// 
+        /// The following resources are often used in the same context:
+        /// 
+        /// * End to end workspace management guide
+        /// * databricks.Cluster to create [Databricks Clusters](https://docs.databricks.com/clusters/index.html).
+        /// * databricks.ClusterPolicy to create a databricks.Cluster policy, which limits the ability to create clusters based on a set of rules.
+        /// * databricks.InstancePool to manage [instance pools](https://docs.databricks.com/clusters/instance-pools/index.html) to reduce cluster start and auto-scaling times by maintaining a set of idle, ready-to-use instances.
+        /// * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
+        /// * databricks.Library to install a [library](https://docs.databricks.com/libraries/index.html) on databricks_cluster.
+        /// * databricks.Pipeline to deploy [Delta Live Tables](https://docs.databricks.com/data-engineering/delta-live-tables/index.html).
+        /// </summary>
         public static Output<GetClusterResult> Invoke(GetClusterInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetClusterResult>("databricks:index/getCluster:getCluster", args ?? new GetClusterInvokeArgs(), options.WithDefaults());
     }
@@ -21,6 +47,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetClusterArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The id of the cluster
+        /// </summary>
         [Input("clusterId", required: true)]
         public string ClusterId { get; set; } = null!;
 
@@ -34,6 +63,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetClusterInvokeArgs : Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The id of the cluster
+        /// </summary>
         [Input("clusterId", required: true)]
         public Input<string> ClusterId { get; set; } = null!;
 

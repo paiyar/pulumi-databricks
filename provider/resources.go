@@ -137,7 +137,7 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:   "https://www.pulumi.com",
 		Repository: "https://github.com/paiyar/pulumi-databricks",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg:            "databrickslabs",
+		GitHubOrg:            "databricks",
 		Config:               configMap,
 		PreConfigureCallback: preConfigureCallback,
 		Resources:            resourceMap,
