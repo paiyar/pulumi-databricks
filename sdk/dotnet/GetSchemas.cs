@@ -21,18 +21,11 @@ namespace Pulumi.Databricks
 
     public sealed class GetSchemasArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Name of databricks_catalog
-        /// </summary>
         [Input("catalogName", required: true)]
         public string CatalogName { get; set; } = null!;
 
         [Input("ids")]
         private List<string>? _ids;
-
-        /// <summary>
-        /// set of databricks.Schema full names: *`catalog`.`schema`*
-        /// </summary>
         public List<string> Ids
         {
             get => _ids ?? (_ids = new List<string>());
@@ -46,18 +39,11 @@ namespace Pulumi.Databricks
 
     public sealed class GetSchemasInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Name of databricks_catalog
-        /// </summary>
         [Input("catalogName", required: true)]
         public Input<string> CatalogName { get; set; } = null!;
 
         [Input("ids")]
         private InputList<string>? _ids;
-
-        /// <summary>
-        /// set of databricks.Schema full names: *`catalog`.`schema`*
-        /// </summary>
         public InputList<string> Ids
         {
             get => _ids ?? (_ids = new InputList<string>());
@@ -78,9 +64,6 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// set of databricks.Schema full names: *`catalog`.`schema`*
-        /// </summary>
         public readonly ImmutableArray<string> Ids;
 
         [OutputConstructor]

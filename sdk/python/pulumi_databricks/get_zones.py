@@ -33,9 +33,6 @@ class GetZonesResult:
     @property
     @pulumi.getter(name="defaultZone")
     def default_zone(self) -> str:
-        """
-        This is the default zone that gets assigned to your workspace. This is the zone used by default for clusters and instance pools.
-        """
         return pulumi.get(self, "default_zone")
 
     @property
@@ -49,9 +46,6 @@ class GetZonesResult:
     @property
     @pulumi.getter
     def zones(self) -> Sequence[str]:
-        """
-        This is a list of all the zones available for your subnets in your Databricks workspace.
-        """
         return pulumi.get(self, "zones")
 
 

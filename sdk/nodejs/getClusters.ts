@@ -20,9 +20,6 @@ export function getClusters(args?: GetClustersArgs, opts?: pulumi.InvokeOptions)
  * A collection of arguments for invoking getClusters.
  */
 export interface GetClustersArgs {
-    /**
-     * Only return databricks.Cluster ids that match the given name string.
-     */
     clusterNameContains?: string;
 }
 
@@ -35,9 +32,6 @@ export interface GetClustersResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * list of databricks.Cluster ids
-     */
     readonly ids: string[];
 }
 
@@ -49,8 +43,5 @@ export function getClustersOutput(args?: GetClustersOutputArgs, opts?: pulumi.In
  * A collection of arguments for invoking getClusters.
  */
 export interface GetClustersOutputArgs {
-    /**
-     * Only return databricks.Cluster ids that match the given name string.
-     */
     clusterNameContains?: pulumi.Input<string>;
 }

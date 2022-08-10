@@ -9,45 +9,24 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// The resource global init script can be imported using script IDbash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/globalInitScript:GlobalInitScript this script_id
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/globalInitScript:GlobalInitScript")]
     public partial class GlobalInitScript : Pulumi.CustomResource
     {
         [Output("contentBase64")]
         public Output<string?> ContentBase64 { get; private set; } = null!;
 
-        /// <summary>
-        /// specifies if the script is enabled for execution, or not
-        /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
 
         [Output("md5")]
         public Output<string?> Md5 { get; private set; } = null!;
 
-        /// <summary>
-        /// - the name of the script.  It should be unique
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        /// <summary>
-        /// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-        /// </summary>
         [Output("position")]
         public Output<int> Position { get; private set; } = null!;
 
-        /// <summary>
-        /// Path to script's source code on local filesystem. Conflicts with `content_base64`
-        /// </summary>
         [Output("source")]
         public Output<string?> Source { get; private set; } = null!;
 
@@ -100,30 +79,18 @@ namespace Pulumi.Databricks
         [Input("contentBase64")]
         public Input<string>? ContentBase64 { get; set; }
 
-        /// <summary>
-        /// specifies if the script is enabled for execution, or not
-        /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         [Input("md5")]
         public Input<string>? Md5 { get; set; }
 
-        /// <summary>
-        /// - the name of the script.  It should be unique
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-        /// </summary>
         [Input("position")]
         public Input<int>? Position { get; set; }
 
-        /// <summary>
-        /// Path to script's source code on local filesystem. Conflicts with `content_base64`
-        /// </summary>
         [Input("source")]
         public Input<string>? Source { get; set; }
 
@@ -137,30 +104,18 @@ namespace Pulumi.Databricks
         [Input("contentBase64")]
         public Input<string>? ContentBase64 { get; set; }
 
-        /// <summary>
-        /// specifies if the script is enabled for execution, or not
-        /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         [Input("md5")]
         public Input<string>? Md5 { get; set; }
 
-        /// <summary>
-        /// - the name of the script.  It should be unique
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-        /// </summary>
         [Input("position")]
         public Input<int>? Position { get; set; }
 
-        /// <summary>
-        /// Path to script's source code on local filesystem. Conflicts with `content_base64`
-        /// </summary>
         [Input("source")]
         public Input<string>? Source { get; set; }
 

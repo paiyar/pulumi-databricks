@@ -21,28 +21,21 @@ func LookupUser(ctx *pulumi.Context, args *LookupUserArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getUser.
 type LookupUserArgs struct {
-	// ID of the user.
-	UserId *string `pulumi:"userId"`
-	// User name of the user. The user must exist before this resource can be planned.
+	UserId   *string `pulumi:"userId"`
 	UserName *string `pulumi:"userName"`
 }
 
 // A collection of values returned by getUser.
 type LookupUserResult struct {
-	// Alphanumeric representation of user local name. e.g. `mrFoo`.
-	Alphanumeric string `pulumi:"alphanumeric"`
-	// Display name of the user, e.g. `Mr Foo`.
-	DisplayName string `pulumi:"displayName"`
-	// ID of the user in an external identity provider.
-	ExternalId string `pulumi:"externalId"`
-	// Home folder of the user, e.g. `/Users/mr.foo@example.com`.
-	Home string `pulumi:"home"`
+	Alphanumeric  string `pulumi:"alphanumeric"`
+	ApplicationId string `pulumi:"applicationId"`
+	DisplayName   string `pulumi:"displayName"`
+	ExternalId    string `pulumi:"externalId"`
+	Home          string `pulumi:"home"`
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// Personal Repos location of the user, e.g. `/Repos/mr.foo@example.com`.
-	Repos  string  `pulumi:"repos"`
-	UserId *string `pulumi:"userId"`
-	// Name of the user, e.g. `mr.foo@example.com`.
+	Id       string  `pulumi:"id"`
+	Repos    string  `pulumi:"repos"`
+	UserId   *string `pulumi:"userId"`
 	UserName *string `pulumi:"userName"`
 }
 
@@ -57,9 +50,7 @@ func LookupUserOutput(ctx *pulumi.Context, args LookupUserOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getUser.
 type LookupUserOutputArgs struct {
-	// ID of the user.
-	UserId pulumi.StringPtrInput `pulumi:"userId"`
-	// User name of the user. The user must exist before this resource can be planned.
+	UserId   pulumi.StringPtrInput `pulumi:"userId"`
 	UserName pulumi.StringPtrInput `pulumi:"userName"`
 }
 
@@ -82,22 +73,22 @@ func (o LookupUserResultOutput) ToLookupUserResultOutputWithContext(ctx context.
 	return o
 }
 
-// Alphanumeric representation of user local name. e.g. `mrFoo`.
 func (o LookupUserResultOutput) Alphanumeric() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Alphanumeric }).(pulumi.StringOutput)
 }
 
-// Display name of the user, e.g. `Mr Foo`.
+func (o LookupUserResultOutput) ApplicationId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupUserResult) string { return v.ApplicationId }).(pulumi.StringOutput)
+}
+
 func (o LookupUserResultOutput) DisplayName() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.DisplayName }).(pulumi.StringOutput)
 }
 
-// ID of the user in an external identity provider.
 func (o LookupUserResultOutput) ExternalId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.ExternalId }).(pulumi.StringOutput)
 }
 
-// Home folder of the user, e.g. `/Users/mr.foo@example.com`.
 func (o LookupUserResultOutput) Home() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Home }).(pulumi.StringOutput)
 }
@@ -107,7 +98,6 @@ func (o LookupUserResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// Personal Repos location of the user, e.g. `/Repos/mr.foo@example.com`.
 func (o LookupUserResultOutput) Repos() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Repos }).(pulumi.StringOutput)
 }
@@ -116,7 +106,6 @@ func (o LookupUserResultOutput) UserId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupUserResult) *string { return v.UserId }).(pulumi.StringPtrOutput)
 }
 
-// Name of the user, e.g. `mr.foo@example.com`.
 func (o LookupUserResultOutput) UserName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupUserResult) *string { return v.UserName }).(pulumi.StringPtrOutput)
 }

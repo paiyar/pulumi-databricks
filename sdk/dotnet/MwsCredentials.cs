@@ -9,44 +9,24 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/mwsCredentials:MwsCredentials")]
     public partial class MwsCredentials : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Output("accountId")]
         public Output<string> AccountId { get; private set; } = null!;
 
-        /// <summary>
-        /// (Integer) time of credentials registration
-        /// </summary>
         [Output("creationTime")]
         public Output<int> CreationTime { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) identifier of credentials
-        /// </summary>
         [Output("credentialsId")]
         public Output<string> CredentialsId { get; private set; } = null!;
 
-        /// <summary>
-        /// name of credentials to register
-        /// </summary>
         [Output("credentialsName")]
         public Output<string> CredentialsName { get; private set; } = null!;
 
         [Output("externalId")]
         public Output<string> ExternalId { get; private set; } = null!;
 
-        /// <summary>
-        /// ARN of cross-account role
-        /// </summary>
         [Output("roleArn")]
         public Output<string> RoleArn { get; private set; } = null!;
 
@@ -96,21 +76,12 @@ namespace Pulumi.Databricks
 
     public sealed class MwsCredentialsArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId", required: true)]
         public Input<string> AccountId { get; set; } = null!;
 
-        /// <summary>
-        /// name of credentials to register
-        /// </summary>
         [Input("credentialsName", required: true)]
         public Input<string> CredentialsName { get; set; } = null!;
 
-        /// <summary>
-        /// ARN of cross-account role
-        /// </summary>
         [Input("roleArn", required: true)]
         public Input<string> RoleArn { get; set; } = null!;
 
@@ -121,36 +92,21 @@ namespace Pulumi.Databricks
 
     public sealed class MwsCredentialsState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
 
-        /// <summary>
-        /// (Integer) time of credentials registration
-        /// </summary>
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
-        /// <summary>
-        /// (String) identifier of credentials
-        /// </summary>
         [Input("credentialsId")]
         public Input<string>? CredentialsId { get; set; }
 
-        /// <summary>
-        /// name of credentials to register
-        /// </summary>
         [Input("credentialsName")]
         public Input<string>? CredentialsName { get; set; }
 
         [Input("externalId")]
         public Input<string>? ExternalId { get; set; }
 
-        /// <summary>
-        /// ARN of cross-account role
-        /// </summary>
         [Input("roleArn")]
         public Input<string>? RoleArn { get; set; }
 

@@ -23,25 +23,10 @@ export function getNotebook(args: GetNotebookArgs, opts?: pulumi.InvokeOptions):
  * A collection of arguments for invoking getNotebook.
  */
 export interface GetNotebookArgs {
-    /**
-     * Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-     */
     format: string;
-    /**
-     * notebook language
-     */
     language?: string;
-    /**
-     * notebook object ID
-     */
     objectId?: number;
-    /**
-     * notebook object type
-     */
     objectType?: string;
-    /**
-     * Notebook path on the workspace
-     */
     path: string;
 }
 
@@ -49,26 +34,14 @@ export interface GetNotebookArgs {
  * A collection of values returned by getNotebook.
  */
 export interface GetNotebookResult {
-    /**
-     * notebook content in selected format
-     */
     readonly content: string;
     readonly format: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * notebook language
-     */
     readonly language: string;
-    /**
-     * notebook object ID
-     */
     readonly objectId: number;
-    /**
-     * notebook object type
-     */
     readonly objectType: string;
     readonly path: string;
 }
@@ -81,24 +54,9 @@ export function getNotebookOutput(args: GetNotebookOutputArgs, opts?: pulumi.Inv
  * A collection of arguments for invoking getNotebook.
  */
 export interface GetNotebookOutputArgs {
-    /**
-     * Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-     */
     format: pulumi.Input<string>;
-    /**
-     * notebook language
-     */
     language?: pulumi.Input<string>;
-    /**
-     * notebook object ID
-     */
     objectId?: pulumi.Input<number>;
-    /**
-     * notebook object type
-     */
     objectType?: pulumi.Input<string>;
-    /**
-     * Notebook path on the workspace
-     */
     path: pulumi.Input<string>;
 }

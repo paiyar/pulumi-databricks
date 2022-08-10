@@ -5,11 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class Mount extends pulumi.CustomResource {
     /**
      * Get an existing Mount resource's state with the given name, ID, and optional extra
@@ -47,9 +42,6 @@ export class Mount extends pulumi.CustomResource {
     public readonly name!: pulumi.Output<string>;
     public readonly resourceId!: pulumi.Output<string | undefined>;
     public readonly s3!: pulumi.Output<outputs.MountS3 | undefined>;
-    /**
-     * (String) HDFS-compatible url
-     */
     public /*out*/ readonly source!: pulumi.Output<string>;
     public readonly uri!: pulumi.Output<string | undefined>;
     public readonly wasb!: pulumi.Output<outputs.MountWasb | undefined>;
@@ -112,9 +104,6 @@ export interface MountState {
     name?: pulumi.Input<string>;
     resourceId?: pulumi.Input<string>;
     s3?: pulumi.Input<inputs.MountS3>;
-    /**
-     * (String) HDFS-compatible url
-     */
     source?: pulumi.Input<string>;
     uri?: pulumi.Input<string>;
     wasb?: pulumi.Input<inputs.MountWasb>;

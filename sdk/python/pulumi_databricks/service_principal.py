@@ -19,16 +19,11 @@ class ServicePrincipalArgs:
                  application_id: Optional[pulumi.Input[str]] = None,
                  databricks_sql_access: Optional[pulumi.Input[bool]] = None,
                  display_name: Optional[pulumi.Input[str]] = None,
+                 external_id: Optional[pulumi.Input[str]] = None,
+                 force: Optional[pulumi.Input[bool]] = None,
                  workspace_access: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a ServicePrincipal resource.
-        :param pulumi.Input[bool] active: Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[str] application_id: This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the service principal and can be the full name of the service principal.
-        :param pulumi.Input[bool] workspace_access: This is a field to allow the group to have access to Databricks Workspace.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -42,15 +37,16 @@ class ServicePrincipalArgs:
             pulumi.set(__self__, "databricks_sql_access", databricks_sql_access)
         if display_name is not None:
             pulumi.set(__self__, "display_name", display_name)
+        if external_id is not None:
+            pulumi.set(__self__, "external_id", external_id)
+        if force is not None:
+            pulumi.set(__self__, "force", force)
         if workspace_access is not None:
             pulumi.set(__self__, "workspace_access", workspace_access)
 
     @property
     @pulumi.getter
     def active(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        """
         return pulumi.get(self, "active")
 
     @active.setter
@@ -60,9 +56,6 @@ class ServicePrincipalArgs:
     @property
     @pulumi.getter(name="allowClusterCreate")
     def allow_cluster_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        """
         return pulumi.get(self, "allow_cluster_create")
 
     @allow_cluster_create.setter
@@ -72,9 +65,6 @@ class ServicePrincipalArgs:
     @property
     @pulumi.getter(name="allowInstancePoolCreate")
     def allow_instance_pool_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        """
         return pulumi.get(self, "allow_instance_pool_create")
 
     @allow_instance_pool_create.setter
@@ -84,9 +74,6 @@ class ServicePrincipalArgs:
     @property
     @pulumi.getter(name="applicationId")
     def application_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        """
         return pulumi.get(self, "application_id")
 
     @application_id.setter
@@ -96,9 +83,6 @@ class ServicePrincipalArgs:
     @property
     @pulumi.getter(name="databricksSqlAccess")
     def databricks_sql_access(self) -> Optional[pulumi.Input[bool]]:
-        """
-        This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        """
         return pulumi.get(self, "databricks_sql_access")
 
     @databricks_sql_access.setter
@@ -108,9 +92,6 @@ class ServicePrincipalArgs:
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is an alias for the service principal and can be the full name of the service principal.
-        """
         return pulumi.get(self, "display_name")
 
     @display_name.setter
@@ -118,11 +99,26 @@ class ServicePrincipalArgs:
         pulumi.set(self, "display_name", value)
 
     @property
+    @pulumi.getter(name="externalId")
+    def external_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "external_id")
+
+    @external_id.setter
+    def external_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "external_id", value)
+
+    @property
+    @pulumi.getter
+    def force(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "force")
+
+    @force.setter
+    def force(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "force", value)
+
+    @property
     @pulumi.getter(name="workspaceAccess")
     def workspace_access(self) -> Optional[pulumi.Input[bool]]:
-        """
-        This is a field to allow the group to have access to Databricks Workspace.
-        """
         return pulumi.get(self, "workspace_access")
 
     @workspace_access.setter
@@ -139,16 +135,11 @@ class _ServicePrincipalState:
                  application_id: Optional[pulumi.Input[str]] = None,
                  databricks_sql_access: Optional[pulumi.Input[bool]] = None,
                  display_name: Optional[pulumi.Input[str]] = None,
+                 external_id: Optional[pulumi.Input[str]] = None,
+                 force: Optional[pulumi.Input[bool]] = None,
                  workspace_access: Optional[pulumi.Input[bool]] = None):
         """
         Input properties used for looking up and filtering ServicePrincipal resources.
-        :param pulumi.Input[bool] active: Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[str] application_id: This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the service principal and can be the full name of the service principal.
-        :param pulumi.Input[bool] workspace_access: This is a field to allow the group to have access to Databricks Workspace.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -162,15 +153,16 @@ class _ServicePrincipalState:
             pulumi.set(__self__, "databricks_sql_access", databricks_sql_access)
         if display_name is not None:
             pulumi.set(__self__, "display_name", display_name)
+        if external_id is not None:
+            pulumi.set(__self__, "external_id", external_id)
+        if force is not None:
+            pulumi.set(__self__, "force", force)
         if workspace_access is not None:
             pulumi.set(__self__, "workspace_access", workspace_access)
 
     @property
     @pulumi.getter
     def active(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        """
         return pulumi.get(self, "active")
 
     @active.setter
@@ -180,9 +172,6 @@ class _ServicePrincipalState:
     @property
     @pulumi.getter(name="allowClusterCreate")
     def allow_cluster_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        """
         return pulumi.get(self, "allow_cluster_create")
 
     @allow_cluster_create.setter
@@ -192,9 +181,6 @@ class _ServicePrincipalState:
     @property
     @pulumi.getter(name="allowInstancePoolCreate")
     def allow_instance_pool_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        """
         return pulumi.get(self, "allow_instance_pool_create")
 
     @allow_instance_pool_create.setter
@@ -204,9 +190,6 @@ class _ServicePrincipalState:
     @property
     @pulumi.getter(name="applicationId")
     def application_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        """
         return pulumi.get(self, "application_id")
 
     @application_id.setter
@@ -216,9 +199,6 @@ class _ServicePrincipalState:
     @property
     @pulumi.getter(name="databricksSqlAccess")
     def databricks_sql_access(self) -> Optional[pulumi.Input[bool]]:
-        """
-        This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        """
         return pulumi.get(self, "databricks_sql_access")
 
     @databricks_sql_access.setter
@@ -228,9 +208,6 @@ class _ServicePrincipalState:
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is an alias for the service principal and can be the full name of the service principal.
-        """
         return pulumi.get(self, "display_name")
 
     @display_name.setter
@@ -238,11 +215,26 @@ class _ServicePrincipalState:
         pulumi.set(self, "display_name", value)
 
     @property
+    @pulumi.getter(name="externalId")
+    def external_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "external_id")
+
+    @external_id.setter
+    def external_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "external_id", value)
+
+    @property
+    @pulumi.getter
+    def force(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "force")
+
+    @force.setter
+    def force(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "force", value)
+
+    @property
     @pulumi.getter(name="workspaceAccess")
     def workspace_access(self) -> Optional[pulumi.Input[bool]]:
-        """
-        This is a field to allow the group to have access to Databricks Workspace.
-        """
         return pulumi.get(self, "workspace_access")
 
     @workspace_access.setter
@@ -261,74 +253,14 @@ class ServicePrincipal(pulumi.CustomResource):
                  application_id: Optional[pulumi.Input[str]] = None,
                  databricks_sql_access: Optional[pulumi.Input[bool]] = None,
                  display_name: Optional[pulumi.Input[str]] = None,
+                 external_id: Optional[pulumi.Input[str]] = None,
+                 force: Optional[pulumi.Input[bool]] = None,
                  workspace_access: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        Directly manage [Service Principals](https://docs.databricks.com/administration-guide/users-groups/service-principals.html) that could be added to Group within workspace.
-
-        ## Example Usage
-
-        Creating regular service principal:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        sp = databricks.ServicePrincipal("sp", application_id="00000000-0000-0000-0000-000000000000")
-        ```
-
-        Creating service principal with administrative permissions - referencing special `admins` Group in GroupMember resource:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        admins = databricks.get_group(display_name="admins")
-        sp = databricks.ServicePrincipal("sp", application_id="00000000-0000-0000-0000-000000000000")
-        i_am_admin = databricks.GroupMember("i-am-admin",
-            group_id=admins.id,
-            member_id=sp.id)
-        ```
-
-        Creating service principal with cluster create permissions:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        sp = databricks.ServicePrincipal("sp",
-            allow_cluster_create=True,
-            application_id="00000000-0000-0000-0000-000000000000",
-            display_name="Example service principal")
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-        * Group data to retrieve information about Group members, entitlements and instance profiles.
-        * GroupMember to attach users and groups as group members.
-        * Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.
-
-        ## Import
-
-        The resource scim service principal can be imported using idbash
-
-        ```sh
-         $ pulumi import databricks:index/servicePrincipal:ServicePrincipal me <service-principal-id>
-        ```
-
+        Create a ServicePrincipal resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] active: Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[str] application_id: This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the service principal and can be the full name of the service principal.
-        :param pulumi.Input[bool] workspace_access: This is a field to allow the group to have access to Databricks Workspace.
         """
         ...
     @overload
@@ -337,62 +269,7 @@ class ServicePrincipal(pulumi.CustomResource):
                  args: Optional[ServicePrincipalArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Directly manage [Service Principals](https://docs.databricks.com/administration-guide/users-groups/service-principals.html) that could be added to Group within workspace.
-
-        ## Example Usage
-
-        Creating regular service principal:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        sp = databricks.ServicePrincipal("sp", application_id="00000000-0000-0000-0000-000000000000")
-        ```
-
-        Creating service principal with administrative permissions - referencing special `admins` Group in GroupMember resource:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        admins = databricks.get_group(display_name="admins")
-        sp = databricks.ServicePrincipal("sp", application_id="00000000-0000-0000-0000-000000000000")
-        i_am_admin = databricks.GroupMember("i-am-admin",
-            group_id=admins.id,
-            member_id=sp.id)
-        ```
-
-        Creating service principal with cluster create permissions:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        sp = databricks.ServicePrincipal("sp",
-            allow_cluster_create=True,
-            application_id="00000000-0000-0000-0000-000000000000",
-            display_name="Example service principal")
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-        * Group data to retrieve information about Group members, entitlements and instance profiles.
-        * GroupMember to attach users and groups as group members.
-        * Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.
-
-        ## Import
-
-        The resource scim service principal can be imported using idbash
-
-        ```sh
-         $ pulumi import databricks:index/servicePrincipal:ServicePrincipal me <service-principal-id>
-        ```
-
+        Create a ServicePrincipal resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ServicePrincipalArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -414,6 +291,8 @@ class ServicePrincipal(pulumi.CustomResource):
                  application_id: Optional[pulumi.Input[str]] = None,
                  databricks_sql_access: Optional[pulumi.Input[bool]] = None,
                  display_name: Optional[pulumi.Input[str]] = None,
+                 external_id: Optional[pulumi.Input[str]] = None,
+                 force: Optional[pulumi.Input[bool]] = None,
                  workspace_access: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         if opts is None:
@@ -433,6 +312,8 @@ class ServicePrincipal(pulumi.CustomResource):
             __props__.__dict__["application_id"] = application_id
             __props__.__dict__["databricks_sql_access"] = databricks_sql_access
             __props__.__dict__["display_name"] = display_name
+            __props__.__dict__["external_id"] = external_id
+            __props__.__dict__["force"] = force
             __props__.__dict__["workspace_access"] = workspace_access
         super(ServicePrincipal, __self__).__init__(
             'databricks:index/servicePrincipal:ServicePrincipal',
@@ -450,6 +331,8 @@ class ServicePrincipal(pulumi.CustomResource):
             application_id: Optional[pulumi.Input[str]] = None,
             databricks_sql_access: Optional[pulumi.Input[bool]] = None,
             display_name: Optional[pulumi.Input[str]] = None,
+            external_id: Optional[pulumi.Input[str]] = None,
+            force: Optional[pulumi.Input[bool]] = None,
             workspace_access: Optional[pulumi.Input[bool]] = None) -> 'ServicePrincipal':
         """
         Get an existing ServicePrincipal resource's state with the given name, id, and optional extra
@@ -458,13 +341,6 @@ class ServicePrincipal(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] active: Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[str] application_id: This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the service principal and can be the full name of the service principal.
-        :param pulumi.Input[bool] workspace_access: This is a field to allow the group to have access to Databricks Workspace.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -476,62 +352,53 @@ class ServicePrincipal(pulumi.CustomResource):
         __props__.__dict__["application_id"] = application_id
         __props__.__dict__["databricks_sql_access"] = databricks_sql_access
         __props__.__dict__["display_name"] = display_name
+        __props__.__dict__["external_id"] = external_id
+        __props__.__dict__["force"] = force
         __props__.__dict__["workspace_access"] = workspace_access
         return ServicePrincipal(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter
     def active(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        """
         return pulumi.get(self, "active")
 
     @property
     @pulumi.getter(name="allowClusterCreate")
     def allow_cluster_create(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        """
         return pulumi.get(self, "allow_cluster_create")
 
     @property
     @pulumi.getter(name="allowInstancePoolCreate")
     def allow_instance_pool_create(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        """
         return pulumi.get(self, "allow_instance_pool_create")
 
     @property
     @pulumi.getter(name="applicationId")
     def application_id(self) -> pulumi.Output[str]:
-        """
-        This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        """
         return pulumi.get(self, "application_id")
 
     @property
     @pulumi.getter(name="databricksSqlAccess")
     def databricks_sql_access(self) -> pulumi.Output[Optional[bool]]:
-        """
-        This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        """
         return pulumi.get(self, "databricks_sql_access")
 
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> pulumi.Output[str]:
-        """
-        This is an alias for the service principal and can be the full name of the service principal.
-        """
         return pulumi.get(self, "display_name")
+
+    @property
+    @pulumi.getter(name="externalId")
+    def external_id(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "external_id")
+
+    @property
+    @pulumi.getter
+    def force(self) -> pulumi.Output[Optional[bool]]:
+        return pulumi.get(self, "force")
 
     @property
     @pulumi.getter(name="workspaceAccess")
     def workspace_access(self) -> pulumi.Output[Optional[bool]]:
-        """
-        This is a field to allow the group to have access to Databricks Workspace.
-        """
         return pulumi.get(self, "workspace_access")
 

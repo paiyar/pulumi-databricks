@@ -21,18 +21,15 @@ func GetSchemas(ctx *pulumi.Context, args *GetSchemasArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getSchemas.
 type GetSchemasArgs struct {
-	// Name of databricks_catalog
-	CatalogName string `pulumi:"catalogName"`
-	// set of Schema full names: *`catalog`.`schema`*
-	Ids []string `pulumi:"ids"`
+	CatalogName string   `pulumi:"catalogName"`
+	Ids         []string `pulumi:"ids"`
 }
 
 // A collection of values returned by getSchemas.
 type GetSchemasResult struct {
 	CatalogName string `pulumi:"catalogName"`
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// set of Schema full names: *`catalog`.`schema`*
+	Id  string   `pulumi:"id"`
 	Ids []string `pulumi:"ids"`
 }
 
@@ -47,10 +44,8 @@ func GetSchemasOutput(ctx *pulumi.Context, args GetSchemasOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getSchemas.
 type GetSchemasOutputArgs struct {
-	// Name of databricks_catalog
-	CatalogName pulumi.StringInput `pulumi:"catalogName"`
-	// set of Schema full names: *`catalog`.`schema`*
-	Ids pulumi.StringArrayInput `pulumi:"ids"`
+	CatalogName pulumi.StringInput      `pulumi:"catalogName"`
+	Ids         pulumi.StringArrayInput `pulumi:"ids"`
 }
 
 func (GetSchemasOutputArgs) ElementType() reflect.Type {
@@ -81,7 +76,6 @@ func (o GetSchemasResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetSchemasResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// set of Schema full names: *`catalog`.`schema`*
 func (o GetSchemasResultOutput) Ids() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetSchemasResult) []string { return v.Ids }).(pulumi.StringArrayOutput)
 }

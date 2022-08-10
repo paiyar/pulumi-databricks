@@ -10,80 +10,16 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-//
-// To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
-// - `StorageCredential` represents authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
-// - ExternalLocation are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"fmt"
-//
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		external, err := databricks.NewStorageCredential(ctx, "external", &databricks.StorageCredentialArgs{
-// 			AwsIamRole: &StorageCredentialAwsIamRoleArgs{
-// 				RoleArn: pulumi.Any(aws_iam_role.External_data_access.Arn),
-// 			},
-// 			Comment: pulumi.String("Managed by TF"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		someExternalLocation, err := databricks.NewExternalLocation(ctx, "someExternalLocation", &databricks.ExternalLocationArgs{
-// 			Url:            pulumi.String(fmt.Sprintf("%v%v%v", "s3://", aws_s3_bucket.External.Id, "/some")),
-// 			CredentialName: external.ID(),
-// 			Comment:        pulumi.String("Managed by TF"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewGrants(ctx, "someGrants", &databricks.GrantsArgs{
-// 			ExternalLocation: someExternalLocation.ID(),
-// 			Grants: GrantsGrantArray{
-// 				&GrantsGrantArgs{
-// 					Principal: pulumi.String("Data Engineers"),
-// 					Privileges: pulumi.StringArray{
-// 						pulumi.String("CREATE TABLE"),
-// 						pulumi.String("READ FILES"),
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// ## Import
-//
-// This resource can be imported by namebash
-//
-// ```sh
-//  $ pulumi import databricks:index/storageCredential:StorageCredential this <name>
-// ```
 type StorageCredential struct {
 	pulumi.CustomResourceState
 
 	AwsIamRole            StorageCredentialAwsIamRolePtrOutput            `pulumi:"awsIamRole"`
+	AzureManagedIdentity  StorageCredentialAzureManagedIdentityPtrOutput  `pulumi:"azureManagedIdentity"`
 	AzureServicePrincipal StorageCredentialAzureServicePrincipalPtrOutput `pulumi:"azureServicePrincipal"`
 	Comment               pulumi.StringPtrOutput                          `pulumi:"comment"`
 	MetastoreId           pulumi.StringOutput                             `pulumi:"metastoreId"`
-	// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringOutput `pulumi:"name"`
+	Name                  pulumi.StringOutput                             `pulumi:"name"`
+	Owner                 pulumi.StringOutput                             `pulumi:"owner"`
 }
 
 // NewStorageCredential registers a new resource with the given unique name, arguments, and options.
@@ -116,20 +52,22 @@ func GetStorageCredential(ctx *pulumi.Context,
 // Input properties used for looking up and filtering StorageCredential resources.
 type storageCredentialState struct {
 	AwsIamRole            *StorageCredentialAwsIamRole            `pulumi:"awsIamRole"`
+	AzureManagedIdentity  *StorageCredentialAzureManagedIdentity  `pulumi:"azureManagedIdentity"`
 	AzureServicePrincipal *StorageCredentialAzureServicePrincipal `pulumi:"azureServicePrincipal"`
 	Comment               *string                                 `pulumi:"comment"`
 	MetastoreId           *string                                 `pulumi:"metastoreId"`
-	// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
+	Name                  *string                                 `pulumi:"name"`
+	Owner                 *string                                 `pulumi:"owner"`
 }
 
 type StorageCredentialState struct {
 	AwsIamRole            StorageCredentialAwsIamRolePtrInput
+	AzureManagedIdentity  StorageCredentialAzureManagedIdentityPtrInput
 	AzureServicePrincipal StorageCredentialAzureServicePrincipalPtrInput
 	Comment               pulumi.StringPtrInput
 	MetastoreId           pulumi.StringPtrInput
-	// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
+	Name                  pulumi.StringPtrInput
+	Owner                 pulumi.StringPtrInput
 }
 
 func (StorageCredentialState) ElementType() reflect.Type {
@@ -138,21 +76,23 @@ func (StorageCredentialState) ElementType() reflect.Type {
 
 type storageCredentialArgs struct {
 	AwsIamRole            *StorageCredentialAwsIamRole            `pulumi:"awsIamRole"`
+	AzureManagedIdentity  *StorageCredentialAzureManagedIdentity  `pulumi:"azureManagedIdentity"`
 	AzureServicePrincipal *StorageCredentialAzureServicePrincipal `pulumi:"azureServicePrincipal"`
 	Comment               *string                                 `pulumi:"comment"`
 	MetastoreId           *string                                 `pulumi:"metastoreId"`
-	// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
+	Name                  *string                                 `pulumi:"name"`
+	Owner                 *string                                 `pulumi:"owner"`
 }
 
 // The set of arguments for constructing a StorageCredential resource.
 type StorageCredentialArgs struct {
 	AwsIamRole            StorageCredentialAwsIamRolePtrInput
+	AzureManagedIdentity  StorageCredentialAzureManagedIdentityPtrInput
 	AzureServicePrincipal StorageCredentialAzureServicePrincipalPtrInput
 	Comment               pulumi.StringPtrInput
 	MetastoreId           pulumi.StringPtrInput
-	// Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
+	Name                  pulumi.StringPtrInput
+	Owner                 pulumi.StringPtrInput
 }
 
 func (StorageCredentialArgs) ElementType() reflect.Type {

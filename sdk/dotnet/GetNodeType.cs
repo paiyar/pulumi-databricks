@@ -21,78 +21,41 @@ namespace Pulumi.Databricks
 
     public sealed class GetNodeTypeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Node category, which can be one of (depending on the cloud environment, could be checked with `databricks clusters list-node-types|jq '.node_types[]|.category'|sort |uniq`):
-        /// * `General Purpose` (all clouds)
-        /// * `General Purpose (HDD)` (Azure)
-        /// * `Compute Optimized` (all clouds)
-        /// * `Memory Optimized` (all clouds)
-        /// * `Memory Optimized (Remote HDD)` (Azure)
-        /// * `Storage Optimized` (AWS, Azure)
-        /// * `GPU Accelerated` (AWS, Azure)
-        /// </summary>
         [Input("category")]
         public string? Category { get; set; }
 
-        /// <summary>
-        /// Number of gigabytes per core available on instance. Conflicts with `min_memory_gb`. Defaults to *0*.
-        /// </summary>
         [Input("gbPerCore")]
         public int? GbPerCore { get; set; }
 
-        /// <summary>
-        /// if we should limit the search only to nodes with AWS Graviton CPUs. Default to *false*.
-        /// </summary>
         [Input("graviton")]
         public bool? Graviton { get; set; }
 
-        /// <summary>
-        /// . Pick only nodes that have IO Cache. Defaults to *false*.
-        /// </summary>
         [Input("isIoCacheEnabled")]
         public bool? IsIoCacheEnabled { get; set; }
 
-        /// <summary>
-        /// Pick only nodes with local storage. Defaults to *false*.
-        /// </summary>
         [Input("localDisk")]
         public bool? LocalDisk { get; set; }
 
-        /// <summary>
-        /// Minimum number of CPU cores available on instance. Defaults to *0*.
-        /// </summary>
         [Input("minCores")]
         public int? MinCores { get; set; }
 
-        /// <summary>
-        /// Minimum number of GPU's attached to instance. Defaults to *0*.
-        /// </summary>
         [Input("minGpus")]
         public int? MinGpus { get; set; }
 
-        /// <summary>
-        /// Minimum amount of memory per node in gigabytes. Defaults to *0*.
-        /// </summary>
         [Input("minMemoryGb")]
         public int? MinMemoryGb { get; set; }
 
-        /// <summary>
-        /// Pick only nodes that can run Photon driver. Defaults to *false*.
-        /// </summary>
         [Input("photonDriverCapable")]
         public bool? PhotonDriverCapable { get; set; }
 
-        /// <summary>
-        /// Pick only nodes that can run Photon workers. Defaults to *false*.
-        /// </summary>
         [Input("photonWorkerCapable")]
         public bool? PhotonWorkerCapable { get; set; }
 
-        /// <summary>
-        /// Pick only nodes that support port forwarding. Defaults to *false*.
-        /// </summary>
         [Input("supportPortForwarding")]
         public bool? SupportPortForwarding { get; set; }
+
+        [Input("vcpu")]
+        public bool? Vcpu { get; set; }
 
         public GetNodeTypeArgs()
         {
@@ -101,78 +64,41 @@ namespace Pulumi.Databricks
 
     public sealed class GetNodeTypeInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Node category, which can be one of (depending on the cloud environment, could be checked with `databricks clusters list-node-types|jq '.node_types[]|.category'|sort |uniq`):
-        /// * `General Purpose` (all clouds)
-        /// * `General Purpose (HDD)` (Azure)
-        /// * `Compute Optimized` (all clouds)
-        /// * `Memory Optimized` (all clouds)
-        /// * `Memory Optimized (Remote HDD)` (Azure)
-        /// * `Storage Optimized` (AWS, Azure)
-        /// * `GPU Accelerated` (AWS, Azure)
-        /// </summary>
         [Input("category")]
         public Input<string>? Category { get; set; }
 
-        /// <summary>
-        /// Number of gigabytes per core available on instance. Conflicts with `min_memory_gb`. Defaults to *0*.
-        /// </summary>
         [Input("gbPerCore")]
         public Input<int>? GbPerCore { get; set; }
 
-        /// <summary>
-        /// if we should limit the search only to nodes with AWS Graviton CPUs. Default to *false*.
-        /// </summary>
         [Input("graviton")]
         public Input<bool>? Graviton { get; set; }
 
-        /// <summary>
-        /// . Pick only nodes that have IO Cache. Defaults to *false*.
-        /// </summary>
         [Input("isIoCacheEnabled")]
         public Input<bool>? IsIoCacheEnabled { get; set; }
 
-        /// <summary>
-        /// Pick only nodes with local storage. Defaults to *false*.
-        /// </summary>
         [Input("localDisk")]
         public Input<bool>? LocalDisk { get; set; }
 
-        /// <summary>
-        /// Minimum number of CPU cores available on instance. Defaults to *0*.
-        /// </summary>
         [Input("minCores")]
         public Input<int>? MinCores { get; set; }
 
-        /// <summary>
-        /// Minimum number of GPU's attached to instance. Defaults to *0*.
-        /// </summary>
         [Input("minGpus")]
         public Input<int>? MinGpus { get; set; }
 
-        /// <summary>
-        /// Minimum amount of memory per node in gigabytes. Defaults to *0*.
-        /// </summary>
         [Input("minMemoryGb")]
         public Input<int>? MinMemoryGb { get; set; }
 
-        /// <summary>
-        /// Pick only nodes that can run Photon driver. Defaults to *false*.
-        /// </summary>
         [Input("photonDriverCapable")]
         public Input<bool>? PhotonDriverCapable { get; set; }
 
-        /// <summary>
-        /// Pick only nodes that can run Photon workers. Defaults to *false*.
-        /// </summary>
         [Input("photonWorkerCapable")]
         public Input<bool>? PhotonWorkerCapable { get; set; }
 
-        /// <summary>
-        /// Pick only nodes that support port forwarding. Defaults to *false*.
-        /// </summary>
         [Input("supportPortForwarding")]
         public Input<bool>? SupportPortForwarding { get; set; }
+
+        [Input("vcpu")]
+        public Input<bool>? Vcpu { get; set; }
 
         public GetNodeTypeInvokeArgs()
         {
@@ -198,6 +124,7 @@ namespace Pulumi.Databricks
         public readonly bool? PhotonDriverCapable;
         public readonly bool? PhotonWorkerCapable;
         public readonly bool? SupportPortForwarding;
+        public readonly bool? Vcpu;
 
         [OutputConstructor]
         private GetNodeTypeResult(
@@ -223,7 +150,9 @@ namespace Pulumi.Databricks
 
             bool? photonWorkerCapable,
 
-            bool? supportPortForwarding)
+            bool? supportPortForwarding,
+
+            bool? vcpu)
         {
             Category = category;
             GbPerCore = gbPerCore;
@@ -237,6 +166,7 @@ namespace Pulumi.Databricks
             PhotonDriverCapable = photonDriverCapable;
             PhotonWorkerCapable = photonWorkerCapable;
             SupportPortForwarding = supportPortForwarding;
+            Vcpu = vcpu;
         }
     }
 }

@@ -11,65 +11,13 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// With this resource you can insert a secret under the provided scope with the given name. If a secret already exists with the same name, this command overwrites the existing secret’s value. The server encrypts the secret using the secret scope’s encryption settings before storing it. You must have WRITE or MANAGE permission on the secret scope. The secret key must consist of alphanumeric characters, dashes, underscores, and periods, and cannot exceed 128 characters. The maximum allowed secret value size is 128 KB. The maximum number of secrets in a given scope is 1000. You can read a secret value only from within a command on a cluster (for example, through a notebook); there is no API to read a secret value outside of a cluster. The permission applied is based on who is invoking the command and you must have at least READ permission. Please consult [Secrets User Guide](https://docs.databricks.com/security/secrets/index.html#secrets-user-guide) for more details.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		app, err := databricks.NewSecretScope(ctx, "app", nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewSecret(ctx, "publishingApi", &databricks.SecretArgs{
-// 			Key:         pulumi.String("publishing_api"),
-// 			StringValue: pulumi.Any(data.Azurerm_key_vault_secret.Example.Value),
-// 			Scope:       app.ID(),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
-// * Pipeline to deploy [Delta Live Tables](https://docs.databricks.com/data-engineering/delta-live-tables/index.html).
-// * Repo to manage [Databricks Repos](https://docs.databricks.com/repos.html).
-// * SecretAcl to manage access to [secrets](https://docs.databricks.com/security/secrets/index.html#secrets-user-guide) in Databricks workspace.
-// * SecretScope to create [secret scopes](https://docs.databricks.com/security/secrets/index.html#secrets-user-guide) in Databricks workspace.
-//
-// ## Import
-//
-// The resource secret can be imported using `scopeName|||secretKey` combination. **This may change in future versions.** bash
-//
-// ```sh
-//  $ pulumi import databricks:index/secret:Secret app `scopeName|||secretKey`
-// ```
 type Secret struct {
 	pulumi.CustomResourceState
 
-	// (String) key within secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Key pulumi.StringOutput `pulumi:"key"`
-	// (Integer) time secret was updated
-	LastUpdatedTimestamp pulumi.IntOutput `pulumi:"lastUpdatedTimestamp"`
-	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Scope pulumi.StringOutput `pulumi:"scope"`
-	// (String) super secret sensitive value.
-	StringValue pulumi.StringOutput `pulumi:"stringValue"`
+	Key                  pulumi.StringOutput `pulumi:"key"`
+	LastUpdatedTimestamp pulumi.IntOutput    `pulumi:"lastUpdatedTimestamp"`
+	Scope                pulumi.StringOutput `pulumi:"scope"`
+	StringValue          pulumi.StringOutput `pulumi:"stringValue"`
 }
 
 // NewSecret registers a new resource with the given unique name, arguments, and options.
@@ -110,25 +58,17 @@ func GetSecret(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Secret resources.
 type secretState struct {
-	// (String) key within secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Key *string `pulumi:"key"`
-	// (Integer) time secret was updated
-	LastUpdatedTimestamp *int `pulumi:"lastUpdatedTimestamp"`
-	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Scope *string `pulumi:"scope"`
-	// (String) super secret sensitive value.
-	StringValue *string `pulumi:"stringValue"`
+	Key                  *string `pulumi:"key"`
+	LastUpdatedTimestamp *int    `pulumi:"lastUpdatedTimestamp"`
+	Scope                *string `pulumi:"scope"`
+	StringValue          *string `pulumi:"stringValue"`
 }
 
 type SecretState struct {
-	// (String) key within secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Key pulumi.StringPtrInput
-	// (Integer) time secret was updated
+	Key                  pulumi.StringPtrInput
 	LastUpdatedTimestamp pulumi.IntPtrInput
-	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Scope pulumi.StringPtrInput
-	// (String) super secret sensitive value.
-	StringValue pulumi.StringPtrInput
+	Scope                pulumi.StringPtrInput
+	StringValue          pulumi.StringPtrInput
 }
 
 func (SecretState) ElementType() reflect.Type {
@@ -136,21 +76,15 @@ func (SecretState) ElementType() reflect.Type {
 }
 
 type secretArgs struct {
-	// (String) key within secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Key string `pulumi:"key"`
-	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Scope string `pulumi:"scope"`
-	// (String) super secret sensitive value.
+	Key         string `pulumi:"key"`
+	Scope       string `pulumi:"scope"`
 	StringValue string `pulumi:"stringValue"`
 }
 
 // The set of arguments for constructing a Secret resource.
 type SecretArgs struct {
-	// (String) key within secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Key pulumi.StringInput
-	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Scope pulumi.StringInput
-	// (String) super secret sensitive value.
+	Key         pulumi.StringInput
+	Scope       pulumi.StringInput
 	StringValue pulumi.StringInput
 }
 

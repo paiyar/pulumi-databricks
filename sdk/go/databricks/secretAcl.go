@@ -11,79 +11,12 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Create or overwrite the ACL associated with the given principal (user or group) on the specified databricks_secret_scope. Please consult [Secrets User Guide](https://docs.databricks.com/security/secrets/index.html#secrets-user-guide) for more details.
-//
-// ## Example Usage
-//
-// This way, data scientists can read the Publishing API key that is synchronized from example, Azure Key Vault.
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		ds, err := databricks.NewGroup(ctx, "ds", &databricks.GroupArgs{
-// 			DisplayName: pulumi.String("data-scientists"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		app, err := databricks.NewSecretScope(ctx, "app", nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewSecretAcl(ctx, "mySecretAcl", &databricks.SecretAclArgs{
-// 			Principal:  ds.DisplayName,
-// 			Permission: pulumi.String("READ"),
-// 			Scope:      app.Name,
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewSecret(ctx, "publishingApi", &databricks.SecretArgs{
-// 			Key:         pulumi.String("publishing_api"),
-// 			StringValue: pulumi.Any(data.Azurerm_key_vault_secret.Example.Value),
-// 			Scope:       app.Name,
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
-// * Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-// * Repo to manage [Databricks Repos](https://docs.databricks.com/repos.html).
-// * Secret to manage [secrets](https://docs.databricks.com/security/secrets/index.html#secrets-user-guide) in Databricks workspace.
-// * SecretScope to create [secret scopes](https://docs.databricks.com/security/secrets/index.html#secrets-user-guide) in Databricks workspace.
-//
-// ## Import
-//
-// The resource secret acl can be imported using `scopeName|||principalName` combination. bash
-//
-// ```sh
-//  $ pulumi import databricks:index/secretAcl:SecretAcl object `scopeName|||principalName`
-// ```
 type SecretAcl struct {
 	pulumi.CustomResourceState
 
-	// `READ`, `WRITE` or `MANAGE`.
 	Permission pulumi.StringOutput `pulumi:"permission"`
-	// name of the principals. It can be `users` for all users or name or `displayName` of databricks_group
-	Principal pulumi.StringOutput `pulumi:"principal"`
-	// name of the scope
-	Scope pulumi.StringOutput `pulumi:"scope"`
+	Principal  pulumi.StringOutput `pulumi:"principal"`
+	Scope      pulumi.StringOutput `pulumi:"scope"`
 }
 
 // NewSecretAcl registers a new resource with the given unique name, arguments, and options.
@@ -124,21 +57,15 @@ func GetSecretAcl(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering SecretAcl resources.
 type secretAclState struct {
-	// `READ`, `WRITE` or `MANAGE`.
 	Permission *string `pulumi:"permission"`
-	// name of the principals. It can be `users` for all users or name or `displayName` of databricks_group
-	Principal *string `pulumi:"principal"`
-	// name of the scope
-	Scope *string `pulumi:"scope"`
+	Principal  *string `pulumi:"principal"`
+	Scope      *string `pulumi:"scope"`
 }
 
 type SecretAclState struct {
-	// `READ`, `WRITE` or `MANAGE`.
 	Permission pulumi.StringPtrInput
-	// name of the principals. It can be `users` for all users or name or `displayName` of databricks_group
-	Principal pulumi.StringPtrInput
-	// name of the scope
-	Scope pulumi.StringPtrInput
+	Principal  pulumi.StringPtrInput
+	Scope      pulumi.StringPtrInput
 }
 
 func (SecretAclState) ElementType() reflect.Type {
@@ -146,22 +73,16 @@ func (SecretAclState) ElementType() reflect.Type {
 }
 
 type secretAclArgs struct {
-	// `READ`, `WRITE` or `MANAGE`.
 	Permission string `pulumi:"permission"`
-	// name of the principals. It can be `users` for all users or name or `displayName` of databricks_group
-	Principal string `pulumi:"principal"`
-	// name of the scope
-	Scope string `pulumi:"scope"`
+	Principal  string `pulumi:"principal"`
+	Scope      string `pulumi:"scope"`
 }
 
 // The set of arguments for constructing a SecretAcl resource.
 type SecretAclArgs struct {
-	// `READ`, `WRITE` or `MANAGE`.
 	Permission pulumi.StringInput
-	// name of the principals. It can be `users` for all users or name or `displayName` of databricks_group
-	Principal pulumi.StringInput
-	// name of the scope
-	Scope pulumi.StringInput
+	Principal  pulumi.StringInput
+	Scope      pulumi.StringInput
 }
 
 func (SecretAclArgs) ElementType() reflect.Type {

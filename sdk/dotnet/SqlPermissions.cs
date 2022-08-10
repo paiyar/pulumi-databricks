@@ -9,160 +9,30 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// &gt; **Note** Please switch to databricks.Grants with Unity Catalog to manage data access, which provides better and faster way for managing data security. `databricks.Grants` resource *doesn't require a technical cluster to perform operations*. `databricks.SqlPermissions` will be removed, once Unity Catalog is Generally Available.
-    /// 
-    /// This resource manages data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html). In order to enable Table Access control, you have to login to the workspace as administrator, go to `Admin Console`, pick `Access Control` tab, click on `Enable` button in `Table Access Control` section, and click `Confirm`. The security guarantees of table access control **will only be effective if cluster access control is also turned on**. Please make sure that no users can create clusters in your workspace and all databricks.Cluster have approximately the following configuration:
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         // ...
-    ///         var clusterWithTableAccessControl = new Databricks.Cluster("clusterWithTableAccessControl", new Databricks.ClusterArgs
-    ///         {
-    ///             SparkConf = 
-    ///             {
-    ///                 { "spark.databricks.acl.dfAclsEnabled", "true" },
-    ///                 { "spark.databricks.repl.allowedLanguages", "python,sql" },
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// It could be combined with creation of High-Concurrency and Single-Node clusters - in this case it should have corresponding `custom_tags` and `spark.databricks.cluster.profile` in Spark configuration as described in documentation for `databricks.Cluster` resource.
-    /// 
-    /// The created cluster could be referred to by providing its ID as `cluster_id` property.
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var fooTable = new Databricks.SqlPermissions("fooTable", new Databricks.SqlPermissionsArgs
-    ///         {
-    ///             ClusterId = databricks_cluster.Cluster_name.Id,
-    ///         });
-    ///         //...
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// ## Example Usage
-    /// 
-    /// The following resource definition will enforce access control on a table by executing the following SQL queries on a special auto-terminating cluster it would create for this operation:
-    /// 
-    /// * ``` SHOW GRANT ON TABLE `default`.`foo`  ```
-    /// * ```REVOKE ALL PRIVILEGES ON TABLE `default`.`foo` FROM ... every group and user that has access to it ...```
-    /// * ``` GRANT MODIFY, SELECT ON TABLE `default`.`foo` TO `serge@example.com`  ```
-    /// * ``` GRANT SELECT ON TABLE `default`.`foo` TO `special group`  ```
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var fooTable = new Databricks.SqlPermissions("fooTable", new Databricks.SqlPermissionsArgs
-    ///         {
-    ///             PrivilegeAssignments = 
-    ///             {
-    ///                 new Databricks.Inputs.SqlPermissionsPrivilegeAssignmentArgs
-    ///                 {
-    ///                     Principal = "serge@example.com",
-    ///                     Privileges = 
-    ///                     {
-    ///                         "SELECT",
-    ///                         "MODIFY",
-    ///                     },
-    ///                 },
-    ///                 new Databricks.Inputs.SqlPermissionsPrivilegeAssignmentArgs
-    ///                 {
-    ///                     Principal = "special group",
-    ///                     Privileges = 
-    ///                     {
-    ///                         "SELECT",
-    ///                     },
-    ///                 },
-    ///             },
-    ///             Table = "foo",
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// ## Related Resources
-    /// 
-    /// The following resources are often used in the same context:
-    /// 
-    /// * End to end workspace management guide.
-    /// * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-    /// * databricks.Grants to manage data access in Unity Catalog.
-    /// * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-    /// * databricks.User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to databricks.Group within the workspace.
-    /// 
-    /// ## Import
-    /// 
-    /// The resource can be imported using a synthetic identifier. Examples of valid synthetic identifiers are* `table/default.foo` - table `foo` in a `default` database. Database is always mandatory. * `view/bar.foo` - view `foo` in `bar` database. * `database/bar` - `bar` database. * `catalog/` - entire catalog. `/` suffix is mandatory. * `any file/` - direct access to any file. `/` suffix is mandatory. * `anonymous function/` - anonymous function. `/` suffix is mandatory. bash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/sqlPermissions:SqlPermissions foo /&lt;object-type&gt;/&lt;object-name&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/sqlPermissions:SqlPermissions")]
     public partial class SqlPermissions : Pulumi.CustomResource
     {
-        /// <summary>
-        /// If this access control for using anonymous function. Defaults to `false`.
-        /// </summary>
         [Output("anonymousFunction")]
         public Output<bool?> AnonymousFunction { get; private set; } = null!;
 
-        /// <summary>
-        /// If this access control for reading any file. Defaults to `false`.
-        /// </summary>
         [Output("anyFile")]
         public Output<bool?> AnyFile { get; private set; } = null!;
 
-        /// <summary>
-        /// If this access control for the entire catalog. Defaults to `false`.
-        /// </summary>
         [Output("catalog")]
         public Output<bool?> Catalog { get; private set; } = null!;
 
         [Output("clusterId")]
         public Output<string> ClusterId { get; private set; } = null!;
 
-        /// <summary>
-        /// Name of the database. Has default value of `default`.
-        /// </summary>
         [Output("database")]
         public Output<string?> Database { get; private set; } = null!;
 
         [Output("privilegeAssignments")]
         public Output<ImmutableArray<Outputs.SqlPermissionsPrivilegeAssignment>> PrivilegeAssignments { get; private set; } = null!;
 
-        /// <summary>
-        /// Name of the table. Can be combined with `database`.
-        /// </summary>
         [Output("table")]
         public Output<string?> Table { get; private set; } = null!;
 
-        /// <summary>
-        /// Name of the view. Can be combined with `database`.
-        /// </summary>
         [Output("view")]
         public Output<string?> View { get; private set; } = null!;
 
@@ -212,30 +82,18 @@ namespace Pulumi.Databricks
 
     public sealed class SqlPermissionsArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// If this access control for using anonymous function. Defaults to `false`.
-        /// </summary>
         [Input("anonymousFunction")]
         public Input<bool>? AnonymousFunction { get; set; }
 
-        /// <summary>
-        /// If this access control for reading any file. Defaults to `false`.
-        /// </summary>
         [Input("anyFile")]
         public Input<bool>? AnyFile { get; set; }
 
-        /// <summary>
-        /// If this access control for the entire catalog. Defaults to `false`.
-        /// </summary>
         [Input("catalog")]
         public Input<bool>? Catalog { get; set; }
 
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
 
-        /// <summary>
-        /// Name of the database. Has default value of `default`.
-        /// </summary>
         [Input("database")]
         public Input<string>? Database { get; set; }
 
@@ -247,15 +105,9 @@ namespace Pulumi.Databricks
             set => _privilegeAssignments = value;
         }
 
-        /// <summary>
-        /// Name of the table. Can be combined with `database`.
-        /// </summary>
         [Input("table")]
         public Input<string>? Table { get; set; }
 
-        /// <summary>
-        /// Name of the view. Can be combined with `database`.
-        /// </summary>
         [Input("view")]
         public Input<string>? View { get; set; }
 
@@ -266,30 +118,18 @@ namespace Pulumi.Databricks
 
     public sealed class SqlPermissionsState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// If this access control for using anonymous function. Defaults to `false`.
-        /// </summary>
         [Input("anonymousFunction")]
         public Input<bool>? AnonymousFunction { get; set; }
 
-        /// <summary>
-        /// If this access control for reading any file. Defaults to `false`.
-        /// </summary>
         [Input("anyFile")]
         public Input<bool>? AnyFile { get; set; }
 
-        /// <summary>
-        /// If this access control for the entire catalog. Defaults to `false`.
-        /// </summary>
         [Input("catalog")]
         public Input<bool>? Catalog { get; set; }
 
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
 
-        /// <summary>
-        /// Name of the database. Has default value of `default`.
-        /// </summary>
         [Input("database")]
         public Input<string>? Database { get; set; }
 
@@ -301,15 +141,9 @@ namespace Pulumi.Databricks
             set => _privilegeAssignments = value;
         }
 
-        /// <summary>
-        /// Name of the table. Can be combined with `database`.
-        /// </summary>
         [Input("table")]
         public Input<string>? Table { get; set; }
 
-        /// <summary>
-        /// Name of the view. Can be combined with `database`.
-        /// </summary>
         [Input("view")]
         public Input<string>? View { get; set; }
 

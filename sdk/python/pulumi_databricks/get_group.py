@@ -71,25 +71,16 @@ class GetGroupResult:
     @property
     @pulumi.getter(name="allowClusterCreate")
     def allow_cluster_create(self) -> Optional[bool]:
-        """
-        True if group members can create clusters
-        """
         return pulumi.get(self, "allow_cluster_create")
 
     @property
     @pulumi.getter(name="allowInstancePoolCreate")
     def allow_instance_pool_create(self) -> Optional[bool]:
-        """
-        True if group members can create instance pools
-        """
         return pulumi.get(self, "allow_instance_pool_create")
 
     @property
     @pulumi.getter(name="childGroups")
     def child_groups(self) -> Sequence[str]:
-        """
-        Set of Group identifiers, that can be modified with GroupMember resource.
-        """
         return pulumi.get(self, "child_groups")
 
     @property
@@ -105,17 +96,11 @@ class GetGroupResult:
     @property
     @pulumi.getter(name="externalId")
     def external_id(self) -> str:
-        """
-        ID of the group in an external identity provider.
-        """
         return pulumi.get(self, "external_id")
 
     @property
     @pulumi.getter
     def groups(self) -> Sequence[str]:
-        """
-        Set of group identifiers, that can be modified with GroupMember resource.
-        """
         return pulumi.get(self, "groups")
 
     @property
@@ -129,9 +114,6 @@ class GetGroupResult:
     @property
     @pulumi.getter(name="instanceProfiles")
     def instance_profiles(self) -> Sequence[str]:
-        """
-        Set of instance profile ARNs, that can be modified by GroupInstanceProfile resource.
-        """
         return pulumi.get(self, "instance_profiles")
 
     @property
@@ -147,17 +129,11 @@ class GetGroupResult:
     @property
     @pulumi.getter(name="servicePrincipals")
     def service_principals(self) -> Sequence[str]:
-        """
-        Set of ServicePrincipal identifiers, that can be modified with GroupMember resource.
-        """
         return pulumi.get(self, "service_principals")
 
     @property
     @pulumi.getter
     def users(self) -> Sequence[str]:
-        """
-        Set of User identifiers, that can be modified with GroupMember resource.
-        """
         return pulumi.get(self, "users")
 
     @property
@@ -204,17 +180,6 @@ def get_group(allow_cluster_create: Optional[bool] = None,
               opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetGroupResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param bool allow_cluster_create: True if group members can create clusters
-    :param bool allow_instance_pool_create: True if group members can create instance pools
-    :param Sequence[str] child_groups: Set of Group identifiers, that can be modified with GroupMember resource.
-    :param str display_name: Display name of the group. The group must exist before this resource can be planned.
-    :param str external_id: ID of the group in an external identity provider.
-    :param Sequence[str] groups: Set of group identifiers, that can be modified with GroupMember resource.
-    :param Sequence[str] instance_profiles: Set of instance profile ARNs, that can be modified by GroupInstanceProfile resource.
-    :param bool recursive: Collect information for all nested groups. *Defaults to true.*
-    :param Sequence[str] service_principals: Set of ServicePrincipal identifiers, that can be modified with GroupMember resource.
-    :param Sequence[str] users: Set of User identifiers, that can be modified with GroupMember resource.
     """
     __args__ = dict()
     __args__['allowClusterCreate'] = allow_cluster_create
@@ -270,16 +235,5 @@ def get_group_output(allow_cluster_create: Optional[pulumi.Input[Optional[bool]]
                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetGroupResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param bool allow_cluster_create: True if group members can create clusters
-    :param bool allow_instance_pool_create: True if group members can create instance pools
-    :param Sequence[str] child_groups: Set of Group identifiers, that can be modified with GroupMember resource.
-    :param str display_name: Display name of the group. The group must exist before this resource can be planned.
-    :param str external_id: ID of the group in an external identity provider.
-    :param Sequence[str] groups: Set of group identifiers, that can be modified with GroupMember resource.
-    :param Sequence[str] instance_profiles: Set of instance profile ARNs, that can be modified by GroupInstanceProfile resource.
-    :param bool recursive: Collect information for all nested groups. *Defaults to true.*
-    :param Sequence[str] service_principals: Set of ServicePrincipal identifiers, that can be modified with GroupMember resource.
-    :param Sequence[str] users: Set of User identifiers, that can be modified with GroupMember resource.
     """
     ...

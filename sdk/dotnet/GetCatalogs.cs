@@ -23,10 +23,6 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private List<string>? _ids;
-
-        /// <summary>
-        /// set of databricks.Catalog names
-        /// </summary>
         public List<string> Ids
         {
             get => _ids ?? (_ids = new List<string>());
@@ -42,10 +38,6 @@ namespace Pulumi.Databricks
     {
         [Input("ids")]
         private InputList<string>? _ids;
-
-        /// <summary>
-        /// set of databricks.Catalog names
-        /// </summary>
         public InputList<string> Ids
         {
             get => _ids ?? (_ids = new InputList<string>());
@@ -65,9 +57,6 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// set of databricks.Catalog names
-        /// </summary>
         public readonly ImmutableArray<string> Ids;
 
         [OutputConstructor]

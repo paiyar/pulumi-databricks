@@ -9,17 +9,9 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/workspaceConf:WorkspaceConf")]
     public partial class WorkspaceConf : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
-        /// </summary>
         [Output("customConfig")]
         public Output<ImmutableDictionary<string, object>?> CustomConfig { get; private set; } = null!;
 
@@ -71,10 +63,6 @@ namespace Pulumi.Databricks
     {
         [Input("customConfig")]
         private InputMap<object>? _customConfig;
-
-        /// <summary>
-        /// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
-        /// </summary>
         public InputMap<object> CustomConfig
         {
             get => _customConfig ?? (_customConfig = new InputMap<object>());
@@ -90,10 +78,6 @@ namespace Pulumi.Databricks
     {
         [Input("customConfig")]
         private InputMap<object>? _customConfig;
-
-        /// <summary>
-        /// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
-        /// </summary>
         public InputMap<object> CustomConfig
         {
             get => _customConfig ?? (_customConfig = new InputMap<object>());

@@ -34,19 +34,6 @@ class SqlEndpointArgs:
                  tags: Optional[pulumi.Input['SqlEndpointTagsArgs']] = None):
         """
         The set of arguments for constructing a SqlEndpoint resource.
-        :param pulumi.Input[str] cluster_size: The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-        :param pulumi.Input[int] auto_stop_mins: Time in minutes until an idle SQL endpoint terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.
-        :param pulumi.Input['SqlEndpointChannelArgs'] channel: block, consisting of following fields:
-        :param pulumi.Input[str] data_source_id: ID of the data source for this endpoint. This is used to bind an SQLA query to an endpoint.
-        :param pulumi.Input[bool] enable_photon: Whether to enable [Photon](https://databricks.com/product/delta-engine). This field is optional and is enabled by default.
-        :param pulumi.Input[bool] enable_serverless_compute: Whether this SQL endpoint is a Serverless endpoint. To use a Serverless SQL endpoint, you must enable Serverless SQL endpoints for the workspace.
-        :param pulumi.Input[str] jdbc_url: JDBC connection string.
-        :param pulumi.Input[int] max_num_clusters: Maximum number of clusters available when a SQL endpoint is running. This field is required. If multi-cluster load balancing is not enabled, this is default to `1`.
-        :param pulumi.Input[int] min_num_clusters: Minimum number of clusters available when a SQL endpoint is running. The default is `1`.
-        :param pulumi.Input[str] name: Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        :param pulumi.Input['SqlEndpointOdbcParamsArgs'] odbc_params: ODBC connection params: `odbc_params.hostname`, `odbc_params.path`, `odbc_params.protocol`, and `odbc_params.port`.
-        :param pulumi.Input[str] spot_instance_policy: The spot policy to use for allocating instances to clusters: `COST_OPTIMIZED` or `RELIABILITY_OPTIMIZED`. This field is optional. Default is `COST_OPTIMIZED`.
-        :param pulumi.Input['SqlEndpointTagsArgs'] tags: Databricks tags all endpoint resources with these tags.
         """
         pulumi.set(__self__, "cluster_size", cluster_size)
         if auto_stop_mins is not None:
@@ -85,9 +72,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="clusterSize")
     def cluster_size(self) -> pulumi.Input[str]:
-        """
-        The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-        """
         return pulumi.get(self, "cluster_size")
 
     @cluster_size.setter
@@ -97,9 +81,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="autoStopMins")
     def auto_stop_mins(self) -> Optional[pulumi.Input[int]]:
-        """
-        Time in minutes until an idle SQL endpoint terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.
-        """
         return pulumi.get(self, "auto_stop_mins")
 
     @auto_stop_mins.setter
@@ -109,9 +90,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter
     def channel(self) -> Optional[pulumi.Input['SqlEndpointChannelArgs']]:
-        """
-        block, consisting of following fields:
-        """
         return pulumi.get(self, "channel")
 
     @channel.setter
@@ -121,9 +99,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="dataSourceId")
     def data_source_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the data source for this endpoint. This is used to bind an SQLA query to an endpoint.
-        """
         return pulumi.get(self, "data_source_id")
 
     @data_source_id.setter
@@ -133,9 +108,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="enablePhoton")
     def enable_photon(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Whether to enable [Photon](https://databricks.com/product/delta-engine). This field is optional and is enabled by default.
-        """
         return pulumi.get(self, "enable_photon")
 
     @enable_photon.setter
@@ -145,9 +117,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="enableServerlessCompute")
     def enable_serverless_compute(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Whether this SQL endpoint is a Serverless endpoint. To use a Serverless SQL endpoint, you must enable Serverless SQL endpoints for the workspace.
-        """
         return pulumi.get(self, "enable_serverless_compute")
 
     @enable_serverless_compute.setter
@@ -175,9 +144,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="jdbcUrl")
     def jdbc_url(self) -> Optional[pulumi.Input[str]]:
-        """
-        JDBC connection string.
-        """
         return pulumi.get(self, "jdbc_url")
 
     @jdbc_url.setter
@@ -187,9 +153,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="maxNumClusters")
     def max_num_clusters(self) -> Optional[pulumi.Input[int]]:
-        """
-        Maximum number of clusters available when a SQL endpoint is running. This field is required. If multi-cluster load balancing is not enabled, this is default to `1`.
-        """
         return pulumi.get(self, "max_num_clusters")
 
     @max_num_clusters.setter
@@ -199,9 +162,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="minNumClusters")
     def min_num_clusters(self) -> Optional[pulumi.Input[int]]:
-        """
-        Minimum number of clusters available when a SQL endpoint is running. The default is `1`.
-        """
         return pulumi.get(self, "min_num_clusters")
 
     @min_num_clusters.setter
@@ -211,9 +171,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -232,9 +189,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="odbcParams")
     def odbc_params(self) -> Optional[pulumi.Input['SqlEndpointOdbcParamsArgs']]:
-        """
-        ODBC connection params: `odbc_params.hostname`, `odbc_params.path`, `odbc_params.protocol`, and `odbc_params.port`.
-        """
         return pulumi.get(self, "odbc_params")
 
     @odbc_params.setter
@@ -244,9 +198,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter(name="spotInstancePolicy")
     def spot_instance_policy(self) -> Optional[pulumi.Input[str]]:
-        """
-        The spot policy to use for allocating instances to clusters: `COST_OPTIMIZED` or `RELIABILITY_OPTIMIZED`. This field is optional. Default is `COST_OPTIMIZED`.
-        """
         return pulumi.get(self, "spot_instance_policy")
 
     @spot_instance_policy.setter
@@ -265,9 +216,6 @@ class SqlEndpointArgs:
     @property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input['SqlEndpointTagsArgs']]:
-        """
-        Databricks tags all endpoint resources with these tags.
-        """
         return pulumi.get(self, "tags")
 
     @tags.setter
@@ -297,19 +245,6 @@ class _SqlEndpointState:
                  tags: Optional[pulumi.Input['SqlEndpointTagsArgs']] = None):
         """
         Input properties used for looking up and filtering SqlEndpoint resources.
-        :param pulumi.Input[int] auto_stop_mins: Time in minutes until an idle SQL endpoint terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.
-        :param pulumi.Input['SqlEndpointChannelArgs'] channel: block, consisting of following fields:
-        :param pulumi.Input[str] cluster_size: The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-        :param pulumi.Input[str] data_source_id: ID of the data source for this endpoint. This is used to bind an SQLA query to an endpoint.
-        :param pulumi.Input[bool] enable_photon: Whether to enable [Photon](https://databricks.com/product/delta-engine). This field is optional and is enabled by default.
-        :param pulumi.Input[bool] enable_serverless_compute: Whether this SQL endpoint is a Serverless endpoint. To use a Serverless SQL endpoint, you must enable Serverless SQL endpoints for the workspace.
-        :param pulumi.Input[str] jdbc_url: JDBC connection string.
-        :param pulumi.Input[int] max_num_clusters: Maximum number of clusters available when a SQL endpoint is running. This field is required. If multi-cluster load balancing is not enabled, this is default to `1`.
-        :param pulumi.Input[int] min_num_clusters: Minimum number of clusters available when a SQL endpoint is running. The default is `1`.
-        :param pulumi.Input[str] name: Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        :param pulumi.Input['SqlEndpointOdbcParamsArgs'] odbc_params: ODBC connection params: `odbc_params.hostname`, `odbc_params.path`, `odbc_params.protocol`, and `odbc_params.port`.
-        :param pulumi.Input[str] spot_instance_policy: The spot policy to use for allocating instances to clusters: `COST_OPTIMIZED` or `RELIABILITY_OPTIMIZED`. This field is optional. Default is `COST_OPTIMIZED`.
-        :param pulumi.Input['SqlEndpointTagsArgs'] tags: Databricks tags all endpoint resources with these tags.
         """
         if auto_stop_mins is not None:
             pulumi.set(__self__, "auto_stop_mins", auto_stop_mins)
@@ -349,9 +284,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="autoStopMins")
     def auto_stop_mins(self) -> Optional[pulumi.Input[int]]:
-        """
-        Time in minutes until an idle SQL endpoint terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.
-        """
         return pulumi.get(self, "auto_stop_mins")
 
     @auto_stop_mins.setter
@@ -361,9 +293,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter
     def channel(self) -> Optional[pulumi.Input['SqlEndpointChannelArgs']]:
-        """
-        block, consisting of following fields:
-        """
         return pulumi.get(self, "channel")
 
     @channel.setter
@@ -373,9 +302,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="clusterSize")
     def cluster_size(self) -> Optional[pulumi.Input[str]]:
-        """
-        The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-        """
         return pulumi.get(self, "cluster_size")
 
     @cluster_size.setter
@@ -385,9 +311,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="dataSourceId")
     def data_source_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the data source for this endpoint. This is used to bind an SQLA query to an endpoint.
-        """
         return pulumi.get(self, "data_source_id")
 
     @data_source_id.setter
@@ -397,9 +320,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="enablePhoton")
     def enable_photon(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Whether to enable [Photon](https://databricks.com/product/delta-engine). This field is optional and is enabled by default.
-        """
         return pulumi.get(self, "enable_photon")
 
     @enable_photon.setter
@@ -409,9 +329,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="enableServerlessCompute")
     def enable_serverless_compute(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Whether this SQL endpoint is a Serverless endpoint. To use a Serverless SQL endpoint, you must enable Serverless SQL endpoints for the workspace.
-        """
         return pulumi.get(self, "enable_serverless_compute")
 
     @enable_serverless_compute.setter
@@ -439,9 +356,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="jdbcUrl")
     def jdbc_url(self) -> Optional[pulumi.Input[str]]:
-        """
-        JDBC connection string.
-        """
         return pulumi.get(self, "jdbc_url")
 
     @jdbc_url.setter
@@ -451,9 +365,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="maxNumClusters")
     def max_num_clusters(self) -> Optional[pulumi.Input[int]]:
-        """
-        Maximum number of clusters available when a SQL endpoint is running. This field is required. If multi-cluster load balancing is not enabled, this is default to `1`.
-        """
         return pulumi.get(self, "max_num_clusters")
 
     @max_num_clusters.setter
@@ -463,9 +374,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="minNumClusters")
     def min_num_clusters(self) -> Optional[pulumi.Input[int]]:
-        """
-        Minimum number of clusters available when a SQL endpoint is running. The default is `1`.
-        """
         return pulumi.get(self, "min_num_clusters")
 
     @min_num_clusters.setter
@@ -475,9 +383,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -496,9 +401,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="odbcParams")
     def odbc_params(self) -> Optional[pulumi.Input['SqlEndpointOdbcParamsArgs']]:
-        """
-        ODBC connection params: `odbc_params.hostname`, `odbc_params.path`, `odbc_params.protocol`, and `odbc_params.port`.
-        """
         return pulumi.get(self, "odbc_params")
 
     @odbc_params.setter
@@ -508,9 +410,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter(name="spotInstancePolicy")
     def spot_instance_policy(self) -> Optional[pulumi.Input[str]]:
-        """
-        The spot policy to use for allocating instances to clusters: `COST_OPTIMIZED` or `RELIABILITY_OPTIMIZED`. This field is optional. Default is `COST_OPTIMIZED`.
-        """
         return pulumi.get(self, "spot_instance_policy")
 
     @spot_instance_policy.setter
@@ -529,9 +428,6 @@ class _SqlEndpointState:
     @property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input['SqlEndpointTagsArgs']]:
-        """
-        Databricks tags all endpoint resources with these tags.
-        """
         return pulumi.get(self, "tags")
 
     @tags.setter
@@ -563,63 +459,9 @@ class SqlEndpoint(pulumi.CustomResource):
                  tags: Optional[pulumi.Input[pulumi.InputType['SqlEndpointTagsArgs']]] = None,
                  __props__=None):
         """
-        This resource is used to manage [Databricks SQL Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html). To create [SQL endpoints](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricks_sql_access` on your Group or databricks_user.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        me = databricks.get_current_user()
-        this = databricks.SqlEndpoint("this",
-            cluster_size="Small",
-            max_num_clusters=1,
-            tags=databricks.SqlEndpointTagsArgs(
-                custom_tags=[databricks.SqlEndpointTagsCustomTagArgs(
-                    key="City",
-                    value="Amsterdam",
-                )],
-            ))
-        ```
-        ## Access Control
-
-        * Permissions can control which groups or individual users can *Can Use* or *Can Manage* SQL endpoints.
-        * `databricks_sql_access` on Group or databricks_user.
-
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-        * SqlDashboard to manage Databricks SQL [Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html).
-        * SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all SqlEndpoint of workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-
-        ## Import
-
-        You can import a `databricks_sql_endpoint` resource with ID like the followingbash
-
-        ```sh
-         $ pulumi import databricks:index/sqlEndpoint:SqlEndpoint this <endpoint-id>
-        ```
-
+        Create a SqlEndpoint resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[int] auto_stop_mins: Time in minutes until an idle SQL endpoint terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.
-        :param pulumi.Input[pulumi.InputType['SqlEndpointChannelArgs']] channel: block, consisting of following fields:
-        :param pulumi.Input[str] cluster_size: The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-        :param pulumi.Input[str] data_source_id: ID of the data source for this endpoint. This is used to bind an SQLA query to an endpoint.
-        :param pulumi.Input[bool] enable_photon: Whether to enable [Photon](https://databricks.com/product/delta-engine). This field is optional and is enabled by default.
-        :param pulumi.Input[bool] enable_serverless_compute: Whether this SQL endpoint is a Serverless endpoint. To use a Serverless SQL endpoint, you must enable Serverless SQL endpoints for the workspace.
-        :param pulumi.Input[str] jdbc_url: JDBC connection string.
-        :param pulumi.Input[int] max_num_clusters: Maximum number of clusters available when a SQL endpoint is running. This field is required. If multi-cluster load balancing is not enabled, this is default to `1`.
-        :param pulumi.Input[int] min_num_clusters: Minimum number of clusters available when a SQL endpoint is running. The default is `1`.
-        :param pulumi.Input[str] name: Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        :param pulumi.Input[pulumi.InputType['SqlEndpointOdbcParamsArgs']] odbc_params: ODBC connection params: `odbc_params.hostname`, `odbc_params.path`, `odbc_params.protocol`, and `odbc_params.port`.
-        :param pulumi.Input[str] spot_instance_policy: The spot policy to use for allocating instances to clusters: `COST_OPTIMIZED` or `RELIABILITY_OPTIMIZED`. This field is optional. Default is `COST_OPTIMIZED`.
-        :param pulumi.Input[pulumi.InputType['SqlEndpointTagsArgs']] tags: Databricks tags all endpoint resources with these tags.
         """
         ...
     @overload
@@ -628,48 +470,7 @@ class SqlEndpoint(pulumi.CustomResource):
                  args: SqlEndpointArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        This resource is used to manage [Databricks SQL Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html). To create [SQL endpoints](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricks_sql_access` on your Group or databricks_user.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        me = databricks.get_current_user()
-        this = databricks.SqlEndpoint("this",
-            cluster_size="Small",
-            max_num_clusters=1,
-            tags=databricks.SqlEndpointTagsArgs(
-                custom_tags=[databricks.SqlEndpointTagsCustomTagArgs(
-                    key="City",
-                    value="Amsterdam",
-                )],
-            ))
-        ```
-        ## Access Control
-
-        * Permissions can control which groups or individual users can *Can Use* or *Can Manage* SQL endpoints.
-        * `databricks_sql_access` on Group or databricks_user.
-
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-        * SqlDashboard to manage Databricks SQL [Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html).
-        * SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all SqlEndpoint of workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-
-        ## Import
-
-        You can import a `databricks_sql_endpoint` resource with ID like the followingbash
-
-        ```sh
-         $ pulumi import databricks:index/sqlEndpoint:SqlEndpoint this <endpoint-id>
-        ```
-
+        Create a SqlEndpoint resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param SqlEndpointArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -767,19 +568,6 @@ class SqlEndpoint(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[int] auto_stop_mins: Time in minutes until an idle SQL endpoint terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.
-        :param pulumi.Input[pulumi.InputType['SqlEndpointChannelArgs']] channel: block, consisting of following fields:
-        :param pulumi.Input[str] cluster_size: The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-        :param pulumi.Input[str] data_source_id: ID of the data source for this endpoint. This is used to bind an SQLA query to an endpoint.
-        :param pulumi.Input[bool] enable_photon: Whether to enable [Photon](https://databricks.com/product/delta-engine). This field is optional and is enabled by default.
-        :param pulumi.Input[bool] enable_serverless_compute: Whether this SQL endpoint is a Serverless endpoint. To use a Serverless SQL endpoint, you must enable Serverless SQL endpoints for the workspace.
-        :param pulumi.Input[str] jdbc_url: JDBC connection string.
-        :param pulumi.Input[int] max_num_clusters: Maximum number of clusters available when a SQL endpoint is running. This field is required. If multi-cluster load balancing is not enabled, this is default to `1`.
-        :param pulumi.Input[int] min_num_clusters: Minimum number of clusters available when a SQL endpoint is running. The default is `1`.
-        :param pulumi.Input[str] name: Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        :param pulumi.Input[pulumi.InputType['SqlEndpointOdbcParamsArgs']] odbc_params: ODBC connection params: `odbc_params.hostname`, `odbc_params.path`, `odbc_params.protocol`, and `odbc_params.port`.
-        :param pulumi.Input[str] spot_instance_policy: The spot policy to use for allocating instances to clusters: `COST_OPTIMIZED` or `RELIABILITY_OPTIMIZED`. This field is optional. Default is `COST_OPTIMIZED`.
-        :param pulumi.Input[pulumi.InputType['SqlEndpointTagsArgs']] tags: Databricks tags all endpoint resources with these tags.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -807,49 +595,31 @@ class SqlEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter(name="autoStopMins")
     def auto_stop_mins(self) -> pulumi.Output[Optional[int]]:
-        """
-        Time in minutes until an idle SQL endpoint terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.
-        """
         return pulumi.get(self, "auto_stop_mins")
 
     @property
     @pulumi.getter
     def channel(self) -> pulumi.Output[Optional['outputs.SqlEndpointChannel']]:
-        """
-        block, consisting of following fields:
-        """
         return pulumi.get(self, "channel")
 
     @property
     @pulumi.getter(name="clusterSize")
     def cluster_size(self) -> pulumi.Output[str]:
-        """
-        The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-        """
         return pulumi.get(self, "cluster_size")
 
     @property
     @pulumi.getter(name="dataSourceId")
     def data_source_id(self) -> pulumi.Output[str]:
-        """
-        ID of the data source for this endpoint. This is used to bind an SQLA query to an endpoint.
-        """
         return pulumi.get(self, "data_source_id")
 
     @property
     @pulumi.getter(name="enablePhoton")
     def enable_photon(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Whether to enable [Photon](https://databricks.com/product/delta-engine). This field is optional and is enabled by default.
-        """
         return pulumi.get(self, "enable_photon")
 
     @property
     @pulumi.getter(name="enableServerlessCompute")
     def enable_serverless_compute(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Whether this SQL endpoint is a Serverless endpoint. To use a Serverless SQL endpoint, you must enable Serverless SQL endpoints for the workspace.
-        """
         return pulumi.get(self, "enable_serverless_compute")
 
     @property
@@ -865,33 +635,21 @@ class SqlEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter(name="jdbcUrl")
     def jdbc_url(self) -> pulumi.Output[str]:
-        """
-        JDBC connection string.
-        """
         return pulumi.get(self, "jdbc_url")
 
     @property
     @pulumi.getter(name="maxNumClusters")
     def max_num_clusters(self) -> pulumi.Output[Optional[int]]:
-        """
-        Maximum number of clusters available when a SQL endpoint is running. This field is required. If multi-cluster load balancing is not enabled, this is default to `1`.
-        """
         return pulumi.get(self, "max_num_clusters")
 
     @property
     @pulumi.getter(name="minNumClusters")
     def min_num_clusters(self) -> pulumi.Output[Optional[int]]:
-        """
-        Minimum number of clusters available when a SQL endpoint is running. The default is `1`.
-        """
         return pulumi.get(self, "min_num_clusters")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        """
         return pulumi.get(self, "name")
 
     @property
@@ -902,17 +660,11 @@ class SqlEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter(name="odbcParams")
     def odbc_params(self) -> pulumi.Output['outputs.SqlEndpointOdbcParams']:
-        """
-        ODBC connection params: `odbc_params.hostname`, `odbc_params.path`, `odbc_params.protocol`, and `odbc_params.port`.
-        """
         return pulumi.get(self, "odbc_params")
 
     @property
     @pulumi.getter(name="spotInstancePolicy")
     def spot_instance_policy(self) -> pulumi.Output[Optional[str]]:
-        """
-        The spot policy to use for allocating instances to clusters: `COST_OPTIMIZED` or `RELIABILITY_OPTIMIZED`. This field is optional. Default is `COST_OPTIMIZED`.
-        """
         return pulumi.get(self, "spot_instance_policy")
 
     @property
@@ -923,8 +675,5 @@ class SqlEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter
     def tags(self) -> pulumi.Output[Optional['outputs.SqlEndpointTags']]:
-        """
-        Databricks tags all endpoint resources with these tags.
-        """
         return pulumi.get(self, "tags")
 

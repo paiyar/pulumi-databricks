@@ -51,9 +51,6 @@ class GetDbfsFilePathsResult:
     @property
     @pulumi.getter(name="pathLists")
     def path_lists(self) -> Sequence['outputs.GetDbfsFilePathsPathListResult']:
-        """
-        returns list of objects with `path` and `file_size` attributes in each
-        """
         return pulumi.get(self, "path_lists")
 
     @property
@@ -79,9 +76,6 @@ def get_dbfs_file_paths(path: Optional[str] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetDbfsFilePathsResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str path: Path on DBFS for the file to perform listing
-    :param bool recursive: Either or not recursively list all files
     """
     __args__ = dict()
     __args__['path'] = path
@@ -105,8 +99,5 @@ def get_dbfs_file_paths_output(path: Optional[pulumi.Input[str]] = None,
                                opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetDbfsFilePathsResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str path: Path on DBFS for the file to perform listing
-    :param bool recursive: Either or not recursively list all files
     """
     ...

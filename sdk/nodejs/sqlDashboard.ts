@@ -4,54 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * This resource is used to manage [Databricks SQL Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html). To manage [SQLA resources](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricksSqlAccess` on your databricks.Group or databricks_user.
- *
- * **Note:** documentation for this resource is a work in progress.
- *
- * A dashboard may have one or more widgets.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const d1 = new databricks.SqlDashboard("d1", {
- *     tags: [
- *         "some-tag",
- *         "another-tag",
- *     ],
- * });
- * ```
- *
- * Example permission to share dashboard with all users:
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const d1 = new databricks.Permissions("d1", {
- *     sqlDashboardId: databricks_sql_dashboard.d1.id,
- *     accessControls: [{
- *         groupName: data.databricks_group.users.display_name,
- *         permissionLevel: "CAN_RUN",
- *     }],
- * });
- * ```
- * ## Related Resources
- *
- * The following resources are often used in the same context:
- *
- * * End to end workspace management guide.
- * * databricks.SqlEndpoint to manage Databricks SQL [Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html).
- * * databricks.SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all databricks.SqlEndpoint of workspace.
- * * databricks.SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
- *
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class SqlDashboard extends pulumi.CustomResource {
     /**
      * Get an existing SqlDashboard resource's state with the given name, ID, and optional extra

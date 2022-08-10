@@ -13,13 +13,7 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class JobJobCluster
     {
-        /// <summary>
-        /// Identifier that can be referenced in `task` block, so that cluster is shared between tasks
-        /// </summary>
         public readonly string? JobClusterKey;
-        /// <summary>
-        /// Same set of parameters as for databricks.Cluster resource.
-        /// </summary>
         public readonly Outputs.JobJobClusterNewCluster? NewCluster;
 
         [OutputConstructor]

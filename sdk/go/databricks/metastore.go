@@ -11,65 +11,24 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-//
-// A metastore is the top-level container of objects in Unity Catalog. It stores data assets (tables and views) and the permissions that govern access to them. Databricks account admins can create metastores and assign them to Databricks workspaces in order to control which workloads use each metastore.
-//
-// Unity Catalog offers a new metastore with built in security and auditing. This is distinct to the metastore used in previous versions of Databricks (based on the Hive Metastore).
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"fmt"
-//
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		thisMetastore, err := databricks.NewMetastore(ctx, "thisMetastore", &databricks.MetastoreArgs{
-// 			StorageRoot:  pulumi.String(fmt.Sprintf("%v%v%v", "s3://", aws_s3_bucket.Metastore.Id, "/metastore")),
-// 			Owner:        pulumi.String("uc admins"),
-// 			ForceDestroy: pulumi.Bool(true),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewMetastoreAssignment(ctx, "thisMetastoreAssignment", &databricks.MetastoreAssignmentArgs{
-// 			MetastoreId: thisMetastore.ID(),
-// 			WorkspaceId: pulumi.Any(local.Workspace_id),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// ## Import
-//
-// This resource can be imported by IDbash
-//
-// ```sh
-//  $ pulumi import databricks:index/metastore:Metastore this <id>
-// ```
 type Metastore struct {
 	pulumi.CustomResourceState
 
-	DefaultDataAccessConfigId pulumi.StringPtrOutput `pulumi:"defaultDataAccessConfigId"`
-	// Destroy metastore regardless of its contents.
-	ForceDestroy pulumi.BoolPtrOutput `pulumi:"forceDestroy"`
-	// Name of metastore.
-	Name pulumi.StringOutput `pulumi:"name"`
-	// Username/groupname of Metastore owner.
-	Owner pulumi.StringOutput `pulumi:"owner"`
-	// Path on cloud storage account, where managed Table are stored. Change forces creation of a new resource.
-	StorageRoot pulumi.StringOutput `pulumi:"storageRoot"`
+	Cloud                                       pulumi.StringOutput    `pulumi:"cloud"`
+	CreatedAt                                   pulumi.IntOutput       `pulumi:"createdAt"`
+	CreatedBy                                   pulumi.StringOutput    `pulumi:"createdBy"`
+	DefaultDataAccessConfigId                   pulumi.StringPtrOutput `pulumi:"defaultDataAccessConfigId"`
+	DeltaSharingOrganizationName                pulumi.StringPtrOutput `pulumi:"deltaSharingOrganizationName"`
+	DeltaSharingRecipientTokenLifetimeInSeconds pulumi.IntPtrOutput    `pulumi:"deltaSharingRecipientTokenLifetimeInSeconds"`
+	DeltaSharingScope                           pulumi.StringPtrOutput `pulumi:"deltaSharingScope"`
+	ForceDestroy                                pulumi.BoolPtrOutput   `pulumi:"forceDestroy"`
+	GlobalMetastoreId                           pulumi.StringOutput    `pulumi:"globalMetastoreId"`
+	Name                                        pulumi.StringOutput    `pulumi:"name"`
+	Owner                                       pulumi.StringOutput    `pulumi:"owner"`
+	Region                                      pulumi.StringOutput    `pulumi:"region"`
+	StorageRoot                                 pulumi.StringOutput    `pulumi:"storageRoot"`
+	UpdatedAt                                   pulumi.IntOutput       `pulumi:"updatedAt"`
+	UpdatedBy                                   pulumi.StringOutput    `pulumi:"updatedBy"`
 }
 
 // NewMetastore registers a new resource with the given unique name, arguments, and options.
@@ -104,27 +63,39 @@ func GetMetastore(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Metastore resources.
 type metastoreState struct {
-	DefaultDataAccessConfigId *string `pulumi:"defaultDataAccessConfigId"`
-	// Destroy metastore regardless of its contents.
-	ForceDestroy *bool `pulumi:"forceDestroy"`
-	// Name of metastore.
-	Name *string `pulumi:"name"`
-	// Username/groupname of Metastore owner.
-	Owner *string `pulumi:"owner"`
-	// Path on cloud storage account, where managed Table are stored. Change forces creation of a new resource.
-	StorageRoot *string `pulumi:"storageRoot"`
+	Cloud                                       *string `pulumi:"cloud"`
+	CreatedAt                                   *int    `pulumi:"createdAt"`
+	CreatedBy                                   *string `pulumi:"createdBy"`
+	DefaultDataAccessConfigId                   *string `pulumi:"defaultDataAccessConfigId"`
+	DeltaSharingOrganizationName                *string `pulumi:"deltaSharingOrganizationName"`
+	DeltaSharingRecipientTokenLifetimeInSeconds *int    `pulumi:"deltaSharingRecipientTokenLifetimeInSeconds"`
+	DeltaSharingScope                           *string `pulumi:"deltaSharingScope"`
+	ForceDestroy                                *bool   `pulumi:"forceDestroy"`
+	GlobalMetastoreId                           *string `pulumi:"globalMetastoreId"`
+	Name                                        *string `pulumi:"name"`
+	Owner                                       *string `pulumi:"owner"`
+	Region                                      *string `pulumi:"region"`
+	StorageRoot                                 *string `pulumi:"storageRoot"`
+	UpdatedAt                                   *int    `pulumi:"updatedAt"`
+	UpdatedBy                                   *string `pulumi:"updatedBy"`
 }
 
 type MetastoreState struct {
-	DefaultDataAccessConfigId pulumi.StringPtrInput
-	// Destroy metastore regardless of its contents.
-	ForceDestroy pulumi.BoolPtrInput
-	// Name of metastore.
-	Name pulumi.StringPtrInput
-	// Username/groupname of Metastore owner.
-	Owner pulumi.StringPtrInput
-	// Path on cloud storage account, where managed Table are stored. Change forces creation of a new resource.
-	StorageRoot pulumi.StringPtrInput
+	Cloud                                       pulumi.StringPtrInput
+	CreatedAt                                   pulumi.IntPtrInput
+	CreatedBy                                   pulumi.StringPtrInput
+	DefaultDataAccessConfigId                   pulumi.StringPtrInput
+	DeltaSharingOrganizationName                pulumi.StringPtrInput
+	DeltaSharingRecipientTokenLifetimeInSeconds pulumi.IntPtrInput
+	DeltaSharingScope                           pulumi.StringPtrInput
+	ForceDestroy                                pulumi.BoolPtrInput
+	GlobalMetastoreId                           pulumi.StringPtrInput
+	Name                                        pulumi.StringPtrInput
+	Owner                                       pulumi.StringPtrInput
+	Region                                      pulumi.StringPtrInput
+	StorageRoot                                 pulumi.StringPtrInput
+	UpdatedAt                                   pulumi.IntPtrInput
+	UpdatedBy                                   pulumi.StringPtrInput
 }
 
 func (MetastoreState) ElementType() reflect.Type {
@@ -132,28 +103,40 @@ func (MetastoreState) ElementType() reflect.Type {
 }
 
 type metastoreArgs struct {
-	DefaultDataAccessConfigId *string `pulumi:"defaultDataAccessConfigId"`
-	// Destroy metastore regardless of its contents.
-	ForceDestroy *bool `pulumi:"forceDestroy"`
-	// Name of metastore.
-	Name *string `pulumi:"name"`
-	// Username/groupname of Metastore owner.
-	Owner *string `pulumi:"owner"`
-	// Path on cloud storage account, where managed Table are stored. Change forces creation of a new resource.
-	StorageRoot string `pulumi:"storageRoot"`
+	Cloud                                       *string `pulumi:"cloud"`
+	CreatedAt                                   *int    `pulumi:"createdAt"`
+	CreatedBy                                   *string `pulumi:"createdBy"`
+	DefaultDataAccessConfigId                   *string `pulumi:"defaultDataAccessConfigId"`
+	DeltaSharingOrganizationName                *string `pulumi:"deltaSharingOrganizationName"`
+	DeltaSharingRecipientTokenLifetimeInSeconds *int    `pulumi:"deltaSharingRecipientTokenLifetimeInSeconds"`
+	DeltaSharingScope                           *string `pulumi:"deltaSharingScope"`
+	ForceDestroy                                *bool   `pulumi:"forceDestroy"`
+	GlobalMetastoreId                           *string `pulumi:"globalMetastoreId"`
+	Name                                        *string `pulumi:"name"`
+	Owner                                       *string `pulumi:"owner"`
+	Region                                      *string `pulumi:"region"`
+	StorageRoot                                 string  `pulumi:"storageRoot"`
+	UpdatedAt                                   *int    `pulumi:"updatedAt"`
+	UpdatedBy                                   *string `pulumi:"updatedBy"`
 }
 
 // The set of arguments for constructing a Metastore resource.
 type MetastoreArgs struct {
-	DefaultDataAccessConfigId pulumi.StringPtrInput
-	// Destroy metastore regardless of its contents.
-	ForceDestroy pulumi.BoolPtrInput
-	// Name of metastore.
-	Name pulumi.StringPtrInput
-	// Username/groupname of Metastore owner.
-	Owner pulumi.StringPtrInput
-	// Path on cloud storage account, where managed Table are stored. Change forces creation of a new resource.
-	StorageRoot pulumi.StringInput
+	Cloud                                       pulumi.StringPtrInput
+	CreatedAt                                   pulumi.IntPtrInput
+	CreatedBy                                   pulumi.StringPtrInput
+	DefaultDataAccessConfigId                   pulumi.StringPtrInput
+	DeltaSharingOrganizationName                pulumi.StringPtrInput
+	DeltaSharingRecipientTokenLifetimeInSeconds pulumi.IntPtrInput
+	DeltaSharingScope                           pulumi.StringPtrInput
+	ForceDestroy                                pulumi.BoolPtrInput
+	GlobalMetastoreId                           pulumi.StringPtrInput
+	Name                                        pulumi.StringPtrInput
+	Owner                                       pulumi.StringPtrInput
+	Region                                      pulumi.StringPtrInput
+	StorageRoot                                 pulumi.StringInput
+	UpdatedAt                                   pulumi.IntPtrInput
+	UpdatedBy                                   pulumi.StringPtrInput
 }
 
 func (MetastoreArgs) ElementType() reflect.Type {

@@ -18,14 +18,10 @@ class ExternalLocationArgs:
                  comment: Optional[pulumi.Input[str]] = None,
                  metastore_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 owner: Optional[pulumi.Input[str]] = None):
+                 owner: Optional[pulumi.Input[str]] = None,
+                 skip_validation: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a ExternalLocation resource.
-        :param pulumi.Input[str] credential_name: Name of the StorageCredential to use with this External Location.
-        :param pulumi.Input[str] url: Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
         """
         pulumi.set(__self__, "credential_name", credential_name)
         pulumi.set(__self__, "url", url)
@@ -37,13 +33,12 @@ class ExternalLocationArgs:
             pulumi.set(__self__, "name", name)
         if owner is not None:
             pulumi.set(__self__, "owner", owner)
+        if skip_validation is not None:
+            pulumi.set(__self__, "skip_validation", skip_validation)
 
     @property
     @pulumi.getter(name="credentialName")
     def credential_name(self) -> pulumi.Input[str]:
-        """
-        Name of the StorageCredential to use with this External Location.
-        """
         return pulumi.get(self, "credential_name")
 
     @credential_name.setter
@@ -53,9 +48,6 @@ class ExternalLocationArgs:
     @property
     @pulumi.getter
     def url(self) -> pulumi.Input[str]:
-        """
-        Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-        """
         return pulumi.get(self, "url")
 
     @url.setter
@@ -65,9 +57,6 @@ class ExternalLocationArgs:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -86,9 +75,6 @@ class ExternalLocationArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -98,14 +84,20 @@ class ExternalLocationArgs:
     @property
     @pulumi.getter
     def owner(self) -> Optional[pulumi.Input[str]]:
-        """
-        Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @owner.setter
     def owner(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "owner", value)
+
+    @property
+    @pulumi.getter(name="skipValidation")
+    def skip_validation(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_validation")
+
+    @skip_validation.setter
+    def skip_validation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_validation", value)
 
 
 @pulumi.input_type
@@ -116,14 +108,10 @@ class _ExternalLocationState:
                  metastore_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  owner: Optional[pulumi.Input[str]] = None,
+                 skip_validation: Optional[pulumi.Input[bool]] = None,
                  url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering ExternalLocation resources.
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] credential_name: Name of the StorageCredential to use with this External Location.
-        :param pulumi.Input[str] name: Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[str] url: Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -135,15 +123,14 @@ class _ExternalLocationState:
             pulumi.set(__self__, "name", name)
         if owner is not None:
             pulumi.set(__self__, "owner", owner)
+        if skip_validation is not None:
+            pulumi.set(__self__, "skip_validation", skip_validation)
         if url is not None:
             pulumi.set(__self__, "url", url)
 
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -153,9 +140,6 @@ class _ExternalLocationState:
     @property
     @pulumi.getter(name="credentialName")
     def credential_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of the StorageCredential to use with this External Location.
-        """
         return pulumi.get(self, "credential_name")
 
     @credential_name.setter
@@ -174,9 +158,6 @@ class _ExternalLocationState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -186,9 +167,6 @@ class _ExternalLocationState:
     @property
     @pulumi.getter
     def owner(self) -> Optional[pulumi.Input[str]]:
-        """
-        Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @owner.setter
@@ -196,11 +174,17 @@ class _ExternalLocationState:
         pulumi.set(self, "owner", value)
 
     @property
+    @pulumi.getter(name="skipValidation")
+    def skip_validation(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_validation")
+
+    @skip_validation.setter
+    def skip_validation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_validation", value)
+
+    @property
     @pulumi.getter
     def url(self) -> Optional[pulumi.Input[str]]:
-        """
-        Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-        """
         return pulumi.get(self, "url")
 
     @url.setter
@@ -218,56 +202,13 @@ class ExternalLocation(pulumi.CustomResource):
                  metastore_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  owner: Optional[pulumi.Input[str]] = None,
+                 skip_validation: Optional[pulumi.Input[bool]] = None,
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
-        - StorageCredential represent authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
-        - `ExternalLocation` are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        external = databricks.StorageCredential("external",
-            aws_iam_role=databricks.StorageCredentialAwsIamRoleArgs(
-                role_arn=aws_iam_role["external_data_access"]["arn"],
-            ),
-            comment="Managed by TF")
-        some_external_location = databricks.ExternalLocation("someExternalLocation",
-            url=f"s3://{aws_s3_bucket['external']['id']}/some",
-            credential_name=external.id,
-            comment="Managed by TF")
-        some_grants = databricks.Grants("someGrants",
-            external_location=some_external_location.id,
-            grants=[databricks.GrantsGrantArgs(
-                principal="Data Engineers",
-                privileges=[
-                    "CREATE TABLE",
-                    "READ FILES",
-                ],
-            )])
-        ```
-
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/externalLocation:ExternalLocation this <name>
-        ```
-
+        Create a ExternalLocation resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] credential_name: Name of the StorageCredential to use with this External Location.
-        :param pulumi.Input[str] name: Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[str] url: Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
         """
         ...
     @overload
@@ -276,46 +217,7 @@ class ExternalLocation(pulumi.CustomResource):
                  args: ExternalLocationArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
-        - StorageCredential represent authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
-        - `ExternalLocation` are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        external = databricks.StorageCredential("external",
-            aws_iam_role=databricks.StorageCredentialAwsIamRoleArgs(
-                role_arn=aws_iam_role["external_data_access"]["arn"],
-            ),
-            comment="Managed by TF")
-        some_external_location = databricks.ExternalLocation("someExternalLocation",
-            url=f"s3://{aws_s3_bucket['external']['id']}/some",
-            credential_name=external.id,
-            comment="Managed by TF")
-        some_grants = databricks.Grants("someGrants",
-            external_location=some_external_location.id,
-            grants=[databricks.GrantsGrantArgs(
-                principal="Data Engineers",
-                privileges=[
-                    "CREATE TABLE",
-                    "READ FILES",
-                ],
-            )])
-        ```
-
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/externalLocation:ExternalLocation this <name>
-        ```
-
+        Create a ExternalLocation resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ExternalLocationArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -336,6 +238,7 @@ class ExternalLocation(pulumi.CustomResource):
                  metastore_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  owner: Optional[pulumi.Input[str]] = None,
+                 skip_validation: Optional[pulumi.Input[bool]] = None,
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         if opts is None:
@@ -356,6 +259,7 @@ class ExternalLocation(pulumi.CustomResource):
             __props__.__dict__["metastore_id"] = metastore_id
             __props__.__dict__["name"] = name
             __props__.__dict__["owner"] = owner
+            __props__.__dict__["skip_validation"] = skip_validation
             if url is None and not opts.urn:
                 raise TypeError("Missing required property 'url'")
             __props__.__dict__["url"] = url
@@ -374,6 +278,7 @@ class ExternalLocation(pulumi.CustomResource):
             metastore_id: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
             owner: Optional[pulumi.Input[str]] = None,
+            skip_validation: Optional[pulumi.Input[bool]] = None,
             url: Optional[pulumi.Input[str]] = None) -> 'ExternalLocation':
         """
         Get an existing ExternalLocation resource's state with the given name, id, and optional extra
@@ -382,11 +287,6 @@ class ExternalLocation(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] credential_name: Name of the StorageCredential to use with this External Location.
-        :param pulumi.Input[str] name: Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[str] url: Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -397,23 +297,18 @@ class ExternalLocation(pulumi.CustomResource):
         __props__.__dict__["metastore_id"] = metastore_id
         __props__.__dict__["name"] = name
         __props__.__dict__["owner"] = owner
+        __props__.__dict__["skip_validation"] = skip_validation
         __props__.__dict__["url"] = url
         return ExternalLocation(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter
     def comment(self) -> pulumi.Output[Optional[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter(name="credentialName")
     def credential_name(self) -> pulumi.Output[str]:
-        """
-        Name of the StorageCredential to use with this External Location.
-        """
         return pulumi.get(self, "credential_name")
 
     @property
@@ -424,24 +319,20 @@ class ExternalLocation(pulumi.CustomResource):
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def owner(self) -> pulumi.Output[str]:
-        """
-        Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
+
+    @property
+    @pulumi.getter(name="skipValidation")
+    def skip_validation(self) -> pulumi.Output[Optional[bool]]:
+        return pulumi.get(self, "skip_validation")
 
     @property
     @pulumi.getter
     def url(self) -> pulumi.Output[str]:
-        """
-        Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-        """
         return pulumi.get(self, "url")
 

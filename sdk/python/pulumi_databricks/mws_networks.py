@@ -28,12 +28,6 @@ class MwsNetworksArgs:
                  workspace_id: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a MwsNetworks resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] network_name: name under which this network is regisstered
-        :param pulumi.Input[str] network_id: (String) id of network to be used for databricks_mws_workspace resource.
-        :param pulumi.Input['MwsNetworksVpcEndpointsArgs'] vpc_endpoints: mapping of MwsVpcEndpoint for PrivateLink connections
-        :param pulumi.Input[str] vpc_status: (String) VPC attachment status
-        :param pulumi.Input[int] workspace_id: (Integer) id of associated workspace
         """
         pulumi.set(__self__, "account_id", account_id)
         pulumi.set(__self__, "network_name", network_name)
@@ -56,9 +50,6 @@ class MwsNetworksArgs:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Input[str]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -68,9 +59,6 @@ class MwsNetworksArgs:
     @property
     @pulumi.getter(name="networkName")
     def network_name(self) -> pulumi.Input[str]:
-        """
-        name under which this network is regisstered
-        """
         return pulumi.get(self, "network_name")
 
     @network_name.setter
@@ -125,9 +113,6 @@ class MwsNetworksArgs:
     @property
     @pulumi.getter(name="networkId")
     def network_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) id of network to be used for databricks_mws_workspace resource.
-        """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
@@ -137,9 +122,6 @@ class MwsNetworksArgs:
     @property
     @pulumi.getter(name="vpcEndpoints")
     def vpc_endpoints(self) -> Optional[pulumi.Input['MwsNetworksVpcEndpointsArgs']]:
-        """
-        mapping of MwsVpcEndpoint for PrivateLink connections
-        """
         return pulumi.get(self, "vpc_endpoints")
 
     @vpc_endpoints.setter
@@ -149,9 +131,6 @@ class MwsNetworksArgs:
     @property
     @pulumi.getter(name="vpcStatus")
     def vpc_status(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) VPC attachment status
-        """
         return pulumi.get(self, "vpc_status")
 
     @vpc_status.setter
@@ -161,9 +140,6 @@ class MwsNetworksArgs:
     @property
     @pulumi.getter(name="workspaceId")
     def workspace_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        (Integer) id of associated workspace
-        """
         return pulumi.get(self, "workspace_id")
 
     @workspace_id.setter
@@ -187,12 +163,6 @@ class _MwsNetworksState:
                  workspace_id: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering MwsNetworks resources.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] network_id: (String) id of network to be used for databricks_mws_workspace resource.
-        :param pulumi.Input[str] network_name: name under which this network is regisstered
-        :param pulumi.Input['MwsNetworksVpcEndpointsArgs'] vpc_endpoints: mapping of MwsVpcEndpoint for PrivateLink connections
-        :param pulumi.Input[str] vpc_status: (String) VPC attachment status
-        :param pulumi.Input[int] workspace_id: (Integer) id of associated workspace
         """
         if account_id is not None:
             pulumi.set(__self__, "account_id", account_id)
@@ -220,9 +190,6 @@ class _MwsNetworksState:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -250,9 +217,6 @@ class _MwsNetworksState:
     @property
     @pulumi.getter(name="networkId")
     def network_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) id of network to be used for databricks_mws_workspace resource.
-        """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
@@ -262,9 +226,6 @@ class _MwsNetworksState:
     @property
     @pulumi.getter(name="networkName")
     def network_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        name under which this network is regisstered
-        """
         return pulumi.get(self, "network_name")
 
     @network_name.setter
@@ -292,9 +253,6 @@ class _MwsNetworksState:
     @property
     @pulumi.getter(name="vpcEndpoints")
     def vpc_endpoints(self) -> Optional[pulumi.Input['MwsNetworksVpcEndpointsArgs']]:
-        """
-        mapping of MwsVpcEndpoint for PrivateLink connections
-        """
         return pulumi.get(self, "vpc_endpoints")
 
     @vpc_endpoints.setter
@@ -313,9 +271,6 @@ class _MwsNetworksState:
     @property
     @pulumi.getter(name="vpcStatus")
     def vpc_status(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) VPC attachment status
-        """
         return pulumi.get(self, "vpc_status")
 
     @vpc_status.setter
@@ -325,9 +280,6 @@ class _MwsNetworksState:
     @property
     @pulumi.getter(name="workspaceId")
     def workspace_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        (Integer) id of associated workspace
-        """
         return pulumi.get(self, "workspace_id")
 
     @workspace_id.setter
@@ -353,18 +305,9 @@ class MwsNetworks(pulumi.CustomResource):
                  workspace_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsNetworks resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] network_id: (String) id of network to be used for databricks_mws_workspace resource.
-        :param pulumi.Input[str] network_name: name under which this network is regisstered
-        :param pulumi.Input[pulumi.InputType['MwsNetworksVpcEndpointsArgs']] vpc_endpoints: mapping of MwsVpcEndpoint for PrivateLink connections
-        :param pulumi.Input[str] vpc_status: (String) VPC attachment status
-        :param pulumi.Input[int] workspace_id: (Integer) id of associated workspace
         """
         ...
     @overload
@@ -373,10 +316,7 @@ class MwsNetworks(pulumi.CustomResource):
                  args: MwsNetworksArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsNetworks resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param MwsNetworksArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -464,12 +404,6 @@ class MwsNetworks(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] network_id: (String) id of network to be used for databricks_mws_workspace resource.
-        :param pulumi.Input[str] network_name: name under which this network is regisstered
-        :param pulumi.Input[pulumi.InputType['MwsNetworksVpcEndpointsArgs']] vpc_endpoints: mapping of MwsVpcEndpoint for PrivateLink connections
-        :param pulumi.Input[str] vpc_status: (String) VPC attachment status
-        :param pulumi.Input[int] workspace_id: (Integer) id of associated workspace
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -491,9 +425,6 @@ class MwsNetworks(pulumi.CustomResource):
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Output[str]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @property
@@ -509,17 +440,11 @@ class MwsNetworks(pulumi.CustomResource):
     @property
     @pulumi.getter(name="networkId")
     def network_id(self) -> pulumi.Output[str]:
-        """
-        (String) id of network to be used for databricks_mws_workspace resource.
-        """
         return pulumi.get(self, "network_id")
 
     @property
     @pulumi.getter(name="networkName")
     def network_name(self) -> pulumi.Output[str]:
-        """
-        name under which this network is regisstered
-        """
         return pulumi.get(self, "network_name")
 
     @property
@@ -535,9 +460,6 @@ class MwsNetworks(pulumi.CustomResource):
     @property
     @pulumi.getter(name="vpcEndpoints")
     def vpc_endpoints(self) -> pulumi.Output['outputs.MwsNetworksVpcEndpoints']:
-        """
-        mapping of MwsVpcEndpoint for PrivateLink connections
-        """
         return pulumi.get(self, "vpc_endpoints")
 
     @property
@@ -548,16 +470,10 @@ class MwsNetworks(pulumi.CustomResource):
     @property
     @pulumi.getter(name="vpcStatus")
     def vpc_status(self) -> pulumi.Output[str]:
-        """
-        (String) VPC attachment status
-        """
         return pulumi.get(self, "vpc_status")
 
     @property
     @pulumi.getter(name="workspaceId")
     def workspace_id(self) -> pulumi.Output[int]:
-        """
-        (Integer) id of associated workspace
-        """
         return pulumi.get(self, "workspace_id")
 

@@ -21,17 +21,8 @@ export function getTables(args: GetTablesArgs, opts?: pulumi.InvokeOptions): Pro
  * A collection of arguments for invoking getTables.
  */
 export interface GetTablesArgs {
-    /**
-     * Name of databricks_catalog
-     */
     catalogName: string;
-    /**
-     * set of databricks.Table full names: *`catalog`.`schema`.`table`*
-     */
     ids?: string[];
-    /**
-     * Name of databricks_schema
-     */
     schemaName: string;
 }
 
@@ -44,9 +35,6 @@ export interface GetTablesResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * set of databricks.Table full names: *`catalog`.`schema`.`table`*
-     */
     readonly ids: string[];
     readonly schemaName: string;
 }
@@ -59,16 +47,7 @@ export function getTablesOutput(args: GetTablesOutputArgs, opts?: pulumi.InvokeO
  * A collection of arguments for invoking getTables.
  */
 export interface GetTablesOutputArgs {
-    /**
-     * Name of databricks_catalog
-     */
     catalogName: pulumi.Input<string>;
-    /**
-     * set of databricks.Table full names: *`catalog`.`schema`.`table`*
-     */
     ids?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
-     * Name of databricks_schema
-     */
     schemaName: pulumi.Input<string>;
 }

@@ -11,47 +11,29 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The resource permissions can be imported using the object id bash
-//
-// ```sh
-//  $ pulumi import databricks:index/permissions:Permissions this /<object type>/<object id>
-// ```
 type Permissions struct {
 	pulumi.CustomResourceState
 
-	AccessControls PermissionsAccessControlArrayOutput `pulumi:"accessControls"`
-	// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-	Authorization pulumi.StringPtrOutput `pulumi:"authorization"`
-	// cluster id
-	ClusterId pulumi.StringPtrOutput `pulumi:"clusterId"`
-	// cluster policy id
-	ClusterPolicyId pulumi.StringPtrOutput `pulumi:"clusterPolicyId"`
-	// directory id
-	DirectoryId pulumi.StringPtrOutput `pulumi:"directoryId"`
-	// path of directory
-	DirectoryPath pulumi.StringPtrOutput `pulumi:"directoryPath"`
-	ExperimentId  pulumi.StringPtrOutput `pulumi:"experimentId"`
-	// instance pool id
-	InstancePoolId pulumi.StringPtrOutput `pulumi:"instancePoolId"`
-	// job id
-	JobId pulumi.StringPtrOutput `pulumi:"jobId"`
-	// ID of notebook within workspace
-	NotebookId pulumi.StringPtrOutput `pulumi:"notebookId"`
-	// path of notebook
-	NotebookPath pulumi.StringPtrOutput `pulumi:"notebookPath"`
-	// type of permissions.
-	ObjectType        pulumi.StringOutput    `pulumi:"objectType"`
-	RegisteredModelId pulumi.StringPtrOutput `pulumi:"registeredModelId"`
-	// repo id
-	RepoId pulumi.StringPtrOutput `pulumi:"repoId"`
-	// path of databricks repo directory(`/Repos/<username>/...`)
-	RepoPath       pulumi.StringPtrOutput `pulumi:"repoPath"`
-	SqlAlertId     pulumi.StringPtrOutput `pulumi:"sqlAlertId"`
-	SqlDashboardId pulumi.StringPtrOutput `pulumi:"sqlDashboardId"`
-	SqlEndpointId  pulumi.StringPtrOutput `pulumi:"sqlEndpointId"`
-	SqlQueryId     pulumi.StringPtrOutput `pulumi:"sqlQueryId"`
+	AccessControls    PermissionsAccessControlArrayOutput `pulumi:"accessControls"`
+	Authorization     pulumi.StringPtrOutput              `pulumi:"authorization"`
+	ClusterId         pulumi.StringPtrOutput              `pulumi:"clusterId"`
+	ClusterPolicyId   pulumi.StringPtrOutput              `pulumi:"clusterPolicyId"`
+	DirectoryId       pulumi.StringPtrOutput              `pulumi:"directoryId"`
+	DirectoryPath     pulumi.StringPtrOutput              `pulumi:"directoryPath"`
+	ExperimentId      pulumi.StringPtrOutput              `pulumi:"experimentId"`
+	InstancePoolId    pulumi.StringPtrOutput              `pulumi:"instancePoolId"`
+	JobId             pulumi.StringPtrOutput              `pulumi:"jobId"`
+	NotebookId        pulumi.StringPtrOutput              `pulumi:"notebookId"`
+	NotebookPath      pulumi.StringPtrOutput              `pulumi:"notebookPath"`
+	ObjectType        pulumi.StringOutput                 `pulumi:"objectType"`
+	PipelineId        pulumi.StringPtrOutput              `pulumi:"pipelineId"`
+	RegisteredModelId pulumi.StringPtrOutput              `pulumi:"registeredModelId"`
+	RepoId            pulumi.StringPtrOutput              `pulumi:"repoId"`
+	RepoPath          pulumi.StringPtrOutput              `pulumi:"repoPath"`
+	SqlAlertId        pulumi.StringPtrOutput              `pulumi:"sqlAlertId"`
+	SqlDashboardId    pulumi.StringPtrOutput              `pulumi:"sqlDashboardId"`
+	SqlEndpointId     pulumi.StringPtrOutput              `pulumi:"sqlEndpointId"`
+	SqlQueryId        pulumi.StringPtrOutput              `pulumi:"sqlQueryId"`
 }
 
 // NewPermissions registers a new resource with the given unique name, arguments, and options.
@@ -86,71 +68,49 @@ func GetPermissions(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Permissions resources.
 type permissionsState struct {
-	AccessControls []PermissionsAccessControl `pulumi:"accessControls"`
-	// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-	Authorization *string `pulumi:"authorization"`
-	// cluster id
-	ClusterId *string `pulumi:"clusterId"`
-	// cluster policy id
-	ClusterPolicyId *string `pulumi:"clusterPolicyId"`
-	// directory id
-	DirectoryId *string `pulumi:"directoryId"`
-	// path of directory
-	DirectoryPath *string `pulumi:"directoryPath"`
-	ExperimentId  *string `pulumi:"experimentId"`
-	// instance pool id
-	InstancePoolId *string `pulumi:"instancePoolId"`
-	// job id
-	JobId *string `pulumi:"jobId"`
-	// ID of notebook within workspace
-	NotebookId *string `pulumi:"notebookId"`
-	// path of notebook
-	NotebookPath *string `pulumi:"notebookPath"`
-	// type of permissions.
-	ObjectType        *string `pulumi:"objectType"`
-	RegisteredModelId *string `pulumi:"registeredModelId"`
-	// repo id
-	RepoId *string `pulumi:"repoId"`
-	// path of databricks repo directory(`/Repos/<username>/...`)
-	RepoPath       *string `pulumi:"repoPath"`
-	SqlAlertId     *string `pulumi:"sqlAlertId"`
-	SqlDashboardId *string `pulumi:"sqlDashboardId"`
-	SqlEndpointId  *string `pulumi:"sqlEndpointId"`
-	SqlQueryId     *string `pulumi:"sqlQueryId"`
+	AccessControls    []PermissionsAccessControl `pulumi:"accessControls"`
+	Authorization     *string                    `pulumi:"authorization"`
+	ClusterId         *string                    `pulumi:"clusterId"`
+	ClusterPolicyId   *string                    `pulumi:"clusterPolicyId"`
+	DirectoryId       *string                    `pulumi:"directoryId"`
+	DirectoryPath     *string                    `pulumi:"directoryPath"`
+	ExperimentId      *string                    `pulumi:"experimentId"`
+	InstancePoolId    *string                    `pulumi:"instancePoolId"`
+	JobId             *string                    `pulumi:"jobId"`
+	NotebookId        *string                    `pulumi:"notebookId"`
+	NotebookPath      *string                    `pulumi:"notebookPath"`
+	ObjectType        *string                    `pulumi:"objectType"`
+	PipelineId        *string                    `pulumi:"pipelineId"`
+	RegisteredModelId *string                    `pulumi:"registeredModelId"`
+	RepoId            *string                    `pulumi:"repoId"`
+	RepoPath          *string                    `pulumi:"repoPath"`
+	SqlAlertId        *string                    `pulumi:"sqlAlertId"`
+	SqlDashboardId    *string                    `pulumi:"sqlDashboardId"`
+	SqlEndpointId     *string                    `pulumi:"sqlEndpointId"`
+	SqlQueryId        *string                    `pulumi:"sqlQueryId"`
 }
 
 type PermissionsState struct {
-	AccessControls PermissionsAccessControlArrayInput
-	// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-	Authorization pulumi.StringPtrInput
-	// cluster id
-	ClusterId pulumi.StringPtrInput
-	// cluster policy id
-	ClusterPolicyId pulumi.StringPtrInput
-	// directory id
-	DirectoryId pulumi.StringPtrInput
-	// path of directory
-	DirectoryPath pulumi.StringPtrInput
-	ExperimentId  pulumi.StringPtrInput
-	// instance pool id
-	InstancePoolId pulumi.StringPtrInput
-	// job id
-	JobId pulumi.StringPtrInput
-	// ID of notebook within workspace
-	NotebookId pulumi.StringPtrInput
-	// path of notebook
-	NotebookPath pulumi.StringPtrInput
-	// type of permissions.
+	AccessControls    PermissionsAccessControlArrayInput
+	Authorization     pulumi.StringPtrInput
+	ClusterId         pulumi.StringPtrInput
+	ClusterPolicyId   pulumi.StringPtrInput
+	DirectoryId       pulumi.StringPtrInput
+	DirectoryPath     pulumi.StringPtrInput
+	ExperimentId      pulumi.StringPtrInput
+	InstancePoolId    pulumi.StringPtrInput
+	JobId             pulumi.StringPtrInput
+	NotebookId        pulumi.StringPtrInput
+	NotebookPath      pulumi.StringPtrInput
 	ObjectType        pulumi.StringPtrInput
+	PipelineId        pulumi.StringPtrInput
 	RegisteredModelId pulumi.StringPtrInput
-	// repo id
-	RepoId pulumi.StringPtrInput
-	// path of databricks repo directory(`/Repos/<username>/...`)
-	RepoPath       pulumi.StringPtrInput
-	SqlAlertId     pulumi.StringPtrInput
-	SqlDashboardId pulumi.StringPtrInput
-	SqlEndpointId  pulumi.StringPtrInput
-	SqlQueryId     pulumi.StringPtrInput
+	RepoId            pulumi.StringPtrInput
+	RepoPath          pulumi.StringPtrInput
+	SqlAlertId        pulumi.StringPtrInput
+	SqlDashboardId    pulumi.StringPtrInput
+	SqlEndpointId     pulumi.StringPtrInput
+	SqlQueryId        pulumi.StringPtrInput
 }
 
 func (PermissionsState) ElementType() reflect.Type {
@@ -158,72 +118,50 @@ func (PermissionsState) ElementType() reflect.Type {
 }
 
 type permissionsArgs struct {
-	AccessControls []PermissionsAccessControl `pulumi:"accessControls"`
-	// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-	Authorization *string `pulumi:"authorization"`
-	// cluster id
-	ClusterId *string `pulumi:"clusterId"`
-	// cluster policy id
-	ClusterPolicyId *string `pulumi:"clusterPolicyId"`
-	// directory id
-	DirectoryId *string `pulumi:"directoryId"`
-	// path of directory
-	DirectoryPath *string `pulumi:"directoryPath"`
-	ExperimentId  *string `pulumi:"experimentId"`
-	// instance pool id
-	InstancePoolId *string `pulumi:"instancePoolId"`
-	// job id
-	JobId *string `pulumi:"jobId"`
-	// ID of notebook within workspace
-	NotebookId *string `pulumi:"notebookId"`
-	// path of notebook
-	NotebookPath *string `pulumi:"notebookPath"`
-	// type of permissions.
-	ObjectType        *string `pulumi:"objectType"`
-	RegisteredModelId *string `pulumi:"registeredModelId"`
-	// repo id
-	RepoId *string `pulumi:"repoId"`
-	// path of databricks repo directory(`/Repos/<username>/...`)
-	RepoPath       *string `pulumi:"repoPath"`
-	SqlAlertId     *string `pulumi:"sqlAlertId"`
-	SqlDashboardId *string `pulumi:"sqlDashboardId"`
-	SqlEndpointId  *string `pulumi:"sqlEndpointId"`
-	SqlQueryId     *string `pulumi:"sqlQueryId"`
+	AccessControls    []PermissionsAccessControl `pulumi:"accessControls"`
+	Authorization     *string                    `pulumi:"authorization"`
+	ClusterId         *string                    `pulumi:"clusterId"`
+	ClusterPolicyId   *string                    `pulumi:"clusterPolicyId"`
+	DirectoryId       *string                    `pulumi:"directoryId"`
+	DirectoryPath     *string                    `pulumi:"directoryPath"`
+	ExperimentId      *string                    `pulumi:"experimentId"`
+	InstancePoolId    *string                    `pulumi:"instancePoolId"`
+	JobId             *string                    `pulumi:"jobId"`
+	NotebookId        *string                    `pulumi:"notebookId"`
+	NotebookPath      *string                    `pulumi:"notebookPath"`
+	ObjectType        *string                    `pulumi:"objectType"`
+	PipelineId        *string                    `pulumi:"pipelineId"`
+	RegisteredModelId *string                    `pulumi:"registeredModelId"`
+	RepoId            *string                    `pulumi:"repoId"`
+	RepoPath          *string                    `pulumi:"repoPath"`
+	SqlAlertId        *string                    `pulumi:"sqlAlertId"`
+	SqlDashboardId    *string                    `pulumi:"sqlDashboardId"`
+	SqlEndpointId     *string                    `pulumi:"sqlEndpointId"`
+	SqlQueryId        *string                    `pulumi:"sqlQueryId"`
 }
 
 // The set of arguments for constructing a Permissions resource.
 type PermissionsArgs struct {
-	AccessControls PermissionsAccessControlArrayInput
-	// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-	Authorization pulumi.StringPtrInput
-	// cluster id
-	ClusterId pulumi.StringPtrInput
-	// cluster policy id
-	ClusterPolicyId pulumi.StringPtrInput
-	// directory id
-	DirectoryId pulumi.StringPtrInput
-	// path of directory
-	DirectoryPath pulumi.StringPtrInput
-	ExperimentId  pulumi.StringPtrInput
-	// instance pool id
-	InstancePoolId pulumi.StringPtrInput
-	// job id
-	JobId pulumi.StringPtrInput
-	// ID of notebook within workspace
-	NotebookId pulumi.StringPtrInput
-	// path of notebook
-	NotebookPath pulumi.StringPtrInput
-	// type of permissions.
+	AccessControls    PermissionsAccessControlArrayInput
+	Authorization     pulumi.StringPtrInput
+	ClusterId         pulumi.StringPtrInput
+	ClusterPolicyId   pulumi.StringPtrInput
+	DirectoryId       pulumi.StringPtrInput
+	DirectoryPath     pulumi.StringPtrInput
+	ExperimentId      pulumi.StringPtrInput
+	InstancePoolId    pulumi.StringPtrInput
+	JobId             pulumi.StringPtrInput
+	NotebookId        pulumi.StringPtrInput
+	NotebookPath      pulumi.StringPtrInput
 	ObjectType        pulumi.StringPtrInput
+	PipelineId        pulumi.StringPtrInput
 	RegisteredModelId pulumi.StringPtrInput
-	// repo id
-	RepoId pulumi.StringPtrInput
-	// path of databricks repo directory(`/Repos/<username>/...`)
-	RepoPath       pulumi.StringPtrInput
-	SqlAlertId     pulumi.StringPtrInput
-	SqlDashboardId pulumi.StringPtrInput
-	SqlEndpointId  pulumi.StringPtrInput
-	SqlQueryId     pulumi.StringPtrInput
+	RepoId            pulumi.StringPtrInput
+	RepoPath          pulumi.StringPtrInput
+	SqlAlertId        pulumi.StringPtrInput
+	SqlDashboardId    pulumi.StringPtrInput
+	SqlEndpointId     pulumi.StringPtrInput
+	SqlQueryId        pulumi.StringPtrInput
 }
 
 func (PermissionsArgs) ElementType() reflect.Type {

@@ -10,25 +10,14 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// This resource can be imported by namebash
-//
-// ```sh
-//  $ pulumi import databricks:index/catalog:Catalog this <name>
-// ```
 type Catalog struct {
 	pulumi.CustomResourceState
 
-	// User-supplied free-form text.
 	Comment     pulumi.StringPtrOutput `pulumi:"comment"`
 	MetastoreId pulumi.StringOutput    `pulumi:"metastoreId"`
-	// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-	Name pulumi.StringOutput `pulumi:"name"`
-	// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-	Owner pulumi.StringOutput `pulumi:"owner"`
-	// Extensible Catalog properties.
-	Properties pulumi.MapOutput `pulumi:"properties"`
+	Name        pulumi.StringOutput    `pulumi:"name"`
+	Owner       pulumi.StringOutput    `pulumi:"owner"`
+	Properties  pulumi.MapOutput       `pulumi:"properties"`
 }
 
 // NewCatalog registers a new resource with the given unique name, arguments, and options.
@@ -60,27 +49,19 @@ func GetCatalog(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Catalog resources.
 type catalogState struct {
-	// User-supplied free-form text.
-	Comment     *string `pulumi:"comment"`
-	MetastoreId *string `pulumi:"metastoreId"`
-	// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
-	// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-	Owner *string `pulumi:"owner"`
-	// Extensible Catalog properties.
-	Properties map[string]interface{} `pulumi:"properties"`
+	Comment     *string                `pulumi:"comment"`
+	MetastoreId *string                `pulumi:"metastoreId"`
+	Name        *string                `pulumi:"name"`
+	Owner       *string                `pulumi:"owner"`
+	Properties  map[string]interface{} `pulumi:"properties"`
 }
 
 type CatalogState struct {
-	// User-supplied free-form text.
 	Comment     pulumi.StringPtrInput
 	MetastoreId pulumi.StringPtrInput
-	// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
-	// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-	Owner pulumi.StringPtrInput
-	// Extensible Catalog properties.
-	Properties pulumi.MapInput
+	Name        pulumi.StringPtrInput
+	Owner       pulumi.StringPtrInput
+	Properties  pulumi.MapInput
 }
 
 func (CatalogState) ElementType() reflect.Type {
@@ -88,28 +69,20 @@ func (CatalogState) ElementType() reflect.Type {
 }
 
 type catalogArgs struct {
-	// User-supplied free-form text.
-	Comment     *string `pulumi:"comment"`
-	MetastoreId *string `pulumi:"metastoreId"`
-	// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
-	// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-	Owner *string `pulumi:"owner"`
-	// Extensible Catalog properties.
-	Properties map[string]interface{} `pulumi:"properties"`
+	Comment     *string                `pulumi:"comment"`
+	MetastoreId *string                `pulumi:"metastoreId"`
+	Name        *string                `pulumi:"name"`
+	Owner       *string                `pulumi:"owner"`
+	Properties  map[string]interface{} `pulumi:"properties"`
 }
 
 // The set of arguments for constructing a Catalog resource.
 type CatalogArgs struct {
-	// User-supplied free-form text.
 	Comment     pulumi.StringPtrInput
 	MetastoreId pulumi.StringPtrInput
-	// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
-	// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-	Owner pulumi.StringPtrInput
-	// Extensible Catalog properties.
-	Properties pulumi.MapInput
+	Name        pulumi.StringPtrInput
+	Owner       pulumi.StringPtrInput
+	Properties  pulumi.MapInput
 }
 
 func (CatalogArgs) ElementType() reflect.Type {

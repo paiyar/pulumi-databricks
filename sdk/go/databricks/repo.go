@@ -11,28 +11,15 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The resource Repo can be imported using the Repo ID (obtained via UI or using API) bash
-//
-// ```sh
-//  $ pulumi import databricks:index/repo:Repo this repo_id
-// ```
 type Repo struct {
 	pulumi.CustomResourceState
 
-	// name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
-	Branch pulumi.StringOutput `pulumi:"branch"`
-	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
-	CommitHash pulumi.StringOutput `pulumi:"commitHash"`
-	// case insensitive name of the Git provider.  Following values are supported right now (maybe a subject for change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`
-	GitProvider pulumi.StringOutput `pulumi:"gitProvider"`
-	// path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If value changes, repo is re-created
-	Path pulumi.StringOutput `pulumi:"path"`
-	// name of the tag for initial checkout.  Conflicts with `branch`
-	Tag pulumi.StringPtrOutput `pulumi:"tag"`
-	// The URL of the Git Repository to clone from. If value changes, repo is re-created
-	Url pulumi.StringOutput `pulumi:"url"`
+	Branch      pulumi.StringOutput    `pulumi:"branch"`
+	CommitHash  pulumi.StringOutput    `pulumi:"commitHash"`
+	GitProvider pulumi.StringOutput    `pulumi:"gitProvider"`
+	Path        pulumi.StringOutput    `pulumi:"path"`
+	Tag         pulumi.StringPtrOutput `pulumi:"tag"`
+	Url         pulumi.StringOutput    `pulumi:"url"`
 }
 
 // NewRepo registers a new resource with the given unique name, arguments, and options.
@@ -67,33 +54,21 @@ func GetRepo(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Repo resources.
 type repoState struct {
-	// name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
-	Branch *string `pulumi:"branch"`
-	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
-	CommitHash *string `pulumi:"commitHash"`
-	// case insensitive name of the Git provider.  Following values are supported right now (maybe a subject for change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`
+	Branch      *string `pulumi:"branch"`
+	CommitHash  *string `pulumi:"commitHash"`
 	GitProvider *string `pulumi:"gitProvider"`
-	// path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If value changes, repo is re-created
-	Path *string `pulumi:"path"`
-	// name of the tag for initial checkout.  Conflicts with `branch`
-	Tag *string `pulumi:"tag"`
-	// The URL of the Git Repository to clone from. If value changes, repo is re-created
-	Url *string `pulumi:"url"`
+	Path        *string `pulumi:"path"`
+	Tag         *string `pulumi:"tag"`
+	Url         *string `pulumi:"url"`
 }
 
 type RepoState struct {
-	// name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
-	Branch pulumi.StringPtrInput
-	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
-	CommitHash pulumi.StringPtrInput
-	// case insensitive name of the Git provider.  Following values are supported right now (maybe a subject for change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`
+	Branch      pulumi.StringPtrInput
+	CommitHash  pulumi.StringPtrInput
 	GitProvider pulumi.StringPtrInput
-	// path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If value changes, repo is re-created
-	Path pulumi.StringPtrInput
-	// name of the tag for initial checkout.  Conflicts with `branch`
-	Tag pulumi.StringPtrInput
-	// The URL of the Git Repository to clone from. If value changes, repo is re-created
-	Url pulumi.StringPtrInput
+	Path        pulumi.StringPtrInput
+	Tag         pulumi.StringPtrInput
+	Url         pulumi.StringPtrInput
 }
 
 func (RepoState) ElementType() reflect.Type {
@@ -101,34 +76,22 @@ func (RepoState) ElementType() reflect.Type {
 }
 
 type repoArgs struct {
-	// name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
-	Branch *string `pulumi:"branch"`
-	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
-	CommitHash *string `pulumi:"commitHash"`
-	// case insensitive name of the Git provider.  Following values are supported right now (maybe a subject for change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`
+	Branch      *string `pulumi:"branch"`
+	CommitHash  *string `pulumi:"commitHash"`
 	GitProvider *string `pulumi:"gitProvider"`
-	// path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If value changes, repo is re-created
-	Path *string `pulumi:"path"`
-	// name of the tag for initial checkout.  Conflicts with `branch`
-	Tag *string `pulumi:"tag"`
-	// The URL of the Git Repository to clone from. If value changes, repo is re-created
-	Url string `pulumi:"url"`
+	Path        *string `pulumi:"path"`
+	Tag         *string `pulumi:"tag"`
+	Url         string  `pulumi:"url"`
 }
 
 // The set of arguments for constructing a Repo resource.
 type RepoArgs struct {
-	// name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with `tag`.  If `branch` is removed, and `tag` isn't specified, then the repository will stay at the previously checked out state.
-	Branch pulumi.StringPtrInput
-	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
-	CommitHash pulumi.StringPtrInput
-	// case insensitive name of the Git provider.  Following values are supported right now (maybe a subject for change, consult [Repos API documentation](https://docs.databricks.com/dev-tools/api/latest/repos.html)): `gitHub`, `gitHubEnterprise`, `bitbucketCloud`, `bitbucketServer`, `azureDevOpsServices`, `gitLab`, `gitLabEnterpriseEdition`
+	Branch      pulumi.StringPtrInput
+	CommitHash  pulumi.StringPtrInput
 	GitProvider pulumi.StringPtrInput
-	// path to put the checked out Repo. If not specified, then repo will be created in the user's repo directory (`/Repos/<username>/...`).  If value changes, repo is re-created
-	Path pulumi.StringPtrInput
-	// name of the tag for initial checkout.  Conflicts with `branch`
-	Tag pulumi.StringPtrInput
-	// The URL of the Git Repository to clone from. If value changes, repo is re-created
-	Url pulumi.StringInput
+	Path        pulumi.StringPtrInput
+	Tag         pulumi.StringPtrInput
+	Url         pulumi.StringInput
 }
 
 func (RepoArgs) ElementType() reflect.Type {

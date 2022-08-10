@@ -5,11 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class MwsCustomerManagedKeys extends pulumi.CustomResource {
     /**
      * Get an existing MwsCustomerManagedKeys resource's state with the given name, ID, and optional extra
@@ -38,25 +33,10 @@ export class MwsCustomerManagedKeys extends pulumi.CustomResource {
         return obj['__pulumiType'] === MwsCustomerManagedKeys.__pulumiType;
     }
 
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     public readonly accountId!: pulumi.Output<string>;
-    /**
-     * This field is a block and is documented below.
-     */
     public readonly awsKeyInfo!: pulumi.Output<outputs.MwsCustomerManagedKeysAwsKeyInfo>;
-    /**
-     * (Integer) Time in epoch milliseconds when the customer key was created.
-     */
     public readonly creationTime!: pulumi.Output<number>;
-    /**
-     * (String) ID of the encryption key configuration object.
-     */
     public readonly customerManagedKeyId!: pulumi.Output<string>;
-    /**
-     * *(since v0.3.4)* List of use cases for which this key will be used. *If you've used the resource before, please add `useCases = ["MANAGED_SERVICES"]` to keep the previous behaviour.* Possible values are:
-     */
     public readonly useCases!: pulumi.Output<string[]>;
 
     /**
@@ -103,25 +83,10 @@ export class MwsCustomerManagedKeys extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MwsCustomerManagedKeys resources.
  */
 export interface MwsCustomerManagedKeysState {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId?: pulumi.Input<string>;
-    /**
-     * This field is a block and is documented below.
-     */
     awsKeyInfo?: pulumi.Input<inputs.MwsCustomerManagedKeysAwsKeyInfo>;
-    /**
-     * (Integer) Time in epoch milliseconds when the customer key was created.
-     */
     creationTime?: pulumi.Input<number>;
-    /**
-     * (String) ID of the encryption key configuration object.
-     */
     customerManagedKeyId?: pulumi.Input<string>;
-    /**
-     * *(since v0.3.4)* List of use cases for which this key will be used. *If you've used the resource before, please add `useCases = ["MANAGED_SERVICES"]` to keep the previous behaviour.* Possible values are:
-     */
     useCases?: pulumi.Input<pulumi.Input<string>[]>;
 }
 
@@ -129,24 +94,9 @@ export interface MwsCustomerManagedKeysState {
  * The set of arguments for constructing a MwsCustomerManagedKeys resource.
  */
 export interface MwsCustomerManagedKeysArgs {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId: pulumi.Input<string>;
-    /**
-     * This field is a block and is documented below.
-     */
     awsKeyInfo: pulumi.Input<inputs.MwsCustomerManagedKeysAwsKeyInfo>;
-    /**
-     * (Integer) Time in epoch milliseconds when the customer key was created.
-     */
     creationTime?: pulumi.Input<number>;
-    /**
-     * (String) ID of the encryption key configuration object.
-     */
     customerManagedKeyId?: pulumi.Input<string>;
-    /**
-     * *(since v0.3.4)* List of use cases for which this key will be used. *If you've used the resource before, please add `useCases = ["MANAGED_SERVICES"]` to keep the previous behaviour.* Possible values are:
-     */
     useCases: pulumi.Input<pulumi.Input<string>[]>;
 }

@@ -11,103 +11,17 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// This resource allows you to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments). You can also associate Databricks users to groups. This is useful if you are using an application to sync users & groups with SCIM API.
-//
-// Recommended to use along with Identity Provider SCIM provisioning to populate users into those groups:
-//
-// * [Azure Active Directory](https://docs.microsoft.com/en-us/azure/databricks/administration-guide/users-groups/scim/aad)
-// * [Okta](https://docs.databricks.com/administration-guide/users-groups/scim/okta.html)
-// * [OneLogin](https://docs.databricks.com/administration-guide/users-groups/scim/onelogin.html)
-//
-// ## Example Usage
-//
-// Creating some group
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := databricks.NewGroup(ctx, "this", &databricks.GroupArgs{
-// 			AllowClusterCreate:      pulumi.Bool(true),
-// 			AllowInstancePoolCreate: pulumi.Bool(true),
-// 			DisplayName:             pulumi.String("Some Group"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// Adding User as GroupMember of some group
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		thisGroup, err := databricks.NewGroup(ctx, "thisGroup", &databricks.GroupArgs{
-// 			DisplayName:             pulumi.String("Some Group"),
-// 			AllowClusterCreate:      pulumi.Bool(true),
-// 			AllowInstancePoolCreate: pulumi.Bool(true),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		thisUser, err := databricks.NewUser(ctx, "thisUser", &databricks.UserArgs{
-// 			UserName: pulumi.String("someone@example.com"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewGroupMember(ctx, "vipMember", &databricks.GroupMemberArgs{
-// 			GroupId:  thisGroup.ID(),
-// 			MemberId: thisUser.ID(),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// ## Import
-//
-// You can import a `databricks_group` resource with the name `my_group` like the followingbash
-//
-// ```sh
-//  $ pulumi import databricks:index/group:Group my_group <group_id>
-// ```
 type Group struct {
 	pulumi.CustomResourceState
 
-	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with Permissions and clusterId argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate pulumi.BoolPtrOutput `pulumi:"allowClusterCreate"`
-	// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
-	AllowInstancePoolCreate pulumi.BoolPtrOutput `pulumi:"allowInstancePoolCreate"`
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess pulumi.BoolPtrOutput `pulumi:"databricksSqlAccess"`
-	// This is the display name for the given group.
-	DisplayName pulumi.StringOutput `pulumi:"displayName"`
-	// ID of the group in an external identity provider.
-	ExternalId pulumi.StringPtrOutput `pulumi:"externalId"`
-	Force      pulumi.BoolPtrOutput   `pulumi:"force"`
-	Url        pulumi.StringOutput    `pulumi:"url"`
-	// This is a field to allow the group to have access to Databricks Workspace.
-	WorkspaceAccess pulumi.BoolPtrOutput `pulumi:"workspaceAccess"`
+	AllowClusterCreate      pulumi.BoolPtrOutput   `pulumi:"allowClusterCreate"`
+	AllowInstancePoolCreate pulumi.BoolPtrOutput   `pulumi:"allowInstancePoolCreate"`
+	DatabricksSqlAccess     pulumi.BoolPtrOutput   `pulumi:"databricksSqlAccess"`
+	DisplayName             pulumi.StringOutput    `pulumi:"displayName"`
+	ExternalId              pulumi.StringPtrOutput `pulumi:"externalId"`
+	Force                   pulumi.BoolPtrOutput   `pulumi:"force"`
+	Url                     pulumi.StringOutput    `pulumi:"url"`
+	WorkspaceAccess         pulumi.BoolPtrOutput   `pulumi:"workspaceAccess"`
 }
 
 // NewGroup registers a new resource with the given unique name, arguments, and options.
@@ -142,37 +56,25 @@ func GetGroup(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Group resources.
 type groupState struct {
-	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with Permissions and clusterId argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate *bool `pulumi:"allowClusterCreate"`
-	// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
-	AllowInstancePoolCreate *bool `pulumi:"allowInstancePoolCreate"`
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess *bool `pulumi:"databricksSqlAccess"`
-	// This is the display name for the given group.
-	DisplayName *string `pulumi:"displayName"`
-	// ID of the group in an external identity provider.
-	ExternalId *string `pulumi:"externalId"`
-	Force      *bool   `pulumi:"force"`
-	Url        *string `pulumi:"url"`
-	// This is a field to allow the group to have access to Databricks Workspace.
-	WorkspaceAccess *bool `pulumi:"workspaceAccess"`
+	AllowClusterCreate      *bool   `pulumi:"allowClusterCreate"`
+	AllowInstancePoolCreate *bool   `pulumi:"allowInstancePoolCreate"`
+	DatabricksSqlAccess     *bool   `pulumi:"databricksSqlAccess"`
+	DisplayName             *string `pulumi:"displayName"`
+	ExternalId              *string `pulumi:"externalId"`
+	Force                   *bool   `pulumi:"force"`
+	Url                     *string `pulumi:"url"`
+	WorkspaceAccess         *bool   `pulumi:"workspaceAccess"`
 }
 
 type GroupState struct {
-	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with Permissions and clusterId argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate pulumi.BoolPtrInput
-	// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
+	AllowClusterCreate      pulumi.BoolPtrInput
 	AllowInstancePoolCreate pulumi.BoolPtrInput
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess pulumi.BoolPtrInput
-	// This is the display name for the given group.
-	DisplayName pulumi.StringPtrInput
-	// ID of the group in an external identity provider.
-	ExternalId pulumi.StringPtrInput
-	Force      pulumi.BoolPtrInput
-	Url        pulumi.StringPtrInput
-	// This is a field to allow the group to have access to Databricks Workspace.
-	WorkspaceAccess pulumi.BoolPtrInput
+	DatabricksSqlAccess     pulumi.BoolPtrInput
+	DisplayName             pulumi.StringPtrInput
+	ExternalId              pulumi.StringPtrInput
+	Force                   pulumi.BoolPtrInput
+	Url                     pulumi.StringPtrInput
+	WorkspaceAccess         pulumi.BoolPtrInput
 }
 
 func (GroupState) ElementType() reflect.Type {
@@ -180,38 +82,26 @@ func (GroupState) ElementType() reflect.Type {
 }
 
 type groupArgs struct {
-	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with Permissions and clusterId argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate *bool `pulumi:"allowClusterCreate"`
-	// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
-	AllowInstancePoolCreate *bool `pulumi:"allowInstancePoolCreate"`
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess *bool `pulumi:"databricksSqlAccess"`
-	// This is the display name for the given group.
-	DisplayName string `pulumi:"displayName"`
-	// ID of the group in an external identity provider.
-	ExternalId *string `pulumi:"externalId"`
-	Force      *bool   `pulumi:"force"`
-	Url        *string `pulumi:"url"`
-	// This is a field to allow the group to have access to Databricks Workspace.
-	WorkspaceAccess *bool `pulumi:"workspaceAccess"`
+	AllowClusterCreate      *bool   `pulumi:"allowClusterCreate"`
+	AllowInstancePoolCreate *bool   `pulumi:"allowInstancePoolCreate"`
+	DatabricksSqlAccess     *bool   `pulumi:"databricksSqlAccess"`
+	DisplayName             string  `pulumi:"displayName"`
+	ExternalId              *string `pulumi:"externalId"`
+	Force                   *bool   `pulumi:"force"`
+	Url                     *string `pulumi:"url"`
+	WorkspaceAccess         *bool   `pulumi:"workspaceAccess"`
 }
 
 // The set of arguments for constructing a Group resource.
 type GroupArgs struct {
-	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with Permissions and clusterId argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate pulumi.BoolPtrInput
-	// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
+	AllowClusterCreate      pulumi.BoolPtrInput
 	AllowInstancePoolCreate pulumi.BoolPtrInput
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess pulumi.BoolPtrInput
-	// This is the display name for the given group.
-	DisplayName pulumi.StringInput
-	// ID of the group in an external identity provider.
-	ExternalId pulumi.StringPtrInput
-	Force      pulumi.BoolPtrInput
-	Url        pulumi.StringPtrInput
-	// This is a field to allow the group to have access to Databricks Workspace.
-	WorkspaceAccess pulumi.BoolPtrInput
+	DatabricksSqlAccess     pulumi.BoolPtrInput
+	DisplayName             pulumi.StringInput
+	ExternalId              pulumi.StringPtrInput
+	Force                   pulumi.BoolPtrInput
+	Url                     pulumi.StringPtrInput
+	WorkspaceAccess         pulumi.BoolPtrInput
 }
 
 func (GroupArgs) ElementType() reflect.Type {

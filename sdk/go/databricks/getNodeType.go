@@ -21,35 +21,18 @@ func GetNodeType(ctx *pulumi.Context, args *GetNodeTypeArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getNodeType.
 type GetNodeTypeArgs struct {
-	// Node category, which can be one of (depending on the cloud environment, could be checked with `databricks clusters list-node-types|jq '.node_types[]|.category'|sort |uniq`):
-	// * `General Purpose` (all clouds)
-	// * `General Purpose (HDD)` (Azure)
-	// * `Compute Optimized` (all clouds)
-	// * `Memory Optimized` (all clouds)
-	// * `Memory Optimized (Remote HDD)` (Azure)
-	// * `Storage Optimized` (AWS, Azure)
-	// * `GPU Accelerated` (AWS, Azure)
-	Category *string `pulumi:"category"`
-	// Number of gigabytes per core available on instance. Conflicts with `minMemoryGb`. Defaults to *0*.
-	GbPerCore *int `pulumi:"gbPerCore"`
-	// if we should limit the search only to nodes with AWS Graviton CPUs. Default to *false*.
-	Graviton *bool `pulumi:"graviton"`
-	// . Pick only nodes that have IO Cache. Defaults to *false*.
-	IsIoCacheEnabled *bool `pulumi:"isIoCacheEnabled"`
-	// Pick only nodes with local storage. Defaults to *false*.
-	LocalDisk *bool `pulumi:"localDisk"`
-	// Minimum number of CPU cores available on instance. Defaults to *0*.
-	MinCores *int `pulumi:"minCores"`
-	// Minimum number of GPU's attached to instance. Defaults to *0*.
-	MinGpus *int `pulumi:"minGpus"`
-	// Minimum amount of memory per node in gigabytes. Defaults to *0*.
-	MinMemoryGb *int `pulumi:"minMemoryGb"`
-	// Pick only nodes that can run Photon driver. Defaults to *false*.
-	PhotonDriverCapable *bool `pulumi:"photonDriverCapable"`
-	// Pick only nodes that can run Photon workers. Defaults to *false*.
-	PhotonWorkerCapable *bool `pulumi:"photonWorkerCapable"`
-	// Pick only nodes that support port forwarding. Defaults to *false*.
-	SupportPortForwarding *bool `pulumi:"supportPortForwarding"`
+	Category              *string `pulumi:"category"`
+	GbPerCore             *int    `pulumi:"gbPerCore"`
+	Graviton              *bool   `pulumi:"graviton"`
+	IsIoCacheEnabled      *bool   `pulumi:"isIoCacheEnabled"`
+	LocalDisk             *bool   `pulumi:"localDisk"`
+	MinCores              *int    `pulumi:"minCores"`
+	MinGpus               *int    `pulumi:"minGpus"`
+	MinMemoryGb           *int    `pulumi:"minMemoryGb"`
+	PhotonDriverCapable   *bool   `pulumi:"photonDriverCapable"`
+	PhotonWorkerCapable   *bool   `pulumi:"photonWorkerCapable"`
+	SupportPortForwarding *bool   `pulumi:"supportPortForwarding"`
+	Vcpu                  *bool   `pulumi:"vcpu"`
 }
 
 // A collection of values returned by getNodeType.
@@ -67,6 +50,7 @@ type GetNodeTypeResult struct {
 	PhotonDriverCapable   *bool  `pulumi:"photonDriverCapable"`
 	PhotonWorkerCapable   *bool  `pulumi:"photonWorkerCapable"`
 	SupportPortForwarding *bool  `pulumi:"supportPortForwarding"`
+	Vcpu                  *bool  `pulumi:"vcpu"`
 }
 
 func GetNodeTypeOutput(ctx *pulumi.Context, args GetNodeTypeOutputArgs, opts ...pulumi.InvokeOption) GetNodeTypeResultOutput {
@@ -80,35 +64,18 @@ func GetNodeTypeOutput(ctx *pulumi.Context, args GetNodeTypeOutputArgs, opts ...
 
 // A collection of arguments for invoking getNodeType.
 type GetNodeTypeOutputArgs struct {
-	// Node category, which can be one of (depending on the cloud environment, could be checked with `databricks clusters list-node-types|jq '.node_types[]|.category'|sort |uniq`):
-	// * `General Purpose` (all clouds)
-	// * `General Purpose (HDD)` (Azure)
-	// * `Compute Optimized` (all clouds)
-	// * `Memory Optimized` (all clouds)
-	// * `Memory Optimized (Remote HDD)` (Azure)
-	// * `Storage Optimized` (AWS, Azure)
-	// * `GPU Accelerated` (AWS, Azure)
-	Category pulumi.StringPtrInput `pulumi:"category"`
-	// Number of gigabytes per core available on instance. Conflicts with `minMemoryGb`. Defaults to *0*.
-	GbPerCore pulumi.IntPtrInput `pulumi:"gbPerCore"`
-	// if we should limit the search only to nodes with AWS Graviton CPUs. Default to *false*.
-	Graviton pulumi.BoolPtrInput `pulumi:"graviton"`
-	// . Pick only nodes that have IO Cache. Defaults to *false*.
-	IsIoCacheEnabled pulumi.BoolPtrInput `pulumi:"isIoCacheEnabled"`
-	// Pick only nodes with local storage. Defaults to *false*.
-	LocalDisk pulumi.BoolPtrInput `pulumi:"localDisk"`
-	// Minimum number of CPU cores available on instance. Defaults to *0*.
-	MinCores pulumi.IntPtrInput `pulumi:"minCores"`
-	// Minimum number of GPU's attached to instance. Defaults to *0*.
-	MinGpus pulumi.IntPtrInput `pulumi:"minGpus"`
-	// Minimum amount of memory per node in gigabytes. Defaults to *0*.
-	MinMemoryGb pulumi.IntPtrInput `pulumi:"minMemoryGb"`
-	// Pick only nodes that can run Photon driver. Defaults to *false*.
-	PhotonDriverCapable pulumi.BoolPtrInput `pulumi:"photonDriverCapable"`
-	// Pick only nodes that can run Photon workers. Defaults to *false*.
-	PhotonWorkerCapable pulumi.BoolPtrInput `pulumi:"photonWorkerCapable"`
-	// Pick only nodes that support port forwarding. Defaults to *false*.
-	SupportPortForwarding pulumi.BoolPtrInput `pulumi:"supportPortForwarding"`
+	Category              pulumi.StringPtrInput `pulumi:"category"`
+	GbPerCore             pulumi.IntPtrInput    `pulumi:"gbPerCore"`
+	Graviton              pulumi.BoolPtrInput   `pulumi:"graviton"`
+	IsIoCacheEnabled      pulumi.BoolPtrInput   `pulumi:"isIoCacheEnabled"`
+	LocalDisk             pulumi.BoolPtrInput   `pulumi:"localDisk"`
+	MinCores              pulumi.IntPtrInput    `pulumi:"minCores"`
+	MinGpus               pulumi.IntPtrInput    `pulumi:"minGpus"`
+	MinMemoryGb           pulumi.IntPtrInput    `pulumi:"minMemoryGb"`
+	PhotonDriverCapable   pulumi.BoolPtrInput   `pulumi:"photonDriverCapable"`
+	PhotonWorkerCapable   pulumi.BoolPtrInput   `pulumi:"photonWorkerCapable"`
+	SupportPortForwarding pulumi.BoolPtrInput   `pulumi:"supportPortForwarding"`
+	Vcpu                  pulumi.BoolPtrInput   `pulumi:"vcpu"`
 }
 
 func (GetNodeTypeOutputArgs) ElementType() reflect.Type {
@@ -177,6 +144,10 @@ func (o GetNodeTypeResultOutput) PhotonWorkerCapable() pulumi.BoolPtrOutput {
 
 func (o GetNodeTypeResultOutput) SupportPortForwarding() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v GetNodeTypeResult) *bool { return v.SupportPortForwarding }).(pulumi.BoolPtrOutput)
+}
+
+func (o GetNodeTypeResultOutput) Vcpu() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GetNodeTypeResult) *bool { return v.Vcpu }).(pulumi.BoolPtrOutput)
 }
 
 func init() {

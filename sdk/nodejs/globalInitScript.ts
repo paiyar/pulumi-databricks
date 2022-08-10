@@ -4,15 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * The resource global init script can be imported using script IDbash
- *
- * ```sh
- *  $ pulumi import databricks:index/globalInitScript:GlobalInitScript this script_id
- * ```
- */
 export class GlobalInitScript extends pulumi.CustomResource {
     /**
      * Get an existing GlobalInitScript resource's state with the given name, ID, and optional extra
@@ -42,22 +33,10 @@ export class GlobalInitScript extends pulumi.CustomResource {
     }
 
     public readonly contentBase64!: pulumi.Output<string | undefined>;
-    /**
-     * specifies if the script is enabled for execution, or not
-     */
     public readonly enabled!: pulumi.Output<boolean | undefined>;
     public readonly md5!: pulumi.Output<string | undefined>;
-    /**
-     * - the name of the script.  It should be unique
-     */
     public readonly name!: pulumi.Output<string>;
-    /**
-     * - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-     */
     public readonly position!: pulumi.Output<number>;
-    /**
-     * Path to script's source code on local filesystem. Conflicts with `contentBase64`
-     */
     public readonly source!: pulumi.Output<string | undefined>;
 
     /**
@@ -98,22 +77,10 @@ export class GlobalInitScript extends pulumi.CustomResource {
  */
 export interface GlobalInitScriptState {
     contentBase64?: pulumi.Input<string>;
-    /**
-     * specifies if the script is enabled for execution, or not
-     */
     enabled?: pulumi.Input<boolean>;
     md5?: pulumi.Input<string>;
-    /**
-     * - the name of the script.  It should be unique
-     */
     name?: pulumi.Input<string>;
-    /**
-     * - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-     */
     position?: pulumi.Input<number>;
-    /**
-     * Path to script's source code on local filesystem. Conflicts with `contentBase64`
-     */
     source?: pulumi.Input<string>;
 }
 
@@ -122,21 +89,9 @@ export interface GlobalInitScriptState {
  */
 export interface GlobalInitScriptArgs {
     contentBase64?: pulumi.Input<string>;
-    /**
-     * specifies if the script is enabled for execution, or not
-     */
     enabled?: pulumi.Input<boolean>;
     md5?: pulumi.Input<string>;
-    /**
-     * - the name of the script.  It should be unique
-     */
     name?: pulumi.Input<string>;
-    /**
-     * - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-     */
     position?: pulumi.Input<number>;
-    /**
-     * Path to script's source code on local filesystem. Conflicts with `contentBase64`
-     */
     source?: pulumi.Input<string>;
 }

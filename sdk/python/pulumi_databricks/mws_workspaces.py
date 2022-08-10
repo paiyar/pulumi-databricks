@@ -41,17 +41,6 @@ class MwsWorkspacesArgs:
                  workspace_url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a MwsWorkspaces resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        :param pulumi.Input[str] workspace_name: name of the workspace, will appear on UI
-        :param pulumi.Input[str] aws_region: AWS region of VPC
-        :param pulumi.Input[int] creation_time: (Integer) time when workspace was created
-        :param pulumi.Input[str] deployment_name: part of URL: `https://<deployment-name>.cloud.databricks.com`
-        :param pulumi.Input[str] managed_services_customer_managed_key_id: `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        :param pulumi.Input[str] private_access_settings_id: Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-        :param pulumi.Input[str] storage_configuration_id: `storage_configuration_id` from storage configuration
-        :param pulumi.Input[str] workspace_status: (String) workspace status
-        :param pulumi.Input[str] workspace_status_message: (String) updates on workspace status
-        :param pulumi.Input[str] workspace_url: (String) URL of the workspace
         """
         pulumi.set(__self__, "account_id", account_id)
         pulumi.set(__self__, "workspace_name", workspace_name)
@@ -106,9 +95,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Input[str]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -118,9 +104,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="workspaceName")
     def workspace_name(self) -> pulumi.Input[str]:
-        """
-        name of the workspace, will appear on UI
-        """
         return pulumi.get(self, "workspace_name")
 
     @workspace_name.setter
@@ -130,9 +113,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="awsRegion")
     def aws_region(self) -> Optional[pulumi.Input[str]]:
-        """
-        AWS region of VPC
-        """
         return pulumi.get(self, "aws_region")
 
     @aws_region.setter
@@ -160,9 +140,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="creationTime")
     def creation_time(self) -> Optional[pulumi.Input[int]]:
-        """
-        (Integer) time when workspace was created
-        """
         return pulumi.get(self, "creation_time")
 
     @creation_time.setter
@@ -190,9 +167,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="deploymentName")
     def deployment_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        part of URL: `https://<deployment-name>.cloud.databricks.com`
-        """
         return pulumi.get(self, "deployment_name")
 
     @deployment_name.setter
@@ -229,9 +203,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="managedServicesCustomerManagedKeyId")
     def managed_services_customer_managed_key_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        """
         return pulumi.get(self, "managed_services_customer_managed_key_id")
 
     @managed_services_customer_managed_key_id.setter
@@ -268,9 +239,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="privateAccessSettingsId")
     def private_access_settings_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-        """
         return pulumi.get(self, "private_access_settings_id")
 
     @private_access_settings_id.setter
@@ -280,9 +248,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="storageConfigurationId")
     def storage_configuration_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        `storage_configuration_id` from storage configuration
-        """
         return pulumi.get(self, "storage_configuration_id")
 
     @storage_configuration_id.setter
@@ -319,9 +284,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="workspaceStatus")
     def workspace_status(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) workspace status
-        """
         return pulumi.get(self, "workspace_status")
 
     @workspace_status.setter
@@ -331,9 +293,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="workspaceStatusMessage")
     def workspace_status_message(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) updates on workspace status
-        """
         return pulumi.get(self, "workspace_status_message")
 
     @workspace_status_message.setter
@@ -343,9 +302,6 @@ class MwsWorkspacesArgs:
     @property
     @pulumi.getter(name="workspaceUrl")
     def workspace_url(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) URL of the workspace
-        """
         return pulumi.get(self, "workspace_url")
 
     @workspace_url.setter
@@ -382,17 +338,6 @@ class _MwsWorkspacesState:
                  workspace_url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering MwsWorkspaces resources.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        :param pulumi.Input[str] aws_region: AWS region of VPC
-        :param pulumi.Input[int] creation_time: (Integer) time when workspace was created
-        :param pulumi.Input[str] deployment_name: part of URL: `https://<deployment-name>.cloud.databricks.com`
-        :param pulumi.Input[str] managed_services_customer_managed_key_id: `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        :param pulumi.Input[str] private_access_settings_id: Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-        :param pulumi.Input[str] storage_configuration_id: `storage_configuration_id` from storage configuration
-        :param pulumi.Input[str] workspace_name: name of the workspace, will appear on UI
-        :param pulumi.Input[str] workspace_status: (String) workspace status
-        :param pulumi.Input[str] workspace_status_message: (String) updates on workspace status
-        :param pulumi.Input[str] workspace_url: (String) URL of the workspace
         """
         if account_id is not None:
             pulumi.set(__self__, "account_id", account_id)
@@ -449,9 +394,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -461,9 +403,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="awsRegion")
     def aws_region(self) -> Optional[pulumi.Input[str]]:
-        """
-        AWS region of VPC
-        """
         return pulumi.get(self, "aws_region")
 
     @aws_region.setter
@@ -491,9 +430,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="creationTime")
     def creation_time(self) -> Optional[pulumi.Input[int]]:
-        """
-        (Integer) time when workspace was created
-        """
         return pulumi.get(self, "creation_time")
 
     @creation_time.setter
@@ -521,9 +457,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="deploymentName")
     def deployment_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        part of URL: `https://<deployment-name>.cloud.databricks.com`
-        """
         return pulumi.get(self, "deployment_name")
 
     @deployment_name.setter
@@ -560,9 +493,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="managedServicesCustomerManagedKeyId")
     def managed_services_customer_managed_key_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        """
         return pulumi.get(self, "managed_services_customer_managed_key_id")
 
     @managed_services_customer_managed_key_id.setter
@@ -599,9 +529,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="privateAccessSettingsId")
     def private_access_settings_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-        """
         return pulumi.get(self, "private_access_settings_id")
 
     @private_access_settings_id.setter
@@ -611,9 +538,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="storageConfigurationId")
     def storage_configuration_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        `storage_configuration_id` from storage configuration
-        """
         return pulumi.get(self, "storage_configuration_id")
 
     @storage_configuration_id.setter
@@ -650,9 +574,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="workspaceName")
     def workspace_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        name of the workspace, will appear on UI
-        """
         return pulumi.get(self, "workspace_name")
 
     @workspace_name.setter
@@ -662,9 +583,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="workspaceStatus")
     def workspace_status(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) workspace status
-        """
         return pulumi.get(self, "workspace_status")
 
     @workspace_status.setter
@@ -674,9 +592,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="workspaceStatusMessage")
     def workspace_status_message(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) updates on workspace status
-        """
         return pulumi.get(self, "workspace_status_message")
 
     @workspace_status_message.setter
@@ -686,9 +601,6 @@ class _MwsWorkspacesState:
     @property
     @pulumi.getter(name="workspaceUrl")
     def workspace_url(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) URL of the workspace
-        """
         return pulumi.get(self, "workspace_url")
 
     @workspace_url.setter
@@ -727,23 +639,9 @@ class MwsWorkspaces(pulumi.CustomResource):
                  workspace_url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsWorkspaces resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        :param pulumi.Input[str] aws_region: AWS region of VPC
-        :param pulumi.Input[int] creation_time: (Integer) time when workspace was created
-        :param pulumi.Input[str] deployment_name: part of URL: `https://<deployment-name>.cloud.databricks.com`
-        :param pulumi.Input[str] managed_services_customer_managed_key_id: `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        :param pulumi.Input[str] private_access_settings_id: Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-        :param pulumi.Input[str] storage_configuration_id: `storage_configuration_id` from storage configuration
-        :param pulumi.Input[str] workspace_name: name of the workspace, will appear on UI
-        :param pulumi.Input[str] workspace_status: (String) workspace status
-        :param pulumi.Input[str] workspace_status_message: (String) updates on workspace status
-        :param pulumi.Input[str] workspace_url: (String) URL of the workspace
         """
         ...
     @overload
@@ -752,10 +650,7 @@ class MwsWorkspaces(pulumi.CustomResource):
                  args: MwsWorkspacesArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsWorkspaces resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param MwsWorkspacesArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -879,17 +774,6 @@ class MwsWorkspaces(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        :param pulumi.Input[str] aws_region: AWS region of VPC
-        :param pulumi.Input[int] creation_time: (Integer) time when workspace was created
-        :param pulumi.Input[str] deployment_name: part of URL: `https://<deployment-name>.cloud.databricks.com`
-        :param pulumi.Input[str] managed_services_customer_managed_key_id: `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        :param pulumi.Input[str] private_access_settings_id: Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-        :param pulumi.Input[str] storage_configuration_id: `storage_configuration_id` from storage configuration
-        :param pulumi.Input[str] workspace_name: name of the workspace, will appear on UI
-        :param pulumi.Input[str] workspace_status: (String) workspace status
-        :param pulumi.Input[str] workspace_status_message: (String) updates on workspace status
-        :param pulumi.Input[str] workspace_url: (String) URL of the workspace
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -924,17 +808,11 @@ class MwsWorkspaces(pulumi.CustomResource):
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Output[str]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        """
         return pulumi.get(self, "account_id")
 
     @property
     @pulumi.getter(name="awsRegion")
     def aws_region(self) -> pulumi.Output[Optional[str]]:
-        """
-        AWS region of VPC
-        """
         return pulumi.get(self, "aws_region")
 
     @property
@@ -950,9 +828,6 @@ class MwsWorkspaces(pulumi.CustomResource):
     @property
     @pulumi.getter(name="creationTime")
     def creation_time(self) -> pulumi.Output[int]:
-        """
-        (Integer) time when workspace was created
-        """
         return pulumi.get(self, "creation_time")
 
     @property
@@ -968,9 +843,6 @@ class MwsWorkspaces(pulumi.CustomResource):
     @property
     @pulumi.getter(name="deploymentName")
     def deployment_name(self) -> pulumi.Output[Optional[str]]:
-        """
-        part of URL: `https://<deployment-name>.cloud.databricks.com`
-        """
         return pulumi.get(self, "deployment_name")
 
     @property
@@ -991,9 +863,6 @@ class MwsWorkspaces(pulumi.CustomResource):
     @property
     @pulumi.getter(name="managedServicesCustomerManagedKeyId")
     def managed_services_customer_managed_key_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        """
         return pulumi.get(self, "managed_services_customer_managed_key_id")
 
     @property
@@ -1014,17 +883,11 @@ class MwsWorkspaces(pulumi.CustomResource):
     @property
     @pulumi.getter(name="privateAccessSettingsId")
     def private_access_settings_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-        """
         return pulumi.get(self, "private_access_settings_id")
 
     @property
     @pulumi.getter(name="storageConfigurationId")
     def storage_configuration_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        `storage_configuration_id` from storage configuration
-        """
         return pulumi.get(self, "storage_configuration_id")
 
     @property
@@ -1045,32 +908,20 @@ class MwsWorkspaces(pulumi.CustomResource):
     @property
     @pulumi.getter(name="workspaceName")
     def workspace_name(self) -> pulumi.Output[str]:
-        """
-        name of the workspace, will appear on UI
-        """
         return pulumi.get(self, "workspace_name")
 
     @property
     @pulumi.getter(name="workspaceStatus")
     def workspace_status(self) -> pulumi.Output[str]:
-        """
-        (String) workspace status
-        """
         return pulumi.get(self, "workspace_status")
 
     @property
     @pulumi.getter(name="workspaceStatusMessage")
     def workspace_status_message(self) -> pulumi.Output[str]:
-        """
-        (String) updates on workspace status
-        """
         return pulumi.get(self, "workspace_status_message")
 
     @property
     @pulumi.getter(name="workspaceUrl")
     def workspace_url(self) -> pulumi.Output[str]:
-        """
-        (String) URL of the workspace
-        """
         return pulumi.get(self, "workspace_url")
 

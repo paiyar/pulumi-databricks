@@ -20,13 +20,7 @@ export function getSchemas(args: GetSchemasArgs, opts?: pulumi.InvokeOptions): P
  * A collection of arguments for invoking getSchemas.
  */
 export interface GetSchemasArgs {
-    /**
-     * Name of databricks_catalog
-     */
     catalogName: string;
-    /**
-     * set of databricks.Schema full names: *`catalog`.`schema`*
-     */
     ids?: string[];
 }
 
@@ -39,9 +33,6 @@ export interface GetSchemasResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * set of databricks.Schema full names: *`catalog`.`schema`*
-     */
     readonly ids: string[];
 }
 
@@ -53,12 +44,6 @@ export function getSchemasOutput(args: GetSchemasOutputArgs, opts?: pulumi.Invok
  * A collection of arguments for invoking getSchemas.
  */
 export interface GetSchemasOutputArgs {
-    /**
-     * Name of databricks_catalog
-     */
     catalogName: pulumi.Input<string>;
-    /**
-     * set of databricks.Schema full names: *`catalog`.`schema`*
-     */
     ids?: pulumi.Input<pulumi.Input<string>[]>;
 }

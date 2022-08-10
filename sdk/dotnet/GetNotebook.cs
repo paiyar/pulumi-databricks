@@ -21,33 +21,18 @@ namespace Pulumi.Databricks
 
     public sealed class GetNotebookArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-        /// </summary>
         [Input("format", required: true)]
         public string Format { get; set; } = null!;
 
-        /// <summary>
-        /// notebook language
-        /// </summary>
         [Input("language")]
         public string? Language { get; set; }
 
-        /// <summary>
-        /// notebook object ID
-        /// </summary>
         [Input("objectId")]
         public int? ObjectId { get; set; }
 
-        /// <summary>
-        /// notebook object type
-        /// </summary>
         [Input("objectType")]
         public string? ObjectType { get; set; }
 
-        /// <summary>
-        /// Notebook path on the workspace
-        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
@@ -58,33 +43,18 @@ namespace Pulumi.Databricks
 
     public sealed class GetNotebookInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-        /// </summary>
         [Input("format", required: true)]
         public Input<string> Format { get; set; } = null!;
 
-        /// <summary>
-        /// notebook language
-        /// </summary>
         [Input("language")]
         public Input<string>? Language { get; set; }
 
-        /// <summary>
-        /// notebook object ID
-        /// </summary>
         [Input("objectId")]
         public Input<int>? ObjectId { get; set; }
 
-        /// <summary>
-        /// notebook object type
-        /// </summary>
         [Input("objectType")]
         public Input<string>? ObjectType { get; set; }
 
-        /// <summary>
-        /// Notebook path on the workspace
-        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
@@ -97,26 +67,14 @@ namespace Pulumi.Databricks
     [OutputType]
     public sealed class GetNotebookResult
     {
-        /// <summary>
-        /// notebook content in selected format
-        /// </summary>
         public readonly string Content;
         public readonly string Format;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// notebook language
-        /// </summary>
         public readonly string Language;
-        /// <summary>
-        /// notebook object ID
-        /// </summary>
         public readonly int ObjectId;
-        /// <summary>
-        /// notebook object type
-        /// </summary>
         public readonly string ObjectType;
         public readonly string Path;
 

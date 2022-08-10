@@ -9,55 +9,15 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// &gt; **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-    /// 
-    /// A single databricks.Metastore can be shared across Databricks workspaces, and each linked workspace has a consistent view of the data and a single set of access policies. It is only recommended to have multiple metastores when organizations wish to have hard isolation boundaries between data (note that data cannot be easily joined/queried across metastores).
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var thisMetastore = new Databricks.Metastore("thisMetastore", new Databricks.MetastoreArgs
-    ///         {
-    ///             StorageRoot = $"s3://{aws_s3_bucket.Metastore.Id}/metastore",
-    ///             Owner = "uc admins",
-    ///             ForceDestroy = true,
-    ///         });
-    ///         var thisMetastoreAssignment = new Databricks.MetastoreAssignment("thisMetastoreAssignment", new Databricks.MetastoreAssignmentArgs
-    ///         {
-    ///             MetastoreId = thisMetastore.Id,
-    ///             WorkspaceId = local.Workspace_id,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/metastoreAssignment:MetastoreAssignment")]
     public partial class MetastoreAssignment : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Default catalog used for this assignment, default to `hive_metastore`
-        /// </summary>
         [Output("defaultCatalogName")]
         public Output<string?> DefaultCatalogName { get; private set; } = null!;
 
-        /// <summary>
-        /// Unique identifier of the parent Metastore
-        /// </summary>
         [Output("metastoreId")]
         public Output<string> MetastoreId { get; private set; } = null!;
 
-        /// <summary>
-        /// id of the workspace for the assignment
-        /// </summary>
         [Output("workspaceId")]
         public Output<int> WorkspaceId { get; private set; } = null!;
 
@@ -107,21 +67,12 @@ namespace Pulumi.Databricks
 
     public sealed class MetastoreAssignmentArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Default catalog used for this assignment, default to `hive_metastore`
-        /// </summary>
         [Input("defaultCatalogName")]
         public Input<string>? DefaultCatalogName { get; set; }
 
-        /// <summary>
-        /// Unique identifier of the parent Metastore
-        /// </summary>
         [Input("metastoreId", required: true)]
         public Input<string> MetastoreId { get; set; } = null!;
 
-        /// <summary>
-        /// id of the workspace for the assignment
-        /// </summary>
         [Input("workspaceId", required: true)]
         public Input<int> WorkspaceId { get; set; } = null!;
 
@@ -132,21 +83,12 @@ namespace Pulumi.Databricks
 
     public sealed class MetastoreAssignmentState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Default catalog used for this assignment, default to `hive_metastore`
-        /// </summary>
         [Input("defaultCatalogName")]
         public Input<string>? DefaultCatalogName { get; set; }
 
-        /// <summary>
-        /// Unique identifier of the parent Metastore
-        /// </summary>
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
-        /// <summary>
-        /// id of the workspace for the assignment
-        /// </summary>
         [Input("workspaceId")]
         public Input<int>? WorkspaceId { get; set; }
 

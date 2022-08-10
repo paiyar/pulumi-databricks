@@ -40,17 +40,11 @@ class GetDbfsFileResult:
     @property
     @pulumi.getter
     def content(self) -> str:
-        """
-        base64-encoded file contents
-        """
         return pulumi.get(self, "content")
 
     @property
     @pulumi.getter(name="fileSize")
     def file_size(self) -> int:
-        """
-        size of the file in bytes
-        """
         return pulumi.get(self, "file_size")
 
     @property
@@ -90,9 +84,6 @@ def get_dbfs_file(limit_file_size: Optional[bool] = None,
                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetDbfsFileResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param bool limit_file_size: Do lot load content for files smaller than this in bytes
-    :param str path: Path on DBFS for the file to get content of
     """
     __args__ = dict()
     __args__['limitFileSize'] = limit_file_size
@@ -117,8 +108,5 @@ def get_dbfs_file_output(limit_file_size: Optional[pulumi.Input[bool]] = None,
                          opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetDbfsFileResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param bool limit_file_size: Do lot load content for files smaller than this in bytes
-    :param str path: Path on DBFS for the file to get content of
     """
     ...

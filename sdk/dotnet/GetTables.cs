@@ -21,27 +21,17 @@ namespace Pulumi.Databricks
 
     public sealed class GetTablesArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Name of databricks_catalog
-        /// </summary>
         [Input("catalogName", required: true)]
         public string CatalogName { get; set; } = null!;
 
         [Input("ids")]
         private List<string>? _ids;
-
-        /// <summary>
-        /// set of databricks.Table full names: *`catalog`.`schema`.`table`*
-        /// </summary>
         public List<string> Ids
         {
             get => _ids ?? (_ids = new List<string>());
             set => _ids = value;
         }
 
-        /// <summary>
-        /// Name of databricks_schema
-        /// </summary>
         [Input("schemaName", required: true)]
         public string SchemaName { get; set; } = null!;
 
@@ -52,27 +42,17 @@ namespace Pulumi.Databricks
 
     public sealed class GetTablesInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Name of databricks_catalog
-        /// </summary>
         [Input("catalogName", required: true)]
         public Input<string> CatalogName { get; set; } = null!;
 
         [Input("ids")]
         private InputList<string>? _ids;
-
-        /// <summary>
-        /// set of databricks.Table full names: *`catalog`.`schema`.`table`*
-        /// </summary>
         public InputList<string> Ids
         {
             get => _ids ?? (_ids = new InputList<string>());
             set => _ids = value;
         }
 
-        /// <summary>
-        /// Name of databricks_schema
-        /// </summary>
         [Input("schemaName", required: true)]
         public Input<string> SchemaName { get; set; } = null!;
 
@@ -90,9 +70,6 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// set of databricks.Table full names: *`catalog`.`schema`.`table`*
-        /// </summary>
         public readonly ImmutableArray<string> Ids;
         public readonly string SchemaName;
 

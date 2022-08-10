@@ -21,9 +21,6 @@ namespace Pulumi.Databricks
 
     public sealed class GetClustersArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Only return databricks.Cluster ids that match the given name string.
-        /// </summary>
         [Input("clusterNameContains")]
         public string? ClusterNameContains { get; set; }
 
@@ -34,9 +31,6 @@ namespace Pulumi.Databricks
 
     public sealed class GetClustersInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Only return databricks.Cluster ids that match the given name string.
-        /// </summary>
         [Input("clusterNameContains")]
         public Input<string>? ClusterNameContains { get; set; }
 
@@ -54,9 +48,6 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// list of databricks.Cluster ids
-        /// </summary>
         public readonly ImmutableArray<string> Ids;
 
         [OutputConstructor]

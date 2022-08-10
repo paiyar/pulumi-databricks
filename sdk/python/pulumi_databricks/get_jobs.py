@@ -39,9 +39,6 @@ class GetJobsResult:
     @property
     @pulumi.getter
     def ids(self) -> Mapping[str, Any]:
-        """
-        map of Job names to ids
-        """
         return pulumi.get(self, "ids")
 
 
@@ -59,8 +56,6 @@ def get_jobs(ids: Optional[Mapping[str, Any]] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetJobsResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param Mapping[str, Any] ids: map of Job names to ids
     """
     __args__ = dict()
     __args__['ids'] = ids
@@ -80,7 +75,5 @@ def get_jobs_output(ids: Optional[pulumi.Input[Optional[Mapping[str, Any]]]] = N
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetJobsResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param Mapping[str, Any] ids: map of Job names to ids
     """
     ...

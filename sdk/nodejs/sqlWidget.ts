@@ -5,54 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * To manage [SQLA resources](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricksSqlAccess` on your databricks.Group or databricks_user.
- *
- * **Note:** documentation for this resource is a work in progress.
- *
- * A widget is always tied to a dashboard. Every dashboard may have one or more widgets.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const d1w1 = new databricks.SqlWidget("d1w1", {
- *     dashboardId: databricks_sql_dashboard.d1.id,
- *     text: "Hello! I'm a **text widget**!",
- *     position: {
- *         sizeX: 3,
- *         sizeY: 4,
- *         posX: 0,
- *         posY: 0,
- *     },
- * });
- * const d1w2 = new databricks.SqlWidget("d1w2", {
- *     dashboardId: databricks_sql_dashboard.d1.id,
- *     visualizationId: databricks_sql_visualization.q1v1.id,
- *     position: {
- *         sizeX: 3,
- *         sizeY: 4,
- *         posX: 3,
- *         posY: 0,
- *     },
- * });
- * ```
- * ## Related Resources
- *
- * The following resources are often used in the same context:
- *
- * * End to end workspace management guide.
- * * databricks.SqlDashboard to manage Databricks SQL [Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html).
- * * databricks.SqlEndpoint to manage Databricks SQL [Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html).
- * * databricks.SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all databricks.SqlEndpoint of workspace.
- * * databricks.SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
- *
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class SqlWidget extends pulumi.CustomResource {
     /**
      * Get an existing SqlWidget resource's state with the given name, ID, and optional extra

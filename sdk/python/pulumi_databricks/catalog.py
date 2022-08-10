@@ -20,10 +20,6 @@ class CatalogArgs:
                  properties: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         The set of arguments for constructing a Catalog resource.
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Catalog properties.
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -39,9 +35,6 @@ class CatalogArgs:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -60,9 +53,6 @@ class CatalogArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -72,9 +62,6 @@ class CatalogArgs:
     @property
     @pulumi.getter
     def owner(self) -> Optional[pulumi.Input[str]]:
-        """
-        Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @owner.setter
@@ -84,9 +71,6 @@ class CatalogArgs:
     @property
     @pulumi.getter
     def properties(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Extensible Catalog properties.
-        """
         return pulumi.get(self, "properties")
 
     @properties.setter
@@ -104,10 +88,6 @@ class _CatalogState:
                  properties: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         Input properties used for looking up and filtering Catalog resources.
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Catalog properties.
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -123,9 +103,6 @@ class _CatalogState:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -144,9 +121,6 @@ class _CatalogState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -156,9 +130,6 @@ class _CatalogState:
     @property
     @pulumi.getter
     def owner(self) -> Optional[pulumi.Input[str]]:
-        """
-        Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @owner.setter
@@ -168,9 +139,6 @@ class _CatalogState:
     @property
     @pulumi.getter
     def properties(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Extensible Catalog properties.
-        """
         return pulumi.get(self, "properties")
 
     @properties.setter
@@ -190,20 +158,9 @@ class Catalog(pulumi.CustomResource):
                  properties: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  __props__=None):
         """
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/catalog:Catalog this <name>
-        ```
-
+        Create a Catalog resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Catalog properties.
         """
         ...
     @overload
@@ -212,14 +169,7 @@ class Catalog(pulumi.CustomResource):
                  args: Optional[CatalogArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/catalog:Catalog this <name>
-        ```
-
+        Create a Catalog resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param CatalogArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -279,10 +229,6 @@ class Catalog(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Catalog properties.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -298,9 +244,6 @@ class Catalog(pulumi.CustomResource):
     @property
     @pulumi.getter
     def comment(self) -> pulumi.Output[Optional[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @property
@@ -311,24 +254,15 @@ class Catalog(pulumi.CustomResource):
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def owner(self) -> pulumi.Output[str]:
-        """
-        Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @property
     @pulumi.getter
     def properties(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
-        """
-        Extensible Catalog properties.
-        """
         return pulumi.get(self, "properties")
 

@@ -18,9 +18,6 @@ class OboTokenArgs:
                  lifetime_seconds: pulumi.Input[int]):
         """
         The set of arguments for constructing a OboToken resource.
-        :param pulumi.Input[str] application_id: Application ID of ServicePrincipal to create PAT token for.
-        :param pulumi.Input[str] comment: Comment that describes the purpose of the token.
-        :param pulumi.Input[int] lifetime_seconds: The number of seconds before the token expires. Token resource is re-created when it expires.
         """
         pulumi.set(__self__, "application_id", application_id)
         pulumi.set(__self__, "comment", comment)
@@ -29,9 +26,6 @@ class OboTokenArgs:
     @property
     @pulumi.getter(name="applicationId")
     def application_id(self) -> pulumi.Input[str]:
-        """
-        Application ID of ServicePrincipal to create PAT token for.
-        """
         return pulumi.get(self, "application_id")
 
     @application_id.setter
@@ -41,9 +35,6 @@ class OboTokenArgs:
     @property
     @pulumi.getter
     def comment(self) -> pulumi.Input[str]:
-        """
-        Comment that describes the purpose of the token.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -53,9 +44,6 @@ class OboTokenArgs:
     @property
     @pulumi.getter(name="lifetimeSeconds")
     def lifetime_seconds(self) -> pulumi.Input[int]:
-        """
-        The number of seconds before the token expires. Token resource is re-created when it expires.
-        """
         return pulumi.get(self, "lifetime_seconds")
 
     @lifetime_seconds.setter
@@ -72,10 +60,6 @@ class _OboTokenState:
                  token_value: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering OboToken resources.
-        :param pulumi.Input[str] application_id: Application ID of ServicePrincipal to create PAT token for.
-        :param pulumi.Input[str] comment: Comment that describes the purpose of the token.
-        :param pulumi.Input[int] lifetime_seconds: The number of seconds before the token expires. Token resource is re-created when it expires.
-        :param pulumi.Input[str] token_value: **Sensitive** value of the newly-created token.
         """
         if application_id is not None:
             pulumi.set(__self__, "application_id", application_id)
@@ -89,9 +73,6 @@ class _OboTokenState:
     @property
     @pulumi.getter(name="applicationId")
     def application_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Application ID of ServicePrincipal to create PAT token for.
-        """
         return pulumi.get(self, "application_id")
 
     @application_id.setter
@@ -101,9 +82,6 @@ class _OboTokenState:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        Comment that describes the purpose of the token.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -113,9 +91,6 @@ class _OboTokenState:
     @property
     @pulumi.getter(name="lifetimeSeconds")
     def lifetime_seconds(self) -> Optional[pulumi.Input[int]]:
-        """
-        The number of seconds before the token expires. Token resource is re-created when it expires.
-        """
         return pulumi.get(self, "lifetime_seconds")
 
     @lifetime_seconds.setter
@@ -125,9 +100,6 @@ class _OboTokenState:
     @property
     @pulumi.getter(name="tokenValue")
     def token_value(self) -> Optional[pulumi.Input[str]]:
-        """
-        **Sensitive** value of the newly-created token.
-        """
         return pulumi.get(self, "token_value")
 
     @token_value.setter
@@ -145,68 +117,9 @@ class OboToken(pulumi.CustomResource):
                  lifetime_seconds: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        This resource creates [On-Behalf-Of tokens](https://docs.databricks.com/administration-guide/users-groups/service-principals.html#manage-personal-access-tokens-for-a-service-principal) for a ServicePrincipal in Databricks workspaces on AWS. It is very useful, when you want to provision resources within a workspace through narrowly-scoped service principal, that has no access to other workspaces within the same Databricks Account.
-
-        ## Example Usage
-
-        Creating a token for a narrowly-scoped service principal, that would be the only one (besides admins) allowed to use PAT token in this given workspace, keeping your automated deployment highly secure. Keep in mind, that given declaration of `databricks_permissions.token_usage` would remove permissions to use PAT tokens from `users` group.
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_service_principal = databricks.ServicePrincipal("thisServicePrincipal", display_name="Automation-only SP")
-        token_usage = databricks.Permissions("tokenUsage",
-            authorization="tokens",
-            access_controls=[databricks.PermissionsAccessControlArgs(
-                service_principal_name=this_service_principal.application_id,
-                permission_level="CAN_USE",
-            )])
-        this_obo_token = databricks.OboToken("thisOboToken",
-            application_id=this_service_principal.application_id,
-            comment=this_service_principal.display_name.apply(lambda display_name: f"PAT on behalf of {display_name}"),
-            lifetime_seconds=3600,
-            opts=pulumi.ResourceOptions(depends_on=[token_usage]))
-        pulumi.export("obo", this_obo_token.token_value)
-        ```
-
-        Creating a token for a service principal with admin privileges
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_service_principal = databricks.ServicePrincipal("thisServicePrincipal", display_name="Terraform")
-        admins = databricks.get_group(display_name="admins")
-        this_group_member = databricks.GroupMember("thisGroupMember",
-            group_id=admins.id,
-            member_id=this_service_principal.id)
-        this_obo_token = databricks.OboToken("thisOboToken",
-            application_id=this_service_principal.application_id,
-            comment=this_service_principal.display_name.apply(lambda display_name: f"PAT on behalf of {display_name}"),
-            lifetime_seconds=3600,
-            opts=pulumi.ResourceOptions(depends_on=[this_group_member]))
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * Group data to retrieve information about Group members, entitlements and instance profiles.
-        * GroupMember to attach users and groups as group members.
-        * Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-        * ServicePrincipal to manage [Service Principals](https://docs.databricks.com/administration-guide/users-groups/service-principals.html) that could be added to Group within workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a OboToken resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] application_id: Application ID of ServicePrincipal to create PAT token for.
-        :param pulumi.Input[str] comment: Comment that describes the purpose of the token.
-        :param pulumi.Input[int] lifetime_seconds: The number of seconds before the token expires. Token resource is re-created when it expires.
         """
         ...
     @overload
@@ -215,63 +128,7 @@ class OboToken(pulumi.CustomResource):
                  args: OboTokenArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        This resource creates [On-Behalf-Of tokens](https://docs.databricks.com/administration-guide/users-groups/service-principals.html#manage-personal-access-tokens-for-a-service-principal) for a ServicePrincipal in Databricks workspaces on AWS. It is very useful, when you want to provision resources within a workspace through narrowly-scoped service principal, that has no access to other workspaces within the same Databricks Account.
-
-        ## Example Usage
-
-        Creating a token for a narrowly-scoped service principal, that would be the only one (besides admins) allowed to use PAT token in this given workspace, keeping your automated deployment highly secure. Keep in mind, that given declaration of `databricks_permissions.token_usage` would remove permissions to use PAT tokens from `users` group.
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_service_principal = databricks.ServicePrincipal("thisServicePrincipal", display_name="Automation-only SP")
-        token_usage = databricks.Permissions("tokenUsage",
-            authorization="tokens",
-            access_controls=[databricks.PermissionsAccessControlArgs(
-                service_principal_name=this_service_principal.application_id,
-                permission_level="CAN_USE",
-            )])
-        this_obo_token = databricks.OboToken("thisOboToken",
-            application_id=this_service_principal.application_id,
-            comment=this_service_principal.display_name.apply(lambda display_name: f"PAT on behalf of {display_name}"),
-            lifetime_seconds=3600,
-            opts=pulumi.ResourceOptions(depends_on=[token_usage]))
-        pulumi.export("obo", this_obo_token.token_value)
-        ```
-
-        Creating a token for a service principal with admin privileges
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_service_principal = databricks.ServicePrincipal("thisServicePrincipal", display_name="Terraform")
-        admins = databricks.get_group(display_name="admins")
-        this_group_member = databricks.GroupMember("thisGroupMember",
-            group_id=admins.id,
-            member_id=this_service_principal.id)
-        this_obo_token = databricks.OboToken("thisOboToken",
-            application_id=this_service_principal.application_id,
-            comment=this_service_principal.display_name.apply(lambda display_name: f"PAT on behalf of {display_name}"),
-            lifetime_seconds=3600,
-            opts=pulumi.ResourceOptions(depends_on=[this_group_member]))
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * Group data to retrieve information about Group members, entitlements and instance profiles.
-        * GroupMember to attach users and groups as group members.
-        * Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-        * ServicePrincipal to manage [Service Principals](https://docs.databricks.com/administration-guide/users-groups/service-principals.html) that could be added to Group within workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a OboToken resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param OboTokenArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -333,10 +190,6 @@ class OboToken(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] application_id: Application ID of ServicePrincipal to create PAT token for.
-        :param pulumi.Input[str] comment: Comment that describes the purpose of the token.
-        :param pulumi.Input[int] lifetime_seconds: The number of seconds before the token expires. Token resource is re-created when it expires.
-        :param pulumi.Input[str] token_value: **Sensitive** value of the newly-created token.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -351,32 +204,20 @@ class OboToken(pulumi.CustomResource):
     @property
     @pulumi.getter(name="applicationId")
     def application_id(self) -> pulumi.Output[str]:
-        """
-        Application ID of ServicePrincipal to create PAT token for.
-        """
         return pulumi.get(self, "application_id")
 
     @property
     @pulumi.getter
     def comment(self) -> pulumi.Output[str]:
-        """
-        Comment that describes the purpose of the token.
-        """
         return pulumi.get(self, "comment")
 
     @property
     @pulumi.getter(name="lifetimeSeconds")
     def lifetime_seconds(self) -> pulumi.Output[int]:
-        """
-        The number of seconds before the token expires. Token resource is re-created when it expires.
-        """
         return pulumi.get(self, "lifetime_seconds")
 
     @property
     @pulumi.getter(name="tokenValue")
     def token_value(self) -> pulumi.Output[str]:
-        """
-        **Sensitive** value of the newly-created token.
-        """
         return pulumi.get(self, "token_value")
 

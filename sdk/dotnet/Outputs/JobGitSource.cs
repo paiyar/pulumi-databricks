@@ -17,9 +17,6 @@ namespace Pulumi.Databricks.Outputs
         public readonly string? Commit;
         public readonly string? Provider;
         public readonly string? Tag;
-        /// <summary>
-        /// URL of the job on the given workspace
-        /// </summary>
         public readonly string Url;
 
         [OutputConstructor]

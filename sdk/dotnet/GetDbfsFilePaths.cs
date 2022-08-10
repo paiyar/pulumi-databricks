@@ -21,15 +21,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetDbfsFilePathsArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Path on DBFS for the file to perform listing
-        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
-        /// <summary>
-        /// Either or not recursively list all files
-        /// </summary>
         [Input("recursive", required: true)]
         public bool Recursive { get; set; }
 
@@ -40,15 +34,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetDbfsFilePathsInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Path on DBFS for the file to perform listing
-        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
-        /// <summary>
-        /// Either or not recursively list all files
-        /// </summary>
         [Input("recursive", required: true)]
         public Input<bool> Recursive { get; set; } = null!;
 
@@ -66,9 +54,6 @@ namespace Pulumi.Databricks
         /// </summary>
         public readonly string Id;
         public readonly string Path;
-        /// <summary>
-        /// returns list of objects with `path` and `file_size` attributes in each
-        /// </summary>
         public readonly ImmutableArray<Outputs.GetDbfsFilePathsPathListResult> PathLists;
         public readonly bool Recursive;
 

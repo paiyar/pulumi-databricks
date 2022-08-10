@@ -4,15 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * This resource can be imported by namebash
- *
- * ```sh
- *  $ pulumi import databricks:index/catalog:Catalog this <name>
- * ```
- */
 export class Catalog extends pulumi.CustomResource {
     /**
      * Get an existing Catalog resource's state with the given name, ID, and optional extra
@@ -41,22 +32,10 @@ export class Catalog extends pulumi.CustomResource {
         return obj['__pulumiType'] === Catalog.__pulumiType;
     }
 
-    /**
-     * User-supplied free-form text.
-     */
     public readonly comment!: pulumi.Output<string | undefined>;
     public readonly metastoreId!: pulumi.Output<string>;
-    /**
-     * Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-     */
     public readonly name!: pulumi.Output<string>;
-    /**
-     * Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-     */
     public readonly owner!: pulumi.Output<string>;
-    /**
-     * Extensible Catalog properties.
-     */
     public readonly properties!: pulumi.Output<{[key: string]: any} | undefined>;
 
     /**
@@ -94,22 +73,10 @@ export class Catalog extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Catalog resources.
  */
 export interface CatalogState {
-    /**
-     * User-supplied free-form text.
-     */
     comment?: pulumi.Input<string>;
     metastoreId?: pulumi.Input<string>;
-    /**
-     * Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-     */
     name?: pulumi.Input<string>;
-    /**
-     * Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-     */
     owner?: pulumi.Input<string>;
-    /**
-     * Extensible Catalog properties.
-     */
     properties?: pulumi.Input<{[key: string]: any}>;
 }
 
@@ -117,21 +84,9 @@ export interface CatalogState {
  * The set of arguments for constructing a Catalog resource.
  */
 export interface CatalogArgs {
-    /**
-     * User-supplied free-form text.
-     */
     comment?: pulumi.Input<string>;
     metastoreId?: pulumi.Input<string>;
-    /**
-     * Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-     */
     name?: pulumi.Input<string>;
-    /**
-     * Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-     */
     owner?: pulumi.Input<string>;
-    /**
-     * Extensible Catalog properties.
-     */
     properties?: pulumi.Input<{[key: string]: any}>;
 }

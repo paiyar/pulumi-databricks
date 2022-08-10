@@ -11,33 +11,9 @@ namespace Pulumi.Databricks
 {
     public static class GetAwsBucketPolicy
     {
-        /// <summary>
-        /// This datasource configures a simple access policy for AWS S3 buckets, so that Databricks can access data in it. 
-        /// 
-        /// ## Related Resources
-        /// 
-        /// The following resources are used in the same context:
-        /// 
-        /// * Provisioning AWS Databricks E2 with a Hub &amp; Spoke firewall for data exfiltration protection guide
-        /// * End to end workspace management guide
-        /// * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
-        /// * databricks.Mount to [mount your cloud storage](https://docs.databricks.com/data/databricks-file-system.html#mount-object-storage-to-dbfs) on `dbfs:/mnt/name`.
-        /// </summary>
         public static Task<GetAwsBucketPolicyResult> InvokeAsync(GetAwsBucketPolicyArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetAwsBucketPolicyResult>("databricks:index/getAwsBucketPolicy:getAwsBucketPolicy", args ?? new GetAwsBucketPolicyArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// This datasource configures a simple access policy for AWS S3 buckets, so that Databricks can access data in it. 
-        /// 
-        /// ## Related Resources
-        /// 
-        /// The following resources are used in the same context:
-        /// 
-        /// * Provisioning AWS Databricks E2 with a Hub &amp; Spoke firewall for data exfiltration protection guide
-        /// * End to end workspace management guide
-        /// * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
-        /// * databricks.Mount to [mount your cloud storage](https://docs.databricks.com/data/databricks-file-system.html#mount-object-storage-to-dbfs) on `dbfs:/mnt/name`.
-        /// </summary>
         public static Output<GetAwsBucketPolicyResult> Invoke(GetAwsBucketPolicyInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetAwsBucketPolicyResult>("databricks:index/getAwsBucketPolicy:getAwsBucketPolicy", args ?? new GetAwsBucketPolicyInvokeArgs(), options.WithDefaults());
     }
@@ -45,18 +21,12 @@ namespace Pulumi.Databricks
 
     public sealed class GetAwsBucketPolicyArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// AWS S3 Bucket name for which to generate the policy document.
-        /// </summary>
         [Input("bucket", required: true)]
         public string Bucket { get; set; } = null!;
 
         [Input("databricksAccountId")]
         public string? DatabricksAccountId { get; set; }
 
-        /// <summary>
-        /// Data access role that can have full access for this bucket
-        /// </summary>
         [Input("fullAccessRole")]
         public string? FullAccessRole { get; set; }
 
@@ -67,18 +37,12 @@ namespace Pulumi.Databricks
 
     public sealed class GetAwsBucketPolicyInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// AWS S3 Bucket name for which to generate the policy document.
-        /// </summary>
         [Input("bucket", required: true)]
         public Input<string> Bucket { get; set; } = null!;
 
         [Input("databricksAccountId")]
         public Input<string>? DatabricksAccountId { get; set; }
 
-        /// <summary>
-        /// Data access role that can have full access for this bucket
-        /// </summary>
         [Input("fullAccessRole")]
         public Input<string>? FullAccessRole { get; set; }
 
@@ -98,9 +62,6 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// (Read-only) AWS IAM Policy JSON document to grant Databricks full access to bucket.
-        /// </summary>
         public readonly string Json;
 
         [OutputConstructor]

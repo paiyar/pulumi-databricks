@@ -9,91 +9,18 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// Security-conscious enterprises that use cloud SaaS applications need to restrict access to their own employees. Authentication helps to prove user identity, but that does not enforce network location of the users. Accessing a cloud service from an unsecured network can pose security risks to an enterprise, especially when the user may have authorized access to sensitive or personal data. Enterprise network perimeters apply security policies and limit access to external services (for example, firewalls, proxies, DLP, and logging), so access beyond these controls are assumed to be untrusted. Please see [IP Access List](https://docs.databricks.com/security/network/ip-access-list.html) for full feature documentation.
-    /// 
-    /// &gt; **Note** The total number of IP addresses and CIDR scopes provided across all ACL Lists in a workspace can not exceed 1000.  Refer to the docs above for specifics.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var @this = new Databricks.WorkspaceConf("this", new Databricks.WorkspaceConfArgs
-    ///         {
-    ///             CustomConfig = 
-    ///             {
-    ///                 { "enableIpAccessLists", true },
-    ///             },
-    ///         });
-    ///         var allowed_list = new Databricks.IpAccessList("allowed-list", new Databricks.IpAccessListArgs
-    ///         {
-    ///             Label = "allow_in",
-    ///             ListType = "ALLOW",
-    ///             IpAddresses = 
-    ///             {
-    ///                 "1.2.3.0/24",
-    ///                 "1.2.5.0/24",
-    ///             },
-    ///         }, new CustomResourceOptions
-    ///         {
-    ///             DependsOn = 
-    ///             {
-    ///                 @this,
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// ## Related Resources
-    /// 
-    /// The following resources are often used in the same context:
-    /// 
-    /// * End to end workspace management guide.
-    /// * Provisioning AWS Databricks E2 with a Hub &amp; Spoke firewall for data exfiltration protection guide.
-    /// * databricks.MwsNetworks to [configure VPC](https://docs.databricks.com/administration-guide/cloud-configurations/aws/customer-managed-vpc.html) &amp; subnets for new workspaces within AWS.
-    /// * databricks.MwsPrivateAccessSettings to create a [Private Access Setting](https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html#step-5-create-a-private-access-settings-configuration-using-the-databricks-account-api) that can be used as part of a databricks.MwsWorkspaces resource to create a [Databricks Workspace that leverages AWS PrivateLink](https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html).
-    /// * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-    /// * databricks.SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-    /// 
-    /// ## Import
-    /// 
-    /// The databricks_ip_access_list can be imported using idbash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/ipAccessList:IpAccessList this &lt;list-id&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/ipAccessList:IpAccessList")]
     public partial class IpAccessList : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-        /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
 
-        /// <summary>
-        /// This is a field to allow the group to have instance pool create priviliges.
-        /// </summary>
         [Output("ipAddresses")]
         public Output<ImmutableArray<string>> IpAddresses { get; private set; } = null!;
 
-        /// <summary>
-        /// This is the display name for the given IP ACL List.
-        /// </summary>
         [Output("label")]
         public Output<string> Label { get; private set; } = null!;
 
-        /// <summary>
-        /// Can only be "ALLOW" or "BLOCK"
-        /// </summary>
         [Output("listType")]
         public Output<string> ListType { get; private set; } = null!;
 
@@ -143,33 +70,20 @@ namespace Pulumi.Databricks
 
     public sealed class IpAccessListArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-        /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         [Input("ipAddresses", required: true)]
         private InputList<string>? _ipAddresses;
-
-        /// <summary>
-        /// This is a field to allow the group to have instance pool create priviliges.
-        /// </summary>
         public InputList<string> IpAddresses
         {
             get => _ipAddresses ?? (_ipAddresses = new InputList<string>());
             set => _ipAddresses = value;
         }
 
-        /// <summary>
-        /// This is the display name for the given IP ACL List.
-        /// </summary>
         [Input("label", required: true)]
         public Input<string> Label { get; set; } = null!;
 
-        /// <summary>
-        /// Can only be "ALLOW" or "BLOCK"
-        /// </summary>
         [Input("listType", required: true)]
         public Input<string> ListType { get; set; } = null!;
 
@@ -180,33 +94,20 @@ namespace Pulumi.Databricks
 
     public sealed class IpAccessListState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-        /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         [Input("ipAddresses")]
         private InputList<string>? _ipAddresses;
-
-        /// <summary>
-        /// This is a field to allow the group to have instance pool create priviliges.
-        /// </summary>
         public InputList<string> IpAddresses
         {
             get => _ipAddresses ?? (_ipAddresses = new InputList<string>());
             set => _ipAddresses = value;
         }
 
-        /// <summary>
-        /// This is the display name for the given IP ACL List.
-        /// </summary>
         [Input("label")]
         public Input<string>? Label { get; set; }
 
-        /// <summary>
-        /// Can only be "ALLOW" or "BLOCK"
-        /// </summary>
         [Input("listType")]
         public Input<string>? ListType { get; set; }
 

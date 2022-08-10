@@ -9,23 +9,12 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/mwsWorkspaces:MwsWorkspaces")]
     public partial class MwsWorkspaces : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        /// </summary>
         [Output("accountId")]
         public Output<string> AccountId { get; private set; } = null!;
 
-        /// <summary>
-        /// AWS region of VPC
-        /// </summary>
         [Output("awsRegion")]
         public Output<string?> AwsRegion { get; private set; } = null!;
 
@@ -35,9 +24,6 @@ namespace Pulumi.Databricks
         [Output("cloudResourceBucket")]
         public Output<Outputs.MwsWorkspacesCloudResourceBucket?> CloudResourceBucket { get; private set; } = null!;
 
-        /// <summary>
-        /// (Integer) time when workspace was created
-        /// </summary>
         [Output("creationTime")]
         public Output<int> CreationTime { get; private set; } = null!;
 
@@ -47,9 +33,6 @@ namespace Pulumi.Databricks
         [Output("customerManagedKeyId")]
         public Output<string?> CustomerManagedKeyId { get; private set; } = null!;
 
-        /// <summary>
-        /// part of URL: `https://&lt;deployment-name&gt;.cloud.databricks.com`
-        /// </summary>
         [Output("deploymentName")]
         public Output<string?> DeploymentName { get; private set; } = null!;
 
@@ -62,9 +45,6 @@ namespace Pulumi.Databricks
         [Output("location")]
         public Output<string?> Location { get; private set; } = null!;
 
-        /// <summary>
-        /// `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        /// </summary>
         [Output("managedServicesCustomerManagedKeyId")]
         public Output<string?> ManagedServicesCustomerManagedKeyId { get; private set; } = null!;
 
@@ -77,15 +57,9 @@ namespace Pulumi.Databricks
         [Output("pricingTier")]
         public Output<string> PricingTier { get; private set; } = null!;
 
-        /// <summary>
-        /// Canonical unique identifier of databricks.MwsPrivateAccessSettings in Databricks Account
-        /// </summary>
         [Output("privateAccessSettingsId")]
         public Output<string?> PrivateAccessSettingsId { get; private set; } = null!;
 
-        /// <summary>
-        /// `storage_configuration_id` from storage configuration
-        /// </summary>
         [Output("storageConfigurationId")]
         public Output<string?> StorageConfigurationId { get; private set; } = null!;
 
@@ -98,27 +72,15 @@ namespace Pulumi.Databricks
         [Output("workspaceId")]
         public Output<int> WorkspaceId { get; private set; } = null!;
 
-        /// <summary>
-        /// name of the workspace, will appear on UI
-        /// </summary>
         [Output("workspaceName")]
         public Output<string> WorkspaceName { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) workspace status
-        /// </summary>
         [Output("workspaceStatus")]
         public Output<string> WorkspaceStatus { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) updates on workspace status
-        /// </summary>
         [Output("workspaceStatusMessage")]
         public Output<string> WorkspaceStatusMessage { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) URL of the workspace
-        /// </summary>
         [Output("workspaceUrl")]
         public Output<string> WorkspaceUrl { get; private set; } = null!;
 
@@ -168,15 +130,9 @@ namespace Pulumi.Databricks
 
     public sealed class MwsWorkspacesArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        /// </summary>
         [Input("accountId", required: true)]
         public Input<string> AccountId { get; set; } = null!;
 
-        /// <summary>
-        /// AWS region of VPC
-        /// </summary>
         [Input("awsRegion")]
         public Input<string>? AwsRegion { get; set; }
 
@@ -186,9 +142,6 @@ namespace Pulumi.Databricks
         [Input("cloudResourceBucket")]
         public Input<Inputs.MwsWorkspacesCloudResourceBucketArgs>? CloudResourceBucket { get; set; }
 
-        /// <summary>
-        /// (Integer) time when workspace was created
-        /// </summary>
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
@@ -198,9 +151,6 @@ namespace Pulumi.Databricks
         [Input("customerManagedKeyId")]
         public Input<string>? CustomerManagedKeyId { get; set; }
 
-        /// <summary>
-        /// part of URL: `https://&lt;deployment-name&gt;.cloud.databricks.com`
-        /// </summary>
         [Input("deploymentName")]
         public Input<string>? DeploymentName { get; set; }
 
@@ -213,9 +163,6 @@ namespace Pulumi.Databricks
         [Input("location")]
         public Input<string>? Location { get; set; }
 
-        /// <summary>
-        /// `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        /// </summary>
         [Input("managedServicesCustomerManagedKeyId")]
         public Input<string>? ManagedServicesCustomerManagedKeyId { get; set; }
 
@@ -228,15 +175,9 @@ namespace Pulumi.Databricks
         [Input("pricingTier")]
         public Input<string>? PricingTier { get; set; }
 
-        /// <summary>
-        /// Canonical unique identifier of databricks.MwsPrivateAccessSettings in Databricks Account
-        /// </summary>
         [Input("privateAccessSettingsId")]
         public Input<string>? PrivateAccessSettingsId { get; set; }
 
-        /// <summary>
-        /// `storage_configuration_id` from storage configuration
-        /// </summary>
         [Input("storageConfigurationId")]
         public Input<string>? StorageConfigurationId { get; set; }
 
@@ -249,27 +190,15 @@ namespace Pulumi.Databricks
         [Input("workspaceId")]
         public Input<int>? WorkspaceId { get; set; }
 
-        /// <summary>
-        /// name of the workspace, will appear on UI
-        /// </summary>
         [Input("workspaceName", required: true)]
         public Input<string> WorkspaceName { get; set; } = null!;
 
-        /// <summary>
-        /// (String) workspace status
-        /// </summary>
         [Input("workspaceStatus")]
         public Input<string>? WorkspaceStatus { get; set; }
 
-        /// <summary>
-        /// (String) updates on workspace status
-        /// </summary>
         [Input("workspaceStatusMessage")]
         public Input<string>? WorkspaceStatusMessage { get; set; }
 
-        /// <summary>
-        /// (String) URL of the workspace
-        /// </summary>
         [Input("workspaceUrl")]
         public Input<string>? WorkspaceUrl { get; set; }
 
@@ -280,15 +209,9 @@ namespace Pulumi.Databricks
 
     public sealed class MwsWorkspacesState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-        /// </summary>
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
 
-        /// <summary>
-        /// AWS region of VPC
-        /// </summary>
         [Input("awsRegion")]
         public Input<string>? AwsRegion { get; set; }
 
@@ -298,9 +221,6 @@ namespace Pulumi.Databricks
         [Input("cloudResourceBucket")]
         public Input<Inputs.MwsWorkspacesCloudResourceBucketGetArgs>? CloudResourceBucket { get; set; }
 
-        /// <summary>
-        /// (Integer) time when workspace was created
-        /// </summary>
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
@@ -310,9 +230,6 @@ namespace Pulumi.Databricks
         [Input("customerManagedKeyId")]
         public Input<string>? CustomerManagedKeyId { get; set; }
 
-        /// <summary>
-        /// part of URL: `https://&lt;deployment-name&gt;.cloud.databricks.com`
-        /// </summary>
         [Input("deploymentName")]
         public Input<string>? DeploymentName { get; set; }
 
@@ -325,9 +242,6 @@ namespace Pulumi.Databricks
         [Input("location")]
         public Input<string>? Location { get; set; }
 
-        /// <summary>
-        /// `customer_managed_key_id` from customer managed keys with `use_cases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-        /// </summary>
         [Input("managedServicesCustomerManagedKeyId")]
         public Input<string>? ManagedServicesCustomerManagedKeyId { get; set; }
 
@@ -340,15 +254,9 @@ namespace Pulumi.Databricks
         [Input("pricingTier")]
         public Input<string>? PricingTier { get; set; }
 
-        /// <summary>
-        /// Canonical unique identifier of databricks.MwsPrivateAccessSettings in Databricks Account
-        /// </summary>
         [Input("privateAccessSettingsId")]
         public Input<string>? PrivateAccessSettingsId { get; set; }
 
-        /// <summary>
-        /// `storage_configuration_id` from storage configuration
-        /// </summary>
         [Input("storageConfigurationId")]
         public Input<string>? StorageConfigurationId { get; set; }
 
@@ -361,27 +269,15 @@ namespace Pulumi.Databricks
         [Input("workspaceId")]
         public Input<int>? WorkspaceId { get; set; }
 
-        /// <summary>
-        /// name of the workspace, will appear on UI
-        /// </summary>
         [Input("workspaceName")]
         public Input<string>? WorkspaceName { get; set; }
 
-        /// <summary>
-        /// (String) workspace status
-        /// </summary>
         [Input("workspaceStatus")]
         public Input<string>? WorkspaceStatus { get; set; }
 
-        /// <summary>
-        /// (String) updates on workspace status
-        /// </summary>
         [Input("workspaceStatusMessage")]
         public Input<string>? WorkspaceStatusMessage { get; set; }
 
-        /// <summary>
-        /// (String) URL of the workspace
-        /// </summary>
         [Input("workspaceUrl")]
         public Input<string>? WorkspaceUrl { get; set; }
 

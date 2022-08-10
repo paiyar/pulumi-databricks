@@ -39,9 +39,6 @@ class GetCatalogsResult:
     @property
     @pulumi.getter
     def ids(self) -> Sequence[str]:
-        """
-        set of Catalog names
-        """
         return pulumi.get(self, "ids")
 
 
@@ -59,8 +56,6 @@ def get_catalogs(ids: Optional[Sequence[str]] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetCatalogsResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param Sequence[str] ids: set of Catalog names
     """
     __args__ = dict()
     __args__['ids'] = ids
@@ -80,7 +75,5 @@ def get_catalogs_output(ids: Optional[pulumi.Input[Optional[Sequence[str]]]] = N
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetCatalogsResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param Sequence[str] ids: set of Catalog names
     """
     ...

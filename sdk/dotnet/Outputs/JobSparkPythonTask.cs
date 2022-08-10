@@ -13,13 +13,7 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class JobSparkPythonTask
     {
-        /// <summary>
-        /// Parameters for the task
-        /// </summary>
         public readonly ImmutableArray<string> Parameters;
-        /// <summary>
-        /// The URI of the Python file to be executed. databricks.DbfsFile and S3 paths are supported. This field is required.
-        /// </summary>
         public readonly string PythonFile;
 
         [OutputConstructor]

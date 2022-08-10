@@ -9,41 +9,21 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/mwsCustomerManagedKeys:MwsCustomerManagedKeys")]
     public partial class MwsCustomerManagedKeys : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Output("accountId")]
         public Output<string> AccountId { get; private set; } = null!;
 
-        /// <summary>
-        /// This field is a block and is documented below.
-        /// </summary>
         [Output("awsKeyInfo")]
         public Output<Outputs.MwsCustomerManagedKeysAwsKeyInfo> AwsKeyInfo { get; private set; } = null!;
 
-        /// <summary>
-        /// (Integer) Time in epoch milliseconds when the customer key was created.
-        /// </summary>
         [Output("creationTime")]
         public Output<int> CreationTime { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) ID of the encryption key configuration object.
-        /// </summary>
         [Output("customerManagedKeyId")]
         public Output<string> CustomerManagedKeyId { get; private set; } = null!;
 
-        /// <summary>
-        /// *(since v0.3.4)* List of use cases for which this key will be used. *If you've used the resource before, please add `use_cases = ["MANAGED_SERVICES"]` to keep the previous behaviour.* Possible values are:
-        /// </summary>
         [Output("useCases")]
         public Output<ImmutableArray<string>> UseCases { get; private set; } = null!;
 
@@ -93,36 +73,20 @@ namespace Pulumi.Databricks
 
     public sealed class MwsCustomerManagedKeysArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId", required: true)]
         public Input<string> AccountId { get; set; } = null!;
 
-        /// <summary>
-        /// This field is a block and is documented below.
-        /// </summary>
         [Input("awsKeyInfo", required: true)]
         public Input<Inputs.MwsCustomerManagedKeysAwsKeyInfoArgs> AwsKeyInfo { get; set; } = null!;
 
-        /// <summary>
-        /// (Integer) Time in epoch milliseconds when the customer key was created.
-        /// </summary>
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
-        /// <summary>
-        /// (String) ID of the encryption key configuration object.
-        /// </summary>
         [Input("customerManagedKeyId")]
         public Input<string>? CustomerManagedKeyId { get; set; }
 
         [Input("useCases", required: true)]
         private InputList<string>? _useCases;
-
-        /// <summary>
-        /// *(since v0.3.4)* List of use cases for which this key will be used. *If you've used the resource before, please add `use_cases = ["MANAGED_SERVICES"]` to keep the previous behaviour.* Possible values are:
-        /// </summary>
         public InputList<string> UseCases
         {
             get => _useCases ?? (_useCases = new InputList<string>());
@@ -136,36 +100,20 @@ namespace Pulumi.Databricks
 
     public sealed class MwsCustomerManagedKeysState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
 
-        /// <summary>
-        /// This field is a block and is documented below.
-        /// </summary>
         [Input("awsKeyInfo")]
         public Input<Inputs.MwsCustomerManagedKeysAwsKeyInfoGetArgs>? AwsKeyInfo { get; set; }
 
-        /// <summary>
-        /// (Integer) Time in epoch milliseconds when the customer key was created.
-        /// </summary>
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
-        /// <summary>
-        /// (String) ID of the encryption key configuration object.
-        /// </summary>
         [Input("customerManagedKeyId")]
         public Input<string>? CustomerManagedKeyId { get; set; }
 
         [Input("useCases")]
         private InputList<string>? _useCases;
-
-        /// <summary>
-        /// *(since v0.3.4)* List of use cases for which this key will be used. *If you've used the resource before, please add `use_cases = ["MANAGED_SERVICES"]` to keep the previous behaviour.* Possible values are:
-        /// </summary>
         public InputList<string> UseCases
         {
             get => _useCases ?? (_useCases = new InputList<string>());

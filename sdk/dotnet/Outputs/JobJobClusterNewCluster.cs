@@ -32,13 +32,14 @@ namespace Pulumi.Databricks.Outputs
         public readonly ImmutableArray<Outputs.JobJobClusterNewClusterInitScript> InitScripts;
         public readonly string? InstancePoolId;
         public readonly string? NodeTypeId;
-        public readonly int NumWorkers;
+        public readonly int? NumWorkers;
         public readonly string? PolicyId;
         public readonly string? SingleUserName;
         public readonly ImmutableDictionary<string, object>? SparkConf;
         public readonly ImmutableDictionary<string, object>? SparkEnvVars;
         public readonly string SparkVersion;
         public readonly ImmutableArray<string> SshPublicKeys;
+        public readonly Outputs.JobJobClusterNewClusterWorkloadType? WorkloadType;
 
         [OutputConstructor]
         private JobJobClusterNewCluster(
@@ -80,7 +81,7 @@ namespace Pulumi.Databricks.Outputs
 
             string? nodeTypeId,
 
-            int numWorkers,
+            int? numWorkers,
 
             string? policyId,
 
@@ -92,7 +93,9 @@ namespace Pulumi.Databricks.Outputs
 
             string sparkVersion,
 
-            ImmutableArray<string> sshPublicKeys)
+            ImmutableArray<string> sshPublicKeys,
+
+            Outputs.JobJobClusterNewClusterWorkloadType? workloadType)
         {
             Autoscale = autoscale;
             AutoterminationMinutes = autoterminationMinutes;
@@ -120,6 +123,7 @@ namespace Pulumi.Databricks.Outputs
             SparkEnvVars = sparkEnvVars;
             SparkVersion = sparkVersion;
             SshPublicKeys = sshPublicKeys;
+            WorkloadType = workloadType;
         }
     }
 }

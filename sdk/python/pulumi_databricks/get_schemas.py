@@ -47,9 +47,6 @@ class GetSchemasResult:
     @property
     @pulumi.getter
     def ids(self) -> Sequence[str]:
-        """
-        set of Schema full names: *`catalog`.`schema`*
-        """
         return pulumi.get(self, "ids")
 
 
@@ -69,9 +66,6 @@ def get_schemas(catalog_name: Optional[str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSchemasResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str catalog_name: Name of databricks_catalog
-    :param Sequence[str] ids: set of Schema full names: *`catalog`.`schema`*
     """
     __args__ = dict()
     __args__['catalogName'] = catalog_name
@@ -94,8 +88,5 @@ def get_schemas_output(catalog_name: Optional[pulumi.Input[str]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSchemasResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str catalog_name: Name of databricks_catalog
-    :param Sequence[str] ids: set of Schema full names: *`catalog`.`schema`*
     """
     ...

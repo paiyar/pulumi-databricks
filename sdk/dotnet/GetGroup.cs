@@ -21,24 +21,14 @@ namespace Pulumi.Databricks
 
     public sealed class GetGroupArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// True if group members can create clusters
-        /// </summary>
         [Input("allowClusterCreate")]
         public bool? AllowClusterCreate { get; set; }
 
-        /// <summary>
-        /// True if group members can create instance pools
-        /// </summary>
         [Input("allowInstancePoolCreate")]
         public bool? AllowInstancePoolCreate { get; set; }
 
         [Input("childGroups")]
         private List<string>? _childGroups;
-
-        /// <summary>
-        /// Set of databricks.Group identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public List<string> ChildGroups
         {
             get => _childGroups ?? (_childGroups = new List<string>());
@@ -48,24 +38,14 @@ namespace Pulumi.Databricks
         [Input("databricksSqlAccess")]
         public bool? DatabricksSqlAccess { get; set; }
 
-        /// <summary>
-        /// Display name of the group. The group must exist before this resource can be planned.
-        /// </summary>
         [Input("displayName", required: true)]
         public string DisplayName { get; set; } = null!;
 
-        /// <summary>
-        /// ID of the group in an external identity provider.
-        /// </summary>
         [Input("externalId")]
         public string? ExternalId { get; set; }
 
         [Input("groups")]
         private List<string>? _groups;
-
-        /// <summary>
-        /// Set of group identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public List<string> Groups
         {
             get => _groups ?? (_groups = new List<string>());
@@ -74,10 +54,6 @@ namespace Pulumi.Databricks
 
         [Input("instanceProfiles")]
         private List<string>? _instanceProfiles;
-
-        /// <summary>
-        /// Set of instance profile ARNs, that can be modified by databricks.GroupInstanceProfile resource.
-        /// </summary>
         public List<string> InstanceProfiles
         {
             get => _instanceProfiles ?? (_instanceProfiles = new List<string>());
@@ -93,18 +69,11 @@ namespace Pulumi.Databricks
             set => _members = value;
         }
 
-        /// <summary>
-        /// Collect information for all nested groups. *Defaults to true.*
-        /// </summary>
         [Input("recursive")]
         public bool? Recursive { get; set; }
 
         [Input("servicePrincipals")]
         private List<string>? _servicePrincipals;
-
-        /// <summary>
-        /// Set of databricks.ServicePrincipal identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public List<string> ServicePrincipals
         {
             get => _servicePrincipals ?? (_servicePrincipals = new List<string>());
@@ -113,10 +82,6 @@ namespace Pulumi.Databricks
 
         [Input("users")]
         private List<string>? _users;
-
-        /// <summary>
-        /// Set of databricks.User identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public List<string> Users
         {
             get => _users ?? (_users = new List<string>());
@@ -133,24 +98,14 @@ namespace Pulumi.Databricks
 
     public sealed class GetGroupInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// True if group members can create clusters
-        /// </summary>
         [Input("allowClusterCreate")]
         public Input<bool>? AllowClusterCreate { get; set; }
 
-        /// <summary>
-        /// True if group members can create instance pools
-        /// </summary>
         [Input("allowInstancePoolCreate")]
         public Input<bool>? AllowInstancePoolCreate { get; set; }
 
         [Input("childGroups")]
         private InputList<string>? _childGroups;
-
-        /// <summary>
-        /// Set of databricks.Group identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public InputList<string> ChildGroups
         {
             get => _childGroups ?? (_childGroups = new InputList<string>());
@@ -160,24 +115,14 @@ namespace Pulumi.Databricks
         [Input("databricksSqlAccess")]
         public Input<bool>? DatabricksSqlAccess { get; set; }
 
-        /// <summary>
-        /// Display name of the group. The group must exist before this resource can be planned.
-        /// </summary>
         [Input("displayName", required: true)]
         public Input<string> DisplayName { get; set; } = null!;
 
-        /// <summary>
-        /// ID of the group in an external identity provider.
-        /// </summary>
         [Input("externalId")]
         public Input<string>? ExternalId { get; set; }
 
         [Input("groups")]
         private InputList<string>? _groups;
-
-        /// <summary>
-        /// Set of group identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public InputList<string> Groups
         {
             get => _groups ?? (_groups = new InputList<string>());
@@ -186,10 +131,6 @@ namespace Pulumi.Databricks
 
         [Input("instanceProfiles")]
         private InputList<string>? _instanceProfiles;
-
-        /// <summary>
-        /// Set of instance profile ARNs, that can be modified by databricks.GroupInstanceProfile resource.
-        /// </summary>
         public InputList<string> InstanceProfiles
         {
             get => _instanceProfiles ?? (_instanceProfiles = new InputList<string>());
@@ -205,18 +146,11 @@ namespace Pulumi.Databricks
             set => _members = value;
         }
 
-        /// <summary>
-        /// Collect information for all nested groups. *Defaults to true.*
-        /// </summary>
         [Input("recursive")]
         public Input<bool>? Recursive { get; set; }
 
         [Input("servicePrincipals")]
         private InputList<string>? _servicePrincipals;
-
-        /// <summary>
-        /// Set of databricks.ServicePrincipal identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public InputList<string> ServicePrincipals
         {
             get => _servicePrincipals ?? (_servicePrincipals = new InputList<string>());
@@ -225,10 +159,6 @@ namespace Pulumi.Databricks
 
         [Input("users")]
         private InputList<string>? _users;
-
-        /// <summary>
-        /// Set of databricks.User identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public InputList<string> Users
         {
             get => _users ?? (_users = new InputList<string>());
@@ -247,45 +177,21 @@ namespace Pulumi.Databricks
     [OutputType]
     public sealed class GetGroupResult
     {
-        /// <summary>
-        /// True if group members can create clusters
-        /// </summary>
         public readonly bool? AllowClusterCreate;
-        /// <summary>
-        /// True if group members can create instance pools
-        /// </summary>
         public readonly bool? AllowInstancePoolCreate;
-        /// <summary>
-        /// Set of databricks.Group identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public readonly ImmutableArray<string> ChildGroups;
         public readonly bool? DatabricksSqlAccess;
         public readonly string DisplayName;
-        /// <summary>
-        /// ID of the group in an external identity provider.
-        /// </summary>
         public readonly string ExternalId;
-        /// <summary>
-        /// Set of group identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public readonly ImmutableArray<string> Groups;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// Set of instance profile ARNs, that can be modified by databricks.GroupInstanceProfile resource.
-        /// </summary>
         public readonly ImmutableArray<string> InstanceProfiles;
         public readonly ImmutableArray<string> Members;
         public readonly bool? Recursive;
-        /// <summary>
-        /// Set of databricks.ServicePrincipal identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public readonly ImmutableArray<string> ServicePrincipals;
-        /// <summary>
-        /// Set of databricks.User identifiers, that can be modified with databricks.GroupMember resource.
-        /// </summary>
         public readonly ImmutableArray<string> Users;
         public readonly bool? WorkspaceAccess;
 

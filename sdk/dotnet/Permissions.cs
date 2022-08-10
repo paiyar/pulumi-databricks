@@ -9,96 +9,54 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// The resource permissions can be imported using the object id bash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/permissions:Permissions this /&lt;object type&gt;/&lt;object id&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/permissions:Permissions")]
     public partial class Permissions : Pulumi.CustomResource
     {
         [Output("accessControls")]
         public Output<ImmutableArray<Outputs.PermissionsAccessControl>> AccessControls { get; private set; } = null!;
 
-        /// <summary>
-        /// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-        /// </summary>
         [Output("authorization")]
         public Output<string?> Authorization { get; private set; } = null!;
 
-        /// <summary>
-        /// cluster id
-        /// </summary>
         [Output("clusterId")]
         public Output<string?> ClusterId { get; private set; } = null!;
 
-        /// <summary>
-        /// cluster policy id
-        /// </summary>
         [Output("clusterPolicyId")]
         public Output<string?> ClusterPolicyId { get; private set; } = null!;
 
-        /// <summary>
-        /// directory id
-        /// </summary>
         [Output("directoryId")]
         public Output<string?> DirectoryId { get; private set; } = null!;
 
-        /// <summary>
-        /// path of directory
-        /// </summary>
         [Output("directoryPath")]
         public Output<string?> DirectoryPath { get; private set; } = null!;
 
         [Output("experimentId")]
         public Output<string?> ExperimentId { get; private set; } = null!;
 
-        /// <summary>
-        /// instance pool id
-        /// </summary>
         [Output("instancePoolId")]
         public Output<string?> InstancePoolId { get; private set; } = null!;
 
-        /// <summary>
-        /// job id
-        /// </summary>
         [Output("jobId")]
         public Output<string?> JobId { get; private set; } = null!;
 
-        /// <summary>
-        /// ID of notebook within workspace
-        /// </summary>
         [Output("notebookId")]
         public Output<string?> NotebookId { get; private set; } = null!;
 
-        /// <summary>
-        /// path of notebook
-        /// </summary>
         [Output("notebookPath")]
         public Output<string?> NotebookPath { get; private set; } = null!;
 
-        /// <summary>
-        /// type of permissions.
-        /// </summary>
         [Output("objectType")]
         public Output<string> ObjectType { get; private set; } = null!;
+
+        [Output("pipelineId")]
+        public Output<string?> PipelineId { get; private set; } = null!;
 
         [Output("registeredModelId")]
         public Output<string?> RegisteredModelId { get; private set; } = null!;
 
-        /// <summary>
-        /// repo id
-        /// </summary>
         [Output("repoId")]
         public Output<string?> RepoId { get; private set; } = null!;
 
-        /// <summary>
-        /// path of databricks repo directory(`/Repos/&lt;username&gt;/...`)
-        /// </summary>
         [Output("repoPath")]
         public Output<string?> RepoPath { get; private set; } = null!;
 
@@ -168,81 +126,48 @@ namespace Pulumi.Databricks
             set => _accessControls = value;
         }
 
-        /// <summary>
-        /// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-        /// </summary>
         [Input("authorization")]
         public Input<string>? Authorization { get; set; }
 
-        /// <summary>
-        /// cluster id
-        /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
 
-        /// <summary>
-        /// cluster policy id
-        /// </summary>
         [Input("clusterPolicyId")]
         public Input<string>? ClusterPolicyId { get; set; }
 
-        /// <summary>
-        /// directory id
-        /// </summary>
         [Input("directoryId")]
         public Input<string>? DirectoryId { get; set; }
 
-        /// <summary>
-        /// path of directory
-        /// </summary>
         [Input("directoryPath")]
         public Input<string>? DirectoryPath { get; set; }
 
         [Input("experimentId")]
         public Input<string>? ExperimentId { get; set; }
 
-        /// <summary>
-        /// instance pool id
-        /// </summary>
         [Input("instancePoolId")]
         public Input<string>? InstancePoolId { get; set; }
 
-        /// <summary>
-        /// job id
-        /// </summary>
         [Input("jobId")]
         public Input<string>? JobId { get; set; }
 
-        /// <summary>
-        /// ID of notebook within workspace
-        /// </summary>
         [Input("notebookId")]
         public Input<string>? NotebookId { get; set; }
 
-        /// <summary>
-        /// path of notebook
-        /// </summary>
         [Input("notebookPath")]
         public Input<string>? NotebookPath { get; set; }
 
-        /// <summary>
-        /// type of permissions.
-        /// </summary>
         [Input("objectType")]
         public Input<string>? ObjectType { get; set; }
+
+        [Input("pipelineId")]
+        public Input<string>? PipelineId { get; set; }
 
         [Input("registeredModelId")]
         public Input<string>? RegisteredModelId { get; set; }
 
-        /// <summary>
-        /// repo id
-        /// </summary>
         [Input("repoId")]
         public Input<string>? RepoId { get; set; }
 
-        /// <summary>
-        /// path of databricks repo directory(`/Repos/&lt;username&gt;/...`)
-        /// </summary>
         [Input("repoPath")]
         public Input<string>? RepoPath { get; set; }
 
@@ -273,81 +198,48 @@ namespace Pulumi.Databricks
             set => _accessControls = value;
         }
 
-        /// <summary>
-        /// either [`tokens`](https://docs.databricks.com/administration-guide/access-control/tokens.html) or [`passwords`](https://docs.databricks.com/administration-guide/users-groups/single-sign-on/index.html#configure-password-permission).
-        /// </summary>
         [Input("authorization")]
         public Input<string>? Authorization { get; set; }
 
-        /// <summary>
-        /// cluster id
-        /// </summary>
         [Input("clusterId")]
         public Input<string>? ClusterId { get; set; }
 
-        /// <summary>
-        /// cluster policy id
-        /// </summary>
         [Input("clusterPolicyId")]
         public Input<string>? ClusterPolicyId { get; set; }
 
-        /// <summary>
-        /// directory id
-        /// </summary>
         [Input("directoryId")]
         public Input<string>? DirectoryId { get; set; }
 
-        /// <summary>
-        /// path of directory
-        /// </summary>
         [Input("directoryPath")]
         public Input<string>? DirectoryPath { get; set; }
 
         [Input("experimentId")]
         public Input<string>? ExperimentId { get; set; }
 
-        /// <summary>
-        /// instance pool id
-        /// </summary>
         [Input("instancePoolId")]
         public Input<string>? InstancePoolId { get; set; }
 
-        /// <summary>
-        /// job id
-        /// </summary>
         [Input("jobId")]
         public Input<string>? JobId { get; set; }
 
-        /// <summary>
-        /// ID of notebook within workspace
-        /// </summary>
         [Input("notebookId")]
         public Input<string>? NotebookId { get; set; }
 
-        /// <summary>
-        /// path of notebook
-        /// </summary>
         [Input("notebookPath")]
         public Input<string>? NotebookPath { get; set; }
 
-        /// <summary>
-        /// type of permissions.
-        /// </summary>
         [Input("objectType")]
         public Input<string>? ObjectType { get; set; }
+
+        [Input("pipelineId")]
+        public Input<string>? PipelineId { get; set; }
 
         [Input("registeredModelId")]
         public Input<string>? RegisteredModelId { get; set; }
 
-        /// <summary>
-        /// repo id
-        /// </summary>
         [Input("repoId")]
         public Input<string>? RepoId { get; set; }
 
-        /// <summary>
-        /// path of databricks repo directory(`/Repos/&lt;username&gt;/...`)
-        /// </summary>
         [Input("repoPath")]
         public Input<string>? RepoPath { get; set; }
 

@@ -21,13 +21,7 @@ export function getDbfsFilePaths(args: GetDbfsFilePathsArgs, opts?: pulumi.Invok
  * A collection of arguments for invoking getDbfsFilePaths.
  */
 export interface GetDbfsFilePathsArgs {
-    /**
-     * Path on DBFS for the file to perform listing
-     */
     path: string;
-    /**
-     * Either or not recursively list all files
-     */
     recursive: boolean;
 }
 
@@ -40,9 +34,6 @@ export interface GetDbfsFilePathsResult {
      */
     readonly id: string;
     readonly path: string;
-    /**
-     * returns list of objects with `path` and `fileSize` attributes in each
-     */
     readonly pathLists: outputs.GetDbfsFilePathsPathList[];
     readonly recursive: boolean;
 }
@@ -55,12 +46,6 @@ export function getDbfsFilePathsOutput(args: GetDbfsFilePathsOutputArgs, opts?: 
  * A collection of arguments for invoking getDbfsFilePaths.
  */
 export interface GetDbfsFilePathsOutputArgs {
-    /**
-     * Path on DBFS for the file to perform listing
-     */
     path: pulumi.Input<string>;
-    /**
-     * Either or not recursively list all files
-     */
     recursive: pulumi.Input<boolean>;
 }

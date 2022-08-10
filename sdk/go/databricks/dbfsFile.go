@@ -11,26 +11,15 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The resource dbfs file can be imported using the path of the file bash
-//
-// ```sh
-//  $ pulumi import databricks:index/dbfsFile:DbfsFile this <path>
-// ```
 type DbfsFile struct {
 	pulumi.CustomResourceState
 
 	ContentBase64 pulumi.StringPtrOutput `pulumi:"contentBase64"`
-	// Path, but with `dbfs:` prefix
-	DbfsPath pulumi.StringOutput `pulumi:"dbfsPath"`
-	// The file size of the file that is being tracked by this resource in bytes.
-	FileSize pulumi.IntOutput       `pulumi:"fileSize"`
-	Md5      pulumi.StringPtrOutput `pulumi:"md5"`
-	// The path of the file in which you wish to save.
-	Path pulumi.StringOutput `pulumi:"path"`
-	// The full absolute path to the file. Conflicts with `contentBase64`.
-	Source pulumi.StringPtrOutput `pulumi:"source"`
+	DbfsPath      pulumi.StringOutput    `pulumi:"dbfsPath"`
+	FileSize      pulumi.IntOutput       `pulumi:"fileSize"`
+	Md5           pulumi.StringPtrOutput `pulumi:"md5"`
+	Path          pulumi.StringOutput    `pulumi:"path"`
+	Source        pulumi.StringPtrOutput `pulumi:"source"`
 }
 
 // NewDbfsFile registers a new resource with the given unique name, arguments, and options.
@@ -66,28 +55,20 @@ func GetDbfsFile(ctx *pulumi.Context,
 // Input properties used for looking up and filtering DbfsFile resources.
 type dbfsFileState struct {
 	ContentBase64 *string `pulumi:"contentBase64"`
-	// Path, but with `dbfs:` prefix
-	DbfsPath *string `pulumi:"dbfsPath"`
-	// The file size of the file that is being tracked by this resource in bytes.
-	FileSize *int    `pulumi:"fileSize"`
-	Md5      *string `pulumi:"md5"`
-	// The path of the file in which you wish to save.
-	Path *string `pulumi:"path"`
-	// The full absolute path to the file. Conflicts with `contentBase64`.
-	Source *string `pulumi:"source"`
+	DbfsPath      *string `pulumi:"dbfsPath"`
+	FileSize      *int    `pulumi:"fileSize"`
+	Md5           *string `pulumi:"md5"`
+	Path          *string `pulumi:"path"`
+	Source        *string `pulumi:"source"`
 }
 
 type DbfsFileState struct {
 	ContentBase64 pulumi.StringPtrInput
-	// Path, but with `dbfs:` prefix
-	DbfsPath pulumi.StringPtrInput
-	// The file size of the file that is being tracked by this resource in bytes.
-	FileSize pulumi.IntPtrInput
-	Md5      pulumi.StringPtrInput
-	// The path of the file in which you wish to save.
-	Path pulumi.StringPtrInput
-	// The full absolute path to the file. Conflicts with `contentBase64`.
-	Source pulumi.StringPtrInput
+	DbfsPath      pulumi.StringPtrInput
+	FileSize      pulumi.IntPtrInput
+	Md5           pulumi.StringPtrInput
+	Path          pulumi.StringPtrInput
+	Source        pulumi.StringPtrInput
 }
 
 func (DbfsFileState) ElementType() reflect.Type {
@@ -97,20 +78,16 @@ func (DbfsFileState) ElementType() reflect.Type {
 type dbfsFileArgs struct {
 	ContentBase64 *string `pulumi:"contentBase64"`
 	Md5           *string `pulumi:"md5"`
-	// The path of the file in which you wish to save.
-	Path string `pulumi:"path"`
-	// The full absolute path to the file. Conflicts with `contentBase64`.
-	Source *string `pulumi:"source"`
+	Path          string  `pulumi:"path"`
+	Source        *string `pulumi:"source"`
 }
 
 // The set of arguments for constructing a DbfsFile resource.
 type DbfsFileArgs struct {
 	ContentBase64 pulumi.StringPtrInput
 	Md5           pulumi.StringPtrInput
-	// The path of the file in which you wish to save.
-	Path pulumi.StringInput
-	// The full absolute path to the file. Conflicts with `contentBase64`.
-	Source pulumi.StringPtrInput
+	Path          pulumi.StringInput
+	Source        pulumi.StringPtrInput
 }
 
 func (DbfsFileArgs) ElementType() reflect.Type {

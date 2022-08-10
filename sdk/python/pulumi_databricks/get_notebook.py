@@ -46,9 +46,6 @@ class GetNotebookResult:
     @property
     @pulumi.getter
     def content(self) -> str:
-        """
-        notebook content in selected format
-        """
         return pulumi.get(self, "content")
 
     @property
@@ -67,25 +64,16 @@ class GetNotebookResult:
     @property
     @pulumi.getter
     def language(self) -> str:
-        """
-        notebook language
-        """
         return pulumi.get(self, "language")
 
     @property
     @pulumi.getter(name="objectId")
     def object_id(self) -> int:
-        """
-        notebook object ID
-        """
         return pulumi.get(self, "object_id")
 
     @property
     @pulumi.getter(name="objectType")
     def object_type(self) -> str:
-        """
-        notebook object type
-        """
         return pulumi.get(self, "object_type")
 
     @property
@@ -117,12 +105,6 @@ def get_notebook(format: Optional[str] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetNotebookResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str format: Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-    :param str language: notebook language
-    :param int object_id: notebook object ID
-    :param str object_type: notebook object type
-    :param str path: Notebook path on the workspace
     """
     __args__ = dict()
     __args__['format'] = format
@@ -155,11 +137,5 @@ def get_notebook_output(format: Optional[pulumi.Input[str]] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetNotebookResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str format: Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-    :param str language: notebook language
-    :param int object_id: notebook object ID
-    :param str object_type: notebook object type
-    :param str path: Notebook path on the workspace
     """
     ...

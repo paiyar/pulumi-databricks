@@ -19,19 +19,26 @@ export * from "./getAwsAssumeRolePolicy";
 export * from "./getAwsBucketPolicy";
 export * from "./getAwsCrossaccountPolicy";
 export * from "./getCatalogs";
+export * from "./getCluster";
 export * from "./getClusters";
 export * from "./getCurrentUser";
 export * from "./getDbfsFile";
 export * from "./getDbfsFilePaths";
 export * from "./getGroup";
 export * from "./getJobs";
+export * from "./getMwsWorkspaces";
 export * from "./getNodeType";
 export * from "./getNotebook";
 export * from "./getNotebookPaths";
 export * from "./getSchemas";
+export * from "./getServicePrincipal";
+export * from "./getServicePrincipals";
 export * from "./getSparkVersion";
+export * from "./getSqlWarehouse";
+export * from "./getSqlWarehouses";
 export * from "./getTables";
 export * from "./getUser";
+export * from "./getViews";
 export * from "./getZones";
 export * from "./gitCredential";
 export * from "./globalInitScript";
@@ -55,12 +62,14 @@ export * from "./mwsCredentials";
 export * from "./mwsCustomerManagedKeys";
 export * from "./mwsLogDelivery";
 export * from "./mwsNetworks";
+export * from "./mwsPermissionAssignment";
 export * from "./mwsPrivateAccessSettings";
 export * from "./mwsStorageConfigurations";
 export * from "./mwsVpcEndpoint";
 export * from "./mwsWorkspaces";
 export * from "./notebook";
 export * from "./oboToken";
+export * from "./permissionAssignment";
 export * from "./permissions";
 export * from "./pipeline";
 export * from "./provider";
@@ -70,6 +79,7 @@ export * from "./secret";
 export * from "./secretAcl";
 export * from "./secretScope";
 export * from "./servicePrincipal";
+export * from "./servicePrincipalRole";
 export * from "./sqlDashboard";
 export * from "./sqlEndpoint";
 export * from "./sqlGlobalConfig";
@@ -127,12 +137,14 @@ import { MwsCredentials } from "./mwsCredentials";
 import { MwsCustomerManagedKeys } from "./mwsCustomerManagedKeys";
 import { MwsLogDelivery } from "./mwsLogDelivery";
 import { MwsNetworks } from "./mwsNetworks";
+import { MwsPermissionAssignment } from "./mwsPermissionAssignment";
 import { MwsPrivateAccessSettings } from "./mwsPrivateAccessSettings";
 import { MwsStorageConfigurations } from "./mwsStorageConfigurations";
 import { MwsVpcEndpoint } from "./mwsVpcEndpoint";
 import { MwsWorkspaces } from "./mwsWorkspaces";
 import { Notebook } from "./notebook";
 import { OboToken } from "./oboToken";
+import { PermissionAssignment } from "./permissionAssignment";
 import { Permissions } from "./permissions";
 import { Pipeline } from "./pipeline";
 import { Repo } from "./repo";
@@ -141,6 +153,7 @@ import { Secret } from "./secret";
 import { SecretAcl } from "./secretAcl";
 import { SecretScope } from "./secretScope";
 import { ServicePrincipal } from "./servicePrincipal";
+import { ServicePrincipalRole } from "./servicePrincipalRole";
 import { SqlDashboard } from "./sqlDashboard";
 import { SqlEndpoint } from "./sqlEndpoint";
 import { SqlGlobalConfig } from "./sqlGlobalConfig";
@@ -224,6 +237,8 @@ const _module = {
                 return new MwsLogDelivery(name, <any>undefined, { urn })
             case "databricks:index/mwsNetworks:MwsNetworks":
                 return new MwsNetworks(name, <any>undefined, { urn })
+            case "databricks:index/mwsPermissionAssignment:MwsPermissionAssignment":
+                return new MwsPermissionAssignment(name, <any>undefined, { urn })
             case "databricks:index/mwsPrivateAccessSettings:MwsPrivateAccessSettings":
                 return new MwsPrivateAccessSettings(name, <any>undefined, { urn })
             case "databricks:index/mwsStorageConfigurations:MwsStorageConfigurations":
@@ -236,6 +251,8 @@ const _module = {
                 return new Notebook(name, <any>undefined, { urn })
             case "databricks:index/oboToken:OboToken":
                 return new OboToken(name, <any>undefined, { urn })
+            case "databricks:index/permissionAssignment:PermissionAssignment":
+                return new PermissionAssignment(name, <any>undefined, { urn })
             case "databricks:index/permissions:Permissions":
                 return new Permissions(name, <any>undefined, { urn })
             case "databricks:index/pipeline:Pipeline":
@@ -252,6 +269,8 @@ const _module = {
                 return new SecretScope(name, <any>undefined, { urn })
             case "databricks:index/servicePrincipal:ServicePrincipal":
                 return new ServicePrincipal(name, <any>undefined, { urn })
+            case "databricks:index/servicePrincipalRole:ServicePrincipalRole":
+                return new ServicePrincipalRole(name, <any>undefined, { urn })
             case "databricks:index/sqlDashboard:SqlDashboard":
                 return new SqlDashboard(name, <any>undefined, { urn })
             case "databricks:index/sqlEndpoint:SqlEndpoint":
@@ -317,12 +336,14 @@ pulumi.runtime.registerResourceModule("databricks", "index/mwsCredentials", _mod
 pulumi.runtime.registerResourceModule("databricks", "index/mwsCustomerManagedKeys", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/mwsLogDelivery", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/mwsNetworks", _module)
+pulumi.runtime.registerResourceModule("databricks", "index/mwsPermissionAssignment", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/mwsPrivateAccessSettings", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/mwsStorageConfigurations", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/mwsVpcEndpoint", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/mwsWorkspaces", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/notebook", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/oboToken", _module)
+pulumi.runtime.registerResourceModule("databricks", "index/permissionAssignment", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/permissions", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/pipeline", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/repo", _module)
@@ -331,6 +352,7 @@ pulumi.runtime.registerResourceModule("databricks", "index/secret", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/secretAcl", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/secretScope", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/servicePrincipal", _module)
+pulumi.runtime.registerResourceModule("databricks", "index/servicePrincipalRole", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/sqlDashboard", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/sqlEndpoint", _module)
 pulumi.runtime.registerResourceModule("databricks", "index/sqlGlobalConfig", _module)

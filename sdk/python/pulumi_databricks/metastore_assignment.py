@@ -18,9 +18,6 @@ class MetastoreAssignmentArgs:
                  default_catalog_name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a MetastoreAssignment resource.
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[int] workspace_id: id of the workspace for the assignment
-        :param pulumi.Input[str] default_catalog_name: Default catalog used for this assignment, default to `hive_metastore`
         """
         pulumi.set(__self__, "metastore_id", metastore_id)
         pulumi.set(__self__, "workspace_id", workspace_id)
@@ -30,9 +27,6 @@ class MetastoreAssignmentArgs:
     @property
     @pulumi.getter(name="metastoreId")
     def metastore_id(self) -> pulumi.Input[str]:
-        """
-        Unique identifier of the parent Metastore
-        """
         return pulumi.get(self, "metastore_id")
 
     @metastore_id.setter
@@ -42,9 +36,6 @@ class MetastoreAssignmentArgs:
     @property
     @pulumi.getter(name="workspaceId")
     def workspace_id(self) -> pulumi.Input[int]:
-        """
-        id of the workspace for the assignment
-        """
         return pulumi.get(self, "workspace_id")
 
     @workspace_id.setter
@@ -54,9 +45,6 @@ class MetastoreAssignmentArgs:
     @property
     @pulumi.getter(name="defaultCatalogName")
     def default_catalog_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Default catalog used for this assignment, default to `hive_metastore`
-        """
         return pulumi.get(self, "default_catalog_name")
 
     @default_catalog_name.setter
@@ -72,9 +60,6 @@ class _MetastoreAssignmentState:
                  workspace_id: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering MetastoreAssignment resources.
-        :param pulumi.Input[str] default_catalog_name: Default catalog used for this assignment, default to `hive_metastore`
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[int] workspace_id: id of the workspace for the assignment
         """
         if default_catalog_name is not None:
             pulumi.set(__self__, "default_catalog_name", default_catalog_name)
@@ -86,9 +71,6 @@ class _MetastoreAssignmentState:
     @property
     @pulumi.getter(name="defaultCatalogName")
     def default_catalog_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Default catalog used for this assignment, default to `hive_metastore`
-        """
         return pulumi.get(self, "default_catalog_name")
 
     @default_catalog_name.setter
@@ -98,9 +80,6 @@ class _MetastoreAssignmentState:
     @property
     @pulumi.getter(name="metastoreId")
     def metastore_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Unique identifier of the parent Metastore
-        """
         return pulumi.get(self, "metastore_id")
 
     @metastore_id.setter
@@ -110,9 +89,6 @@ class _MetastoreAssignmentState:
     @property
     @pulumi.getter(name="workspaceId")
     def workspace_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        id of the workspace for the assignment
-        """
         return pulumi.get(self, "workspace_id")
 
     @workspace_id.setter
@@ -130,30 +106,9 @@ class MetastoreAssignment(pulumi.CustomResource):
                  workspace_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        A single Metastore can be shared across Databricks workspaces, and each linked workspace has a consistent view of the data and a single set of access policies. It is only recommended to have multiple metastores when organizations wish to have hard isolation boundaries between data (note that data cannot be easily joined/queried across metastores).
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_metastore = databricks.Metastore("thisMetastore",
-            storage_root=f"s3://{aws_s3_bucket['metastore']['id']}/metastore",
-            owner="uc admins",
-            force_destroy=True)
-        this_metastore_assignment = databricks.MetastoreAssignment("thisMetastoreAssignment",
-            metastore_id=this_metastore.id,
-            workspace_id=local["workspace_id"])
-        ```
-
+        Create a MetastoreAssignment resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] default_catalog_name: Default catalog used for this assignment, default to `hive_metastore`
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[int] workspace_id: id of the workspace for the assignment
         """
         ...
     @overload
@@ -162,25 +117,7 @@ class MetastoreAssignment(pulumi.CustomResource):
                  args: MetastoreAssignmentArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        A single Metastore can be shared across Databricks workspaces, and each linked workspace has a consistent view of the data and a single set of access policies. It is only recommended to have multiple metastores when organizations wish to have hard isolation boundaries between data (note that data cannot be easily joined/queried across metastores).
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_metastore = databricks.Metastore("thisMetastore",
-            storage_root=f"s3://{aws_s3_bucket['metastore']['id']}/metastore",
-            owner="uc admins",
-            force_destroy=True)
-        this_metastore_assignment = databricks.MetastoreAssignment("thisMetastoreAssignment",
-            metastore_id=this_metastore.id,
-            workspace_id=local["workspace_id"])
-        ```
-
+        Create a MetastoreAssignment resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param MetastoreAssignmentArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -238,9 +175,6 @@ class MetastoreAssignment(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] default_catalog_name: Default catalog used for this assignment, default to `hive_metastore`
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[int] workspace_id: id of the workspace for the assignment
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -254,24 +188,15 @@ class MetastoreAssignment(pulumi.CustomResource):
     @property
     @pulumi.getter(name="defaultCatalogName")
     def default_catalog_name(self) -> pulumi.Output[Optional[str]]:
-        """
-        Default catalog used for this assignment, default to `hive_metastore`
-        """
         return pulumi.get(self, "default_catalog_name")
 
     @property
     @pulumi.getter(name="metastoreId")
     def metastore_id(self) -> pulumi.Output[str]:
-        """
-        Unique identifier of the parent Metastore
-        """
         return pulumi.get(self, "metastore_id")
 
     @property
     @pulumi.getter(name="workspaceId")
     def workspace_id(self) -> pulumi.Output[int]:
-        """
-        id of the workspace for the assignment
-        """
         return pulumi.get(self, "workspace_id")
 

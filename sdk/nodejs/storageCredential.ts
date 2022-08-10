@@ -5,50 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
- *
- * To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
- * - `databricks.StorageCredential` represents authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
- * - databricks.ExternalLocation are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const external = new databricks.StorageCredential("external", {
- *     awsIamRole: {
- *         roleArn: aws_iam_role.external_data_access.arn,
- *     },
- *     comment: "Managed by TF",
- * });
- * const someExternalLocation = new databricks.ExternalLocation("someExternalLocation", {
- *     url: `s3://${aws_s3_bucket.external.id}/some`,
- *     credentialName: external.id,
- *     comment: "Managed by TF",
- * });
- * const someGrants = new databricks.Grants("someGrants", {
- *     externalLocation: someExternalLocation.id,
- *     grants: [{
- *         principal: "Data Engineers",
- *         privileges: [
- *             "CREATE TABLE",
- *             "READ FILES",
- *         ],
- *     }],
- * });
- * ```
- *
- * ## Import
- *
- * This resource can be imported by namebash
- *
- * ```sh
- *  $ pulumi import databricks:index/storageCredential:StorageCredential this <name>
- * ```
- */
 export class StorageCredential extends pulumi.CustomResource {
     /**
      * Get an existing StorageCredential resource's state with the given name, ID, and optional extra
@@ -78,13 +34,12 @@ export class StorageCredential extends pulumi.CustomResource {
     }
 
     public readonly awsIamRole!: pulumi.Output<outputs.StorageCredentialAwsIamRole | undefined>;
+    public readonly azureManagedIdentity!: pulumi.Output<outputs.StorageCredentialAzureManagedIdentity | undefined>;
     public readonly azureServicePrincipal!: pulumi.Output<outputs.StorageCredentialAzureServicePrincipal | undefined>;
     public readonly comment!: pulumi.Output<string | undefined>;
     public readonly metastoreId!: pulumi.Output<string>;
-    /**
-     * Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-     */
     public readonly name!: pulumi.Output<string>;
+    public readonly owner!: pulumi.Output<string>;
 
     /**
      * Create a StorageCredential resource with the given unique name, arguments, and options.
@@ -100,17 +55,21 @@ export class StorageCredential extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as StorageCredentialState | undefined;
             resourceInputs["awsIamRole"] = state ? state.awsIamRole : undefined;
+            resourceInputs["azureManagedIdentity"] = state ? state.azureManagedIdentity : undefined;
             resourceInputs["azureServicePrincipal"] = state ? state.azureServicePrincipal : undefined;
             resourceInputs["comment"] = state ? state.comment : undefined;
             resourceInputs["metastoreId"] = state ? state.metastoreId : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["owner"] = state ? state.owner : undefined;
         } else {
             const args = argsOrState as StorageCredentialArgs | undefined;
             resourceInputs["awsIamRole"] = args ? args.awsIamRole : undefined;
+            resourceInputs["azureManagedIdentity"] = args ? args.azureManagedIdentity : undefined;
             resourceInputs["azureServicePrincipal"] = args ? args.azureServicePrincipal : undefined;
             resourceInputs["comment"] = args ? args.comment : undefined;
             resourceInputs["metastoreId"] = args ? args.metastoreId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["owner"] = args ? args.owner : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(StorageCredential.__pulumiType, name, resourceInputs, opts);
@@ -122,13 +81,12 @@ export class StorageCredential extends pulumi.CustomResource {
  */
 export interface StorageCredentialState {
     awsIamRole?: pulumi.Input<inputs.StorageCredentialAwsIamRole>;
+    azureManagedIdentity?: pulumi.Input<inputs.StorageCredentialAzureManagedIdentity>;
     azureServicePrincipal?: pulumi.Input<inputs.StorageCredentialAzureServicePrincipal>;
     comment?: pulumi.Input<string>;
     metastoreId?: pulumi.Input<string>;
-    /**
-     * Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-     */
     name?: pulumi.Input<string>;
+    owner?: pulumi.Input<string>;
 }
 
 /**
@@ -136,11 +94,10 @@ export interface StorageCredentialState {
  */
 export interface StorageCredentialArgs {
     awsIamRole?: pulumi.Input<inputs.StorageCredentialAwsIamRole>;
+    azureManagedIdentity?: pulumi.Input<inputs.StorageCredentialAzureManagedIdentity>;
     azureServicePrincipal?: pulumi.Input<inputs.StorageCredentialAzureServicePrincipal>;
     comment?: pulumi.Input<string>;
     metastoreId?: pulumi.Input<string>;
-    /**
-     * Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-     */
     name?: pulumi.Input<string>;
+    owner?: pulumi.Input<string>;
 }

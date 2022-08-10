@@ -10,70 +10,16 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// This resource allows you to manage [MLflow experiments](https://docs.databricks.com/data/data-sources/mlflow-experiment.html) in Databricks.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := databricks.GetCurrentUser(ctx, nil, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewMlflowExperiment(ctx, "this", &databricks.MlflowExperimentArgs{
-// 			ArtifactLocation: pulumi.String("dbfs:/tmp/my-experiment"),
-// 			Description:      pulumi.String("My MLflow experiment description"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Access Control
-//
-// * Permissions can control which groups or individual users can *Read*, *Edit*, or *Manage* individual experiments.
-//
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Directory to manage directories in [Databricks Workpace](https://docs.databricks.com/workspace/workspace-objects.html).
-// * MlflowModel to create [MLflow models](https://docs.databricks.com/applications/mlflow/models.html) in Databricks.
-// * Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
-// * Notebook data to export a notebook from Databricks Workspace.
-// * Repo to manage [Databricks Repos](https://docs.databricks.com/repos.html).
-//
-// ## Import
-//
-// The experiment resource can be imported using the id of the experiment bash
-//
-// ```sh
-//  $ pulumi import databricks:index/mlflowExperiment:MlflowExperiment this <experiment-id>
-// ```
 type MlflowExperiment struct {
 	pulumi.CustomResourceState
 
-	// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
 	ArtifactLocation pulumi.StringPtrOutput `pulumi:"artifactLocation"`
 	CreationTime     pulumi.IntOutput       `pulumi:"creationTime"`
-	// The description of the MLflow experiment.
-	Description    pulumi.StringPtrOutput `pulumi:"description"`
-	ExperimentId   pulumi.StringOutput    `pulumi:"experimentId"`
-	LastUpdateTime pulumi.IntOutput       `pulumi:"lastUpdateTime"`
-	LifecycleStage pulumi.StringOutput    `pulumi:"lifecycleStage"`
-	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/<some-username>/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
-	Name pulumi.StringOutput `pulumi:"name"`
+	Description      pulumi.StringPtrOutput `pulumi:"description"`
+	ExperimentId     pulumi.StringOutput    `pulumi:"experimentId"`
+	LastUpdateTime   pulumi.IntOutput       `pulumi:"lastUpdateTime"`
+	LifecycleStage   pulumi.StringOutput    `pulumi:"lifecycleStage"`
+	Name             pulumi.StringOutput    `pulumi:"name"`
 }
 
 // NewMlflowExperiment registers a new resource with the given unique name, arguments, and options.
@@ -105,29 +51,23 @@ func GetMlflowExperiment(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering MlflowExperiment resources.
 type mlflowExperimentState struct {
-	// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
 	ArtifactLocation *string `pulumi:"artifactLocation"`
 	CreationTime     *int    `pulumi:"creationTime"`
-	// The description of the MLflow experiment.
-	Description    *string `pulumi:"description"`
-	ExperimentId   *string `pulumi:"experimentId"`
-	LastUpdateTime *int    `pulumi:"lastUpdateTime"`
-	LifecycleStage *string `pulumi:"lifecycleStage"`
-	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/<some-username>/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
-	Name *string `pulumi:"name"`
+	Description      *string `pulumi:"description"`
+	ExperimentId     *string `pulumi:"experimentId"`
+	LastUpdateTime   *int    `pulumi:"lastUpdateTime"`
+	LifecycleStage   *string `pulumi:"lifecycleStage"`
+	Name             *string `pulumi:"name"`
 }
 
 type MlflowExperimentState struct {
-	// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
 	ArtifactLocation pulumi.StringPtrInput
 	CreationTime     pulumi.IntPtrInput
-	// The description of the MLflow experiment.
-	Description    pulumi.StringPtrInput
-	ExperimentId   pulumi.StringPtrInput
-	LastUpdateTime pulumi.IntPtrInput
-	LifecycleStage pulumi.StringPtrInput
-	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/<some-username>/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
-	Name pulumi.StringPtrInput
+	Description      pulumi.StringPtrInput
+	ExperimentId     pulumi.StringPtrInput
+	LastUpdateTime   pulumi.IntPtrInput
+	LifecycleStage   pulumi.StringPtrInput
+	Name             pulumi.StringPtrInput
 }
 
 func (MlflowExperimentState) ElementType() reflect.Type {
@@ -135,30 +75,24 @@ func (MlflowExperimentState) ElementType() reflect.Type {
 }
 
 type mlflowExperimentArgs struct {
-	// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
 	ArtifactLocation *string `pulumi:"artifactLocation"`
 	CreationTime     *int    `pulumi:"creationTime"`
-	// The description of the MLflow experiment.
-	Description    *string `pulumi:"description"`
-	ExperimentId   *string `pulumi:"experimentId"`
-	LastUpdateTime *int    `pulumi:"lastUpdateTime"`
-	LifecycleStage *string `pulumi:"lifecycleStage"`
-	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/<some-username>/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
-	Name *string `pulumi:"name"`
+	Description      *string `pulumi:"description"`
+	ExperimentId     *string `pulumi:"experimentId"`
+	LastUpdateTime   *int    `pulumi:"lastUpdateTime"`
+	LifecycleStage   *string `pulumi:"lifecycleStage"`
+	Name             *string `pulumi:"name"`
 }
 
 // The set of arguments for constructing a MlflowExperiment resource.
 type MlflowExperimentArgs struct {
-	// Path to dbfs:/ or s3:// artifact location of the MLflow experiment.
 	ArtifactLocation pulumi.StringPtrInput
 	CreationTime     pulumi.IntPtrInput
-	// The description of the MLflow experiment.
-	Description    pulumi.StringPtrInput
-	ExperimentId   pulumi.StringPtrInput
-	LastUpdateTime pulumi.IntPtrInput
-	LifecycleStage pulumi.StringPtrInput
-	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. `/Users/<some-username>/my-experiment`. For more information about changes to experiment naming conventions, see [mlflow docs](https://docs.databricks.com/applications/mlflow/experiments.html#experiment-migration).
-	Name pulumi.StringPtrInput
+	Description      pulumi.StringPtrInput
+	ExperimentId     pulumi.StringPtrInput
+	LastUpdateTime   pulumi.IntPtrInput
+	LifecycleStage   pulumi.StringPtrInput
+	Name             pulumi.StringPtrInput
 }
 
 func (MlflowExperimentArgs) ElementType() reflect.Type {

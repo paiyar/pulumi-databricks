@@ -11,21 +11,12 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The resource directory can be imported using directory path bash
-//
-// ```sh
-//  $ pulumi import databricks:index/directory:Directory this /path/to/directory
-// ```
 type Directory struct {
 	pulumi.CustomResourceState
 
 	DeleteRecursive pulumi.BoolPtrOutput `pulumi:"deleteRecursive"`
-	// Unique identifier for a DIRECTORY
-	ObjectId pulumi.IntOutput `pulumi:"objectId"`
-	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-	Path pulumi.StringOutput `pulumi:"path"`
+	ObjectId        pulumi.IntOutput     `pulumi:"objectId"`
+	Path            pulumi.StringOutput  `pulumi:"path"`
 }
 
 // NewDirectory registers a new resource with the given unique name, arguments, and options.
@@ -60,19 +51,15 @@ func GetDirectory(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Directory resources.
 type directoryState struct {
-	DeleteRecursive *bool `pulumi:"deleteRecursive"`
-	// Unique identifier for a DIRECTORY
-	ObjectId *int `pulumi:"objectId"`
-	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-	Path *string `pulumi:"path"`
+	DeleteRecursive *bool   `pulumi:"deleteRecursive"`
+	ObjectId        *int    `pulumi:"objectId"`
+	Path            *string `pulumi:"path"`
 }
 
 type DirectoryState struct {
 	DeleteRecursive pulumi.BoolPtrInput
-	// Unique identifier for a DIRECTORY
-	ObjectId pulumi.IntPtrInput
-	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-	Path pulumi.StringPtrInput
+	ObjectId        pulumi.IntPtrInput
+	Path            pulumi.StringPtrInput
 }
 
 func (DirectoryState) ElementType() reflect.Type {
@@ -80,20 +67,16 @@ func (DirectoryState) ElementType() reflect.Type {
 }
 
 type directoryArgs struct {
-	DeleteRecursive *bool `pulumi:"deleteRecursive"`
-	// Unique identifier for a DIRECTORY
-	ObjectId *int `pulumi:"objectId"`
-	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-	Path string `pulumi:"path"`
+	DeleteRecursive *bool  `pulumi:"deleteRecursive"`
+	ObjectId        *int   `pulumi:"objectId"`
+	Path            string `pulumi:"path"`
 }
 
 // The set of arguments for constructing a Directory resource.
 type DirectoryArgs struct {
 	DeleteRecursive pulumi.BoolPtrInput
-	// Unique identifier for a DIRECTORY
-	ObjectId pulumi.IntPtrInput
-	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-	Path pulumi.StringInput
+	ObjectId        pulumi.IntPtrInput
+	Path            pulumi.StringInput
 }
 
 func (DirectoryArgs) ElementType() reflect.Type {

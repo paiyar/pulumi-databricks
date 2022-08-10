@@ -18,9 +18,6 @@ class MwsCredentialsArgs:
                  role_arn: pulumi.Input[str]):
         """
         The set of arguments for constructing a MwsCredentials resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] credentials_name: name of credentials to register
-        :param pulumi.Input[str] role_arn: ARN of cross-account role
         """
         pulumi.set(__self__, "account_id", account_id)
         pulumi.set(__self__, "credentials_name", credentials_name)
@@ -29,9 +26,6 @@ class MwsCredentialsArgs:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Input[str]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -41,9 +35,6 @@ class MwsCredentialsArgs:
     @property
     @pulumi.getter(name="credentialsName")
     def credentials_name(self) -> pulumi.Input[str]:
-        """
-        name of credentials to register
-        """
         return pulumi.get(self, "credentials_name")
 
     @credentials_name.setter
@@ -53,9 +44,6 @@ class MwsCredentialsArgs:
     @property
     @pulumi.getter(name="roleArn")
     def role_arn(self) -> pulumi.Input[str]:
-        """
-        ARN of cross-account role
-        """
         return pulumi.get(self, "role_arn")
 
     @role_arn.setter
@@ -74,11 +62,6 @@ class _MwsCredentialsState:
                  role_arn: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering MwsCredentials resources.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[int] creation_time: (Integer) time of credentials registration
-        :param pulumi.Input[str] credentials_id: (String) identifier of credentials
-        :param pulumi.Input[str] credentials_name: name of credentials to register
-        :param pulumi.Input[str] role_arn: ARN of cross-account role
         """
         if account_id is not None:
             pulumi.set(__self__, "account_id", account_id)
@@ -96,9 +79,6 @@ class _MwsCredentialsState:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -108,9 +88,6 @@ class _MwsCredentialsState:
     @property
     @pulumi.getter(name="creationTime")
     def creation_time(self) -> Optional[pulumi.Input[int]]:
-        """
-        (Integer) time of credentials registration
-        """
         return pulumi.get(self, "creation_time")
 
     @creation_time.setter
@@ -120,9 +97,6 @@ class _MwsCredentialsState:
     @property
     @pulumi.getter(name="credentialsId")
     def credentials_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) identifier of credentials
-        """
         return pulumi.get(self, "credentials_id")
 
     @credentials_id.setter
@@ -132,9 +106,6 @@ class _MwsCredentialsState:
     @property
     @pulumi.getter(name="credentialsName")
     def credentials_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        name of credentials to register
-        """
         return pulumi.get(self, "credentials_name")
 
     @credentials_name.setter
@@ -153,9 +124,6 @@ class _MwsCredentialsState:
     @property
     @pulumi.getter(name="roleArn")
     def role_arn(self) -> Optional[pulumi.Input[str]]:
-        """
-        ARN of cross-account role
-        """
         return pulumi.get(self, "role_arn")
 
     @role_arn.setter
@@ -173,15 +141,9 @@ class MwsCredentials(pulumi.CustomResource):
                  role_arn: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsCredentials resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] credentials_name: name of credentials to register
-        :param pulumi.Input[str] role_arn: ARN of cross-account role
         """
         ...
     @overload
@@ -190,10 +152,7 @@ class MwsCredentials(pulumi.CustomResource):
                  args: MwsCredentialsArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsCredentials resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param MwsCredentialsArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -259,11 +218,6 @@ class MwsCredentials(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[int] creation_time: (Integer) time of credentials registration
-        :param pulumi.Input[str] credentials_id: (String) identifier of credentials
-        :param pulumi.Input[str] credentials_name: name of credentials to register
-        :param pulumi.Input[str] role_arn: ARN of cross-account role
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -280,33 +234,21 @@ class MwsCredentials(pulumi.CustomResource):
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Output[str]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @property
     @pulumi.getter(name="creationTime")
     def creation_time(self) -> pulumi.Output[int]:
-        """
-        (Integer) time of credentials registration
-        """
         return pulumi.get(self, "creation_time")
 
     @property
     @pulumi.getter(name="credentialsId")
     def credentials_id(self) -> pulumi.Output[str]:
-        """
-        (String) identifier of credentials
-        """
         return pulumi.get(self, "credentials_id")
 
     @property
     @pulumi.getter(name="credentialsName")
     def credentials_name(self) -> pulumi.Output[str]:
-        """
-        name of credentials to register
-        """
         return pulumi.get(self, "credentials_name")
 
     @property
@@ -317,8 +259,5 @@ class MwsCredentials(pulumi.CustomResource):
     @property
     @pulumi.getter(name="roleArn")
     def role_arn(self) -> pulumi.Output[str]:
-        """
-        ARN of cross-account role
-        """
         return pulumi.get(self, "role_arn")
 

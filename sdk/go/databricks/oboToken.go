@@ -11,136 +11,13 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// This resource creates [On-Behalf-Of tokens](https://docs.databricks.com/administration-guide/users-groups/service-principals.html#manage-personal-access-tokens-for-a-service-principal) for a ServicePrincipal in Databricks workspaces on AWS. It is very useful, when you want to provision resources within a workspace through narrowly-scoped service principal, that has no access to other workspaces within the same Databricks Account.
-//
-// ## Example Usage
-//
-// Creating a token for a narrowly-scoped service principal, that would be the only one (besides admins) allowed to use PAT token in this given workspace, keeping your automated deployment highly secure. Keep in mind, that given declaration of `databricks_permissions.token_usage` would remove permissions to use PAT tokens from `users` group.
-//
-// ```go
-// package main
-//
-// import (
-// 	"fmt"
-//
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		thisServicePrincipal, err := databricks.NewServicePrincipal(ctx, "thisServicePrincipal", &databricks.ServicePrincipalArgs{
-// 			DisplayName: pulumi.String("Automation-only SP"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		tokenUsage, err := databricks.NewPermissions(ctx, "tokenUsage", &databricks.PermissionsArgs{
-// 			Authorization: pulumi.String("tokens"),
-// 			AccessControls: PermissionsAccessControlArray{
-// 				&PermissionsAccessControlArgs{
-// 					ServicePrincipalName: thisServicePrincipal.ApplicationId,
-// 					PermissionLevel:      pulumi.String("CAN_USE"),
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		thisOboToken, err := databricks.NewOboToken(ctx, "thisOboToken", &databricks.OboTokenArgs{
-// 			ApplicationId: thisServicePrincipal.ApplicationId,
-// 			Comment: thisServicePrincipal.DisplayName.ApplyT(func(displayName string) (string, error) {
-// 				return fmt.Sprintf("%v%v", "PAT on behalf of ", displayName), nil
-// 			}).(pulumi.StringOutput),
-// 			LifetimeSeconds: pulumi.Int(3600),
-// 		}, pulumi.DependsOn([]pulumi.Resource{
-// 			tokenUsage,
-// 		}))
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("obo", thisOboToken.TokenValue)
-// 		return nil
-// 	})
-// }
-// ```
-//
-// Creating a token for a service principal with admin privileges
-//
-// ```go
-// package main
-//
-// import (
-// 	"fmt"
-//
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		thisServicePrincipal, err := databricks.NewServicePrincipal(ctx, "thisServicePrincipal", &databricks.ServicePrincipalArgs{
-// 			DisplayName: pulumi.String("Terraform"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		admins, err := databricks.LookupGroup(ctx, &GetGroupArgs{
-// 			DisplayName: "admins",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		thisGroupMember, err := databricks.NewGroupMember(ctx, "thisGroupMember", &databricks.GroupMemberArgs{
-// 			GroupId:  pulumi.String(admins.Id),
-// 			MemberId: thisServicePrincipal.ID(),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewOboToken(ctx, "thisOboToken", &databricks.OboTokenArgs{
-// 			ApplicationId: thisServicePrincipal.ApplicationId,
-// 			Comment: thisServicePrincipal.DisplayName.ApplyT(func(displayName string) (string, error) {
-// 				return fmt.Sprintf("%v%v", "PAT on behalf of ", displayName), nil
-// 			}).(pulumi.StringOutput),
-// 			LifetimeSeconds: pulumi.Int(3600),
-// 		}, pulumi.DependsOn([]pulumi.Resource{
-// 			thisGroupMember,
-// 		}))
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Group data to retrieve information about Group members, entitlements and instance profiles.
-// * GroupMember to attach users and groups as group members.
-// * Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-// * ServicePrincipal to manage [Service Principals](https://docs.databricks.com/administration-guide/users-groups/service-principals.html) that could be added to Group within workspace.
-// * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-//
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type OboToken struct {
 	pulumi.CustomResourceState
 
-	// Application ID of ServicePrincipal to create PAT token for.
-	ApplicationId pulumi.StringOutput `pulumi:"applicationId"`
-	// Comment that describes the purpose of the token.
-	Comment pulumi.StringOutput `pulumi:"comment"`
-	// The number of seconds before the token expires. Token resource is re-created when it expires.
-	LifetimeSeconds pulumi.IntOutput `pulumi:"lifetimeSeconds"`
-	// **Sensitive** value of the newly-created token.
-	TokenValue pulumi.StringOutput `pulumi:"tokenValue"`
+	ApplicationId   pulumi.StringOutput `pulumi:"applicationId"`
+	Comment         pulumi.StringOutput `pulumi:"comment"`
+	LifetimeSeconds pulumi.IntOutput    `pulumi:"lifetimeSeconds"`
+	TokenValue      pulumi.StringOutput `pulumi:"tokenValue"`
 }
 
 // NewOboToken registers a new resource with the given unique name, arguments, and options.
@@ -181,25 +58,17 @@ func GetOboToken(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering OboToken resources.
 type oboTokenState struct {
-	// Application ID of ServicePrincipal to create PAT token for.
-	ApplicationId *string `pulumi:"applicationId"`
-	// Comment that describes the purpose of the token.
-	Comment *string `pulumi:"comment"`
-	// The number of seconds before the token expires. Token resource is re-created when it expires.
-	LifetimeSeconds *int `pulumi:"lifetimeSeconds"`
-	// **Sensitive** value of the newly-created token.
-	TokenValue *string `pulumi:"tokenValue"`
+	ApplicationId   *string `pulumi:"applicationId"`
+	Comment         *string `pulumi:"comment"`
+	LifetimeSeconds *int    `pulumi:"lifetimeSeconds"`
+	TokenValue      *string `pulumi:"tokenValue"`
 }
 
 type OboTokenState struct {
-	// Application ID of ServicePrincipal to create PAT token for.
-	ApplicationId pulumi.StringPtrInput
-	// Comment that describes the purpose of the token.
-	Comment pulumi.StringPtrInput
-	// The number of seconds before the token expires. Token resource is re-created when it expires.
+	ApplicationId   pulumi.StringPtrInput
+	Comment         pulumi.StringPtrInput
 	LifetimeSeconds pulumi.IntPtrInput
-	// **Sensitive** value of the newly-created token.
-	TokenValue pulumi.StringPtrInput
+	TokenValue      pulumi.StringPtrInput
 }
 
 func (OboTokenState) ElementType() reflect.Type {
@@ -207,21 +76,15 @@ func (OboTokenState) ElementType() reflect.Type {
 }
 
 type oboTokenArgs struct {
-	// Application ID of ServicePrincipal to create PAT token for.
-	ApplicationId string `pulumi:"applicationId"`
-	// Comment that describes the purpose of the token.
-	Comment string `pulumi:"comment"`
-	// The number of seconds before the token expires. Token resource is re-created when it expires.
-	LifetimeSeconds int `pulumi:"lifetimeSeconds"`
+	ApplicationId   string `pulumi:"applicationId"`
+	Comment         string `pulumi:"comment"`
+	LifetimeSeconds int    `pulumi:"lifetimeSeconds"`
 }
 
 // The set of arguments for constructing a OboToken resource.
 type OboTokenArgs struct {
-	// Application ID of ServicePrincipal to create PAT token for.
-	ApplicationId pulumi.StringInput
-	// Comment that describes the purpose of the token.
-	Comment pulumi.StringInput
-	// The number of seconds before the token expires. Token resource is re-created when it expires.
+	ApplicationId   pulumi.StringInput
+	Comment         pulumi.StringInput
 	LifetimeSeconds pulumi.IntInput
 }
 

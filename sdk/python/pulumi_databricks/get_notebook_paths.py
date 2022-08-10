@@ -46,9 +46,6 @@ class GetNotebookPathsResult:
     @property
     @pulumi.getter(name="notebookPathLists")
     def notebook_path_lists(self) -> Sequence['outputs.GetNotebookPathsNotebookPathListResult']:
-        """
-        list of objects with `path` and `language` attributes
-        """
         return pulumi.get(self, "notebook_path_lists")
 
     @property
@@ -79,9 +76,6 @@ def get_notebook_paths(path: Optional[str] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetNotebookPathsResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str path: Path to workspace directory
-    :param bool recursive: Either or recursively walk given path
     """
     __args__ = dict()
     __args__['path'] = path
@@ -105,8 +99,5 @@ def get_notebook_paths_output(path: Optional[pulumi.Input[str]] = None,
                               opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetNotebookPathsResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str path: Path to workspace directory
-    :param bool recursive: Either or recursively walk given path
     """
     ...

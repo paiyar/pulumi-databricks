@@ -9,76 +9,53 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// &gt; **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-    /// 
-    /// A metastore is the top-level container of objects in Unity Catalog. It stores data assets (tables and views) and the permissions that govern access to them. Databricks account admins can create metastores and assign them to Databricks workspaces in order to control which workloads use each metastore.
-    /// 
-    /// Unity Catalog offers a new metastore with built in security and auditing. This is distinct to the metastore used in previous versions of Databricks (based on the Hive Metastore).
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var thisMetastore = new Databricks.Metastore("thisMetastore", new Databricks.MetastoreArgs
-    ///         {
-    ///             StorageRoot = $"s3://{aws_s3_bucket.Metastore.Id}/metastore",
-    ///             Owner = "uc admins",
-    ///             ForceDestroy = true,
-    ///         });
-    ///         var thisMetastoreAssignment = new Databricks.MetastoreAssignment("thisMetastoreAssignment", new Databricks.MetastoreAssignmentArgs
-    ///         {
-    ///             MetastoreId = thisMetastore.Id,
-    ///             WorkspaceId = local.Workspace_id,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// This resource can be imported by IDbash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/metastore:Metastore this &lt;id&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/metastore:Metastore")]
     public partial class Metastore : Pulumi.CustomResource
     {
+        [Output("cloud")]
+        public Output<string> Cloud { get; private set; } = null!;
+
+        [Output("createdAt")]
+        public Output<int> CreatedAt { get; private set; } = null!;
+
+        [Output("createdBy")]
+        public Output<string> CreatedBy { get; private set; } = null!;
+
         [Output("defaultDataAccessConfigId")]
         public Output<string?> DefaultDataAccessConfigId { get; private set; } = null!;
 
-        /// <summary>
-        /// Destroy metastore regardless of its contents.
-        /// </summary>
+        [Output("deltaSharingOrganizationName")]
+        public Output<string?> DeltaSharingOrganizationName { get; private set; } = null!;
+
+        [Output("deltaSharingRecipientTokenLifetimeInSeconds")]
+        public Output<int?> DeltaSharingRecipientTokenLifetimeInSeconds { get; private set; } = null!;
+
+        [Output("deltaSharingScope")]
+        public Output<string?> DeltaSharingScope { get; private set; } = null!;
+
         [Output("forceDestroy")]
         public Output<bool?> ForceDestroy { get; private set; } = null!;
 
-        /// <summary>
-        /// Name of metastore.
-        /// </summary>
+        [Output("globalMetastoreId")]
+        public Output<string> GlobalMetastoreId { get; private set; } = null!;
+
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        /// <summary>
-        /// Username/groupname of Metastore owner.
-        /// </summary>
         [Output("owner")]
         public Output<string> Owner { get; private set; } = null!;
 
-        /// <summary>
-        /// Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
-        /// </summary>
+        [Output("region")]
+        public Output<string> Region { get; private set; } = null!;
+
         [Output("storageRoot")]
         public Output<string> StorageRoot { get; private set; } = null!;
+
+        [Output("updatedAt")]
+        public Output<int> UpdatedAt { get; private set; } = null!;
+
+        [Output("updatedBy")]
+        public Output<string> UpdatedBy { get; private set; } = null!;
 
 
         /// <summary>
@@ -126,32 +103,50 @@ namespace Pulumi.Databricks
 
     public sealed class MetastoreArgs : Pulumi.ResourceArgs
     {
+        [Input("cloud")]
+        public Input<string>? Cloud { get; set; }
+
+        [Input("createdAt")]
+        public Input<int>? CreatedAt { get; set; }
+
+        [Input("createdBy")]
+        public Input<string>? CreatedBy { get; set; }
+
         [Input("defaultDataAccessConfigId")]
         public Input<string>? DefaultDataAccessConfigId { get; set; }
 
-        /// <summary>
-        /// Destroy metastore regardless of its contents.
-        /// </summary>
+        [Input("deltaSharingOrganizationName")]
+        public Input<string>? DeltaSharingOrganizationName { get; set; }
+
+        [Input("deltaSharingRecipientTokenLifetimeInSeconds")]
+        public Input<int>? DeltaSharingRecipientTokenLifetimeInSeconds { get; set; }
+
+        [Input("deltaSharingScope")]
+        public Input<string>? DeltaSharingScope { get; set; }
+
         [Input("forceDestroy")]
         public Input<bool>? ForceDestroy { get; set; }
 
-        /// <summary>
-        /// Name of metastore.
-        /// </summary>
+        [Input("globalMetastoreId")]
+        public Input<string>? GlobalMetastoreId { get; set; }
+
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// Username/groupname of Metastore owner.
-        /// </summary>
         [Input("owner")]
         public Input<string>? Owner { get; set; }
 
-        /// <summary>
-        /// Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
-        /// </summary>
+        [Input("region")]
+        public Input<string>? Region { get; set; }
+
         [Input("storageRoot", required: true)]
         public Input<string> StorageRoot { get; set; } = null!;
+
+        [Input("updatedAt")]
+        public Input<int>? UpdatedAt { get; set; }
+
+        [Input("updatedBy")]
+        public Input<string>? UpdatedBy { get; set; }
 
         public MetastoreArgs()
         {
@@ -160,32 +155,50 @@ namespace Pulumi.Databricks
 
     public sealed class MetastoreState : Pulumi.ResourceArgs
     {
+        [Input("cloud")]
+        public Input<string>? Cloud { get; set; }
+
+        [Input("createdAt")]
+        public Input<int>? CreatedAt { get; set; }
+
+        [Input("createdBy")]
+        public Input<string>? CreatedBy { get; set; }
+
         [Input("defaultDataAccessConfigId")]
         public Input<string>? DefaultDataAccessConfigId { get; set; }
 
-        /// <summary>
-        /// Destroy metastore regardless of its contents.
-        /// </summary>
+        [Input("deltaSharingOrganizationName")]
+        public Input<string>? DeltaSharingOrganizationName { get; set; }
+
+        [Input("deltaSharingRecipientTokenLifetimeInSeconds")]
+        public Input<int>? DeltaSharingRecipientTokenLifetimeInSeconds { get; set; }
+
+        [Input("deltaSharingScope")]
+        public Input<string>? DeltaSharingScope { get; set; }
+
         [Input("forceDestroy")]
         public Input<bool>? ForceDestroy { get; set; }
 
-        /// <summary>
-        /// Name of metastore.
-        /// </summary>
+        [Input("globalMetastoreId")]
+        public Input<string>? GlobalMetastoreId { get; set; }
+
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// Username/groupname of Metastore owner.
-        /// </summary>
         [Input("owner")]
         public Input<string>? Owner { get; set; }
 
-        /// <summary>
-        /// Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
-        /// </summary>
+        [Input("region")]
+        public Input<string>? Region { get; set; }
+
         [Input("storageRoot")]
         public Input<string>? StorageRoot { get; set; }
+
+        [Input("updatedAt")]
+        public Input<int>? UpdatedAt { get; set; }
+
+        [Input("updatedBy")]
+        public Input<string>? UpdatedBy { get; set; }
 
         public MetastoreState()
         {

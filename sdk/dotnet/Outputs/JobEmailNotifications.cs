@@ -13,25 +13,16 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class JobEmailNotifications
     {
-        /// <summary>
-        /// (Bool) don't send alert for skipped runs
-        /// </summary>
+        public readonly bool? AlertOnLastAttempt;
         public readonly bool? NoAlertForSkippedRuns;
-        /// <summary>
-        /// (List) list of emails to notify on failure
-        /// </summary>
         public readonly ImmutableArray<string> OnFailures;
-        /// <summary>
-        /// (List) list of emails to notify on failure
-        /// </summary>
         public readonly ImmutableArray<string> OnStarts;
-        /// <summary>
-        /// (List) list of emails to notify on failure
-        /// </summary>
         public readonly ImmutableArray<string> OnSuccesses;
 
         [OutputConstructor]
         private JobEmailNotifications(
+            bool? alertOnLastAttempt,
+
             bool? noAlertForSkippedRuns,
 
             ImmutableArray<string> onFailures,
@@ -40,6 +31,7 @@ namespace Pulumi.Databricks.Outputs
 
             ImmutableArray<string> onSuccesses)
         {
+            AlertOnLastAttempt = alertOnLastAttempt;
             NoAlertForSkippedRuns = noAlertForSkippedRuns;
             OnFailures = onFailures;
             OnStarts = onStarts;

@@ -4,11 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class MwsStorageConfigurations extends pulumi.CustomResource {
     /**
      * Get an existing MwsStorageConfigurations resource's state with the given name, ID, and optional extra
@@ -37,22 +32,10 @@ export class MwsStorageConfigurations extends pulumi.CustomResource {
         return obj['__pulumiType'] === MwsStorageConfigurations.__pulumiType;
     }
 
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     public readonly accountId!: pulumi.Output<string>;
-    /**
-     * name of AWS S3 bucket
-     */
     public readonly bucketName!: pulumi.Output<string>;
     public /*out*/ readonly creationTime!: pulumi.Output<number>;
-    /**
-     * (String) id of storage config to be used for `databricksMwsWorkspace` resource.
-     */
     public /*out*/ readonly storageConfigurationId!: pulumi.Output<string>;
-    /**
-     * name under which this storage configuration is stored
-     */
     public readonly storageConfigurationName!: pulumi.Output<string>;
 
     /**
@@ -99,22 +82,10 @@ export class MwsStorageConfigurations extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MwsStorageConfigurations resources.
  */
 export interface MwsStorageConfigurationsState {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId?: pulumi.Input<string>;
-    /**
-     * name of AWS S3 bucket
-     */
     bucketName?: pulumi.Input<string>;
     creationTime?: pulumi.Input<number>;
-    /**
-     * (String) id of storage config to be used for `databricksMwsWorkspace` resource.
-     */
     storageConfigurationId?: pulumi.Input<string>;
-    /**
-     * name under which this storage configuration is stored
-     */
     storageConfigurationName?: pulumi.Input<string>;
 }
 
@@ -122,16 +93,7 @@ export interface MwsStorageConfigurationsState {
  * The set of arguments for constructing a MwsStorageConfigurations resource.
  */
 export interface MwsStorageConfigurationsArgs {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId: pulumi.Input<string>;
-    /**
-     * name of AWS S3 bucket
-     */
     bucketName: pulumi.Input<string>;
-    /**
-     * name under which this storage configuration is stored
-     */
     storageConfigurationName: pulumi.Input<string>;
 }

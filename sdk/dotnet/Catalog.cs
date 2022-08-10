@@ -9,42 +9,21 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// This resource can be imported by namebash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/catalog:Catalog this &lt;name&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/catalog:Catalog")]
     public partial class Catalog : Pulumi.CustomResource
     {
-        /// <summary>
-        /// User-supplied free-form text.
-        /// </summary>
         [Output("comment")]
         public Output<string?> Comment { get; private set; } = null!;
 
         [Output("metastoreId")]
         public Output<string> MetastoreId { get; private set; } = null!;
 
-        /// <summary>
-        /// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        /// <summary>
-        /// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        /// </summary>
         [Output("owner")]
         public Output<string> Owner { get; private set; } = null!;
 
-        /// <summary>
-        /// Extensible Catalog properties.
-        /// </summary>
         [Output("properties")]
         public Output<ImmutableDictionary<string, object>?> Properties { get; private set; } = null!;
 
@@ -94,33 +73,20 @@ namespace Pulumi.Databricks
 
     public sealed class CatalogArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// User-supplied free-form text.
-        /// </summary>
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
-        /// <summary>
-        /// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        /// </summary>
         [Input("owner")]
         public Input<string>? Owner { get; set; }
 
         [Input("properties")]
         private InputMap<object>? _properties;
-
-        /// <summary>
-        /// Extensible Catalog properties.
-        /// </summary>
         public InputMap<object> Properties
         {
             get => _properties ?? (_properties = new InputMap<object>());
@@ -134,33 +100,20 @@ namespace Pulumi.Databricks
 
     public sealed class CatalogState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// User-supplied free-form text.
-        /// </summary>
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
-        /// <summary>
-        /// Name of Catalog relative to parent metastore. Change forces creation of a new resource.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// Username/groupname of catalog owner. Currently this field can only be changed after the resource is created.
-        /// </summary>
         [Input("owner")]
         public Input<string>? Owner { get; set; }
 
         [Input("properties")]
         private InputMap<object>? _properties;
-
-        /// <summary>
-        /// Extensible Catalog properties.
-        /// </summary>
         public InputMap<object> Properties
         {
             get => _properties ?? (_properties = new InputMap<object>());

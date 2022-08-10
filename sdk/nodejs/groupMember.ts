@@ -4,46 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * This resource allows you to attach users and groups as group members.
- *
- * ## Example Usage
- *
- * After the following example, Bradley would have direct membership in group B and transitive membership in group A.
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const group = new databricks.Group("group", {displayName: "A"});
- * const index_groupGroup = new databricks.Group("index/groupGroup", {displayName: "B"});
- * const ab = new databricks.GroupMember("ab", {
- *     groupId: group.id,
- *     memberId: index / groupGroup.id,
- * });
- * const bradley = new databricks.User("bradley", {userName: "bradley@example.com"});
- * const bb = new databricks.GroupMember("bb", {
- *     groupId: index / groupGroup.id,
- *     memberId: bradley.id,
- * });
- * ```
- * ## Related Resources
- *
- * The following resources are often used in the same context:
- *
- * * End to end workspace management guide.
- * * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
- * * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
- * * databricks.GroupInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_group.
- * * databricks.IpAccessList to allow access from [predefined IP ranges](https://docs.databricks.com/security/network/ip-access-list.html).
- * * databricks.User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to databricks.Group within the workspace.
- * * databricks.User data to retrieves information about databricks_user.
- * * databricks.UserInstanceProfile to attach databricks.InstanceProfile (AWS) to databricks_user.
- *
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class GroupMember extends pulumi.CustomResource {
     /**
      * Get an existing GroupMember resource's state with the given name, ID, and optional extra
@@ -72,13 +32,7 @@ export class GroupMember extends pulumi.CustomResource {
         return obj['__pulumiType'] === GroupMember.__pulumiType;
     }
 
-    /**
-     * This is the id of the group resource.
-     */
     public readonly groupId!: pulumi.Output<string>;
-    /**
-     * This is the id of the group or user.
-     */
     public readonly memberId!: pulumi.Output<string>;
 
     /**
@@ -116,13 +70,7 @@ export class GroupMember extends pulumi.CustomResource {
  * Input properties used for looking up and filtering GroupMember resources.
  */
 export interface GroupMemberState {
-    /**
-     * This is the id of the group resource.
-     */
     groupId?: pulumi.Input<string>;
-    /**
-     * This is the id of the group or user.
-     */
     memberId?: pulumi.Input<string>;
 }
 
@@ -130,12 +78,6 @@ export interface GroupMemberState {
  * The set of arguments for constructing a GroupMember resource.
  */
 export interface GroupMemberArgs {
-    /**
-     * This is the id of the group resource.
-     */
     groupId: pulumi.Input<string>;
-    /**
-     * This is the id of the group or user.
-     */
     memberId: pulumi.Input<string>;
 }

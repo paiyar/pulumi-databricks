@@ -21,13 +21,7 @@ export function getNotebookPaths(args: GetNotebookPathsArgs, opts?: pulumi.Invok
  * A collection of arguments for invoking getNotebookPaths.
  */
 export interface GetNotebookPathsArgs {
-    /**
-     * Path to workspace directory
-     */
     path: string;
-    /**
-     * Either or recursively walk given path
-     */
     recursive: boolean;
 }
 
@@ -39,9 +33,6 @@ export interface GetNotebookPathsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * list of objects with `path` and `language` attributes
-     */
     readonly notebookPathLists: outputs.GetNotebookPathsNotebookPathList[];
     readonly path: string;
     readonly recursive: boolean;
@@ -55,12 +46,6 @@ export function getNotebookPathsOutput(args: GetNotebookPathsOutputArgs, opts?: 
  * A collection of arguments for invoking getNotebookPaths.
  */
 export interface GetNotebookPathsOutputArgs {
-    /**
-     * Path to workspace directory
-     */
     path: pulumi.Input<string>;
-    /**
-     * Either or recursively walk given path
-     */
     recursive: pulumi.Input<boolean>;
 }

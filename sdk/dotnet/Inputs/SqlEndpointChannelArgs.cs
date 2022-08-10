@@ -12,9 +12,6 @@ namespace Pulumi.Databricks.Inputs
 
     public sealed class SqlEndpointChannelArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Name of the Databricks SQL release channel. Possible values are: `CHANNEL_NAME_PREVIEW` and `CHANNEL_NAME_CURRENT`. Default is `CHANNEL_NAME_CURRENT`.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

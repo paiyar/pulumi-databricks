@@ -20,9 +20,6 @@ export function getCatalogs(args?: GetCatalogsArgs, opts?: pulumi.InvokeOptions)
  * A collection of arguments for invoking getCatalogs.
  */
 export interface GetCatalogsArgs {
-    /**
-     * set of databricks.Catalog names
-     */
     ids?: string[];
 }
 
@@ -34,9 +31,6 @@ export interface GetCatalogsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * set of databricks.Catalog names
-     */
     readonly ids: string[];
 }
 
@@ -48,8 +42,5 @@ export function getCatalogsOutput(args?: GetCatalogsOutputArgs, opts?: pulumi.In
  * A collection of arguments for invoking getCatalogs.
  */
 export interface GetCatalogsOutputArgs {
-    /**
-     * set of databricks.Catalog names
-     */
     ids?: pulumi.Input<pulumi.Input<string>[]>;
 }

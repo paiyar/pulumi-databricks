@@ -5,11 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class MwsWorkspaces extends pulumi.CustomResource {
     /**
      * Get an existing MwsWorkspaces resource's state with the given name, ID, and optional extra
@@ -38,65 +33,32 @@ export class MwsWorkspaces extends pulumi.CustomResource {
         return obj['__pulumiType'] === MwsWorkspaces.__pulumiType;
     }
 
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-     */
     public readonly accountId!: pulumi.Output<string>;
-    /**
-     * AWS region of VPC
-     */
     public readonly awsRegion!: pulumi.Output<string | undefined>;
     public readonly cloud!: pulumi.Output<string>;
     public readonly cloudResourceBucket!: pulumi.Output<outputs.MwsWorkspacesCloudResourceBucket | undefined>;
-    /**
-     * (Integer) time when workspace was created
-     */
     public readonly creationTime!: pulumi.Output<number>;
     public readonly credentialsId!: pulumi.Output<string | undefined>;
     /**
      * @deprecated Use managed_services_customer_managed_key_id instead
      */
     public readonly customerManagedKeyId!: pulumi.Output<string | undefined>;
-    /**
-     * part of URL: `https://<deployment-name>.cloud.databricks.com`
-     */
     public readonly deploymentName!: pulumi.Output<string | undefined>;
     public readonly externalCustomerInfo!: pulumi.Output<outputs.MwsWorkspacesExternalCustomerInfo | undefined>;
     public readonly isNoPublicIpEnabled!: pulumi.Output<boolean | undefined>;
     public readonly location!: pulumi.Output<string | undefined>;
-    /**
-     * `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-     */
     public readonly managedServicesCustomerManagedKeyId!: pulumi.Output<string | undefined>;
     public readonly network!: pulumi.Output<outputs.MwsWorkspacesNetwork | undefined>;
     public readonly networkId!: pulumi.Output<string | undefined>;
     public readonly pricingTier!: pulumi.Output<string>;
-    /**
-     * Canonical unique identifier of databricks.MwsPrivateAccessSettings in Databricks Account
-     */
     public readonly privateAccessSettingsId!: pulumi.Output<string | undefined>;
-    /**
-     * `storageConfigurationId` from storage configuration
-     */
     public readonly storageConfigurationId!: pulumi.Output<string | undefined>;
     public readonly storageCustomerManagedKeyId!: pulumi.Output<string | undefined>;
     public readonly token!: pulumi.Output<outputs.MwsWorkspacesToken | undefined>;
     public readonly workspaceId!: pulumi.Output<number>;
-    /**
-     * name of the workspace, will appear on UI
-     */
     public readonly workspaceName!: pulumi.Output<string>;
-    /**
-     * (String) workspace status
-     */
     public readonly workspaceStatus!: pulumi.Output<string>;
-    /**
-     * (String) updates on workspace status
-     */
     public readonly workspaceStatusMessage!: pulumi.Output<string>;
-    /**
-     * (String) URL of the workspace
-     */
     public readonly workspaceUrl!: pulumi.Output<string>;
 
     /**
@@ -178,65 +140,32 @@ export class MwsWorkspaces extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MwsWorkspaces resources.
  */
 export interface MwsWorkspacesState {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-     */
     accountId?: pulumi.Input<string>;
-    /**
-     * AWS region of VPC
-     */
     awsRegion?: pulumi.Input<string>;
     cloud?: pulumi.Input<string>;
     cloudResourceBucket?: pulumi.Input<inputs.MwsWorkspacesCloudResourceBucket>;
-    /**
-     * (Integer) time when workspace was created
-     */
     creationTime?: pulumi.Input<number>;
     credentialsId?: pulumi.Input<string>;
     /**
      * @deprecated Use managed_services_customer_managed_key_id instead
      */
     customerManagedKeyId?: pulumi.Input<string>;
-    /**
-     * part of URL: `https://<deployment-name>.cloud.databricks.com`
-     */
     deploymentName?: pulumi.Input<string>;
     externalCustomerInfo?: pulumi.Input<inputs.MwsWorkspacesExternalCustomerInfo>;
     isNoPublicIpEnabled?: pulumi.Input<boolean>;
     location?: pulumi.Input<string>;
-    /**
-     * `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-     */
     managedServicesCustomerManagedKeyId?: pulumi.Input<string>;
     network?: pulumi.Input<inputs.MwsWorkspacesNetwork>;
     networkId?: pulumi.Input<string>;
     pricingTier?: pulumi.Input<string>;
-    /**
-     * Canonical unique identifier of databricks.MwsPrivateAccessSettings in Databricks Account
-     */
     privateAccessSettingsId?: pulumi.Input<string>;
-    /**
-     * `storageConfigurationId` from storage configuration
-     */
     storageConfigurationId?: pulumi.Input<string>;
     storageCustomerManagedKeyId?: pulumi.Input<string>;
     token?: pulumi.Input<inputs.MwsWorkspacesToken>;
     workspaceId?: pulumi.Input<number>;
-    /**
-     * name of the workspace, will appear on UI
-     */
     workspaceName?: pulumi.Input<string>;
-    /**
-     * (String) workspace status
-     */
     workspaceStatus?: pulumi.Input<string>;
-    /**
-     * (String) updates on workspace status
-     */
     workspaceStatusMessage?: pulumi.Input<string>;
-    /**
-     * (String) URL of the workspace
-     */
     workspaceUrl?: pulumi.Input<string>;
 }
 
@@ -244,64 +173,31 @@ export interface MwsWorkspacesState {
  * The set of arguments for constructing a MwsWorkspaces resource.
  */
 export interface MwsWorkspacesArgs {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-     */
     accountId: pulumi.Input<string>;
-    /**
-     * AWS region of VPC
-     */
     awsRegion?: pulumi.Input<string>;
     cloud?: pulumi.Input<string>;
     cloudResourceBucket?: pulumi.Input<inputs.MwsWorkspacesCloudResourceBucket>;
-    /**
-     * (Integer) time when workspace was created
-     */
     creationTime?: pulumi.Input<number>;
     credentialsId?: pulumi.Input<string>;
     /**
      * @deprecated Use managed_services_customer_managed_key_id instead
      */
     customerManagedKeyId?: pulumi.Input<string>;
-    /**
-     * part of URL: `https://<deployment-name>.cloud.databricks.com`
-     */
     deploymentName?: pulumi.Input<string>;
     externalCustomerInfo?: pulumi.Input<inputs.MwsWorkspacesExternalCustomerInfo>;
     isNoPublicIpEnabled?: pulumi.Input<boolean>;
     location?: pulumi.Input<string>;
-    /**
-     * `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-     */
     managedServicesCustomerManagedKeyId?: pulumi.Input<string>;
     network?: pulumi.Input<inputs.MwsWorkspacesNetwork>;
     networkId?: pulumi.Input<string>;
     pricingTier?: pulumi.Input<string>;
-    /**
-     * Canonical unique identifier of databricks.MwsPrivateAccessSettings in Databricks Account
-     */
     privateAccessSettingsId?: pulumi.Input<string>;
-    /**
-     * `storageConfigurationId` from storage configuration
-     */
     storageConfigurationId?: pulumi.Input<string>;
     storageCustomerManagedKeyId?: pulumi.Input<string>;
     token?: pulumi.Input<inputs.MwsWorkspacesToken>;
     workspaceId?: pulumi.Input<number>;
-    /**
-     * name of the workspace, will appear on UI
-     */
     workspaceName: pulumi.Input<string>;
-    /**
-     * (String) workspace status
-     */
     workspaceStatus?: pulumi.Input<string>;
-    /**
-     * (String) updates on workspace status
-     */
     workspaceStatusMessage?: pulumi.Input<string>;
-    /**
-     * (String) URL of the workspace
-     */
     workspaceUrl?: pulumi.Input<string>;
 }

@@ -9,36 +9,18 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// The secret resource scope can be imported using the scope name. `initial_manage_principal` state won't be imported, because the underlying API doesn't include it in the response. bash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/secretScope:SecretScope object &lt;scopeName&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/secretScope:SecretScope")]
     public partial class SecretScope : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Either `DATABRICKS` or `AZURE_KEYVAULT`
-        /// </summary>
         [Output("backendType")]
         public Output<string> BackendType { get; private set; } = null!;
 
-        /// <summary>
-        /// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the databricks.SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        /// </summary>
         [Output("initialManagePrincipal")]
         public Output<string?> InitialManagePrincipal { get; private set; } = null!;
 
         [Output("keyvaultMetadata")]
         public Output<Outputs.SecretScopeKeyvaultMetadata?> KeyvaultMetadata { get; private set; } = null!;
 
-        /// <summary>
-        /// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
@@ -88,24 +70,15 @@ namespace Pulumi.Databricks
 
     public sealed class SecretScopeArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Either `DATABRICKS` or `AZURE_KEYVAULT`
-        /// </summary>
         [Input("backendType")]
         public Input<string>? BackendType { get; set; }
 
-        /// <summary>
-        /// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the databricks.SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        /// </summary>
         [Input("initialManagePrincipal")]
         public Input<string>? InitialManagePrincipal { get; set; }
 
         [Input("keyvaultMetadata")]
         public Input<Inputs.SecretScopeKeyvaultMetadataArgs>? KeyvaultMetadata { get; set; }
 
-        /// <summary>
-        /// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -116,24 +89,15 @@ namespace Pulumi.Databricks
 
     public sealed class SecretScopeState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Either `DATABRICKS` or `AZURE_KEYVAULT`
-        /// </summary>
         [Input("backendType")]
         public Input<string>? BackendType { get; set; }
 
-        /// <summary>
-        /// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the databricks.SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        /// </summary>
         [Input("initialManagePrincipal")]
         public Input<string>? InitialManagePrincipal { get; set; }
 
         [Input("keyvaultMetadata")]
         public Input<Inputs.SecretScopeKeyvaultMetadataGetArgs>? KeyvaultMetadata { get; set; }
 
-        /// <summary>
-        /// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

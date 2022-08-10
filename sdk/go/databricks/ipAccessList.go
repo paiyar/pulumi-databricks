@@ -11,76 +11,13 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Security-conscious enterprises that use cloud SaaS applications need to restrict access to their own employees. Authentication helps to prove user identity, but that does not enforce network location of the users. Accessing a cloud service from an unsecured network can pose security risks to an enterprise, especially when the user may have authorized access to sensitive or personal data. Enterprise network perimeters apply security policies and limit access to external services (for example, firewalls, proxies, DLP, and logging), so access beyond these controls are assumed to be untrusted. Please see [IP Access List](https://docs.databricks.com/security/network/ip-access-list.html) for full feature documentation.
-//
-// > **Note** The total number of IP addresses and CIDR scopes provided across all ACL Lists in a workspace can not exceed 1000.  Refer to the docs above for specifics.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		this, err := databricks.NewWorkspaceConf(ctx, "this", &databricks.WorkspaceConfArgs{
-// 			CustomConfig: pulumi.AnyMap{
-// 				"enableIpAccessLists": pulumi.Any(true),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewIpAccessList(ctx, "allowed-list", &databricks.IpAccessListArgs{
-// 			Label:    pulumi.String("allow_in"),
-// 			ListType: pulumi.String("ALLOW"),
-// 			IpAddresses: pulumi.StringArray{
-// 				pulumi.String("1.2.3.0/24"),
-// 				pulumi.String("1.2.5.0/24"),
-// 			},
-// 		}, pulumi.DependsOn([]pulumi.Resource{
-// 			this,
-// 		}))
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Provisioning AWS Databricks E2 with a Hub & Spoke firewall for data exfiltration protection guide.
-// * MwsNetworks to [configure VPC](https://docs.databricks.com/administration-guide/cloud-configurations/aws/customer-managed-vpc.html) & subnets for new workspaces within AWS.
-// * MwsPrivateAccessSettings to create a [Private Access Setting](https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html#step-5-create-a-private-access-settings-configuration-using-the-databricks-account-api) that can be used as part of a MwsWorkspaces resource to create a [Databricks Workspace that leverages AWS PrivateLink](https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html).
-// * Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-// * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-//
-// ## Import
-//
-// The databricks_ip_access_list can be imported using idbash
-//
-// ```sh
-//  $ pulumi import databricks:index/ipAccessList:IpAccessList this <list-id>
-// ```
 type IpAccessList struct {
 	pulumi.CustomResourceState
 
-	// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-	Enabled pulumi.BoolPtrOutput `pulumi:"enabled"`
-	// This is a field to allow the group to have instance pool create priviliges.
+	Enabled     pulumi.BoolPtrOutput     `pulumi:"enabled"`
 	IpAddresses pulumi.StringArrayOutput `pulumi:"ipAddresses"`
-	// This is the display name for the given IP ACL List.
-	Label pulumi.StringOutput `pulumi:"label"`
-	// Can only be "ALLOW" or "BLOCK"
-	ListType pulumi.StringOutput `pulumi:"listType"`
+	Label       pulumi.StringOutput      `pulumi:"label"`
+	ListType    pulumi.StringOutput      `pulumi:"listType"`
 }
 
 // NewIpAccessList registers a new resource with the given unique name, arguments, and options.
@@ -121,25 +58,17 @@ func GetIpAccessList(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering IpAccessList resources.
 type ipAccessListState struct {
-	// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-	Enabled *bool `pulumi:"enabled"`
-	// This is a field to allow the group to have instance pool create priviliges.
+	Enabled     *bool    `pulumi:"enabled"`
 	IpAddresses []string `pulumi:"ipAddresses"`
-	// This is the display name for the given IP ACL List.
-	Label *string `pulumi:"label"`
-	// Can only be "ALLOW" or "BLOCK"
-	ListType *string `pulumi:"listType"`
+	Label       *string  `pulumi:"label"`
+	ListType    *string  `pulumi:"listType"`
 }
 
 type IpAccessListState struct {
-	// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-	Enabled pulumi.BoolPtrInput
-	// This is a field to allow the group to have instance pool create priviliges.
+	Enabled     pulumi.BoolPtrInput
 	IpAddresses pulumi.StringArrayInput
-	// This is the display name for the given IP ACL List.
-	Label pulumi.StringPtrInput
-	// Can only be "ALLOW" or "BLOCK"
-	ListType pulumi.StringPtrInput
+	Label       pulumi.StringPtrInput
+	ListType    pulumi.StringPtrInput
 }
 
 func (IpAccessListState) ElementType() reflect.Type {
@@ -147,26 +76,18 @@ func (IpAccessListState) ElementType() reflect.Type {
 }
 
 type ipAccessListArgs struct {
-	// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-	Enabled *bool `pulumi:"enabled"`
-	// This is a field to allow the group to have instance pool create priviliges.
+	Enabled     *bool    `pulumi:"enabled"`
 	IpAddresses []string `pulumi:"ipAddresses"`
-	// This is the display name for the given IP ACL List.
-	Label string `pulumi:"label"`
-	// Can only be "ALLOW" or "BLOCK"
-	ListType string `pulumi:"listType"`
+	Label       string   `pulumi:"label"`
+	ListType    string   `pulumi:"listType"`
 }
 
 // The set of arguments for constructing a IpAccessList resource.
 type IpAccessListArgs struct {
-	// Boolean `true` or `false` indicating whether this list should be active.  Defaults to `true`
-	Enabled pulumi.BoolPtrInput
-	// This is a field to allow the group to have instance pool create priviliges.
+	Enabled     pulumi.BoolPtrInput
 	IpAddresses pulumi.StringArrayInput
-	// This is the display name for the given IP ACL List.
-	Label pulumi.StringInput
-	// Can only be "ALLOW" or "BLOCK"
-	ListType pulumi.StringInput
+	Label       pulumi.StringInput
+	ListType    pulumi.StringInput
 }
 
 func (IpAccessListArgs) ElementType() reflect.Type {

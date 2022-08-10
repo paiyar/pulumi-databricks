@@ -21,18 +21,15 @@ func GetDbfsFilePaths(ctx *pulumi.Context, args *GetDbfsFilePathsArgs, opts ...p
 
 // A collection of arguments for invoking getDbfsFilePaths.
 type GetDbfsFilePathsArgs struct {
-	// Path on DBFS for the file to perform listing
-	Path string `pulumi:"path"`
-	// Either or not recursively list all files
-	Recursive bool `pulumi:"recursive"`
+	Path      string `pulumi:"path"`
+	Recursive bool   `pulumi:"recursive"`
 }
 
 // A collection of values returned by getDbfsFilePaths.
 type GetDbfsFilePathsResult struct {
 	// The provider-assigned unique ID for this managed resource.
-	Id   string `pulumi:"id"`
-	Path string `pulumi:"path"`
-	// returns list of objects with `path` and `fileSize` attributes in each
+	Id        string                     `pulumi:"id"`
+	Path      string                     `pulumi:"path"`
 	PathLists []GetDbfsFilePathsPathList `pulumi:"pathLists"`
 	Recursive bool                       `pulumi:"recursive"`
 }
@@ -48,10 +45,8 @@ func GetDbfsFilePathsOutput(ctx *pulumi.Context, args GetDbfsFilePathsOutputArgs
 
 // A collection of arguments for invoking getDbfsFilePaths.
 type GetDbfsFilePathsOutputArgs struct {
-	// Path on DBFS for the file to perform listing
-	Path pulumi.StringInput `pulumi:"path"`
-	// Either or not recursively list all files
-	Recursive pulumi.BoolInput `pulumi:"recursive"`
+	Path      pulumi.StringInput `pulumi:"path"`
+	Recursive pulumi.BoolInput   `pulumi:"recursive"`
 }
 
 func (GetDbfsFilePathsOutputArgs) ElementType() reflect.Type {
@@ -82,7 +77,6 @@ func (o GetDbfsFilePathsResultOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDbfsFilePathsResult) string { return v.Path }).(pulumi.StringOutput)
 }
 
-// returns list of objects with `path` and `fileSize` attributes in each
 func (o GetDbfsFilePathsResultOutput) PathLists() GetDbfsFilePathsPathListArrayOutput {
 	return o.ApplyT(func(v GetDbfsFilePathsResult) []GetDbfsFilePathsPathList { return v.PathLists }).(GetDbfsFilePathsPathListArrayOutput)
 }

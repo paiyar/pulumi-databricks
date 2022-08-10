@@ -11,80 +11,10 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// This resource allows you to attach users and groups as group members.
-//
-// ## Example Usage
-//
-// After the following example, Bradley would have direct membership in group B and transitive membership in group A.
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		group, err := databricks.NewGroup(ctx, "group", &databricks.GroupArgs{
-// 			DisplayName: pulumi.String("A"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewGroup(ctx, "index/groupGroup", &databricks.GroupArgs{
-// 			DisplayName: pulumi.String("B"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewGroupMember(ctx, "ab", &databricks.GroupMemberArgs{
-// 			GroupId:  group.ID(),
-// 			MemberId: index / groupGroup.Id,
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		bradley, err := databricks.NewUser(ctx, "bradley", &databricks.UserArgs{
-// 			UserName: pulumi.String("bradley@example.com"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewGroupMember(ctx, "bb", &databricks.GroupMemberArgs{
-// 			GroupId:  index / groupGroup.Id,
-// 			MemberId: bradley.ID(),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-// * Group data to retrieve information about Group members, entitlements and instance profiles.
-// * GroupInstanceProfile to attach InstanceProfile (AWS) to databricks_group.
-// * IpAccessList to allow access from [predefined IP ranges](https://docs.databricks.com/security/network/ip-access-list.html).
-// * User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to Group within the workspace.
-// * User data to retrieves information about databricks_user.
-// * UserInstanceProfile to attach InstanceProfile (AWS) to databricks_user.
-//
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type GroupMember struct {
 	pulumi.CustomResourceState
 
-	// This is the id of the group resource.
-	GroupId pulumi.StringOutput `pulumi:"groupId"`
-	// This is the id of the group or user.
+	GroupId  pulumi.StringOutput `pulumi:"groupId"`
 	MemberId pulumi.StringOutput `pulumi:"memberId"`
 }
 
@@ -123,16 +53,12 @@ func GetGroupMember(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering GroupMember resources.
 type groupMemberState struct {
-	// This is the id of the group resource.
-	GroupId *string `pulumi:"groupId"`
-	// This is the id of the group or user.
+	GroupId  *string `pulumi:"groupId"`
 	MemberId *string `pulumi:"memberId"`
 }
 
 type GroupMemberState struct {
-	// This is the id of the group resource.
-	GroupId pulumi.StringPtrInput
-	// This is the id of the group or user.
+	GroupId  pulumi.StringPtrInput
 	MemberId pulumi.StringPtrInput
 }
 
@@ -141,17 +67,13 @@ func (GroupMemberState) ElementType() reflect.Type {
 }
 
 type groupMemberArgs struct {
-	// This is the id of the group resource.
-	GroupId string `pulumi:"groupId"`
-	// This is the id of the group or user.
+	GroupId  string `pulumi:"groupId"`
 	MemberId string `pulumi:"memberId"`
 }
 
 // The set of arguments for constructing a GroupMember resource.
 type GroupMemberArgs struct {
-	// This is the id of the group resource.
-	GroupId pulumi.StringInput
-	// This is the id of the group or user.
+	GroupId  pulumi.StringInput
 	MemberId pulumi.StringInput
 }
 

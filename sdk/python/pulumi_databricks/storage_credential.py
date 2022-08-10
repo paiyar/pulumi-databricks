@@ -16,16 +16,19 @@ __all__ = ['StorageCredentialArgs', 'StorageCredential']
 class StorageCredentialArgs:
     def __init__(__self__, *,
                  aws_iam_role: Optional[pulumi.Input['StorageCredentialAwsIamRoleArgs']] = None,
+                 azure_managed_identity: Optional[pulumi.Input['StorageCredentialAzureManagedIdentityArgs']] = None,
                  azure_service_principal: Optional[pulumi.Input['StorageCredentialAzureServicePrincipalArgs']] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  metastore_id: Optional[pulumi.Input[str]] = None,
-                 name: Optional[pulumi.Input[str]] = None):
+                 name: Optional[pulumi.Input[str]] = None,
+                 owner: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a StorageCredential resource.
-        :param pulumi.Input[str] name: Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         if aws_iam_role is not None:
             pulumi.set(__self__, "aws_iam_role", aws_iam_role)
+        if azure_managed_identity is not None:
+            pulumi.set(__self__, "azure_managed_identity", azure_managed_identity)
         if azure_service_principal is not None:
             pulumi.set(__self__, "azure_service_principal", azure_service_principal)
         if comment is not None:
@@ -34,6 +37,8 @@ class StorageCredentialArgs:
             pulumi.set(__self__, "metastore_id", metastore_id)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if owner is not None:
+            pulumi.set(__self__, "owner", owner)
 
     @property
     @pulumi.getter(name="awsIamRole")
@@ -43,6 +48,15 @@ class StorageCredentialArgs:
     @aws_iam_role.setter
     def aws_iam_role(self, value: Optional[pulumi.Input['StorageCredentialAwsIamRoleArgs']]):
         pulumi.set(self, "aws_iam_role", value)
+
+    @property
+    @pulumi.getter(name="azureManagedIdentity")
+    def azure_managed_identity(self) -> Optional[pulumi.Input['StorageCredentialAzureManagedIdentityArgs']]:
+        return pulumi.get(self, "azure_managed_identity")
+
+    @azure_managed_identity.setter
+    def azure_managed_identity(self, value: Optional[pulumi.Input['StorageCredentialAzureManagedIdentityArgs']]):
+        pulumi.set(self, "azure_managed_identity", value)
 
     @property
     @pulumi.getter(name="azureServicePrincipal")
@@ -74,30 +88,39 @@ class StorageCredentialArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def owner(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "owner")
+
+    @owner.setter
+    def owner(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "owner", value)
 
 
 @pulumi.input_type
 class _StorageCredentialState:
     def __init__(__self__, *,
                  aws_iam_role: Optional[pulumi.Input['StorageCredentialAwsIamRoleArgs']] = None,
+                 azure_managed_identity: Optional[pulumi.Input['StorageCredentialAzureManagedIdentityArgs']] = None,
                  azure_service_principal: Optional[pulumi.Input['StorageCredentialAzureServicePrincipalArgs']] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  metastore_id: Optional[pulumi.Input[str]] = None,
-                 name: Optional[pulumi.Input[str]] = None):
+                 name: Optional[pulumi.Input[str]] = None,
+                 owner: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering StorageCredential resources.
-        :param pulumi.Input[str] name: Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         if aws_iam_role is not None:
             pulumi.set(__self__, "aws_iam_role", aws_iam_role)
+        if azure_managed_identity is not None:
+            pulumi.set(__self__, "azure_managed_identity", azure_managed_identity)
         if azure_service_principal is not None:
             pulumi.set(__self__, "azure_service_principal", azure_service_principal)
         if comment is not None:
@@ -106,6 +129,8 @@ class _StorageCredentialState:
             pulumi.set(__self__, "metastore_id", metastore_id)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if owner is not None:
+            pulumi.set(__self__, "owner", owner)
 
     @property
     @pulumi.getter(name="awsIamRole")
@@ -115,6 +140,15 @@ class _StorageCredentialState:
     @aws_iam_role.setter
     def aws_iam_role(self, value: Optional[pulumi.Input['StorageCredentialAwsIamRoleArgs']]):
         pulumi.set(self, "aws_iam_role", value)
+
+    @property
+    @pulumi.getter(name="azureManagedIdentity")
+    def azure_managed_identity(self) -> Optional[pulumi.Input['StorageCredentialAzureManagedIdentityArgs']]:
+        return pulumi.get(self, "azure_managed_identity")
+
+    @azure_managed_identity.setter
+    def azure_managed_identity(self, value: Optional[pulumi.Input['StorageCredentialAzureManagedIdentityArgs']]):
+        pulumi.set(self, "azure_managed_identity", value)
 
     @property
     @pulumi.getter(name="azureServicePrincipal")
@@ -146,14 +180,20 @@ class _StorageCredentialState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def owner(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "owner")
+
+    @owner.setter
+    def owner(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "owner", value)
 
 
 class StorageCredential(pulumi.CustomResource):
@@ -162,55 +202,17 @@ class StorageCredential(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  aws_iam_role: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAwsIamRoleArgs']]] = None,
+                 azure_managed_identity: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAzureManagedIdentityArgs']]] = None,
                  azure_service_principal: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAzureServicePrincipalArgs']]] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  metastore_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 owner: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
-        - `StorageCredential` represents authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
-        - ExternalLocation are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        external = databricks.StorageCredential("external",
-            aws_iam_role=databricks.StorageCredentialAwsIamRoleArgs(
-                role_arn=aws_iam_role["external_data_access"]["arn"],
-            ),
-            comment="Managed by TF")
-        some_external_location = databricks.ExternalLocation("someExternalLocation",
-            url=f"s3://{aws_s3_bucket['external']['id']}/some",
-            credential_name=external.id,
-            comment="Managed by TF")
-        some_grants = databricks.Grants("someGrants",
-            external_location=some_external_location.id,
-            grants=[databricks.GrantsGrantArgs(
-                principal="Data Engineers",
-                privileges=[
-                    "CREATE TABLE",
-                    "READ FILES",
-                ],
-            )])
-        ```
-
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/storageCredential:StorageCredential this <name>
-        ```
-
+        Create a StorageCredential resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] name: Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         ...
     @overload
@@ -219,46 +221,7 @@ class StorageCredential(pulumi.CustomResource):
                  args: Optional[StorageCredentialArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
-        - `StorageCredential` represents authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
-        - ExternalLocation are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        external = databricks.StorageCredential("external",
-            aws_iam_role=databricks.StorageCredentialAwsIamRoleArgs(
-                role_arn=aws_iam_role["external_data_access"]["arn"],
-            ),
-            comment="Managed by TF")
-        some_external_location = databricks.ExternalLocation("someExternalLocation",
-            url=f"s3://{aws_s3_bucket['external']['id']}/some",
-            credential_name=external.id,
-            comment="Managed by TF")
-        some_grants = databricks.Grants("someGrants",
-            external_location=some_external_location.id,
-            grants=[databricks.GrantsGrantArgs(
-                principal="Data Engineers",
-                privileges=[
-                    "CREATE TABLE",
-                    "READ FILES",
-                ],
-            )])
-        ```
-
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/storageCredential:StorageCredential this <name>
-        ```
-
+        Create a StorageCredential resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param StorageCredentialArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -275,10 +238,12 @@ class StorageCredential(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  aws_iam_role: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAwsIamRoleArgs']]] = None,
+                 azure_managed_identity: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAzureManagedIdentityArgs']]] = None,
                  azure_service_principal: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAzureServicePrincipalArgs']]] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  metastore_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 owner: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
@@ -292,10 +257,12 @@ class StorageCredential(pulumi.CustomResource):
             __props__ = StorageCredentialArgs.__new__(StorageCredentialArgs)
 
             __props__.__dict__["aws_iam_role"] = aws_iam_role
+            __props__.__dict__["azure_managed_identity"] = azure_managed_identity
             __props__.__dict__["azure_service_principal"] = azure_service_principal
             __props__.__dict__["comment"] = comment
             __props__.__dict__["metastore_id"] = metastore_id
             __props__.__dict__["name"] = name
+            __props__.__dict__["owner"] = owner
         super(StorageCredential, __self__).__init__(
             'databricks:index/storageCredential:StorageCredential',
             resource_name,
@@ -307,10 +274,12 @@ class StorageCredential(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             aws_iam_role: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAwsIamRoleArgs']]] = None,
+            azure_managed_identity: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAzureManagedIdentityArgs']]] = None,
             azure_service_principal: Optional[pulumi.Input[pulumi.InputType['StorageCredentialAzureServicePrincipalArgs']]] = None,
             comment: Optional[pulumi.Input[str]] = None,
             metastore_id: Optional[pulumi.Input[str]] = None,
-            name: Optional[pulumi.Input[str]] = None) -> 'StorageCredential':
+            name: Optional[pulumi.Input[str]] = None,
+            owner: Optional[pulumi.Input[str]] = None) -> 'StorageCredential':
         """
         Get an existing StorageCredential resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -318,23 +287,29 @@ class StorageCredential(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] name: Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _StorageCredentialState.__new__(_StorageCredentialState)
 
         __props__.__dict__["aws_iam_role"] = aws_iam_role
+        __props__.__dict__["azure_managed_identity"] = azure_managed_identity
         __props__.__dict__["azure_service_principal"] = azure_service_principal
         __props__.__dict__["comment"] = comment
         __props__.__dict__["metastore_id"] = metastore_id
         __props__.__dict__["name"] = name
+        __props__.__dict__["owner"] = owner
         return StorageCredential(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter(name="awsIamRole")
     def aws_iam_role(self) -> pulumi.Output[Optional['outputs.StorageCredentialAwsIamRole']]:
         return pulumi.get(self, "aws_iam_role")
+
+    @property
+    @pulumi.getter(name="azureManagedIdentity")
+    def azure_managed_identity(self) -> pulumi.Output[Optional['outputs.StorageCredentialAzureManagedIdentity']]:
+        return pulumi.get(self, "azure_managed_identity")
 
     @property
     @pulumi.getter(name="azureServicePrincipal")
@@ -354,8 +329,10 @@ class StorageCredential(pulumi.CustomResource):
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Name of Storage Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def owner(self) -> pulumi.Output[str]:
+        return pulumi.get(self, "owner")
 

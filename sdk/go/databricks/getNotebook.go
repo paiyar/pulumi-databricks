@@ -21,30 +21,21 @@ func LookupNotebook(ctx *pulumi.Context, args *LookupNotebookArgs, opts ...pulum
 
 // A collection of arguments for invoking getNotebook.
 type LookupNotebookArgs struct {
-	// Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-	Format string `pulumi:"format"`
-	// notebook language
-	Language *string `pulumi:"language"`
-	// notebook object ID
-	ObjectId *int `pulumi:"objectId"`
-	// notebook object type
+	Format     string  `pulumi:"format"`
+	Language   *string `pulumi:"language"`
+	ObjectId   *int    `pulumi:"objectId"`
 	ObjectType *string `pulumi:"objectType"`
-	// Notebook path on the workspace
-	Path string `pulumi:"path"`
+	Path       string  `pulumi:"path"`
 }
 
 // A collection of values returned by getNotebook.
 type LookupNotebookResult struct {
-	// notebook content in selected format
 	Content string `pulumi:"content"`
 	Format  string `pulumi:"format"`
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// notebook language
-	Language string `pulumi:"language"`
-	// notebook object ID
-	ObjectId int `pulumi:"objectId"`
-	// notebook object type
+	Id         string `pulumi:"id"`
+	Language   string `pulumi:"language"`
+	ObjectId   int    `pulumi:"objectId"`
 	ObjectType string `pulumi:"objectType"`
 	Path       string `pulumi:"path"`
 }
@@ -60,16 +51,11 @@ func LookupNotebookOutput(ctx *pulumi.Context, args LookupNotebookOutputArgs, op
 
 // A collection of arguments for invoking getNotebook.
 type LookupNotebookOutputArgs struct {
-	// Notebook format to export. Either `SOURCE`, `HTML`, `JUPYTER`, or `DBC`.
-	Format pulumi.StringInput `pulumi:"format"`
-	// notebook language
-	Language pulumi.StringPtrInput `pulumi:"language"`
-	// notebook object ID
-	ObjectId pulumi.IntPtrInput `pulumi:"objectId"`
-	// notebook object type
+	Format     pulumi.StringInput    `pulumi:"format"`
+	Language   pulumi.StringPtrInput `pulumi:"language"`
+	ObjectId   pulumi.IntPtrInput    `pulumi:"objectId"`
 	ObjectType pulumi.StringPtrInput `pulumi:"objectType"`
-	// Notebook path on the workspace
-	Path pulumi.StringInput `pulumi:"path"`
+	Path       pulumi.StringInput    `pulumi:"path"`
 }
 
 func (LookupNotebookOutputArgs) ElementType() reflect.Type {
@@ -91,7 +77,6 @@ func (o LookupNotebookResultOutput) ToLookupNotebookResultOutputWithContext(ctx 
 	return o
 }
 
-// notebook content in selected format
 func (o LookupNotebookResultOutput) Content() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNotebookResult) string { return v.Content }).(pulumi.StringOutput)
 }
@@ -105,17 +90,14 @@ func (o LookupNotebookResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNotebookResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// notebook language
 func (o LookupNotebookResultOutput) Language() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNotebookResult) string { return v.Language }).(pulumi.StringOutput)
 }
 
-// notebook object ID
 func (o LookupNotebookResultOutput) ObjectId() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupNotebookResult) int { return v.ObjectId }).(pulumi.IntOutput)
 }
 
-// notebook object type
 func (o LookupNotebookResultOutput) ObjectType() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNotebookResult) string { return v.ObjectType }).(pulumi.StringOutput)
 }

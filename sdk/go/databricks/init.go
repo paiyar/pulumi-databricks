@@ -84,6 +84,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MwsLogDelivery{}
 	case "databricks:index/mwsNetworks:MwsNetworks":
 		r = &MwsNetworks{}
+	case "databricks:index/mwsPermissionAssignment:MwsPermissionAssignment":
+		r = &MwsPermissionAssignment{}
 	case "databricks:index/mwsPrivateAccessSettings:MwsPrivateAccessSettings":
 		r = &MwsPrivateAccessSettings{}
 	case "databricks:index/mwsStorageConfigurations:MwsStorageConfigurations":
@@ -96,6 +98,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Notebook{}
 	case "databricks:index/oboToken:OboToken":
 		r = &OboToken{}
+	case "databricks:index/permissionAssignment:PermissionAssignment":
+		r = &PermissionAssignment{}
 	case "databricks:index/permissions:Permissions":
 		r = &Permissions{}
 	case "databricks:index/pipeline:Pipeline":
@@ -112,6 +116,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SecretScope{}
 	case "databricks:index/servicePrincipal:ServicePrincipal":
 		r = &ServicePrincipal{}
+	case "databricks:index/servicePrincipalRole:ServicePrincipalRole":
+		r = &ServicePrincipalRole{}
 	case "databricks:index/sqlDashboard:SqlDashboard":
 		r = &SqlDashboard{}
 	case "databricks:index/sqlEndpoint:SqlEndpoint":
@@ -333,6 +339,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"databricks",
+		"index/mwsPermissionAssignment",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"databricks",
 		"index/mwsPrivateAccessSettings",
 		&module{version},
 	)
@@ -359,6 +370,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"databricks",
 		"index/oboToken",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"databricks",
+		"index/permissionAssignment",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -399,6 +415,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"databricks",
 		"index/servicePrincipal",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"databricks",
+		"index/servicePrincipalRole",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

@@ -9,139 +9,33 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// Directly manage [Service Principals](https://docs.databricks.com/administration-guide/users-groups/service-principals.html) that could be added to databricks.Group within workspace.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// Creating regular service principal:
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var sp = new Databricks.ServicePrincipal("sp", new Databricks.ServicePrincipalArgs
-    ///         {
-    ///             ApplicationId = "00000000-0000-0000-0000-000000000000",
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// Creating service principal with administrative permissions - referencing special `admins` databricks.Group in databricks.GroupMember resource:
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var admins = Output.Create(Databricks.GetGroup.InvokeAsync(new Databricks.GetGroupArgs
-    ///         {
-    ///             DisplayName = "admins",
-    ///         }));
-    ///         var sp = new Databricks.ServicePrincipal("sp", new Databricks.ServicePrincipalArgs
-    ///         {
-    ///             ApplicationId = "00000000-0000-0000-0000-000000000000",
-    ///         });
-    ///         var i_am_admin = new Databricks.GroupMember("i-am-admin", new Databricks.GroupMemberArgs
-    ///         {
-    ///             GroupId = admins.Apply(admins =&gt; admins.Id),
-    ///             MemberId = sp.Id,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// Creating service principal with cluster create permissions:
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var sp = new Databricks.ServicePrincipal("sp", new Databricks.ServicePrincipalArgs
-    ///         {
-    ///             AllowClusterCreate = true,
-    ///             ApplicationId = "00000000-0000-0000-0000-000000000000",
-    ///             DisplayName = "Example service principal",
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// ## Related Resources
-    /// 
-    /// The following resources are often used in the same context:
-    /// 
-    /// * End to end workspace management guide.
-    /// * databricks.Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-    /// * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
-    /// * databricks.GroupMember to attach users and groups as group members.
-    /// * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
-    /// * databricks.SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.
-    /// 
-    /// ## Import
-    /// 
-    /// The resource scim service principal can be imported using idbash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/servicePrincipal:ServicePrincipal me &lt;service-principal-id&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/servicePrincipal:ServicePrincipal")]
     public partial class ServicePrincipal : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        /// </summary>
         [Output("active")]
         public Output<bool?> Active { get; private set; } = null!;
 
-        /// <summary>
-        /// Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        /// </summary>
         [Output("allowClusterCreate")]
         public Output<bool?> AllowClusterCreate { get; private set; } = null!;
 
-        /// <summary>
-        /// Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and instance_pool_id argument.
-        /// </summary>
         [Output("allowInstancePoolCreate")]
         public Output<bool?> AllowInstancePoolCreate { get; private set; } = null!;
 
-        /// <summary>
-        /// This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        /// </summary>
         [Output("applicationId")]
         public Output<string> ApplicationId { get; private set; } = null!;
 
-        /// <summary>
-        /// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        /// </summary>
         [Output("databricksSqlAccess")]
         public Output<bool?> DatabricksSqlAccess { get; private set; } = null!;
 
-        /// <summary>
-        /// This is an alias for the service principal and can be the full name of the service principal.
-        /// </summary>
         [Output("displayName")]
         public Output<string> DisplayName { get; private set; } = null!;
 
-        /// <summary>
-        /// This is a field to allow the group to have access to Databricks Workspace.
-        /// </summary>
+        [Output("externalId")]
+        public Output<string?> ExternalId { get; private set; } = null!;
+
+        [Output("force")]
+        public Output<bool?> Force { get; private set; } = null!;
+
         [Output("workspaceAccess")]
         public Output<bool?> WorkspaceAccess { get; private set; } = null!;
 
@@ -191,45 +85,30 @@ namespace Pulumi.Databricks
 
     public sealed class ServicePrincipalArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        /// </summary>
         [Input("active")]
         public Input<bool>? Active { get; set; }
 
-        /// <summary>
-        /// Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        /// </summary>
         [Input("allowClusterCreate")]
         public Input<bool>? AllowClusterCreate { get; set; }
 
-        /// <summary>
-        /// Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and instance_pool_id argument.
-        /// </summary>
         [Input("allowInstancePoolCreate")]
         public Input<bool>? AllowInstancePoolCreate { get; set; }
 
-        /// <summary>
-        /// This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        /// </summary>
         [Input("applicationId")]
         public Input<string>? ApplicationId { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        /// </summary>
         [Input("databricksSqlAccess")]
         public Input<bool>? DatabricksSqlAccess { get; set; }
 
-        /// <summary>
-        /// This is an alias for the service principal and can be the full name of the service principal.
-        /// </summary>
         [Input("displayName")]
         public Input<string>? DisplayName { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to Databricks Workspace.
-        /// </summary>
+        [Input("externalId")]
+        public Input<string>? ExternalId { get; set; }
+
+        [Input("force")]
+        public Input<bool>? Force { get; set; }
+
         [Input("workspaceAccess")]
         public Input<bool>? WorkspaceAccess { get; set; }
 
@@ -240,45 +119,30 @@ namespace Pulumi.Databricks
 
     public sealed class ServicePrincipalState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
-        /// </summary>
         [Input("active")]
         public Input<bool>? Active { get; set; }
 
-        /// <summary>
-        /// Allow the service principal to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within the boundaries of that specific policy.
-        /// </summary>
         [Input("allowClusterCreate")]
         public Input<bool>? AllowClusterCreate { get; set; }
 
-        /// <summary>
-        /// Allow the service principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks.Permissions and instance_pool_id argument.
-        /// </summary>
         [Input("allowInstancePoolCreate")]
         public Input<bool>? AllowInstancePoolCreate { get; set; }
 
-        /// <summary>
-        /// This is the application id of the given service principal and will be their form of access and identity. On other clouds than Azure this value is auto-generated.
-        /// </summary>
         [Input("applicationId")]
         public Input<string>? ApplicationId { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature through databricks_sql_endpoint.
-        /// </summary>
         [Input("databricksSqlAccess")]
         public Input<bool>? DatabricksSqlAccess { get; set; }
 
-        /// <summary>
-        /// This is an alias for the service principal and can be the full name of the service principal.
-        /// </summary>
         [Input("displayName")]
         public Input<string>? DisplayName { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to Databricks Workspace.
-        /// </summary>
+        [Input("externalId")]
+        public Input<string>? ExternalId { get; set; }
+
+        [Input("force")]
+        public Input<bool>? Force { get; set; }
+
         [Input("workspaceAccess")]
         public Input<bool>? WorkspaceAccess { get; set; }
 

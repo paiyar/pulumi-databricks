@@ -4,31 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * This resource creates [Personal Access Tokens](https://docs.databricks.com/sql/user/security/personal-access-tokens.html) for the same user, that is authenticated with the provider. Most likely you should use databricks.OboToken to create [On-Behalf-Of tokens](https://docs.databricks.com/administration-guide/users-groups/service-principals.html#manage-personal-access-tokens-for-a-service-principal) for a databricks.ServicePrincipal in Databricks workspaces on AWS. Databricks workspaces on other clouds use their own native OAuth token flows.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * // initialize provider in normal mode
- * const createdWorkspace = new databricks.Provider("createdWorkspace", {host: databricks_mws_workspaces["this"].workspace_url});
- * // create PAT token to provision entities within workspace
- * const pat = new databricks.Token("pat", {
- *     comment: "Terraform Provisioning",
- *     lifetimeSeconds: 8640000,
- * }, {
- *     provider: databricks.created_workspace,
- * });
- * export const databricksToken = pat.tokenValue;
- * ```
- *
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class Token extends pulumi.CustomResource {
     /**
      * Get an existing Token resource's state with the given name, ID, and optional extra
@@ -57,20 +32,11 @@ export class Token extends pulumi.CustomResource {
         return obj['__pulumiType'] === Token.__pulumiType;
     }
 
-    /**
-     * (String) Comment that will appear on the user’s settings page for this token.
-     */
     public readonly comment!: pulumi.Output<string | undefined>;
     public readonly creationTime!: pulumi.Output<number>;
     public readonly expiryTime!: pulumi.Output<number>;
-    /**
-     * (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-     */
     public readonly lifetimeSeconds!: pulumi.Output<number | undefined>;
     public readonly tokenId!: pulumi.Output<string>;
-    /**
-     * **Sensitive** value of the newly-created token.
-     */
     public /*out*/ readonly tokenValue!: pulumi.Output<string>;
 
     /**
@@ -110,20 +76,11 @@ export class Token extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Token resources.
  */
 export interface TokenState {
-    /**
-     * (String) Comment that will appear on the user’s settings page for this token.
-     */
     comment?: pulumi.Input<string>;
     creationTime?: pulumi.Input<number>;
     expiryTime?: pulumi.Input<number>;
-    /**
-     * (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-     */
     lifetimeSeconds?: pulumi.Input<number>;
     tokenId?: pulumi.Input<string>;
-    /**
-     * **Sensitive** value of the newly-created token.
-     */
     tokenValue?: pulumi.Input<string>;
 }
 
@@ -131,15 +88,9 @@ export interface TokenState {
  * The set of arguments for constructing a Token resource.
  */
 export interface TokenArgs {
-    /**
-     * (String) Comment that will appear on the user’s settings page for this token.
-     */
     comment?: pulumi.Input<string>;
     creationTime?: pulumi.Input<number>;
     expiryTime?: pulumi.Input<number>;
-    /**
-     * (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-     */
     lifetimeSeconds?: pulumi.Input<number>;
     tokenId?: pulumi.Input<string>;
 }

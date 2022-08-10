@@ -20,13 +20,7 @@ export function getDbfsFile(args: GetDbfsFileArgs, opts?: pulumi.InvokeOptions):
  * A collection of arguments for invoking getDbfsFile.
  */
 export interface GetDbfsFileArgs {
-    /**
-     * Do lot load content for files smaller than this in bytes
-     */
     limitFileSize: boolean;
-    /**
-     * Path on DBFS for the file to get content of
-     */
     path: string;
 }
 
@@ -34,13 +28,7 @@ export interface GetDbfsFileArgs {
  * A collection of values returned by getDbfsFile.
  */
 export interface GetDbfsFileResult {
-    /**
-     * base64-encoded file contents
-     */
     readonly content: string;
-    /**
-     * size of the file in bytes
-     */
     readonly fileSize: number;
     /**
      * The provider-assigned unique ID for this managed resource.
@@ -58,12 +46,6 @@ export function getDbfsFileOutput(args: GetDbfsFileOutputArgs, opts?: pulumi.Inv
  * A collection of arguments for invoking getDbfsFile.
  */
 export interface GetDbfsFileOutputArgs {
-    /**
-     * Do lot load content for files smaller than this in bytes
-     */
     limitFileSize: pulumi.Input<boolean>;
-    /**
-     * Path on DBFS for the file to get content of
-     */
     path: pulumi.Input<string>;
 }

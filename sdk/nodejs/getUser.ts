@@ -21,13 +21,7 @@ export function getUser(args?: GetUserArgs, opts?: pulumi.InvokeOptions): Promis
  * A collection of arguments for invoking getUser.
  */
 export interface GetUserArgs {
-    /**
-     * ID of the user.
-     */
     userId?: string;
-    /**
-     * User name of the user. The user must exist before this resource can be planned.
-     */
     userName?: string;
 }
 
@@ -35,34 +29,17 @@ export interface GetUserArgs {
  * A collection of values returned by getUser.
  */
 export interface GetUserResult {
-    /**
-     * Alphanumeric representation of user local name. e.g. `mrFoo`.
-     */
     readonly alphanumeric: string;
-    /**
-     * Display name of the user, e.g. `Mr Foo`.
-     */
+    readonly applicationId: string;
     readonly displayName: string;
-    /**
-     * ID of the user in an external identity provider.
-     */
     readonly externalId: string;
-    /**
-     * Home folder of the user, e.g. `/Users/mr.foo@example.com`.
-     */
     readonly home: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * Personal Repos location of the user, e.g. `/Repos/mr.foo@example.com`.
-     */
     readonly repos: string;
     readonly userId?: string;
-    /**
-     * Name of the user, e.g. `mr.foo@example.com`.
-     */
     readonly userName?: string;
 }
 
@@ -74,12 +51,6 @@ export function getUserOutput(args?: GetUserOutputArgs, opts?: pulumi.InvokeOpti
  * A collection of arguments for invoking getUser.
  */
 export interface GetUserOutputArgs {
-    /**
-     * ID of the user.
-     */
     userId?: pulumi.Input<string>;
-    /**
-     * User name of the user. The user must exist before this resource can be planned.
-     */
     userName?: pulumi.Input<string>;
 }

@@ -11,79 +11,9 @@ namespace Pulumi.Databricks
 {
     public static class GetAwsCrossaccountPolicy
     {
-        /// <summary>
-        /// &gt; **Note** This resource has an evolving API, which may change in future versions of the provider. Please always consult [latest documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default) in case of any questions.
-        /// 
-        /// This data source constructs necessary AWS cross-account policy for you, which is based on [official documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default).
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// For more detailed usage please see databricks.getAwsAssumeRolePolicy or databricks.AwsS3Mount pages.
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Databricks = Pulumi.Databricks;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var @this = Output.Create(Databricks.GetAwsCrossaccountPolicy.InvokeAsync());
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// ## Related Resources
-        /// 
-        /// The following resources are used in the same context:
-        /// 
-        /// * Provisioning AWS Databricks E2 with a Hub &amp; Spoke firewall for data exfiltration protection guide
-        /// * databricks.getAwsAssumeRolePolicy data to construct the necessary AWS STS assume role policy.
-        /// * databricks.getAwsBucketPolicy data to configure a simple access policy for AWS S3 buckets, so that Databricks can access data in it.
-        /// * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
-        /// </summary>
         public static Task<GetAwsCrossaccountPolicyResult> InvokeAsync(GetAwsCrossaccountPolicyArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetAwsCrossaccountPolicyResult>("databricks:index/getAwsCrossaccountPolicy:getAwsCrossaccountPolicy", args ?? new GetAwsCrossaccountPolicyArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// &gt; **Note** This resource has an evolving API, which may change in future versions of the provider. Please always consult [latest documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default) in case of any questions.
-        /// 
-        /// This data source constructs necessary AWS cross-account policy for you, which is based on [official documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default).
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// For more detailed usage please see databricks.getAwsAssumeRolePolicy or databricks.AwsS3Mount pages.
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Databricks = Pulumi.Databricks;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var @this = Output.Create(Databricks.GetAwsCrossaccountPolicy.InvokeAsync());
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// ## Related Resources
-        /// 
-        /// The following resources are used in the same context:
-        /// 
-        /// * Provisioning AWS Databricks E2 with a Hub &amp; Spoke firewall for data exfiltration protection guide
-        /// * databricks.getAwsAssumeRolePolicy data to construct the necessary AWS STS assume role policy.
-        /// * databricks.getAwsBucketPolicy data to configure a simple access policy for AWS S3 buckets, so that Databricks can access data in it.
-        /// * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
-        /// </summary>
         public static Output<GetAwsCrossaccountPolicyResult> Invoke(GetAwsCrossaccountPolicyInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetAwsCrossaccountPolicyResult>("databricks:index/getAwsCrossaccountPolicy:getAwsCrossaccountPolicy", args ?? new GetAwsCrossaccountPolicyInvokeArgs(), options.WithDefaults());
     }
@@ -93,10 +23,6 @@ namespace Pulumi.Databricks
     {
         [Input("passRoles")]
         private List<string>? _passRoles;
-
-        /// <summary>
-        /// List of Data IAM role ARNs that are explicitly granted `iam:PassRole` action.
-        /// </summary>
         public List<string> PassRoles
         {
             get => _passRoles ?? (_passRoles = new List<string>());
@@ -112,10 +38,6 @@ namespace Pulumi.Databricks
     {
         [Input("passRoles")]
         private InputList<string>? _passRoles;
-
-        /// <summary>
-        /// List of Data IAM role ARNs that are explicitly granted `iam:PassRole` action.
-        /// </summary>
         public InputList<string> PassRoles
         {
             get => _passRoles ?? (_passRoles = new InputList<string>());
@@ -135,9 +57,6 @@ namespace Pulumi.Databricks
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// AWS IAM Policy JSON document
-        /// </summary>
         public readonly string Json;
         public readonly ImmutableArray<string> PassRoles;
 

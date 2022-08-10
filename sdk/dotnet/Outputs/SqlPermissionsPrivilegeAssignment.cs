@@ -13,13 +13,7 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class SqlPermissionsPrivilegeAssignment
     {
-        /// <summary>
-        /// `display_name` of databricks.Group or databricks_user.
-        /// </summary>
         public readonly string Principal;
-        /// <summary>
-        /// set of available privilege names in upper case.
-        /// </summary>
         public readonly ImmutableArray<string> Privileges;
 
         [OutputConstructor]

@@ -10,26 +10,15 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The resource global init script can be imported using script IDbash
-//
-// ```sh
-//  $ pulumi import databricks:index/globalInitScript:GlobalInitScript this script_id
-// ```
 type GlobalInitScript struct {
 	pulumi.CustomResourceState
 
 	ContentBase64 pulumi.StringPtrOutput `pulumi:"contentBase64"`
-	// specifies if the script is enabled for execution, or not
-	Enabled pulumi.BoolPtrOutput   `pulumi:"enabled"`
-	Md5     pulumi.StringPtrOutput `pulumi:"md5"`
-	// - the name of the script.  It should be unique
-	Name pulumi.StringOutput `pulumi:"name"`
-	// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-	Position pulumi.IntOutput `pulumi:"position"`
-	// Path to script's source code on local filesystem. Conflicts with `contentBase64`
-	Source pulumi.StringPtrOutput `pulumi:"source"`
+	Enabled       pulumi.BoolPtrOutput   `pulumi:"enabled"`
+	Md5           pulumi.StringPtrOutput `pulumi:"md5"`
+	Name          pulumi.StringOutput    `pulumi:"name"`
+	Position      pulumi.IntOutput       `pulumi:"position"`
+	Source        pulumi.StringPtrOutput `pulumi:"source"`
 }
 
 // NewGlobalInitScript registers a new resource with the given unique name, arguments, and options.
@@ -62,28 +51,20 @@ func GetGlobalInitScript(ctx *pulumi.Context,
 // Input properties used for looking up and filtering GlobalInitScript resources.
 type globalInitScriptState struct {
 	ContentBase64 *string `pulumi:"contentBase64"`
-	// specifies if the script is enabled for execution, or not
-	Enabled *bool   `pulumi:"enabled"`
-	Md5     *string `pulumi:"md5"`
-	// - the name of the script.  It should be unique
-	Name *string `pulumi:"name"`
-	// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-	Position *int `pulumi:"position"`
-	// Path to script's source code on local filesystem. Conflicts with `contentBase64`
-	Source *string `pulumi:"source"`
+	Enabled       *bool   `pulumi:"enabled"`
+	Md5           *string `pulumi:"md5"`
+	Name          *string `pulumi:"name"`
+	Position      *int    `pulumi:"position"`
+	Source        *string `pulumi:"source"`
 }
 
 type GlobalInitScriptState struct {
 	ContentBase64 pulumi.StringPtrInput
-	// specifies if the script is enabled for execution, or not
-	Enabled pulumi.BoolPtrInput
-	Md5     pulumi.StringPtrInput
-	// - the name of the script.  It should be unique
-	Name pulumi.StringPtrInput
-	// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-	Position pulumi.IntPtrInput
-	// Path to script's source code on local filesystem. Conflicts with `contentBase64`
-	Source pulumi.StringPtrInput
+	Enabled       pulumi.BoolPtrInput
+	Md5           pulumi.StringPtrInput
+	Name          pulumi.StringPtrInput
+	Position      pulumi.IntPtrInput
+	Source        pulumi.StringPtrInput
 }
 
 func (GlobalInitScriptState) ElementType() reflect.Type {
@@ -92,29 +73,21 @@ func (GlobalInitScriptState) ElementType() reflect.Type {
 
 type globalInitScriptArgs struct {
 	ContentBase64 *string `pulumi:"contentBase64"`
-	// specifies if the script is enabled for execution, or not
-	Enabled *bool   `pulumi:"enabled"`
-	Md5     *string `pulumi:"md5"`
-	// - the name of the script.  It should be unique
-	Name *string `pulumi:"name"`
-	// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-	Position *int `pulumi:"position"`
-	// Path to script's source code on local filesystem. Conflicts with `contentBase64`
-	Source *string `pulumi:"source"`
+	Enabled       *bool   `pulumi:"enabled"`
+	Md5           *string `pulumi:"md5"`
+	Name          *string `pulumi:"name"`
+	Position      *int    `pulumi:"position"`
+	Source        *string `pulumi:"source"`
 }
 
 // The set of arguments for constructing a GlobalInitScript resource.
 type GlobalInitScriptArgs struct {
 	ContentBase64 pulumi.StringPtrInput
-	// specifies if the script is enabled for execution, or not
-	Enabled pulumi.BoolPtrInput
-	Md5     pulumi.StringPtrInput
-	// - the name of the script.  It should be unique
-	Name pulumi.StringPtrInput
-	// - the position of a global init script, where `0` represents the first global init script to run, `1` is the second global init script to run, and so on. When omitted, the script gets the last position.
-	Position pulumi.IntPtrInput
-	// Path to script's source code on local filesystem. Conflicts with `contentBase64`
-	Source pulumi.StringPtrInput
+	Enabled       pulumi.BoolPtrInput
+	Md5           pulumi.StringPtrInput
+	Name          pulumi.StringPtrInput
+	Position      pulumi.IntPtrInput
+	Source        pulumi.StringPtrInput
 }
 
 func (GlobalInitScriptArgs) ElementType() reflect.Type {

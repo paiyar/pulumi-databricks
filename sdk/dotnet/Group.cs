@@ -9,106 +9,21 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// This resource allows you to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments). You can also associate Databricks users to groups. This is useful if you are using an application to sync users &amp; groups with SCIM API.
-    /// 
-    /// Recommended to use along with Identity Provider SCIM provisioning to populate users into those groups:
-    /// 
-    /// * [Azure Active Directory](https://docs.microsoft.com/en-us/azure/databricks/administration-guide/users-groups/scim/aad)
-    /// * [Okta](https://docs.databricks.com/administration-guide/users-groups/scim/okta.html)
-    /// * [OneLogin](https://docs.databricks.com/administration-guide/users-groups/scim/onelogin.html)
-    /// 
-    /// ## Example Usage
-    /// 
-    /// Creating some group
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var @this = new Databricks.Group("this", new Databricks.GroupArgs
-    ///         {
-    ///             AllowClusterCreate = true,
-    ///             AllowInstancePoolCreate = true,
-    ///             DisplayName = "Some Group",
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// Adding databricks.User as databricks.GroupMember of some group
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var thisGroup = new Databricks.Group("thisGroup", new Databricks.GroupArgs
-    ///         {
-    ///             DisplayName = "Some Group",
-    ///             AllowClusterCreate = true,
-    ///             AllowInstancePoolCreate = true,
-    ///         });
-    ///         var thisUser = new Databricks.User("thisUser", new Databricks.UserArgs
-    ///         {
-    ///             UserName = "someone@example.com",
-    ///         });
-    ///         var vipMember = new Databricks.GroupMember("vipMember", new Databricks.GroupMemberArgs
-    ///         {
-    ///             GroupId = thisGroup.Id,
-    ///             MemberId = thisUser.Id,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// You can import a `databricks_group` resource with the name `my_group` like the followingbash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/group:Group my_group &lt;group_id&gt;
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/group:Group")]
     public partial class Group : Pulumi.CustomResource
     {
-        /// <summary>
-        /// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks.Permissions and cluster_id argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        /// </summary>
         [Output("allowClusterCreate")]
         public Output<bool?> AllowClusterCreate { get; private set; } = null!;
 
-        /// <summary>
-        /// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks.Permissions and instance_pool_id argument.
-        /// </summary>
         [Output("allowInstancePoolCreate")]
         public Output<bool?> AllowInstancePoolCreate { get; private set; } = null!;
 
-        /// <summary>
-        /// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        /// </summary>
         [Output("databricksSqlAccess")]
         public Output<bool?> DatabricksSqlAccess { get; private set; } = null!;
 
-        /// <summary>
-        /// This is the display name for the given group.
-        /// </summary>
         [Output("displayName")]
         public Output<string> DisplayName { get; private set; } = null!;
 
-        /// <summary>
-        /// ID of the group in an external identity provider.
-        /// </summary>
         [Output("externalId")]
         public Output<string?> ExternalId { get; private set; } = null!;
 
@@ -118,9 +33,6 @@ namespace Pulumi.Databricks
         [Output("url")]
         public Output<string> Url { get; private set; } = null!;
 
-        /// <summary>
-        /// This is a field to allow the group to have access to Databricks Workspace.
-        /// </summary>
         [Output("workspaceAccess")]
         public Output<bool?> WorkspaceAccess { get; private set; } = null!;
 
@@ -170,33 +82,18 @@ namespace Pulumi.Databricks
 
     public sealed class GroupArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks.Permissions and cluster_id argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        /// </summary>
         [Input("allowClusterCreate")]
         public Input<bool>? AllowClusterCreate { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks.Permissions and instance_pool_id argument.
-        /// </summary>
         [Input("allowInstancePoolCreate")]
         public Input<bool>? AllowInstancePoolCreate { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        /// </summary>
         [Input("databricksSqlAccess")]
         public Input<bool>? DatabricksSqlAccess { get; set; }
 
-        /// <summary>
-        /// This is the display name for the given group.
-        /// </summary>
         [Input("displayName", required: true)]
         public Input<string> DisplayName { get; set; } = null!;
 
-        /// <summary>
-        /// ID of the group in an external identity provider.
-        /// </summary>
         [Input("externalId")]
         public Input<string>? ExternalId { get; set; }
 
@@ -206,9 +103,6 @@ namespace Pulumi.Databricks
         [Input("url")]
         public Input<string>? Url { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to Databricks Workspace.
-        /// </summary>
         [Input("workspaceAccess")]
         public Input<bool>? WorkspaceAccess { get; set; }
 
@@ -219,33 +113,18 @@ namespace Pulumi.Databricks
 
     public sealed class GroupState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks.Permissions and cluster_id argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        /// </summary>
         [Input("allowClusterCreate")]
         public Input<bool>? AllowClusterCreate { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks.Permissions and instance_pool_id argument.
-        /// </summary>
         [Input("allowInstancePoolCreate")]
         public Input<bool>? AllowInstancePoolCreate { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        /// </summary>
         [Input("databricksSqlAccess")]
         public Input<bool>? DatabricksSqlAccess { get; set; }
 
-        /// <summary>
-        /// This is the display name for the given group.
-        /// </summary>
         [Input("displayName")]
         public Input<string>? DisplayName { get; set; }
 
-        /// <summary>
-        /// ID of the group in an external identity provider.
-        /// </summary>
         [Input("externalId")]
         public Input<string>? ExternalId { get; set; }
 
@@ -255,9 +134,6 @@ namespace Pulumi.Databricks
         [Input("url")]
         public Input<string>? Url { get; set; }
 
-        /// <summary>
-        /// This is a field to allow the group to have access to Databricks Workspace.
-        /// </summary>
         [Input("workspaceAccess")]
         public Input<bool>? WorkspaceAccess { get; set; }
 

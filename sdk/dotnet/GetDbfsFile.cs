@@ -21,15 +21,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetDbfsFileArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Do lot load content for files smaller than this in bytes
-        /// </summary>
         [Input("limitFileSize", required: true)]
         public bool LimitFileSize { get; set; }
 
-        /// <summary>
-        /// Path on DBFS for the file to get content of
-        /// </summary>
         [Input("path", required: true)]
         public string Path { get; set; } = null!;
 
@@ -40,15 +34,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetDbfsFileInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Do lot load content for files smaller than this in bytes
-        /// </summary>
         [Input("limitFileSize", required: true)]
         public Input<bool> LimitFileSize { get; set; } = null!;
 
-        /// <summary>
-        /// Path on DBFS for the file to get content of
-        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
@@ -61,13 +49,7 @@ namespace Pulumi.Databricks
     [OutputType]
     public sealed class GetDbfsFileResult
     {
-        /// <summary>
-        /// base64-encoded file contents
-        /// </summary>
         public readonly string Content;
-        /// <summary>
-        /// size of the file in bytes
-        /// </summary>
         public readonly int FileSize;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.

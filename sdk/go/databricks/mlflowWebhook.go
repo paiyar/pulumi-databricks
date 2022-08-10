@@ -11,70 +11,15 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// This resource allows you to create [MLflow Model Registry Webhooks](https://docs.databricks.com/applications/mlflow/model-registry-webhooks.html) in Databricks.  Webhooks enable you to listen for Model Registry events so your integrations can automatically trigger actions. You can use webhooks to automate and integrate your machine learning pipeline with existing CI/CD tools and workflows. Webhooks allow trigger execution of a Databricks job or call a web service on specific event(s) that is generated in the MLflow Registry - stage transitioning, creation of registered model, creation of transition request, etc.
-//
-// ## Example Usage
-// ### POSTing to URL
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := databricks.NewMlflowWebhook(ctx, "url", &databricks.MlflowWebhookArgs{
-// 			Description: pulumi.String("URL webhook trigger"),
-// 			Events: pulumi.StringArray{
-// 				pulumi.String("TRANSITION_REQUEST_CREATED"),
-// 			},
-// 			HttpUrlSpec: &MlflowWebhookHttpUrlSpecArgs{
-// 				Url: pulumi.String("https://my_cool_host/webhook"),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Access Control
-//
-// * MLflow webhooks could be configured only by workspace admins.
-//
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Directory to manage directories in [Databricks Workpace](https://docs.databricks.com/workspace/workspace-objects.html).
-// * MlflowExperiment to manage [MLflow experiments](https://docs.databricks.com/data/data-sources/mlflow-experiment.html) in Databricks.
-// * MlflowModel to create [MLflow models](https://docs.databricks.com/applications/mlflow/models.html) in Databricks.
-// * Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
-// * Notebook data to export a notebook from Databricks Workspace.
-// * Repo to manage [Databricks Repos](https://docs.databricks.com/repos.html).
-//
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type MlflowWebhook struct {
 	pulumi.CustomResourceState
 
-	// Optional description of the MLflow webhook.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// The list of events that will trigger execution of Databricks job or POSTing to an URL, for example, `MODEL_VERSION_CREATED`, `MODEL_VERSION_TRANSITIONED_STAGE`, `TRANSITION_REQUEST_CREATED`, etc.  Refer to the [Webhooks API documentation](https://docs.databricks.com/dev-tools/api/latest/mlflow.html#operation/create-registry-webhook) for a full list of supported events.
+	Description pulumi.StringPtrOutput            `pulumi:"description"`
 	Events      pulumi.StringArrayOutput          `pulumi:"events"`
 	HttpUrlSpec MlflowWebhookHttpUrlSpecPtrOutput `pulumi:"httpUrlSpec"`
 	JobSpec     MlflowWebhookJobSpecPtrOutput     `pulumi:"jobSpec"`
-	// Name of MLflow model for which webhook will be created. If model name is not specified, a registry-wide webhook is created that listens for the specified events across all versions of all registered models.
-	ModelName pulumi.StringPtrOutput `pulumi:"modelName"`
-	// Optional status of webhook. Possible values are `ACTIVE`, `TEST_MODE`, `DISABLED`. Default is `ACTIVE`.
-	Status pulumi.StringPtrOutput `pulumi:"status"`
+	ModelName   pulumi.StringPtrOutput            `pulumi:"modelName"`
+	Status      pulumi.StringPtrOutput            `pulumi:"status"`
 }
 
 // NewMlflowWebhook registers a new resource with the given unique name, arguments, and options.
@@ -109,29 +54,21 @@ func GetMlflowWebhook(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering MlflowWebhook resources.
 type mlflowWebhookState struct {
-	// Optional description of the MLflow webhook.
-	Description *string `pulumi:"description"`
-	// The list of events that will trigger execution of Databricks job or POSTing to an URL, for example, `MODEL_VERSION_CREATED`, `MODEL_VERSION_TRANSITIONED_STAGE`, `TRANSITION_REQUEST_CREATED`, etc.  Refer to the [Webhooks API documentation](https://docs.databricks.com/dev-tools/api/latest/mlflow.html#operation/create-registry-webhook) for a full list of supported events.
+	Description *string                   `pulumi:"description"`
 	Events      []string                  `pulumi:"events"`
 	HttpUrlSpec *MlflowWebhookHttpUrlSpec `pulumi:"httpUrlSpec"`
 	JobSpec     *MlflowWebhookJobSpec     `pulumi:"jobSpec"`
-	// Name of MLflow model for which webhook will be created. If model name is not specified, a registry-wide webhook is created that listens for the specified events across all versions of all registered models.
-	ModelName *string `pulumi:"modelName"`
-	// Optional status of webhook. Possible values are `ACTIVE`, `TEST_MODE`, `DISABLED`. Default is `ACTIVE`.
-	Status *string `pulumi:"status"`
+	ModelName   *string                   `pulumi:"modelName"`
+	Status      *string                   `pulumi:"status"`
 }
 
 type MlflowWebhookState struct {
-	// Optional description of the MLflow webhook.
 	Description pulumi.StringPtrInput
-	// The list of events that will trigger execution of Databricks job or POSTing to an URL, for example, `MODEL_VERSION_CREATED`, `MODEL_VERSION_TRANSITIONED_STAGE`, `TRANSITION_REQUEST_CREATED`, etc.  Refer to the [Webhooks API documentation](https://docs.databricks.com/dev-tools/api/latest/mlflow.html#operation/create-registry-webhook) for a full list of supported events.
 	Events      pulumi.StringArrayInput
 	HttpUrlSpec MlflowWebhookHttpUrlSpecPtrInput
 	JobSpec     MlflowWebhookJobSpecPtrInput
-	// Name of MLflow model for which webhook will be created. If model name is not specified, a registry-wide webhook is created that listens for the specified events across all versions of all registered models.
-	ModelName pulumi.StringPtrInput
-	// Optional status of webhook. Possible values are `ACTIVE`, `TEST_MODE`, `DISABLED`. Default is `ACTIVE`.
-	Status pulumi.StringPtrInput
+	ModelName   pulumi.StringPtrInput
+	Status      pulumi.StringPtrInput
 }
 
 func (MlflowWebhookState) ElementType() reflect.Type {
@@ -139,30 +76,22 @@ func (MlflowWebhookState) ElementType() reflect.Type {
 }
 
 type mlflowWebhookArgs struct {
-	// Optional description of the MLflow webhook.
-	Description *string `pulumi:"description"`
-	// The list of events that will trigger execution of Databricks job or POSTing to an URL, for example, `MODEL_VERSION_CREATED`, `MODEL_VERSION_TRANSITIONED_STAGE`, `TRANSITION_REQUEST_CREATED`, etc.  Refer to the [Webhooks API documentation](https://docs.databricks.com/dev-tools/api/latest/mlflow.html#operation/create-registry-webhook) for a full list of supported events.
+	Description *string                   `pulumi:"description"`
 	Events      []string                  `pulumi:"events"`
 	HttpUrlSpec *MlflowWebhookHttpUrlSpec `pulumi:"httpUrlSpec"`
 	JobSpec     *MlflowWebhookJobSpec     `pulumi:"jobSpec"`
-	// Name of MLflow model for which webhook will be created. If model name is not specified, a registry-wide webhook is created that listens for the specified events across all versions of all registered models.
-	ModelName *string `pulumi:"modelName"`
-	// Optional status of webhook. Possible values are `ACTIVE`, `TEST_MODE`, `DISABLED`. Default is `ACTIVE`.
-	Status *string `pulumi:"status"`
+	ModelName   *string                   `pulumi:"modelName"`
+	Status      *string                   `pulumi:"status"`
 }
 
 // The set of arguments for constructing a MlflowWebhook resource.
 type MlflowWebhookArgs struct {
-	// Optional description of the MLflow webhook.
 	Description pulumi.StringPtrInput
-	// The list of events that will trigger execution of Databricks job or POSTing to an URL, for example, `MODEL_VERSION_CREATED`, `MODEL_VERSION_TRANSITIONED_STAGE`, `TRANSITION_REQUEST_CREATED`, etc.  Refer to the [Webhooks API documentation](https://docs.databricks.com/dev-tools/api/latest/mlflow.html#operation/create-registry-webhook) for a full list of supported events.
 	Events      pulumi.StringArrayInput
 	HttpUrlSpec MlflowWebhookHttpUrlSpecPtrInput
 	JobSpec     MlflowWebhookJobSpecPtrInput
-	// Name of MLflow model for which webhook will be created. If model name is not specified, a registry-wide webhook is created that listens for the specified events across all versions of all registered models.
-	ModelName pulumi.StringPtrInput
-	// Optional status of webhook. Possible values are `ACTIVE`, `TEST_MODE`, `DISABLED`. Default is `ACTIVE`.
-	Status pulumi.StringPtrInput
+	ModelName   pulumi.StringPtrInput
+	Status      pulumi.StringPtrInput
 }
 
 func (MlflowWebhookArgs) ElementType() reflect.Type {

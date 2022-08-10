@@ -10,52 +10,33 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The resource job can be imported using the id of the job bash
-//
-// ```sh
-//  $ pulumi import databricks:index/job:Job this <job-id>
-// ```
 type Job struct {
 	pulumi.CustomResourceState
 
-	// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `sparkJarTask` or `sparkSubmitTask` or `sparkPythonTask` or `notebookTask` blocks.
-	AlwaysRunning pulumi.BoolPtrOutput `pulumi:"alwaysRunning"`
-	// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications JobEmailNotificationsPtrOutput `pulumi:"emailNotifications"`
-	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `newCluster` for greater reliability.
-	ExistingClusterId pulumi.StringPtrOutput   `pulumi:"existingClusterId"`
-	Format            pulumi.StringOutput      `pulumi:"format"`
-	GitSource         JobGitSourcePtrOutput    `pulumi:"gitSource"`
-	JobClusters       JobJobClusterArrayOutput `pulumi:"jobClusters"`
-	// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for Cluster resource.
-	Libraries JobLibraryArrayOutput `pulumi:"libraries"`
-	// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
-	MaxConcurrentRuns pulumi.IntPtrOutput `pulumi:"maxConcurrentRuns"`
-	// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED resultState or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
-	MaxRetries pulumi.IntPtrOutput `pulumi:"maxRetries"`
-	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
-	MinRetryIntervalMillis pulumi.IntPtrOutput `pulumi:"minRetryIntervalMillis"`
-	// An optional name for the job. The default value is Untitled.
-	Name pulumi.StringOutput `pulumi:"name"`
-	// Same set of parameters as for Cluster resource.
-	NewCluster      JobNewClusterPtrOutput      `pulumi:"newCluster"`
-	NotebookTask    JobNotebookTaskPtrOutput    `pulumi:"notebookTask"`
-	PipelineTask    JobPipelineTaskPtrOutput    `pulumi:"pipelineTask"`
-	PythonWheelTask JobPythonWheelTaskPtrOutput `pulumi:"pythonWheelTask"`
-	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
-	RetryOnTimeout pulumi.BoolPtrOutput `pulumi:"retryOnTimeout"`
-	// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
-	Schedule        JobSchedulePtrOutput        `pulumi:"schedule"`
-	SparkJarTask    JobSparkJarTaskPtrOutput    `pulumi:"sparkJarTask"`
-	SparkPythonTask JobSparkPythonTaskPtrOutput `pulumi:"sparkPythonTask"`
-	SparkSubmitTask JobSparkSubmitTaskPtrOutput `pulumi:"sparkSubmitTask"`
-	Tasks           JobTaskArrayOutput          `pulumi:"tasks"`
-	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
-	TimeoutSeconds pulumi.IntPtrOutput `pulumi:"timeoutSeconds"`
-	// URL of the job on the given workspace
-	Url pulumi.StringOutput `pulumi:"url"`
+	AlwaysRunning          pulumi.BoolPtrOutput           `pulumi:"alwaysRunning"`
+	EmailNotifications     JobEmailNotificationsPtrOutput `pulumi:"emailNotifications"`
+	ExistingClusterId      pulumi.StringPtrOutput         `pulumi:"existingClusterId"`
+	Format                 pulumi.StringOutput            `pulumi:"format"`
+	GitSource              JobGitSourcePtrOutput          `pulumi:"gitSource"`
+	JobClusters            JobJobClusterArrayOutput       `pulumi:"jobClusters"`
+	Libraries              JobLibraryArrayOutput          `pulumi:"libraries"`
+	MaxConcurrentRuns      pulumi.IntPtrOutput            `pulumi:"maxConcurrentRuns"`
+	MaxRetries             pulumi.IntPtrOutput            `pulumi:"maxRetries"`
+	MinRetryIntervalMillis pulumi.IntPtrOutput            `pulumi:"minRetryIntervalMillis"`
+	Name                   pulumi.StringOutput            `pulumi:"name"`
+	NewCluster             JobNewClusterPtrOutput         `pulumi:"newCluster"`
+	NotebookTask           JobNotebookTaskPtrOutput       `pulumi:"notebookTask"`
+	PipelineTask           JobPipelineTaskPtrOutput       `pulumi:"pipelineTask"`
+	PythonWheelTask        JobPythonWheelTaskPtrOutput    `pulumi:"pythonWheelTask"`
+	RetryOnTimeout         pulumi.BoolPtrOutput           `pulumi:"retryOnTimeout"`
+	Schedule               JobSchedulePtrOutput           `pulumi:"schedule"`
+	SparkJarTask           JobSparkJarTaskPtrOutput       `pulumi:"sparkJarTask"`
+	SparkPythonTask        JobSparkPythonTaskPtrOutput    `pulumi:"sparkPythonTask"`
+	SparkSubmitTask        JobSparkSubmitTaskPtrOutput    `pulumi:"sparkSubmitTask"`
+	Tags                   pulumi.MapOutput               `pulumi:"tags"`
+	Tasks                  JobTaskArrayOutput             `pulumi:"tasks"`
+	TimeoutSeconds         pulumi.IntPtrOutput            `pulumi:"timeoutSeconds"`
+	Url                    pulumi.StringOutput            `pulumi:"url"`
 }
 
 // NewJob registers a new resource with the given unique name, arguments, and options.
@@ -87,81 +68,57 @@ func GetJob(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Job resources.
 type jobState struct {
-	// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `sparkJarTask` or `sparkSubmitTask` or `sparkPythonTask` or `notebookTask` blocks.
-	AlwaysRunning *bool `pulumi:"alwaysRunning"`
-	// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications *JobEmailNotifications `pulumi:"emailNotifications"`
-	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `newCluster` for greater reliability.
-	ExistingClusterId *string         `pulumi:"existingClusterId"`
-	Format            *string         `pulumi:"format"`
-	GitSource         *JobGitSource   `pulumi:"gitSource"`
-	JobClusters       []JobJobCluster `pulumi:"jobClusters"`
-	// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for Cluster resource.
-	Libraries []JobLibrary `pulumi:"libraries"`
-	// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
-	MaxConcurrentRuns *int `pulumi:"maxConcurrentRuns"`
-	// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED resultState or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
-	MaxRetries *int `pulumi:"maxRetries"`
-	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
-	MinRetryIntervalMillis *int `pulumi:"minRetryIntervalMillis"`
-	// An optional name for the job. The default value is Untitled.
-	Name *string `pulumi:"name"`
-	// Same set of parameters as for Cluster resource.
-	NewCluster      *JobNewCluster      `pulumi:"newCluster"`
-	NotebookTask    *JobNotebookTask    `pulumi:"notebookTask"`
-	PipelineTask    *JobPipelineTask    `pulumi:"pipelineTask"`
-	PythonWheelTask *JobPythonWheelTask `pulumi:"pythonWheelTask"`
-	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
-	RetryOnTimeout *bool `pulumi:"retryOnTimeout"`
-	// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
-	Schedule        *JobSchedule        `pulumi:"schedule"`
-	SparkJarTask    *JobSparkJarTask    `pulumi:"sparkJarTask"`
-	SparkPythonTask *JobSparkPythonTask `pulumi:"sparkPythonTask"`
-	SparkSubmitTask *JobSparkSubmitTask `pulumi:"sparkSubmitTask"`
-	Tasks           []JobTask           `pulumi:"tasks"`
-	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
-	TimeoutSeconds *int `pulumi:"timeoutSeconds"`
-	// URL of the job on the given workspace
-	Url *string `pulumi:"url"`
+	AlwaysRunning          *bool                  `pulumi:"alwaysRunning"`
+	EmailNotifications     *JobEmailNotifications `pulumi:"emailNotifications"`
+	ExistingClusterId      *string                `pulumi:"existingClusterId"`
+	Format                 *string                `pulumi:"format"`
+	GitSource              *JobGitSource          `pulumi:"gitSource"`
+	JobClusters            []JobJobCluster        `pulumi:"jobClusters"`
+	Libraries              []JobLibrary           `pulumi:"libraries"`
+	MaxConcurrentRuns      *int                   `pulumi:"maxConcurrentRuns"`
+	MaxRetries             *int                   `pulumi:"maxRetries"`
+	MinRetryIntervalMillis *int                   `pulumi:"minRetryIntervalMillis"`
+	Name                   *string                `pulumi:"name"`
+	NewCluster             *JobNewCluster         `pulumi:"newCluster"`
+	NotebookTask           *JobNotebookTask       `pulumi:"notebookTask"`
+	PipelineTask           *JobPipelineTask       `pulumi:"pipelineTask"`
+	PythonWheelTask        *JobPythonWheelTask    `pulumi:"pythonWheelTask"`
+	RetryOnTimeout         *bool                  `pulumi:"retryOnTimeout"`
+	Schedule               *JobSchedule           `pulumi:"schedule"`
+	SparkJarTask           *JobSparkJarTask       `pulumi:"sparkJarTask"`
+	SparkPythonTask        *JobSparkPythonTask    `pulumi:"sparkPythonTask"`
+	SparkSubmitTask        *JobSparkSubmitTask    `pulumi:"sparkSubmitTask"`
+	Tags                   map[string]interface{} `pulumi:"tags"`
+	Tasks                  []JobTask              `pulumi:"tasks"`
+	TimeoutSeconds         *int                   `pulumi:"timeoutSeconds"`
+	Url                    *string                `pulumi:"url"`
 }
 
 type JobState struct {
-	// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `sparkJarTask` or `sparkSubmitTask` or `sparkPythonTask` or `notebookTask` blocks.
-	AlwaysRunning pulumi.BoolPtrInput
-	// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications JobEmailNotificationsPtrInput
-	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `newCluster` for greater reliability.
-	ExistingClusterId pulumi.StringPtrInput
-	Format            pulumi.StringPtrInput
-	GitSource         JobGitSourcePtrInput
-	JobClusters       JobJobClusterArrayInput
-	// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for Cluster resource.
-	Libraries JobLibraryArrayInput
-	// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
-	MaxConcurrentRuns pulumi.IntPtrInput
-	// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED resultState or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
-	MaxRetries pulumi.IntPtrInput
-	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+	AlwaysRunning          pulumi.BoolPtrInput
+	EmailNotifications     JobEmailNotificationsPtrInput
+	ExistingClusterId      pulumi.StringPtrInput
+	Format                 pulumi.StringPtrInput
+	GitSource              JobGitSourcePtrInput
+	JobClusters            JobJobClusterArrayInput
+	Libraries              JobLibraryArrayInput
+	MaxConcurrentRuns      pulumi.IntPtrInput
+	MaxRetries             pulumi.IntPtrInput
 	MinRetryIntervalMillis pulumi.IntPtrInput
-	// An optional name for the job. The default value is Untitled.
-	Name pulumi.StringPtrInput
-	// Same set of parameters as for Cluster resource.
-	NewCluster      JobNewClusterPtrInput
-	NotebookTask    JobNotebookTaskPtrInput
-	PipelineTask    JobPipelineTaskPtrInput
-	PythonWheelTask JobPythonWheelTaskPtrInput
-	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
-	RetryOnTimeout pulumi.BoolPtrInput
-	// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
-	Schedule        JobSchedulePtrInput
-	SparkJarTask    JobSparkJarTaskPtrInput
-	SparkPythonTask JobSparkPythonTaskPtrInput
-	SparkSubmitTask JobSparkSubmitTaskPtrInput
-	Tasks           JobTaskArrayInput
-	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
-	TimeoutSeconds pulumi.IntPtrInput
-	// URL of the job on the given workspace
-	Url pulumi.StringPtrInput
+	Name                   pulumi.StringPtrInput
+	NewCluster             JobNewClusterPtrInput
+	NotebookTask           JobNotebookTaskPtrInput
+	PipelineTask           JobPipelineTaskPtrInput
+	PythonWheelTask        JobPythonWheelTaskPtrInput
+	RetryOnTimeout         pulumi.BoolPtrInput
+	Schedule               JobSchedulePtrInput
+	SparkJarTask           JobSparkJarTaskPtrInput
+	SparkPythonTask        JobSparkPythonTaskPtrInput
+	SparkSubmitTask        JobSparkSubmitTaskPtrInput
+	Tags                   pulumi.MapInput
+	Tasks                  JobTaskArrayInput
+	TimeoutSeconds         pulumi.IntPtrInput
+	Url                    pulumi.StringPtrInput
 }
 
 func (JobState) ElementType() reflect.Type {
@@ -169,78 +126,56 @@ func (JobState) ElementType() reflect.Type {
 }
 
 type jobArgs struct {
-	// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `sparkJarTask` or `sparkSubmitTask` or `sparkPythonTask` or `notebookTask` blocks.
-	AlwaysRunning *bool `pulumi:"alwaysRunning"`
-	// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications *JobEmailNotifications `pulumi:"emailNotifications"`
-	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `newCluster` for greater reliability.
-	ExistingClusterId *string         `pulumi:"existingClusterId"`
-	Format            *string         `pulumi:"format"`
-	GitSource         *JobGitSource   `pulumi:"gitSource"`
-	JobClusters       []JobJobCluster `pulumi:"jobClusters"`
-	// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for Cluster resource.
-	Libraries []JobLibrary `pulumi:"libraries"`
-	// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
-	MaxConcurrentRuns *int `pulumi:"maxConcurrentRuns"`
-	// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED resultState or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
-	MaxRetries *int `pulumi:"maxRetries"`
-	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
-	MinRetryIntervalMillis *int `pulumi:"minRetryIntervalMillis"`
-	// An optional name for the job. The default value is Untitled.
-	Name *string `pulumi:"name"`
-	// Same set of parameters as for Cluster resource.
-	NewCluster      *JobNewCluster      `pulumi:"newCluster"`
-	NotebookTask    *JobNotebookTask    `pulumi:"notebookTask"`
-	PipelineTask    *JobPipelineTask    `pulumi:"pipelineTask"`
-	PythonWheelTask *JobPythonWheelTask `pulumi:"pythonWheelTask"`
-	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
-	RetryOnTimeout *bool `pulumi:"retryOnTimeout"`
-	// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
-	Schedule        *JobSchedule        `pulumi:"schedule"`
-	SparkJarTask    *JobSparkJarTask    `pulumi:"sparkJarTask"`
-	SparkPythonTask *JobSparkPythonTask `pulumi:"sparkPythonTask"`
-	SparkSubmitTask *JobSparkSubmitTask `pulumi:"sparkSubmitTask"`
-	Tasks           []JobTask           `pulumi:"tasks"`
-	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
-	TimeoutSeconds *int `pulumi:"timeoutSeconds"`
+	AlwaysRunning          *bool                  `pulumi:"alwaysRunning"`
+	EmailNotifications     *JobEmailNotifications `pulumi:"emailNotifications"`
+	ExistingClusterId      *string                `pulumi:"existingClusterId"`
+	Format                 *string                `pulumi:"format"`
+	GitSource              *JobGitSource          `pulumi:"gitSource"`
+	JobClusters            []JobJobCluster        `pulumi:"jobClusters"`
+	Libraries              []JobLibrary           `pulumi:"libraries"`
+	MaxConcurrentRuns      *int                   `pulumi:"maxConcurrentRuns"`
+	MaxRetries             *int                   `pulumi:"maxRetries"`
+	MinRetryIntervalMillis *int                   `pulumi:"minRetryIntervalMillis"`
+	Name                   *string                `pulumi:"name"`
+	NewCluster             *JobNewCluster         `pulumi:"newCluster"`
+	NotebookTask           *JobNotebookTask       `pulumi:"notebookTask"`
+	PipelineTask           *JobPipelineTask       `pulumi:"pipelineTask"`
+	PythonWheelTask        *JobPythonWheelTask    `pulumi:"pythonWheelTask"`
+	RetryOnTimeout         *bool                  `pulumi:"retryOnTimeout"`
+	Schedule               *JobSchedule           `pulumi:"schedule"`
+	SparkJarTask           *JobSparkJarTask       `pulumi:"sparkJarTask"`
+	SparkPythonTask        *JobSparkPythonTask    `pulumi:"sparkPythonTask"`
+	SparkSubmitTask        *JobSparkSubmitTask    `pulumi:"sparkSubmitTask"`
+	Tags                   map[string]interface{} `pulumi:"tags"`
+	Tasks                  []JobTask              `pulumi:"tasks"`
+	TimeoutSeconds         *int                   `pulumi:"timeoutSeconds"`
 }
 
 // The set of arguments for constructing a Job resource.
 type JobArgs struct {
-	// (Bool) Whenever the job is always running, like a Spark Streaming application, on every update restart the current active run or start it again, if nothing it is not running. False by default. Any job runs are started with `parameters` specified in `sparkJarTask` or `sparkSubmitTask` or `sparkPythonTask` or `notebookTask` blocks.
-	AlwaysRunning pulumi.BoolPtrInput
-	// (List) An optional set of email addresses notified when runs of this job begin and complete and when this job is deleted. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications JobEmailNotificationsPtrInput
-	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use `newCluster` for greater reliability.
-	ExistingClusterId pulumi.StringPtrInput
-	Format            pulumi.StringPtrInput
-	GitSource         JobGitSourcePtrInput
-	JobClusters       JobJobClusterArrayInput
-	// (Set) An optional list of libraries to be installed on the cluster that will execute the job. Please consult libraries section for Cluster resource.
-	Libraries JobLibraryArrayInput
-	// (Integer) An optional maximum allowed number of concurrent runs of the job. Defaults to *1*.
-	MaxConcurrentRuns pulumi.IntPtrInput
-	// (Integer) An optional maximum number of times to retry an unsuccessful run. A run is considered to be unsuccessful if it completes with a FAILED resultState or INTERNAL_ERROR life_cycle_state. The value -1 means to retry indefinitely and the value 0 means to never retry. The default behavior is to never retry.
-	MaxRetries pulumi.IntPtrInput
-	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+	AlwaysRunning          pulumi.BoolPtrInput
+	EmailNotifications     JobEmailNotificationsPtrInput
+	ExistingClusterId      pulumi.StringPtrInput
+	Format                 pulumi.StringPtrInput
+	GitSource              JobGitSourcePtrInput
+	JobClusters            JobJobClusterArrayInput
+	Libraries              JobLibraryArrayInput
+	MaxConcurrentRuns      pulumi.IntPtrInput
+	MaxRetries             pulumi.IntPtrInput
 	MinRetryIntervalMillis pulumi.IntPtrInput
-	// An optional name for the job. The default value is Untitled.
-	Name pulumi.StringPtrInput
-	// Same set of parameters as for Cluster resource.
-	NewCluster      JobNewClusterPtrInput
-	NotebookTask    JobNotebookTaskPtrInput
-	PipelineTask    JobPipelineTaskPtrInput
-	PythonWheelTask JobPythonWheelTaskPtrInput
-	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
-	RetryOnTimeout pulumi.BoolPtrInput
-	// (List) An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. This field is a block and is documented below.
-	Schedule        JobSchedulePtrInput
-	SparkJarTask    JobSparkJarTaskPtrInput
-	SparkPythonTask JobSparkPythonTaskPtrInput
-	SparkSubmitTask JobSparkSubmitTaskPtrInput
-	Tasks           JobTaskArrayInput
-	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
-	TimeoutSeconds pulumi.IntPtrInput
+	Name                   pulumi.StringPtrInput
+	NewCluster             JobNewClusterPtrInput
+	NotebookTask           JobNotebookTaskPtrInput
+	PipelineTask           JobPipelineTaskPtrInput
+	PythonWheelTask        JobPythonWheelTaskPtrInput
+	RetryOnTimeout         pulumi.BoolPtrInput
+	Schedule               JobSchedulePtrInput
+	SparkJarTask           JobSparkJarTaskPtrInput
+	SparkPythonTask        JobSparkPythonTaskPtrInput
+	SparkSubmitTask        JobSparkSubmitTaskPtrInput
+	Tags                   pulumi.MapInput
+	Tasks                  JobTaskArrayInput
+	TimeoutSeconds         pulumi.IntPtrInput
 }
 
 func (JobArgs) ElementType() reflect.Type {

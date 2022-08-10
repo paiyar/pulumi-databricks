@@ -4,15 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * The resource notebook can be imported using notebook path bash
- *
- * ```sh
- *  $ pulumi import databricks:index/notebook:Notebook this /path/to/notebook
- * ```
- */
 export class Notebook extends pulumi.CustomResource {
     /**
      * Get an existing Notebook resource's state with the given name, ID, and optional extra
@@ -43,14 +34,9 @@ export class Notebook extends pulumi.CustomResource {
 
     public readonly contentBase64!: pulumi.Output<string | undefined>;
     public readonly format!: pulumi.Output<string | undefined>;
-    /**
-     * One of `SCALA`, `PYTHON`, `SQL`, `R`.
-     */
     public readonly language!: pulumi.Output<string | undefined>;
     public readonly md5!: pulumi.Output<string | undefined>;
     /**
-     * Unique identifier for a NOTEBOOK
-     *
      * @deprecated Use id argument to retrieve object id
      */
     public readonly objectId!: pulumi.Output<number>;
@@ -58,17 +44,8 @@ export class Notebook extends pulumi.CustomResource {
      * @deprecated Always is a notebook
      */
     public readonly objectType!: pulumi.Output<string>;
-    /**
-     * The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-     */
     public readonly path!: pulumi.Output<string>;
-    /**
-     * Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-     */
     public readonly source!: pulumi.Output<string | undefined>;
-    /**
-     * Routable URL of the notebook
-     */
     public /*out*/ readonly url!: pulumi.Output<string>;
 
     /**
@@ -119,14 +96,9 @@ export class Notebook extends pulumi.CustomResource {
 export interface NotebookState {
     contentBase64?: pulumi.Input<string>;
     format?: pulumi.Input<string>;
-    /**
-     * One of `SCALA`, `PYTHON`, `SQL`, `R`.
-     */
     language?: pulumi.Input<string>;
     md5?: pulumi.Input<string>;
     /**
-     * Unique identifier for a NOTEBOOK
-     *
      * @deprecated Use id argument to retrieve object id
      */
     objectId?: pulumi.Input<number>;
@@ -134,17 +106,8 @@ export interface NotebookState {
      * @deprecated Always is a notebook
      */
     objectType?: pulumi.Input<string>;
-    /**
-     * The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-     */
     path?: pulumi.Input<string>;
-    /**
-     * Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-     */
     source?: pulumi.Input<string>;
-    /**
-     * Routable URL of the notebook
-     */
     url?: pulumi.Input<string>;
 }
 
@@ -154,14 +117,9 @@ export interface NotebookState {
 export interface NotebookArgs {
     contentBase64?: pulumi.Input<string>;
     format?: pulumi.Input<string>;
-    /**
-     * One of `SCALA`, `PYTHON`, `SQL`, `R`.
-     */
     language?: pulumi.Input<string>;
     md5?: pulumi.Input<string>;
     /**
-     * Unique identifier for a NOTEBOOK
-     *
      * @deprecated Use id argument to retrieve object id
      */
     objectId?: pulumi.Input<number>;
@@ -169,12 +127,6 @@ export interface NotebookArgs {
      * @deprecated Always is a notebook
      */
     objectType?: pulumi.Input<string>;
-    /**
-     * The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-     */
     path: pulumi.Input<string>;
-    /**
-     * Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-     */
     source?: pulumi.Input<string>;
 }

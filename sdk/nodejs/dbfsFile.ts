@@ -4,15 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * The resource dbfs file can be imported using the path of the file bash
- *
- * ```sh
- *  $ pulumi import databricks:index/dbfsFile:DbfsFile this <path>
- * ```
- */
 export class DbfsFile extends pulumi.CustomResource {
     /**
      * Get an existing DbfsFile resource's state with the given name, ID, and optional extra
@@ -42,22 +33,10 @@ export class DbfsFile extends pulumi.CustomResource {
     }
 
     public readonly contentBase64!: pulumi.Output<string | undefined>;
-    /**
-     * Path, but with `dbfs:` prefix
-     */
     public /*out*/ readonly dbfsPath!: pulumi.Output<string>;
-    /**
-     * The file size of the file that is being tracked by this resource in bytes.
-     */
     public /*out*/ readonly fileSize!: pulumi.Output<number>;
     public readonly md5!: pulumi.Output<string | undefined>;
-    /**
-     * The path of the file in which you wish to save.
-     */
     public readonly path!: pulumi.Output<string>;
-    /**
-     * The full absolute path to the file. Conflicts with `contentBase64`.
-     */
     public readonly source!: pulumi.Output<string | undefined>;
 
     /**
@@ -101,22 +80,10 @@ export class DbfsFile extends pulumi.CustomResource {
  */
 export interface DbfsFileState {
     contentBase64?: pulumi.Input<string>;
-    /**
-     * Path, but with `dbfs:` prefix
-     */
     dbfsPath?: pulumi.Input<string>;
-    /**
-     * The file size of the file that is being tracked by this resource in bytes.
-     */
     fileSize?: pulumi.Input<number>;
     md5?: pulumi.Input<string>;
-    /**
-     * The path of the file in which you wish to save.
-     */
     path?: pulumi.Input<string>;
-    /**
-     * The full absolute path to the file. Conflicts with `contentBase64`.
-     */
     source?: pulumi.Input<string>;
 }
 
@@ -126,12 +93,6 @@ export interface DbfsFileState {
 export interface DbfsFileArgs {
     contentBase64?: pulumi.Input<string>;
     md5?: pulumi.Input<string>;
-    /**
-     * The path of the file in which you wish to save.
-     */
     path: pulumi.Input<string>;
-    /**
-     * The full absolute path to the file. Conflicts with `contentBase64`.
-     */
     source?: pulumi.Input<string>;
 }

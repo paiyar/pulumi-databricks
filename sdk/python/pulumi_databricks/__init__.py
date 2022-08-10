@@ -19,19 +19,26 @@ from .get_aws_assume_role_policy import *
 from .get_aws_bucket_policy import *
 from .get_aws_crossaccount_policy import *
 from .get_catalogs import *
+from .get_cluster import *
 from .get_clusters import *
 from .get_current_user import *
 from .get_dbfs_file import *
 from .get_dbfs_file_paths import *
 from .get_group import *
 from .get_jobs import *
+from .get_mws_workspaces import *
 from .get_node_type import *
 from .get_notebook import *
 from .get_notebook_paths import *
 from .get_schemas import *
+from .get_service_principal import *
+from .get_service_principals import *
 from .get_spark_version import *
+from .get_sql_warehouse import *
+from .get_sql_warehouses import *
 from .get_tables import *
 from .get_user import *
+from .get_views import *
 from .get_zones import *
 from .git_credential import *
 from .global_init_script import *
@@ -55,12 +62,14 @@ from .mws_credentials import *
 from .mws_customer_managed_keys import *
 from .mws_log_delivery import *
 from .mws_networks import *
+from .mws_permission_assignment import *
 from .mws_private_access_settings import *
 from .mws_storage_configurations import *
 from .mws_vpc_endpoint import *
 from .mws_workspaces import *
 from .notebook import *
 from .obo_token import *
+from .permission_assignment import *
 from .permissions import *
 from .pipeline import *
 from .provider import *
@@ -70,6 +79,7 @@ from .secret import *
 from .secret_acl import *
 from .secret_scope import *
 from .service_principal import *
+from .service_principal_role import *
 from .sql_dashboard import *
 from .sql_endpoint import *
 from .sql_global_config import *
@@ -355,6 +365,14 @@ _utilities.register(
  },
  {
   "pkg": "databricks",
+  "mod": "index/mwsPermissionAssignment",
+  "fqn": "pulumi_databricks",
+  "classes": {
+   "databricks:index/mwsPermissionAssignment:MwsPermissionAssignment": "MwsPermissionAssignment"
+  }
+ },
+ {
+  "pkg": "databricks",
   "mod": "index/mwsPrivateAccessSettings",
   "fqn": "pulumi_databricks",
   "classes": {
@@ -399,6 +417,14 @@ _utilities.register(
   "fqn": "pulumi_databricks",
   "classes": {
    "databricks:index/oboToken:OboToken": "OboToken"
+  }
+ },
+ {
+  "pkg": "databricks",
+  "mod": "index/permissionAssignment",
+  "fqn": "pulumi_databricks",
+  "classes": {
+   "databricks:index/permissionAssignment:PermissionAssignment": "PermissionAssignment"
   }
  },
  {
@@ -463,6 +489,14 @@ _utilities.register(
   "fqn": "pulumi_databricks",
   "classes": {
    "databricks:index/servicePrincipal:ServicePrincipal": "ServicePrincipal"
+  }
+ },
+ {
+  "pkg": "databricks",
+  "mod": "index/servicePrincipalRole",
+  "fqn": "pulumi_databricks",
+  "classes": {
+   "databricks:index/servicePrincipalRole:ServicePrincipalRole": "ServicePrincipalRole"
   }
  },
  {

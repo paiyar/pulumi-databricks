@@ -11,63 +11,17 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-//
-// Each Metastore requires an IAM role that will be assumed by Unity Catalog to access data. `MetastoreDataAccess` defines this
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"fmt"
-//
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		thisMetastore, err := databricks.NewMetastore(ctx, "thisMetastore", &databricks.MetastoreArgs{
-// 			StorageRoot:  pulumi.String(fmt.Sprintf("%v%v%v", "s3://", aws_s3_bucket.Metastore.Id, "/metastore")),
-// 			Owner:        pulumi.String("uc admins"),
-// 			ForceDestroy: pulumi.Bool(true),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewMetastoreDataAccess(ctx, "thisMetastoreDataAccess", &databricks.MetastoreDataAccessArgs{
-// 			MetastoreId: thisMetastore.ID(),
-// 			AwsIamRole: &MetastoreDataAccessAwsIamRoleArgs{
-// 				RoleArn: pulumi.Any(aws_iam_role.Metastore_data_access.Arn),
-// 			},
-// 			IsDefault: pulumi.Bool(true),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type MetastoreDataAccess struct {
 	pulumi.CustomResourceState
 
 	AwsIamRole            MetastoreDataAccessAwsIamRolePtrOutput            `pulumi:"awsIamRole"`
+	AzureManagedIdentity  MetastoreDataAccessAzureManagedIdentityPtrOutput  `pulumi:"azureManagedIdentity"`
 	AzureServicePrincipal MetastoreDataAccessAzureServicePrincipalPtrOutput `pulumi:"azureServicePrincipal"`
 	ConfigurationType     pulumi.StringOutput                               `pulumi:"configurationType"`
 	Id                    pulumi.StringOutput                               `pulumi:"id"`
 	IsDefault             pulumi.BoolPtrOutput                              `pulumi:"isDefault"`
-	// Unique identifier of the parent Metastore
-	MetastoreId pulumi.StringOutput `pulumi:"metastoreId"`
-	// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringOutput `pulumi:"name"`
+	MetastoreId           pulumi.StringOutput                               `pulumi:"metastoreId"`
+	Name                  pulumi.StringOutput                               `pulumi:"name"`
 }
 
 // NewMetastoreDataAccess registers a new resource with the given unique name, arguments, and options.
@@ -103,26 +57,24 @@ func GetMetastoreDataAccess(ctx *pulumi.Context,
 // Input properties used for looking up and filtering MetastoreDataAccess resources.
 type metastoreDataAccessState struct {
 	AwsIamRole            *MetastoreDataAccessAwsIamRole            `pulumi:"awsIamRole"`
+	AzureManagedIdentity  *MetastoreDataAccessAzureManagedIdentity  `pulumi:"azureManagedIdentity"`
 	AzureServicePrincipal *MetastoreDataAccessAzureServicePrincipal `pulumi:"azureServicePrincipal"`
 	ConfigurationType     *string                                   `pulumi:"configurationType"`
 	Id                    *string                                   `pulumi:"id"`
 	IsDefault             *bool                                     `pulumi:"isDefault"`
-	// Unique identifier of the parent Metastore
-	MetastoreId *string `pulumi:"metastoreId"`
-	// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
+	MetastoreId           *string                                   `pulumi:"metastoreId"`
+	Name                  *string                                   `pulumi:"name"`
 }
 
 type MetastoreDataAccessState struct {
 	AwsIamRole            MetastoreDataAccessAwsIamRolePtrInput
+	AzureManagedIdentity  MetastoreDataAccessAzureManagedIdentityPtrInput
 	AzureServicePrincipal MetastoreDataAccessAzureServicePrincipalPtrInput
 	ConfigurationType     pulumi.StringPtrInput
 	Id                    pulumi.StringPtrInput
 	IsDefault             pulumi.BoolPtrInput
-	// Unique identifier of the parent Metastore
-	MetastoreId pulumi.StringPtrInput
-	// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
+	MetastoreId           pulumi.StringPtrInput
+	Name                  pulumi.StringPtrInput
 }
 
 func (MetastoreDataAccessState) ElementType() reflect.Type {
@@ -131,27 +83,25 @@ func (MetastoreDataAccessState) ElementType() reflect.Type {
 
 type metastoreDataAccessArgs struct {
 	AwsIamRole            *MetastoreDataAccessAwsIamRole            `pulumi:"awsIamRole"`
+	AzureManagedIdentity  *MetastoreDataAccessAzureManagedIdentity  `pulumi:"azureManagedIdentity"`
 	AzureServicePrincipal *MetastoreDataAccessAzureServicePrincipal `pulumi:"azureServicePrincipal"`
 	ConfigurationType     *string                                   `pulumi:"configurationType"`
 	Id                    *string                                   `pulumi:"id"`
 	IsDefault             *bool                                     `pulumi:"isDefault"`
-	// Unique identifier of the parent Metastore
-	MetastoreId string `pulumi:"metastoreId"`
-	// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
+	MetastoreId           string                                    `pulumi:"metastoreId"`
+	Name                  *string                                   `pulumi:"name"`
 }
 
 // The set of arguments for constructing a MetastoreDataAccess resource.
 type MetastoreDataAccessArgs struct {
 	AwsIamRole            MetastoreDataAccessAwsIamRolePtrInput
+	AzureManagedIdentity  MetastoreDataAccessAzureManagedIdentityPtrInput
 	AzureServicePrincipal MetastoreDataAccessAzureServicePrincipalPtrInput
 	ConfigurationType     pulumi.StringPtrInput
 	Id                    pulumi.StringPtrInput
 	IsDefault             pulumi.BoolPtrInput
-	// Unique identifier of the parent Metastore
-	MetastoreId pulumi.StringInput
-	// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
+	MetastoreId           pulumi.StringInput
+	Name                  pulumi.StringPtrInput
 }
 
 func (MetastoreDataAccessArgs) ElementType() reflect.Type {

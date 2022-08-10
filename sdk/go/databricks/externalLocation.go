@@ -11,85 +11,16 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-//
-// To work with external tables, Unity Catalog introduces two new objects to access and work with external cloud storage:
-// - StorageCredential represent authentication methods to access cloud storage (e.g. an IAM role for Amazon S3 or a service principal for Azure Storage). Storage credentials are access-controlled to determine which users can use the credential.
-// - `ExternalLocation` are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"fmt"
-//
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		external, err := databricks.NewStorageCredential(ctx, "external", &databricks.StorageCredentialArgs{
-// 			AwsIamRole: &StorageCredentialAwsIamRoleArgs{
-// 				RoleArn: pulumi.Any(aws_iam_role.External_data_access.Arn),
-// 			},
-// 			Comment: pulumi.String("Managed by TF"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		someExternalLocation, err := databricks.NewExternalLocation(ctx, "someExternalLocation", &databricks.ExternalLocationArgs{
-// 			Url:            pulumi.String(fmt.Sprintf("%v%v%v", "s3://", aws_s3_bucket.External.Id, "/some")),
-// 			CredentialName: external.ID(),
-// 			Comment:        pulumi.String("Managed by TF"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewGrants(ctx, "someGrants", &databricks.GrantsArgs{
-// 			ExternalLocation: someExternalLocation.ID(),
-// 			Grants: GrantsGrantArray{
-// 				&GrantsGrantArgs{
-// 					Principal: pulumi.String("Data Engineers"),
-// 					Privileges: pulumi.StringArray{
-// 						pulumi.String("CREATE TABLE"),
-// 						pulumi.String("READ FILES"),
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// ## Import
-//
-// This resource can be imported by namebash
-//
-// ```sh
-//  $ pulumi import databricks:index/externalLocation:ExternalLocation this <name>
-// ```
 type ExternalLocation struct {
 	pulumi.CustomResourceState
 
-	// User-supplied free-form text.
-	Comment pulumi.StringPtrOutput `pulumi:"comment"`
-	// Name of the StorageCredential to use with this External Location.
-	CredentialName pulumi.StringOutput `pulumi:"credentialName"`
-	MetastoreId    pulumi.StringOutput `pulumi:"metastoreId"`
-	// Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringOutput `pulumi:"name"`
-	// Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-	Owner pulumi.StringOutput `pulumi:"owner"`
-	// Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-	Url pulumi.StringOutput `pulumi:"url"`
+	Comment        pulumi.StringPtrOutput `pulumi:"comment"`
+	CredentialName pulumi.StringOutput    `pulumi:"credentialName"`
+	MetastoreId    pulumi.StringOutput    `pulumi:"metastoreId"`
+	Name           pulumi.StringOutput    `pulumi:"name"`
+	Owner          pulumi.StringOutput    `pulumi:"owner"`
+	SkipValidation pulumi.BoolPtrOutput   `pulumi:"skipValidation"`
+	Url            pulumi.StringOutput    `pulumi:"url"`
 }
 
 // NewExternalLocation registers a new resource with the given unique name, arguments, and options.
@@ -127,31 +58,23 @@ func GetExternalLocation(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering ExternalLocation resources.
 type externalLocationState struct {
-	// User-supplied free-form text.
-	Comment *string `pulumi:"comment"`
-	// Name of the StorageCredential to use with this External Location.
+	Comment        *string `pulumi:"comment"`
 	CredentialName *string `pulumi:"credentialName"`
 	MetastoreId    *string `pulumi:"metastoreId"`
-	// Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
-	// Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-	Owner *string `pulumi:"owner"`
-	// Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-	Url *string `pulumi:"url"`
+	Name           *string `pulumi:"name"`
+	Owner          *string `pulumi:"owner"`
+	SkipValidation *bool   `pulumi:"skipValidation"`
+	Url            *string `pulumi:"url"`
 }
 
 type ExternalLocationState struct {
-	// User-supplied free-form text.
-	Comment pulumi.StringPtrInput
-	// Name of the StorageCredential to use with this External Location.
+	Comment        pulumi.StringPtrInput
 	CredentialName pulumi.StringPtrInput
 	MetastoreId    pulumi.StringPtrInput
-	// Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
-	// Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-	Owner pulumi.StringPtrInput
-	// Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-	Url pulumi.StringPtrInput
+	Name           pulumi.StringPtrInput
+	Owner          pulumi.StringPtrInput
+	SkipValidation pulumi.BoolPtrInput
+	Url            pulumi.StringPtrInput
 }
 
 func (ExternalLocationState) ElementType() reflect.Type {
@@ -159,32 +82,24 @@ func (ExternalLocationState) ElementType() reflect.Type {
 }
 
 type externalLocationArgs struct {
-	// User-supplied free-form text.
-	Comment *string `pulumi:"comment"`
-	// Name of the StorageCredential to use with this External Location.
+	Comment        *string `pulumi:"comment"`
 	CredentialName string  `pulumi:"credentialName"`
 	MetastoreId    *string `pulumi:"metastoreId"`
-	// Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name *string `pulumi:"name"`
-	// Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-	Owner *string `pulumi:"owner"`
-	// Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-	Url string `pulumi:"url"`
+	Name           *string `pulumi:"name"`
+	Owner          *string `pulumi:"owner"`
+	SkipValidation *bool   `pulumi:"skipValidation"`
+	Url            string  `pulumi:"url"`
 }
 
 // The set of arguments for constructing a ExternalLocation resource.
 type ExternalLocationArgs struct {
-	// User-supplied free-form text.
-	Comment pulumi.StringPtrInput
-	// Name of the StorageCredential to use with this External Location.
+	Comment        pulumi.StringPtrInput
 	CredentialName pulumi.StringInput
 	MetastoreId    pulumi.StringPtrInput
-	// Name of External Location, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-	Name pulumi.StringPtrInput
-	// Username/groupname of External Location owner. Currently this field can only be changed after the resource is created.
-	Owner pulumi.StringPtrInput
-	// Path URL in cloud storage, of the form: `s3://bucket-host/[bucket-dir]` (AWS), `abfss://[user@]host/[path]` (Azure).
-	Url pulumi.StringInput
+	Name           pulumi.StringPtrInput
+	Owner          pulumi.StringPtrInput
+	SkipValidation pulumi.BoolPtrInput
+	Url            pulumi.StringInput
 }
 
 func (ExternalLocationArgs) ElementType() reflect.Type {

@@ -83,50 +83,7 @@ class SqlDashboard(pulumi.CustomResource):
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
-        This resource is used to manage [Databricks SQL Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html). To manage [SQLA resources](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricks_sql_access` on your Group or databricks_user.
-
-        **Note:** documentation for this resource is a work in progress.
-
-        A dashboard may have one or more widgets.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        d1 = databricks.SqlDashboard("d1", tags=[
-            "some-tag",
-            "another-tag",
-        ])
-        ```
-
-        Example permission to share dashboard with all users:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        d1 = databricks.Permissions("d1",
-            sql_dashboard_id=databricks_sql_dashboard["d1"]["id"],
-            access_controls=[databricks.PermissionsAccessControlArgs(
-                group_name=data["databricks_group"]["users"]["display_name"],
-                permission_level="CAN_RUN",
-            )])
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * SqlEndpoint to manage Databricks SQL [Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html).
-        * SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all SqlEndpoint of workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a SqlDashboard resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
@@ -137,50 +94,7 @@ class SqlDashboard(pulumi.CustomResource):
                  args: Optional[SqlDashboardArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        This resource is used to manage [Databricks SQL Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html). To manage [SQLA resources](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricks_sql_access` on your Group or databricks_user.
-
-        **Note:** documentation for this resource is a work in progress.
-
-        A dashboard may have one or more widgets.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        d1 = databricks.SqlDashboard("d1", tags=[
-            "some-tag",
-            "another-tag",
-        ])
-        ```
-
-        Example permission to share dashboard with all users:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        d1 = databricks.Permissions("d1",
-            sql_dashboard_id=databricks_sql_dashboard["d1"]["id"],
-            access_controls=[databricks.PermissionsAccessControlArgs(
-                group_name=data["databricks_group"]["users"]["display_name"],
-                permission_level="CAN_RUN",
-            )])
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * SqlEndpoint to manage Databricks SQL [Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html).
-        * SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all SqlEndpoint of workspace.
-        * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a SqlDashboard resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param SqlDashboardArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

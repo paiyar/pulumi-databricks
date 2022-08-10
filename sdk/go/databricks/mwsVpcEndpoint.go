@@ -11,27 +11,18 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type MwsVpcEndpoint struct {
 	pulumi.CustomResourceState
 
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId    pulumi.StringPtrOutput `pulumi:"accountId"`
-	AwsAccountId pulumi.StringOutput    `pulumi:"awsAccountId"`
-	// ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-	AwsEndpointServiceId pulumi.StringOutput `pulumi:"awsEndpointServiceId"`
-	AwsVpcEndpointId     pulumi.StringOutput `pulumi:"awsVpcEndpointId"`
-	// Region of AWS VPC
-	Region pulumi.StringOutput `pulumi:"region"`
-	// State of VPC Endpoint
-	State   pulumi.StringOutput `pulumi:"state"`
-	UseCase pulumi.StringOutput `pulumi:"useCase"`
-	// Canonical unique identifier of VPC Endpoint in Databricks Account
-	VpcEndpointId pulumi.StringOutput `pulumi:"vpcEndpointId"`
-	// Name of VPC Endpoint in Databricks Account
-	VpcEndpointName pulumi.StringOutput `pulumi:"vpcEndpointName"`
+	AccountId            pulumi.StringPtrOutput `pulumi:"accountId"`
+	AwsAccountId         pulumi.StringOutput    `pulumi:"awsAccountId"`
+	AwsEndpointServiceId pulumi.StringOutput    `pulumi:"awsEndpointServiceId"`
+	AwsVpcEndpointId     pulumi.StringOutput    `pulumi:"awsVpcEndpointId"`
+	Region               pulumi.StringOutput    `pulumi:"region"`
+	State                pulumi.StringOutput    `pulumi:"state"`
+	UseCase              pulumi.StringOutput    `pulumi:"useCase"`
+	VpcEndpointId        pulumi.StringOutput    `pulumi:"vpcEndpointId"`
+	VpcEndpointName      pulumi.StringOutput    `pulumi:"vpcEndpointName"`
 }
 
 // NewMwsVpcEndpoint registers a new resource with the given unique name, arguments, and options.
@@ -72,39 +63,27 @@ func GetMwsVpcEndpoint(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering MwsVpcEndpoint resources.
 type mwsVpcEndpointState struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId    *string `pulumi:"accountId"`
-	AwsAccountId *string `pulumi:"awsAccountId"`
-	// ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
+	AccountId            *string `pulumi:"accountId"`
+	AwsAccountId         *string `pulumi:"awsAccountId"`
 	AwsEndpointServiceId *string `pulumi:"awsEndpointServiceId"`
 	AwsVpcEndpointId     *string `pulumi:"awsVpcEndpointId"`
-	// Region of AWS VPC
-	Region *string `pulumi:"region"`
-	// State of VPC Endpoint
-	State   *string `pulumi:"state"`
-	UseCase *string `pulumi:"useCase"`
-	// Canonical unique identifier of VPC Endpoint in Databricks Account
-	VpcEndpointId *string `pulumi:"vpcEndpointId"`
-	// Name of VPC Endpoint in Databricks Account
-	VpcEndpointName *string `pulumi:"vpcEndpointName"`
+	Region               *string `pulumi:"region"`
+	State                *string `pulumi:"state"`
+	UseCase              *string `pulumi:"useCase"`
+	VpcEndpointId        *string `pulumi:"vpcEndpointId"`
+	VpcEndpointName      *string `pulumi:"vpcEndpointName"`
 }
 
 type MwsVpcEndpointState struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId    pulumi.StringPtrInput
-	AwsAccountId pulumi.StringPtrInput
-	// ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
+	AccountId            pulumi.StringPtrInput
+	AwsAccountId         pulumi.StringPtrInput
 	AwsEndpointServiceId pulumi.StringPtrInput
 	AwsVpcEndpointId     pulumi.StringPtrInput
-	// Region of AWS VPC
-	Region pulumi.StringPtrInput
-	// State of VPC Endpoint
-	State   pulumi.StringPtrInput
-	UseCase pulumi.StringPtrInput
-	// Canonical unique identifier of VPC Endpoint in Databricks Account
-	VpcEndpointId pulumi.StringPtrInput
-	// Name of VPC Endpoint in Databricks Account
-	VpcEndpointName pulumi.StringPtrInput
+	Region               pulumi.StringPtrInput
+	State                pulumi.StringPtrInput
+	UseCase              pulumi.StringPtrInput
+	VpcEndpointId        pulumi.StringPtrInput
+	VpcEndpointName      pulumi.StringPtrInput
 }
 
 func (MwsVpcEndpointState) ElementType() reflect.Type {
@@ -112,40 +91,28 @@ func (MwsVpcEndpointState) ElementType() reflect.Type {
 }
 
 type mwsVpcEndpointArgs struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId    *string `pulumi:"accountId"`
-	AwsAccountId *string `pulumi:"awsAccountId"`
-	// ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
+	AccountId            *string `pulumi:"accountId"`
+	AwsAccountId         *string `pulumi:"awsAccountId"`
 	AwsEndpointServiceId *string `pulumi:"awsEndpointServiceId"`
 	AwsVpcEndpointId     string  `pulumi:"awsVpcEndpointId"`
-	// Region of AWS VPC
-	Region string `pulumi:"region"`
-	// State of VPC Endpoint
-	State   *string `pulumi:"state"`
-	UseCase *string `pulumi:"useCase"`
-	// Canonical unique identifier of VPC Endpoint in Databricks Account
-	VpcEndpointId *string `pulumi:"vpcEndpointId"`
-	// Name of VPC Endpoint in Databricks Account
-	VpcEndpointName string `pulumi:"vpcEndpointName"`
+	Region               string  `pulumi:"region"`
+	State                *string `pulumi:"state"`
+	UseCase              *string `pulumi:"useCase"`
+	VpcEndpointId        *string `pulumi:"vpcEndpointId"`
+	VpcEndpointName      string  `pulumi:"vpcEndpointName"`
 }
 
 // The set of arguments for constructing a MwsVpcEndpoint resource.
 type MwsVpcEndpointArgs struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId    pulumi.StringPtrInput
-	AwsAccountId pulumi.StringPtrInput
-	// ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
+	AccountId            pulumi.StringPtrInput
+	AwsAccountId         pulumi.StringPtrInput
 	AwsEndpointServiceId pulumi.StringPtrInput
 	AwsVpcEndpointId     pulumi.StringInput
-	// Region of AWS VPC
-	Region pulumi.StringInput
-	// State of VPC Endpoint
-	State   pulumi.StringPtrInput
-	UseCase pulumi.StringPtrInput
-	// Canonical unique identifier of VPC Endpoint in Databricks Account
-	VpcEndpointId pulumi.StringPtrInput
-	// Name of VPC Endpoint in Databricks Account
-	VpcEndpointName pulumi.StringInput
+	Region               pulumi.StringInput
+	State                pulumi.StringPtrInput
+	UseCase              pulumi.StringPtrInput
+	VpcEndpointId        pulumi.StringPtrInput
+	VpcEndpointName      pulumi.StringInput
 }
 
 func (MwsVpcEndpointArgs) ElementType() reflect.Type {

@@ -13,13 +13,7 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class InstancePoolAzureAttributes
     {
-        /// <summary>
-        /// Availability type used for all nodes. Valid values are `PREEMPTIBLE_GCP`, `PREEMPTIBLE_WITH_FALLBACK_GCP` and `ON_DEMAND_GCP`, default: `ON_DEMAND_GCP`.
-        /// </summary>
         public readonly string? Availability;
-        /// <summary>
-        /// The max price for Azure spot instances.  Use `-1` to specify lowest price.
-        /// </summary>
         public readonly double? SpotBidMaxPrice;
 
         [OutputConstructor]

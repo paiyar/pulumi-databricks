@@ -146,17 +146,6 @@ def get_spark_version(beta: Optional[bool] = None,
                       opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSparkVersionResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param bool beta: if we should limit the search only to runtimes that are in Beta stage. Default to `false`.
-    :param bool genomics: if we should limit the search only to Genomics (HLS) runtimes. Default to `false`.
-    :param bool gpu: if we should limit the search only to runtimes that support GPUs. Default to `false`.
-    :param bool graviton: if we should limit the search only to runtimes supporting AWS Graviton CPUs. Default to `false`.
-    :param bool latest: if we should return only the latest version if there is more than one result.  Default to `true`. If set to `false` and multiple versions are matching, throws an error.
-    :param bool long_term_support: if we should limit the search only to LTS (long term support) & ESR (extended support) versions. Default to `false`.
-    :param bool ml: if we should limit the search only to ML runtimes. Default to `false`.
-    :param bool photon: if we should limit the search only to Photon runtimes. Default to `false`.
-    :param str scala: if we should limit the search only to runtimes that are based on specific Scala version. Default to `2.12`.
-    :param str spark_version: if we should limit the search only to runtimes that are based on specific Spark version. Default to empty string.  It could be specified as `3`, or `3.0`, or full version, like, `3.0.1`.
     """
     __args__ = dict()
     __args__['beta'] = beta
@@ -203,16 +192,5 @@ def get_spark_version_output(beta: Optional[pulumi.Input[Optional[bool]]] = None
                              opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSparkVersionResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param bool beta: if we should limit the search only to runtimes that are in Beta stage. Default to `false`.
-    :param bool genomics: if we should limit the search only to Genomics (HLS) runtimes. Default to `false`.
-    :param bool gpu: if we should limit the search only to runtimes that support GPUs. Default to `false`.
-    :param bool graviton: if we should limit the search only to runtimes supporting AWS Graviton CPUs. Default to `false`.
-    :param bool latest: if we should return only the latest version if there is more than one result.  Default to `true`. If set to `false` and multiple versions are matching, throws an error.
-    :param bool long_term_support: if we should limit the search only to LTS (long term support) & ESR (extended support) versions. Default to `false`.
-    :param bool ml: if we should limit the search only to ML runtimes. Default to `false`.
-    :param bool photon: if we should limit the search only to Photon runtimes. Default to `false`.
-    :param str scala: if we should limit the search only to runtimes that are based on specific Scala version. Default to `2.12`.
-    :param str spark_version: if we should limit the search only to runtimes that are based on specific Spark version. Default to empty string.  It could be specified as `3`, or `3.0`, or full version, like, `3.0.1`.
     """
     ...

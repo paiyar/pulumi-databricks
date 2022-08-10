@@ -47,9 +47,6 @@ class GetClustersResult:
     @property
     @pulumi.getter
     def ids(self) -> Sequence[str]:
-        """
-        list of Cluster ids
-        """
         return pulumi.get(self, "ids")
 
 
@@ -68,8 +65,6 @@ def get_clusters(cluster_name_contains: Optional[str] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetClustersResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str cluster_name_contains: Only return Cluster ids that match the given name string.
     """
     __args__ = dict()
     __args__['clusterNameContains'] = cluster_name_contains
@@ -90,7 +85,5 @@ def get_clusters_output(cluster_name_contains: Optional[pulumi.Input[Optional[st
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetClustersResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str cluster_name_contains: Only return Cluster ids that match the given name string.
     """
     ...

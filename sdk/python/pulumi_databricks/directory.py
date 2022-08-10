@@ -18,8 +18,6 @@ class DirectoryArgs:
                  object_id: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a Directory resource.
-        :param pulumi.Input[str] path: The absolute path of the directory, beginning with "/", e.g. "/Demo".
-        :param pulumi.Input[int] object_id: Unique identifier for a DIRECTORY
         """
         pulumi.set(__self__, "path", path)
         if delete_recursive is not None:
@@ -30,9 +28,6 @@ class DirectoryArgs:
     @property
     @pulumi.getter
     def path(self) -> pulumi.Input[str]:
-        """
-        The absolute path of the directory, beginning with "/", e.g. "/Demo".
-        """
         return pulumi.get(self, "path")
 
     @path.setter
@@ -51,9 +46,6 @@ class DirectoryArgs:
     @property
     @pulumi.getter(name="objectId")
     def object_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        Unique identifier for a DIRECTORY
-        """
         return pulumi.get(self, "object_id")
 
     @object_id.setter
@@ -69,8 +61,6 @@ class _DirectoryState:
                  path: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Directory resources.
-        :param pulumi.Input[int] object_id: Unique identifier for a DIRECTORY
-        :param pulumi.Input[str] path: The absolute path of the directory, beginning with "/", e.g. "/Demo".
         """
         if delete_recursive is not None:
             pulumi.set(__self__, "delete_recursive", delete_recursive)
@@ -91,9 +81,6 @@ class _DirectoryState:
     @property
     @pulumi.getter(name="objectId")
     def object_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        Unique identifier for a DIRECTORY
-        """
         return pulumi.get(self, "object_id")
 
     @object_id.setter
@@ -103,9 +90,6 @@ class _DirectoryState:
     @property
     @pulumi.getter
     def path(self) -> Optional[pulumi.Input[str]]:
-        """
-        The absolute path of the directory, beginning with "/", e.g. "/Demo".
-        """
         return pulumi.get(self, "path")
 
     @path.setter
@@ -123,18 +107,9 @@ class Directory(pulumi.CustomResource):
                  path: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## Import
-
-        The resource directory can be imported using directory path bash
-
-        ```sh
-         $ pulumi import databricks:index/directory:Directory this /path/to/directory
-        ```
-
+        Create a Directory resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[int] object_id: Unique identifier for a DIRECTORY
-        :param pulumi.Input[str] path: The absolute path of the directory, beginning with "/", e.g. "/Demo".
         """
         ...
     @overload
@@ -143,14 +118,7 @@ class Directory(pulumi.CustomResource):
                  args: DirectoryArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        The resource directory can be imported using directory path bash
-
-        ```sh
-         $ pulumi import databricks:index/directory:Directory this /path/to/directory
-        ```
-
+        Create a Directory resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param DirectoryArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -206,8 +174,6 @@ class Directory(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[int] object_id: Unique identifier for a DIRECTORY
-        :param pulumi.Input[str] path: The absolute path of the directory, beginning with "/", e.g. "/Demo".
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -226,16 +192,10 @@ class Directory(pulumi.CustomResource):
     @property
     @pulumi.getter(name="objectId")
     def object_id(self) -> pulumi.Output[int]:
-        """
-        Unique identifier for a DIRECTORY
-        """
         return pulumi.get(self, "object_id")
 
     @property
     @pulumi.getter
     def path(self) -> pulumi.Output[str]:
-        """
-        The absolute path of the directory, beginning with "/", e.g. "/Demo".
-        """
         return pulumi.get(self, "path")
 

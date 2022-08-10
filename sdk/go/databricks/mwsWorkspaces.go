@@ -11,48 +11,34 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type MwsWorkspaces struct {
 	pulumi.CustomResourceState
 
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-	AccountId pulumi.StringOutput `pulumi:"accountId"`
-	// AWS region of VPC
+	AccountId           pulumi.StringOutput                       `pulumi:"accountId"`
 	AwsRegion           pulumi.StringPtrOutput                    `pulumi:"awsRegion"`
 	Cloud               pulumi.StringOutput                       `pulumi:"cloud"`
 	CloudResourceBucket MwsWorkspacesCloudResourceBucketPtrOutput `pulumi:"cloudResourceBucket"`
-	// (Integer) time when workspace was created
-	CreationTime  pulumi.IntOutput       `pulumi:"creationTime"`
-	CredentialsId pulumi.StringPtrOutput `pulumi:"credentialsId"`
+	CreationTime        pulumi.IntOutput                          `pulumi:"creationTime"`
+	CredentialsId       pulumi.StringPtrOutput                    `pulumi:"credentialsId"`
 	// Deprecated: Use managed_services_customer_managed_key_id instead
-	CustomerManagedKeyId pulumi.StringPtrOutput `pulumi:"customerManagedKeyId"`
-	// part of URL: `https://<deployment-name>.cloud.databricks.com`
-	DeploymentName       pulumi.StringPtrOutput                     `pulumi:"deploymentName"`
-	ExternalCustomerInfo MwsWorkspacesExternalCustomerInfoPtrOutput `pulumi:"externalCustomerInfo"`
-	IsNoPublicIpEnabled  pulumi.BoolPtrOutput                       `pulumi:"isNoPublicIpEnabled"`
-	Location             pulumi.StringPtrOutput                     `pulumi:"location"`
-	// `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-	ManagedServicesCustomerManagedKeyId pulumi.StringPtrOutput        `pulumi:"managedServicesCustomerManagedKeyId"`
-	Network                             MwsWorkspacesNetworkPtrOutput `pulumi:"network"`
-	NetworkId                           pulumi.StringPtrOutput        `pulumi:"networkId"`
-	PricingTier                         pulumi.StringOutput           `pulumi:"pricingTier"`
-	// Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-	PrivateAccessSettingsId pulumi.StringPtrOutput `pulumi:"privateAccessSettingsId"`
-	// `storageConfigurationId` from storage configuration
-	StorageConfigurationId      pulumi.StringPtrOutput      `pulumi:"storageConfigurationId"`
-	StorageCustomerManagedKeyId pulumi.StringPtrOutput      `pulumi:"storageCustomerManagedKeyId"`
-	Token                       MwsWorkspacesTokenPtrOutput `pulumi:"token"`
-	WorkspaceId                 pulumi.IntOutput            `pulumi:"workspaceId"`
-	// name of the workspace, will appear on UI
-	WorkspaceName pulumi.StringOutput `pulumi:"workspaceName"`
-	// (String) workspace status
-	WorkspaceStatus pulumi.StringOutput `pulumi:"workspaceStatus"`
-	// (String) updates on workspace status
-	WorkspaceStatusMessage pulumi.StringOutput `pulumi:"workspaceStatusMessage"`
-	// (String) URL of the workspace
-	WorkspaceUrl pulumi.StringOutput `pulumi:"workspaceUrl"`
+	CustomerManagedKeyId                pulumi.StringPtrOutput                     `pulumi:"customerManagedKeyId"`
+	DeploymentName                      pulumi.StringPtrOutput                     `pulumi:"deploymentName"`
+	ExternalCustomerInfo                MwsWorkspacesExternalCustomerInfoPtrOutput `pulumi:"externalCustomerInfo"`
+	IsNoPublicIpEnabled                 pulumi.BoolPtrOutput                       `pulumi:"isNoPublicIpEnabled"`
+	Location                            pulumi.StringPtrOutput                     `pulumi:"location"`
+	ManagedServicesCustomerManagedKeyId pulumi.StringPtrOutput                     `pulumi:"managedServicesCustomerManagedKeyId"`
+	Network                             MwsWorkspacesNetworkPtrOutput              `pulumi:"network"`
+	NetworkId                           pulumi.StringPtrOutput                     `pulumi:"networkId"`
+	PricingTier                         pulumi.StringOutput                        `pulumi:"pricingTier"`
+	PrivateAccessSettingsId             pulumi.StringPtrOutput                     `pulumi:"privateAccessSettingsId"`
+	StorageConfigurationId              pulumi.StringPtrOutput                     `pulumi:"storageConfigurationId"`
+	StorageCustomerManagedKeyId         pulumi.StringPtrOutput                     `pulumi:"storageCustomerManagedKeyId"`
+	Token                               MwsWorkspacesTokenPtrOutput                `pulumi:"token"`
+	WorkspaceId                         pulumi.IntOutput                           `pulumi:"workspaceId"`
+	WorkspaceName                       pulumi.StringOutput                        `pulumi:"workspaceName"`
+	WorkspaceStatus                     pulumi.StringOutput                        `pulumi:"workspaceStatus"`
+	WorkspaceStatusMessage              pulumi.StringOutput                        `pulumi:"workspaceStatusMessage"`
+	WorkspaceUrl                        pulumi.StringOutput                        `pulumi:"workspaceUrl"`
 }
 
 // NewMwsWorkspaces registers a new resource with the given unique name, arguments, and options.
@@ -90,81 +76,59 @@ func GetMwsWorkspaces(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering MwsWorkspaces resources.
 type mwsWorkspacesState struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-	AccountId *string `pulumi:"accountId"`
-	// AWS region of VPC
+	AccountId           *string                           `pulumi:"accountId"`
 	AwsRegion           *string                           `pulumi:"awsRegion"`
 	Cloud               *string                           `pulumi:"cloud"`
 	CloudResourceBucket *MwsWorkspacesCloudResourceBucket `pulumi:"cloudResourceBucket"`
-	// (Integer) time when workspace was created
-	CreationTime  *int    `pulumi:"creationTime"`
-	CredentialsId *string `pulumi:"credentialsId"`
+	CreationTime        *int                              `pulumi:"creationTime"`
+	CredentialsId       *string                           `pulumi:"credentialsId"`
 	// Deprecated: Use managed_services_customer_managed_key_id instead
-	CustomerManagedKeyId *string `pulumi:"customerManagedKeyId"`
-	// part of URL: `https://<deployment-name>.cloud.databricks.com`
-	DeploymentName       *string                            `pulumi:"deploymentName"`
-	ExternalCustomerInfo *MwsWorkspacesExternalCustomerInfo `pulumi:"externalCustomerInfo"`
-	IsNoPublicIpEnabled  *bool                              `pulumi:"isNoPublicIpEnabled"`
-	Location             *string                            `pulumi:"location"`
-	// `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-	ManagedServicesCustomerManagedKeyId *string               `pulumi:"managedServicesCustomerManagedKeyId"`
-	Network                             *MwsWorkspacesNetwork `pulumi:"network"`
-	NetworkId                           *string               `pulumi:"networkId"`
-	PricingTier                         *string               `pulumi:"pricingTier"`
-	// Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-	PrivateAccessSettingsId *string `pulumi:"privateAccessSettingsId"`
-	// `storageConfigurationId` from storage configuration
-	StorageConfigurationId      *string             `pulumi:"storageConfigurationId"`
-	StorageCustomerManagedKeyId *string             `pulumi:"storageCustomerManagedKeyId"`
-	Token                       *MwsWorkspacesToken `pulumi:"token"`
-	WorkspaceId                 *int                `pulumi:"workspaceId"`
-	// name of the workspace, will appear on UI
-	WorkspaceName *string `pulumi:"workspaceName"`
-	// (String) workspace status
-	WorkspaceStatus *string `pulumi:"workspaceStatus"`
-	// (String) updates on workspace status
-	WorkspaceStatusMessage *string `pulumi:"workspaceStatusMessage"`
-	// (String) URL of the workspace
-	WorkspaceUrl *string `pulumi:"workspaceUrl"`
+	CustomerManagedKeyId                *string                            `pulumi:"customerManagedKeyId"`
+	DeploymentName                      *string                            `pulumi:"deploymentName"`
+	ExternalCustomerInfo                *MwsWorkspacesExternalCustomerInfo `pulumi:"externalCustomerInfo"`
+	IsNoPublicIpEnabled                 *bool                              `pulumi:"isNoPublicIpEnabled"`
+	Location                            *string                            `pulumi:"location"`
+	ManagedServicesCustomerManagedKeyId *string                            `pulumi:"managedServicesCustomerManagedKeyId"`
+	Network                             *MwsWorkspacesNetwork              `pulumi:"network"`
+	NetworkId                           *string                            `pulumi:"networkId"`
+	PricingTier                         *string                            `pulumi:"pricingTier"`
+	PrivateAccessSettingsId             *string                            `pulumi:"privateAccessSettingsId"`
+	StorageConfigurationId              *string                            `pulumi:"storageConfigurationId"`
+	StorageCustomerManagedKeyId         *string                            `pulumi:"storageCustomerManagedKeyId"`
+	Token                               *MwsWorkspacesToken                `pulumi:"token"`
+	WorkspaceId                         *int                               `pulumi:"workspaceId"`
+	WorkspaceName                       *string                            `pulumi:"workspaceName"`
+	WorkspaceStatus                     *string                            `pulumi:"workspaceStatus"`
+	WorkspaceStatusMessage              *string                            `pulumi:"workspaceStatusMessage"`
+	WorkspaceUrl                        *string                            `pulumi:"workspaceUrl"`
 }
 
 type MwsWorkspacesState struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-	AccountId pulumi.StringPtrInput
-	// AWS region of VPC
+	AccountId           pulumi.StringPtrInput
 	AwsRegion           pulumi.StringPtrInput
 	Cloud               pulumi.StringPtrInput
 	CloudResourceBucket MwsWorkspacesCloudResourceBucketPtrInput
-	// (Integer) time when workspace was created
-	CreationTime  pulumi.IntPtrInput
-	CredentialsId pulumi.StringPtrInput
+	CreationTime        pulumi.IntPtrInput
+	CredentialsId       pulumi.StringPtrInput
 	// Deprecated: Use managed_services_customer_managed_key_id instead
-	CustomerManagedKeyId pulumi.StringPtrInput
-	// part of URL: `https://<deployment-name>.cloud.databricks.com`
-	DeploymentName       pulumi.StringPtrInput
-	ExternalCustomerInfo MwsWorkspacesExternalCustomerInfoPtrInput
-	IsNoPublicIpEnabled  pulumi.BoolPtrInput
-	Location             pulumi.StringPtrInput
-	// `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
+	CustomerManagedKeyId                pulumi.StringPtrInput
+	DeploymentName                      pulumi.StringPtrInput
+	ExternalCustomerInfo                MwsWorkspacesExternalCustomerInfoPtrInput
+	IsNoPublicIpEnabled                 pulumi.BoolPtrInput
+	Location                            pulumi.StringPtrInput
 	ManagedServicesCustomerManagedKeyId pulumi.StringPtrInput
 	Network                             MwsWorkspacesNetworkPtrInput
 	NetworkId                           pulumi.StringPtrInput
 	PricingTier                         pulumi.StringPtrInput
-	// Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-	PrivateAccessSettingsId pulumi.StringPtrInput
-	// `storageConfigurationId` from storage configuration
-	StorageConfigurationId      pulumi.StringPtrInput
-	StorageCustomerManagedKeyId pulumi.StringPtrInput
-	Token                       MwsWorkspacesTokenPtrInput
-	WorkspaceId                 pulumi.IntPtrInput
-	// name of the workspace, will appear on UI
-	WorkspaceName pulumi.StringPtrInput
-	// (String) workspace status
-	WorkspaceStatus pulumi.StringPtrInput
-	// (String) updates on workspace status
-	WorkspaceStatusMessage pulumi.StringPtrInput
-	// (String) URL of the workspace
-	WorkspaceUrl pulumi.StringPtrInput
+	PrivateAccessSettingsId             pulumi.StringPtrInput
+	StorageConfigurationId              pulumi.StringPtrInput
+	StorageCustomerManagedKeyId         pulumi.StringPtrInput
+	Token                               MwsWorkspacesTokenPtrInput
+	WorkspaceId                         pulumi.IntPtrInput
+	WorkspaceName                       pulumi.StringPtrInput
+	WorkspaceStatus                     pulumi.StringPtrInput
+	WorkspaceStatusMessage              pulumi.StringPtrInput
+	WorkspaceUrl                        pulumi.StringPtrInput
 }
 
 func (MwsWorkspacesState) ElementType() reflect.Type {
@@ -172,82 +136,60 @@ func (MwsWorkspacesState) ElementType() reflect.Type {
 }
 
 type mwsWorkspacesArgs struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-	AccountId string `pulumi:"accountId"`
-	// AWS region of VPC
+	AccountId           string                            `pulumi:"accountId"`
 	AwsRegion           *string                           `pulumi:"awsRegion"`
 	Cloud               *string                           `pulumi:"cloud"`
 	CloudResourceBucket *MwsWorkspacesCloudResourceBucket `pulumi:"cloudResourceBucket"`
-	// (Integer) time when workspace was created
-	CreationTime  *int    `pulumi:"creationTime"`
-	CredentialsId *string `pulumi:"credentialsId"`
+	CreationTime        *int                              `pulumi:"creationTime"`
+	CredentialsId       *string                           `pulumi:"credentialsId"`
 	// Deprecated: Use managed_services_customer_managed_key_id instead
-	CustomerManagedKeyId *string `pulumi:"customerManagedKeyId"`
-	// part of URL: `https://<deployment-name>.cloud.databricks.com`
-	DeploymentName       *string                            `pulumi:"deploymentName"`
-	ExternalCustomerInfo *MwsWorkspacesExternalCustomerInfo `pulumi:"externalCustomerInfo"`
-	IsNoPublicIpEnabled  *bool                              `pulumi:"isNoPublicIpEnabled"`
-	Location             *string                            `pulumi:"location"`
-	// `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
-	ManagedServicesCustomerManagedKeyId *string               `pulumi:"managedServicesCustomerManagedKeyId"`
-	Network                             *MwsWorkspacesNetwork `pulumi:"network"`
-	NetworkId                           *string               `pulumi:"networkId"`
-	PricingTier                         *string               `pulumi:"pricingTier"`
-	// Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-	PrivateAccessSettingsId *string `pulumi:"privateAccessSettingsId"`
-	// `storageConfigurationId` from storage configuration
-	StorageConfigurationId      *string             `pulumi:"storageConfigurationId"`
-	StorageCustomerManagedKeyId *string             `pulumi:"storageCustomerManagedKeyId"`
-	Token                       *MwsWorkspacesToken `pulumi:"token"`
-	WorkspaceId                 *int                `pulumi:"workspaceId"`
-	// name of the workspace, will appear on UI
-	WorkspaceName string `pulumi:"workspaceName"`
-	// (String) workspace status
-	WorkspaceStatus *string `pulumi:"workspaceStatus"`
-	// (String) updates on workspace status
-	WorkspaceStatusMessage *string `pulumi:"workspaceStatusMessage"`
-	// (String) URL of the workspace
-	WorkspaceUrl *string `pulumi:"workspaceUrl"`
+	CustomerManagedKeyId                *string                            `pulumi:"customerManagedKeyId"`
+	DeploymentName                      *string                            `pulumi:"deploymentName"`
+	ExternalCustomerInfo                *MwsWorkspacesExternalCustomerInfo `pulumi:"externalCustomerInfo"`
+	IsNoPublicIpEnabled                 *bool                              `pulumi:"isNoPublicIpEnabled"`
+	Location                            *string                            `pulumi:"location"`
+	ManagedServicesCustomerManagedKeyId *string                            `pulumi:"managedServicesCustomerManagedKeyId"`
+	Network                             *MwsWorkspacesNetwork              `pulumi:"network"`
+	NetworkId                           *string                            `pulumi:"networkId"`
+	PricingTier                         *string                            `pulumi:"pricingTier"`
+	PrivateAccessSettingsId             *string                            `pulumi:"privateAccessSettingsId"`
+	StorageConfigurationId              *string                            `pulumi:"storageConfigurationId"`
+	StorageCustomerManagedKeyId         *string                            `pulumi:"storageCustomerManagedKeyId"`
+	Token                               *MwsWorkspacesToken                `pulumi:"token"`
+	WorkspaceId                         *int                               `pulumi:"workspaceId"`
+	WorkspaceName                       string                             `pulumi:"workspaceName"`
+	WorkspaceStatus                     *string                            `pulumi:"workspaceStatus"`
+	WorkspaceStatusMessage              *string                            `pulumi:"workspaceStatusMessage"`
+	WorkspaceUrl                        *string                            `pulumi:"workspaceUrl"`
 }
 
 // The set of arguments for constructing a MwsWorkspaces resource.
 type MwsWorkspacesArgs struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-	AccountId pulumi.StringInput
-	// AWS region of VPC
+	AccountId           pulumi.StringInput
 	AwsRegion           pulumi.StringPtrInput
 	Cloud               pulumi.StringPtrInput
 	CloudResourceBucket MwsWorkspacesCloudResourceBucketPtrInput
-	// (Integer) time when workspace was created
-	CreationTime  pulumi.IntPtrInput
-	CredentialsId pulumi.StringPtrInput
+	CreationTime        pulumi.IntPtrInput
+	CredentialsId       pulumi.StringPtrInput
 	// Deprecated: Use managed_services_customer_managed_key_id instead
-	CustomerManagedKeyId pulumi.StringPtrInput
-	// part of URL: `https://<deployment-name>.cloud.databricks.com`
-	DeploymentName       pulumi.StringPtrInput
-	ExternalCustomerInfo MwsWorkspacesExternalCustomerInfoPtrInput
-	IsNoPublicIpEnabled  pulumi.BoolPtrInput
-	Location             pulumi.StringPtrInput
-	// `customerManagedKeyId` from customer managed keys with `useCases` set to `MANAGED_SERVICES`. This is used to encrypt the workspace's notebook and secret data in the control plane.
+	CustomerManagedKeyId                pulumi.StringPtrInput
+	DeploymentName                      pulumi.StringPtrInput
+	ExternalCustomerInfo                MwsWorkspacesExternalCustomerInfoPtrInput
+	IsNoPublicIpEnabled                 pulumi.BoolPtrInput
+	Location                            pulumi.StringPtrInput
 	ManagedServicesCustomerManagedKeyId pulumi.StringPtrInput
 	Network                             MwsWorkspacesNetworkPtrInput
 	NetworkId                           pulumi.StringPtrInput
 	PricingTier                         pulumi.StringPtrInput
-	// Canonical unique identifier of MwsPrivateAccessSettings in Databricks Account
-	PrivateAccessSettingsId pulumi.StringPtrInput
-	// `storageConfigurationId` from storage configuration
-	StorageConfigurationId      pulumi.StringPtrInput
-	StorageCustomerManagedKeyId pulumi.StringPtrInput
-	Token                       MwsWorkspacesTokenPtrInput
-	WorkspaceId                 pulumi.IntPtrInput
-	// name of the workspace, will appear on UI
-	WorkspaceName pulumi.StringInput
-	// (String) workspace status
-	WorkspaceStatus pulumi.StringPtrInput
-	// (String) updates on workspace status
-	WorkspaceStatusMessage pulumi.StringPtrInput
-	// (String) URL of the workspace
-	WorkspaceUrl pulumi.StringPtrInput
+	PrivateAccessSettingsId             pulumi.StringPtrInput
+	StorageConfigurationId              pulumi.StringPtrInput
+	StorageCustomerManagedKeyId         pulumi.StringPtrInput
+	Token                               MwsWorkspacesTokenPtrInput
+	WorkspaceId                         pulumi.IntPtrInput
+	WorkspaceName                       pulumi.StringInput
+	WorkspaceStatus                     pulumi.StringPtrInput
+	WorkspaceStatusMessage              pulumi.StringPtrInput
+	WorkspaceUrl                        pulumi.StringPtrInput
 }
 
 func (MwsWorkspacesArgs) ElementType() reflect.Type {

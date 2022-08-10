@@ -9,65 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// To manage [SQLA resources](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricks_sql_access` on your databricks.Group or databricks_user.
-    /// 
-    /// **Note:** documentation for this resource is a work in progress.
-    /// 
-    /// A widget is always tied to a dashboard. Every dashboard may have one or more widgets.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var d1w1 = new Databricks.SqlWidget("d1w1", new Databricks.SqlWidgetArgs
-    ///         {
-    ///             DashboardId = databricks_sql_dashboard.D1.Id,
-    ///             Text = "Hello! I'm a **text widget**!",
-    ///             Position = new Databricks.Inputs.SqlWidgetPositionArgs
-    ///             {
-    ///                 SizeX = 3,
-    ///                 SizeY = 4,
-    ///                 PosX = 0,
-    ///                 PosY = 0,
-    ///             },
-    ///         });
-    ///         var d1w2 = new Databricks.SqlWidget("d1w2", new Databricks.SqlWidgetArgs
-    ///         {
-    ///             DashboardId = databricks_sql_dashboard.D1.Id,
-    ///             VisualizationId = databricks_sql_visualization.Q1v1.Id,
-    ///             Position = new Databricks.Inputs.SqlWidgetPositionArgs
-    ///             {
-    ///                 SizeX = 3,
-    ///                 SizeY = 4,
-    ///                 PosX = 3,
-    ///                 PosY = 0,
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// ## Related Resources
-    /// 
-    /// The following resources are often used in the same context:
-    /// 
-    /// * End to end workspace management guide.
-    /// * databricks.SqlDashboard to manage Databricks SQL [Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html).
-    /// * databricks.SqlEndpoint to manage Databricks SQL [Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html).
-    /// * databricks.SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all databricks.SqlEndpoint of workspace.
-    /// * databricks.SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-    /// 
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/sqlWidget:SqlWidget")]
     public partial class SqlWidget : Pulumi.CustomResource
     {

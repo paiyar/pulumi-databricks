@@ -17,6 +17,7 @@ class MetastoreDataAccessArgs:
     def __init__(__self__, *,
                  metastore_id: pulumi.Input[str],
                  aws_iam_role: Optional[pulumi.Input['MetastoreDataAccessAwsIamRoleArgs']] = None,
+                 azure_managed_identity: Optional[pulumi.Input['MetastoreDataAccessAzureManagedIdentityArgs']] = None,
                  azure_service_principal: Optional[pulumi.Input['MetastoreDataAccessAzureServicePrincipalArgs']] = None,
                  configuration_type: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
@@ -24,12 +25,12 @@ class MetastoreDataAccessArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a MetastoreDataAccess resource.
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[str] name: Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         pulumi.set(__self__, "metastore_id", metastore_id)
         if aws_iam_role is not None:
             pulumi.set(__self__, "aws_iam_role", aws_iam_role)
+        if azure_managed_identity is not None:
+            pulumi.set(__self__, "azure_managed_identity", azure_managed_identity)
         if azure_service_principal is not None:
             pulumi.set(__self__, "azure_service_principal", azure_service_principal)
         if configuration_type is not None:
@@ -44,9 +45,6 @@ class MetastoreDataAccessArgs:
     @property
     @pulumi.getter(name="metastoreId")
     def metastore_id(self) -> pulumi.Input[str]:
-        """
-        Unique identifier of the parent Metastore
-        """
         return pulumi.get(self, "metastore_id")
 
     @metastore_id.setter
@@ -61,6 +59,15 @@ class MetastoreDataAccessArgs:
     @aws_iam_role.setter
     def aws_iam_role(self, value: Optional[pulumi.Input['MetastoreDataAccessAwsIamRoleArgs']]):
         pulumi.set(self, "aws_iam_role", value)
+
+    @property
+    @pulumi.getter(name="azureManagedIdentity")
+    def azure_managed_identity(self) -> Optional[pulumi.Input['MetastoreDataAccessAzureManagedIdentityArgs']]:
+        return pulumi.get(self, "azure_managed_identity")
+
+    @azure_managed_identity.setter
+    def azure_managed_identity(self, value: Optional[pulumi.Input['MetastoreDataAccessAzureManagedIdentityArgs']]):
+        pulumi.set(self, "azure_managed_identity", value)
 
     @property
     @pulumi.getter(name="azureServicePrincipal")
@@ -101,9 +108,6 @@ class MetastoreDataAccessArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -115,6 +119,7 @@ class MetastoreDataAccessArgs:
 class _MetastoreDataAccessState:
     def __init__(__self__, *,
                  aws_iam_role: Optional[pulumi.Input['MetastoreDataAccessAwsIamRoleArgs']] = None,
+                 azure_managed_identity: Optional[pulumi.Input['MetastoreDataAccessAzureManagedIdentityArgs']] = None,
                  azure_service_principal: Optional[pulumi.Input['MetastoreDataAccessAzureServicePrincipalArgs']] = None,
                  configuration_type: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
@@ -123,11 +128,11 @@ class _MetastoreDataAccessState:
                  name: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering MetastoreDataAccess resources.
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[str] name: Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         if aws_iam_role is not None:
             pulumi.set(__self__, "aws_iam_role", aws_iam_role)
+        if azure_managed_identity is not None:
+            pulumi.set(__self__, "azure_managed_identity", azure_managed_identity)
         if azure_service_principal is not None:
             pulumi.set(__self__, "azure_service_principal", azure_service_principal)
         if configuration_type is not None:
@@ -149,6 +154,15 @@ class _MetastoreDataAccessState:
     @aws_iam_role.setter
     def aws_iam_role(self, value: Optional[pulumi.Input['MetastoreDataAccessAwsIamRoleArgs']]):
         pulumi.set(self, "aws_iam_role", value)
+
+    @property
+    @pulumi.getter(name="azureManagedIdentity")
+    def azure_managed_identity(self) -> Optional[pulumi.Input['MetastoreDataAccessAzureManagedIdentityArgs']]:
+        return pulumi.get(self, "azure_managed_identity")
+
+    @azure_managed_identity.setter
+    def azure_managed_identity(self, value: Optional[pulumi.Input['MetastoreDataAccessAzureManagedIdentityArgs']]):
+        pulumi.set(self, "azure_managed_identity", value)
 
     @property
     @pulumi.getter(name="azureServicePrincipal")
@@ -189,9 +203,6 @@ class _MetastoreDataAccessState:
     @property
     @pulumi.getter(name="metastoreId")
     def metastore_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Unique identifier of the parent Metastore
-        """
         return pulumi.get(self, "metastore_id")
 
     @metastore_id.setter
@@ -201,9 +212,6 @@ class _MetastoreDataAccessState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -217,6 +225,7 @@ class MetastoreDataAccess(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  aws_iam_role: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAwsIamRoleArgs']]] = None,
+                 azure_managed_identity: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAzureManagedIdentityArgs']]] = None,
                  azure_service_principal: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAzureServicePrincipalArgs']]] = None,
                  configuration_type: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
@@ -225,36 +234,9 @@ class MetastoreDataAccess(pulumi.CustomResource):
                  name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        Each Metastore requires an IAM role that will be assumed by Unity Catalog to access data. `MetastoreDataAccess` defines this
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_metastore = databricks.Metastore("thisMetastore",
-            storage_root=f"s3://{aws_s3_bucket['metastore']['id']}/metastore",
-            owner="uc admins",
-            force_destroy=True)
-        this_metastore_data_access = databricks.MetastoreDataAccess("thisMetastoreDataAccess",
-            metastore_id=this_metastore.id,
-            aws_iam_role=databricks.MetastoreDataAccessAwsIamRoleArgs(
-                role_arn=aws_iam_role["metastore_data_access"]["arn"],
-            ),
-            is_default=True)
-        ```
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MetastoreDataAccess resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[str] name: Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         ...
     @overload
@@ -263,32 +245,7 @@ class MetastoreDataAccess(pulumi.CustomResource):
                  args: MetastoreDataAccessArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        Each Metastore requires an IAM role that will be assumed by Unity Catalog to access data. `MetastoreDataAccess` defines this
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        this_metastore = databricks.Metastore("thisMetastore",
-            storage_root=f"s3://{aws_s3_bucket['metastore']['id']}/metastore",
-            owner="uc admins",
-            force_destroy=True)
-        this_metastore_data_access = databricks.MetastoreDataAccess("thisMetastoreDataAccess",
-            metastore_id=this_metastore.id,
-            aws_iam_role=databricks.MetastoreDataAccessAwsIamRoleArgs(
-                role_arn=aws_iam_role["metastore_data_access"]["arn"],
-            ),
-            is_default=True)
-        ```
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MetastoreDataAccess resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param MetastoreDataAccessArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -305,6 +262,7 @@ class MetastoreDataAccess(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  aws_iam_role: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAwsIamRoleArgs']]] = None,
+                 azure_managed_identity: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAzureManagedIdentityArgs']]] = None,
                  azure_service_principal: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAzureServicePrincipalArgs']]] = None,
                  configuration_type: Optional[pulumi.Input[str]] = None,
                  id: Optional[pulumi.Input[str]] = None,
@@ -324,6 +282,7 @@ class MetastoreDataAccess(pulumi.CustomResource):
             __props__ = MetastoreDataAccessArgs.__new__(MetastoreDataAccessArgs)
 
             __props__.__dict__["aws_iam_role"] = aws_iam_role
+            __props__.__dict__["azure_managed_identity"] = azure_managed_identity
             __props__.__dict__["azure_service_principal"] = azure_service_principal
             __props__.__dict__["configuration_type"] = configuration_type
             __props__.__dict__["id"] = id
@@ -343,6 +302,7 @@ class MetastoreDataAccess(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             aws_iam_role: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAwsIamRoleArgs']]] = None,
+            azure_managed_identity: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAzureManagedIdentityArgs']]] = None,
             azure_service_principal: Optional[pulumi.Input[pulumi.InputType['MetastoreDataAccessAzureServicePrincipalArgs']]] = None,
             configuration_type: Optional[pulumi.Input[str]] = None,
             id: Optional[pulumi.Input[str]] = None,
@@ -356,14 +316,13 @@ class MetastoreDataAccess(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] metastore_id: Unique identifier of the parent Metastore
-        :param pulumi.Input[str] name: Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _MetastoreDataAccessState.__new__(_MetastoreDataAccessState)
 
         __props__.__dict__["aws_iam_role"] = aws_iam_role
+        __props__.__dict__["azure_managed_identity"] = azure_managed_identity
         __props__.__dict__["azure_service_principal"] = azure_service_principal
         __props__.__dict__["configuration_type"] = configuration_type
         __props__.__dict__["id"] = id
@@ -376,6 +335,11 @@ class MetastoreDataAccess(pulumi.CustomResource):
     @pulumi.getter(name="awsIamRole")
     def aws_iam_role(self) -> pulumi.Output[Optional['outputs.MetastoreDataAccessAwsIamRole']]:
         return pulumi.get(self, "aws_iam_role")
+
+    @property
+    @pulumi.getter(name="azureManagedIdentity")
+    def azure_managed_identity(self) -> pulumi.Output[Optional['outputs.MetastoreDataAccessAzureManagedIdentity']]:
+        return pulumi.get(self, "azure_managed_identity")
 
     @property
     @pulumi.getter(name="azureServicePrincipal")
@@ -400,16 +364,10 @@ class MetastoreDataAccess(pulumi.CustomResource):
     @property
     @pulumi.getter(name="metastoreId")
     def metastore_id(self) -> pulumi.Output[str]:
-        """
-        Unique identifier of the parent Metastore
-        """
         return pulumi.get(self, "metastore_id")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 

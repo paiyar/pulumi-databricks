@@ -21,11 +21,6 @@ class SchemaArgs:
                  properties: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         The set of arguments for constructing a Schema resource.
-        :param pulumi.Input[str] catalog_name: Name of parent catalog
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Schema relative to parent catalog. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of schema owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Schema properties.
         """
         pulumi.set(__self__, "catalog_name", catalog_name)
         if comment is not None:
@@ -42,9 +37,6 @@ class SchemaArgs:
     @property
     @pulumi.getter(name="catalogName")
     def catalog_name(self) -> pulumi.Input[str]:
-        """
-        Name of parent catalog
-        """
         return pulumi.get(self, "catalog_name")
 
     @catalog_name.setter
@@ -54,9 +46,6 @@ class SchemaArgs:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -75,9 +64,6 @@ class SchemaArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Schema relative to parent catalog. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -87,9 +73,6 @@ class SchemaArgs:
     @property
     @pulumi.getter
     def owner(self) -> Optional[pulumi.Input[str]]:
-        """
-        Username/groupname of schema owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @owner.setter
@@ -99,9 +82,6 @@ class SchemaArgs:
     @property
     @pulumi.getter
     def properties(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Extensible Schema properties.
-        """
         return pulumi.get(self, "properties")
 
     @properties.setter
@@ -120,11 +100,6 @@ class _SchemaState:
                  properties: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         Input properties used for looking up and filtering Schema resources.
-        :param pulumi.Input[str] catalog_name: Name of parent catalog
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Schema relative to parent catalog. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of schema owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Schema properties.
         """
         if catalog_name is not None:
             pulumi.set(__self__, "catalog_name", catalog_name)
@@ -142,9 +117,6 @@ class _SchemaState:
     @property
     @pulumi.getter(name="catalogName")
     def catalog_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of parent catalog
-        """
         return pulumi.get(self, "catalog_name")
 
     @catalog_name.setter
@@ -154,9 +126,6 @@ class _SchemaState:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -175,9 +144,6 @@ class _SchemaState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of Schema relative to parent catalog. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -187,9 +153,6 @@ class _SchemaState:
     @property
     @pulumi.getter
     def owner(self) -> Optional[pulumi.Input[str]]:
-        """
-        Username/groupname of schema owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @owner.setter
@@ -199,9 +162,6 @@ class _SchemaState:
     @property
     @pulumi.getter
     def properties(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Extensible Schema properties.
-        """
         return pulumi.get(self, "properties")
 
     @properties.setter
@@ -222,54 +182,9 @@ class Schema(pulumi.CustomResource):
                  properties: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  __props__=None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        Within a metastore, Unity Catalog provides a 3-level namespace for organizing data: Catalogs, Databases (also called Schemas), and Tables / Views.
-
-        A `Schema` is contained within Catalog and can contain tables & views.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        sandbox = databricks.Catalog("sandbox",
-            metastore_id=databricks_metastore["this"]["id"],
-            comment="this catalog is managed by terraform",
-            properties={
-                "purpose": "testing",
-            })
-        things = databricks.Schema("things",
-            catalog_name=sandbox.id,
-            comment="this database is managed by terraform",
-            properties={
-                "kind": "various",
-            })
-        ```
-        ## Related Resources
-
-        The following resources are used in the same context:
-
-        * Table data to list tables within Unity Catalog.
-        * Schema data to list schemas within Unity Catalog.
-        * Catalog data to list catalogs within Unity Catalog.
-
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/schema:Schema this <name>
-        ```
-
+        Create a Schema resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] catalog_name: Name of parent catalog
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Schema relative to parent catalog. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of schema owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Schema properties.
         """
         ...
     @overload
@@ -278,47 +193,7 @@ class Schema(pulumi.CustomResource):
                  args: SchemaArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-
-        Within a metastore, Unity Catalog provides a 3-level namespace for organizing data: Catalogs, Databases (also called Schemas), and Tables / Views.
-
-        A `Schema` is contained within Catalog and can contain tables & views.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        sandbox = databricks.Catalog("sandbox",
-            metastore_id=databricks_metastore["this"]["id"],
-            comment="this catalog is managed by terraform",
-            properties={
-                "purpose": "testing",
-            })
-        things = databricks.Schema("things",
-            catalog_name=sandbox.id,
-            comment="this database is managed by terraform",
-            properties={
-                "kind": "various",
-            })
-        ```
-        ## Related Resources
-
-        The following resources are used in the same context:
-
-        * Table data to list tables within Unity Catalog.
-        * Schema data to list schemas within Unity Catalog.
-        * Catalog data to list catalogs within Unity Catalog.
-
-        ## Import
-
-        This resource can be imported by namebash
-
-        ```sh
-         $ pulumi import databricks:index/schema:Schema this <name>
-        ```
-
+        Create a Schema resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param SchemaArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -383,11 +258,6 @@ class Schema(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] catalog_name: Name of parent catalog
-        :param pulumi.Input[str] comment: User-supplied free-form text.
-        :param pulumi.Input[str] name: Name of Schema relative to parent catalog. Change forces creation of a new resource.
-        :param pulumi.Input[str] owner: Username/groupname of schema owner. Currently this field can only be changed after the resource is created.
-        :param pulumi.Input[Mapping[str, Any]] properties: Extensible Schema properties.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -404,17 +274,11 @@ class Schema(pulumi.CustomResource):
     @property
     @pulumi.getter(name="catalogName")
     def catalog_name(self) -> pulumi.Output[str]:
-        """
-        Name of parent catalog
-        """
         return pulumi.get(self, "catalog_name")
 
     @property
     @pulumi.getter
     def comment(self) -> pulumi.Output[Optional[str]]:
-        """
-        User-supplied free-form text.
-        """
         return pulumi.get(self, "comment")
 
     @property
@@ -425,24 +289,15 @@ class Schema(pulumi.CustomResource):
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Name of Schema relative to parent catalog. Change forces creation of a new resource.
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def owner(self) -> pulumi.Output[str]:
-        """
-        Username/groupname of schema owner. Currently this field can only be changed after the resource is created.
-        """
         return pulumi.get(self, "owner")
 
     @property
     @pulumi.getter
     def properties(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
-        """
-        Extensible Schema properties.
-        """
         return pulumi.get(self, "properties")
 

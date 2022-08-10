@@ -20,9 +20,6 @@ export function getJobs(args?: GetJobsArgs, opts?: pulumi.InvokeOptions): Promis
  * A collection of arguments for invoking getJobs.
  */
 export interface GetJobsArgs {
-    /**
-     * map of databricks.Job names to ids
-     */
     ids?: {[key: string]: any};
 }
 
@@ -34,9 +31,6 @@ export interface GetJobsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * map of databricks.Job names to ids
-     */
     readonly ids: {[key: string]: any};
 }
 
@@ -48,8 +42,5 @@ export function getJobsOutput(args?: GetJobsOutputArgs, opts?: pulumi.InvokeOpti
  * A collection of arguments for invoking getJobs.
  */
 export interface GetJobsOutputArgs {
-    /**
-     * map of databricks.Job names to ids
-     */
     ids?: pulumi.Input<{[key: string]: any}>;
 }

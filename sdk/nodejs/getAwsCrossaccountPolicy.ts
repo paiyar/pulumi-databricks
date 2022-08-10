@@ -4,30 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * > **Note** This resource has an evolving API, which may change in future versions of the provider. Please always consult [latest documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default) in case of any questions.
- *
- * This data source constructs necessary AWS cross-account policy for you, which is based on [official documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default).
- *
- * ## Example Usage
- *
- * For more detailed usage please see databricks.getAwsAssumeRolePolicy or databricks.AwsS3Mount pages.
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const thisAwsCrossaccountPolicy = pulumi.output(databricks.getAwsCrossaccountPolicy());
- * ```
- * ## Related Resources
- *
- * The following resources are used in the same context:
- *
- * * Provisioning AWS Databricks E2 with a Hub & Spoke firewall for data exfiltration protection guide
- * * databricks.getAwsAssumeRolePolicy data to construct the necessary AWS STS assume role policy.
- * * databricks.getAwsBucketPolicy data to configure a simple access policy for AWS S3 buckets, so that Databricks can access data in it.
- * * databricks.InstanceProfile to manage AWS EC2 instance profiles that users can launch databricks.Cluster and access data, like databricks_mount.
- */
 export function getAwsCrossaccountPolicy(args?: GetAwsCrossaccountPolicyArgs, opts?: pulumi.InvokeOptions): Promise<GetAwsCrossaccountPolicyResult> {
     args = args || {};
     if (!opts) {
@@ -44,9 +20,6 @@ export function getAwsCrossaccountPolicy(args?: GetAwsCrossaccountPolicyArgs, op
  * A collection of arguments for invoking getAwsCrossaccountPolicy.
  */
 export interface GetAwsCrossaccountPolicyArgs {
-    /**
-     * List of Data IAM role ARNs that are explicitly granted `iam:PassRole` action.
-     */
     passRoles?: string[];
 }
 
@@ -58,9 +31,6 @@ export interface GetAwsCrossaccountPolicyResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * AWS IAM Policy JSON document
-     */
     readonly json: string;
     readonly passRoles?: string[];
 }
@@ -73,8 +43,5 @@ export function getAwsCrossaccountPolicyOutput(args?: GetAwsCrossaccountPolicyOu
  * A collection of arguments for invoking getAwsCrossaccountPolicy.
  */
 export interface GetAwsCrossaccountPolicyOutputArgs {
-    /**
-     * List of Data IAM role ARNs that are explicitly granted `iam:PassRole` action.
-     */
     passRoles?: pulumi.Input<pulumi.Input<string>[]>;
 }

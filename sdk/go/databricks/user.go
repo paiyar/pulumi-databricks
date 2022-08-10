@@ -11,132 +11,18 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// This resource is used to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to Group within the workspace. Upon user creation the user will receive a password reset email. You can also get information about caller identity using getCurrentUser data source.
-//
-// ## Example Usage
-//
-// Creating regular user:
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := databricks.NewUser(ctx, "me", &databricks.UserArgs{
-// 			UserName: pulumi.String("me@example.com"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// Creating user with administrative permissions - referencing special `admins` Group in GroupMember resource:
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		admins, err := databricks.LookupGroup(ctx, &GetGroupArgs{
-// 			DisplayName: "admins",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		me, err := databricks.NewUser(ctx, "me", &databricks.UserArgs{
-// 			UserName: pulumi.String("me@example.com"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewGroupMember(ctx, "i-am-admin", &databricks.GroupMemberArgs{
-// 			GroupId:  pulumi.String(admins.Id),
-// 			MemberId: me.ID(),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
-// Creating user with cluster create permissions:
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := databricks.NewUser(ctx, "me", &databricks.UserArgs{
-// 			AllowClusterCreate: pulumi.Bool(true),
-// 			DisplayName:        pulumi.String("Example user"),
-// 			UserName:           pulumi.String("me@example.com"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-// * Group data to retrieve information about Group members, entitlements and instance profiles.
-// * GroupInstanceProfile to attach InstanceProfile (AWS) to databricks_group.
-// * GroupMember to attach users and groups as group members.
-// * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-// * User data to retrieves information about databricks_user.
-//
-// ## Import
-//
-// The resource scim user can be imported using idbash
-//
-// ```sh
-//  $ pulumi import databricks:index/user:User me <user-id>
-// ```
 type User struct {
 	pulumi.CustomResourceState
 
-	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-	Active pulumi.BoolPtrOutput `pulumi:"active"`
-	// Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate pulumi.BoolPtrOutput `pulumi:"allowClusterCreate"`
-	// Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
-	AllowInstancePoolCreate pulumi.BoolPtrOutput `pulumi:"allowInstancePoolCreate"`
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess pulumi.BoolPtrOutput `pulumi:"databricksSqlAccess"`
-	// This is an alias for the username that can be the full name of the user.
-	DisplayName pulumi.StringOutput `pulumi:"displayName"`
-	// ID of the user in an external identity provider.
-	ExternalId pulumi.StringPtrOutput `pulumi:"externalId"`
-	Force      pulumi.BoolPtrOutput   `pulumi:"force"`
-	// This is the username of the given user and will be their form of access and identity.
-	UserName        pulumi.StringOutput  `pulumi:"userName"`
-	WorkspaceAccess pulumi.BoolPtrOutput `pulumi:"workspaceAccess"`
+	Active                  pulumi.BoolPtrOutput   `pulumi:"active"`
+	AllowClusterCreate      pulumi.BoolPtrOutput   `pulumi:"allowClusterCreate"`
+	AllowInstancePoolCreate pulumi.BoolPtrOutput   `pulumi:"allowInstancePoolCreate"`
+	DatabricksSqlAccess     pulumi.BoolPtrOutput   `pulumi:"databricksSqlAccess"`
+	DisplayName             pulumi.StringOutput    `pulumi:"displayName"`
+	ExternalId              pulumi.StringPtrOutput `pulumi:"externalId"`
+	Force                   pulumi.BoolPtrOutput   `pulumi:"force"`
+	UserName                pulumi.StringOutput    `pulumi:"userName"`
+	WorkspaceAccess         pulumi.BoolPtrOutput   `pulumi:"workspaceAccess"`
 }
 
 // NewUser registers a new resource with the given unique name, arguments, and options.
@@ -171,41 +57,27 @@ func GetUser(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering User resources.
 type userState struct {
-	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-	Active *bool `pulumi:"active"`
-	// Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate *bool `pulumi:"allowClusterCreate"`
-	// Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
-	AllowInstancePoolCreate *bool `pulumi:"allowInstancePoolCreate"`
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess *bool `pulumi:"databricksSqlAccess"`
-	// This is an alias for the username that can be the full name of the user.
-	DisplayName *string `pulumi:"displayName"`
-	// ID of the user in an external identity provider.
-	ExternalId *string `pulumi:"externalId"`
-	Force      *bool   `pulumi:"force"`
-	// This is the username of the given user and will be their form of access and identity.
-	UserName        *string `pulumi:"userName"`
-	WorkspaceAccess *bool   `pulumi:"workspaceAccess"`
+	Active                  *bool   `pulumi:"active"`
+	AllowClusterCreate      *bool   `pulumi:"allowClusterCreate"`
+	AllowInstancePoolCreate *bool   `pulumi:"allowInstancePoolCreate"`
+	DatabricksSqlAccess     *bool   `pulumi:"databricksSqlAccess"`
+	DisplayName             *string `pulumi:"displayName"`
+	ExternalId              *string `pulumi:"externalId"`
+	Force                   *bool   `pulumi:"force"`
+	UserName                *string `pulumi:"userName"`
+	WorkspaceAccess         *bool   `pulumi:"workspaceAccess"`
 }
 
 type UserState struct {
-	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-	Active pulumi.BoolPtrInput
-	// Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate pulumi.BoolPtrInput
-	// Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
+	Active                  pulumi.BoolPtrInput
+	AllowClusterCreate      pulumi.BoolPtrInput
 	AllowInstancePoolCreate pulumi.BoolPtrInput
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess pulumi.BoolPtrInput
-	// This is an alias for the username that can be the full name of the user.
-	DisplayName pulumi.StringPtrInput
-	// ID of the user in an external identity provider.
-	ExternalId pulumi.StringPtrInput
-	Force      pulumi.BoolPtrInput
-	// This is the username of the given user and will be their form of access and identity.
-	UserName        pulumi.StringPtrInput
-	WorkspaceAccess pulumi.BoolPtrInput
+	DatabricksSqlAccess     pulumi.BoolPtrInput
+	DisplayName             pulumi.StringPtrInput
+	ExternalId              pulumi.StringPtrInput
+	Force                   pulumi.BoolPtrInput
+	UserName                pulumi.StringPtrInput
+	WorkspaceAccess         pulumi.BoolPtrInput
 }
 
 func (UserState) ElementType() reflect.Type {
@@ -213,42 +85,28 @@ func (UserState) ElementType() reflect.Type {
 }
 
 type userArgs struct {
-	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-	Active *bool `pulumi:"active"`
-	// Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate *bool `pulumi:"allowClusterCreate"`
-	// Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
-	AllowInstancePoolCreate *bool `pulumi:"allowInstancePoolCreate"`
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess *bool `pulumi:"databricksSqlAccess"`
-	// This is an alias for the username that can be the full name of the user.
-	DisplayName *string `pulumi:"displayName"`
-	// ID of the user in an external identity provider.
-	ExternalId *string `pulumi:"externalId"`
-	Force      *bool   `pulumi:"force"`
-	// This is the username of the given user and will be their form of access and identity.
-	UserName        string `pulumi:"userName"`
-	WorkspaceAccess *bool  `pulumi:"workspaceAccess"`
+	Active                  *bool   `pulumi:"active"`
+	AllowClusterCreate      *bool   `pulumi:"allowClusterCreate"`
+	AllowInstancePoolCreate *bool   `pulumi:"allowInstancePoolCreate"`
+	DatabricksSqlAccess     *bool   `pulumi:"databricksSqlAccess"`
+	DisplayName             *string `pulumi:"displayName"`
+	ExternalId              *string `pulumi:"externalId"`
+	Force                   *bool   `pulumi:"force"`
+	UserName                string  `pulumi:"userName"`
+	WorkspaceAccess         *bool   `pulumi:"workspaceAccess"`
 }
 
 // The set of arguments for constructing a User resource.
 type UserArgs struct {
-	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-	Active pulumi.BoolPtrInput
-	// Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `clusterId` argument. Everyone without `allowClusterCreate` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-	AllowClusterCreate pulumi.BoolPtrInput
-	// Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instancePoolId argument.
+	Active                  pulumi.BoolPtrInput
+	AllowClusterCreate      pulumi.BoolPtrInput
 	AllowInstancePoolCreate pulumi.BoolPtrInput
-	// This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-	DatabricksSqlAccess pulumi.BoolPtrInput
-	// This is an alias for the username that can be the full name of the user.
-	DisplayName pulumi.StringPtrInput
-	// ID of the user in an external identity provider.
-	ExternalId pulumi.StringPtrInput
-	Force      pulumi.BoolPtrInput
-	// This is the username of the given user and will be their form of access and identity.
-	UserName        pulumi.StringInput
-	WorkspaceAccess pulumi.BoolPtrInput
+	DatabricksSqlAccess     pulumi.BoolPtrInput
+	DisplayName             pulumi.StringPtrInput
+	ExternalId              pulumi.StringPtrInput
+	Force                   pulumi.BoolPtrInput
+	UserName                pulumi.StringInput
+	WorkspaceAccess         pulumi.BoolPtrInput
 }
 
 func (UserArgs) ElementType() reflect.Type {

@@ -50,9 +50,6 @@ class GetTablesResult:
     @property
     @pulumi.getter
     def ids(self) -> Sequence[str]:
-        """
-        set of Table full names: *`catalog`.`schema`.`table`*
-        """
         return pulumi.get(self, "ids")
 
     @property
@@ -79,10 +76,6 @@ def get_tables(catalog_name: Optional[str] = None,
                opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetTablesResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str catalog_name: Name of databricks_catalog
-    :param Sequence[str] ids: set of Table full names: *`catalog`.`schema`.`table`*
-    :param str schema_name: Name of databricks_schema
     """
     __args__ = dict()
     __args__['catalogName'] = catalog_name
@@ -108,9 +101,5 @@ def get_tables_output(catalog_name: Optional[pulumi.Input[str]] = None,
                       opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetTablesResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str catalog_name: Name of databricks_catalog
-    :param Sequence[str] ids: set of Table full names: *`catalog`.`schema`.`table`*
-    :param str schema_name: Name of databricks_schema
     """
     ...

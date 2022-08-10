@@ -25,6 +25,7 @@ type Provider struct {
 	AzureTenantId            pulumi.StringPtrOutput `pulumi:"azureTenantId"`
 	AzureWorkspaceResourceId pulumi.StringPtrOutput `pulumi:"azureWorkspaceResourceId"`
 	ConfigFile               pulumi.StringPtrOutput `pulumi:"configFile"`
+	GoogleCredentials        pulumi.StringPtrOutput `pulumi:"googleCredentials"`
 	GoogleServiceAccount     pulumi.StringPtrOutput `pulumi:"googleServiceAccount"`
 	Host                     pulumi.StringPtrOutput `pulumi:"host"`
 	Password                 pulumi.StringPtrOutput `pulumi:"password"`
@@ -90,6 +91,7 @@ type providerArgs struct {
 	ConfigFile               *string `pulumi:"configFile"`
 	DebugHeaders             *bool   `pulumi:"debugHeaders"`
 	DebugTruncateBytes       *int    `pulumi:"debugTruncateBytes"`
+	GoogleCredentials        *string `pulumi:"googleCredentials"`
 	GoogleServiceAccount     *string `pulumi:"googleServiceAccount"`
 	Host                     *string `pulumi:"host"`
 	HttpTimeoutSeconds       *int    `pulumi:"httpTimeoutSeconds"`
@@ -114,6 +116,7 @@ type ProviderArgs struct {
 	ConfigFile               pulumi.StringPtrInput
 	DebugHeaders             pulumi.BoolPtrInput
 	DebugTruncateBytes       pulumi.IntPtrInput
+	GoogleCredentials        pulumi.StringPtrInput
 	GoogleServiceAccount     pulumi.StringPtrInput
 	Host                     pulumi.StringPtrInput
 	HttpTimeoutSeconds       pulumi.IntPtrInput

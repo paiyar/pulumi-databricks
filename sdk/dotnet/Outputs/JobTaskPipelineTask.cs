@@ -13,9 +13,6 @@ namespace Pulumi.Databricks.Outputs
     [OutputType]
     public sealed class JobTaskPipelineTask
     {
-        /// <summary>
-        /// The pipeline's unique ID.
-        /// </summary>
         public readonly string PipelineId;
 
         [OutputConstructor]

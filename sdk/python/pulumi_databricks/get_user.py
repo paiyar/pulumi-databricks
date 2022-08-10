@@ -20,10 +20,13 @@ class GetUserResult:
     """
     A collection of values returned by getUser.
     """
-    def __init__(__self__, alphanumeric=None, display_name=None, external_id=None, home=None, id=None, repos=None, user_id=None, user_name=None):
+    def __init__(__self__, alphanumeric=None, application_id=None, display_name=None, external_id=None, home=None, id=None, repos=None, user_id=None, user_name=None):
         if alphanumeric and not isinstance(alphanumeric, str):
             raise TypeError("Expected argument 'alphanumeric' to be a str")
         pulumi.set(__self__, "alphanumeric", alphanumeric)
+        if application_id and not isinstance(application_id, str):
+            raise TypeError("Expected argument 'application_id' to be a str")
+        pulumi.set(__self__, "application_id", application_id)
         if display_name and not isinstance(display_name, str):
             raise TypeError("Expected argument 'display_name' to be a str")
         pulumi.set(__self__, "display_name", display_name)
@@ -49,33 +52,26 @@ class GetUserResult:
     @property
     @pulumi.getter
     def alphanumeric(self) -> str:
-        """
-        Alphanumeric representation of user local name. e.g. `mr_foo`.
-        """
         return pulumi.get(self, "alphanumeric")
+
+    @property
+    @pulumi.getter(name="applicationId")
+    def application_id(self) -> str:
+        return pulumi.get(self, "application_id")
 
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> str:
-        """
-        Display name of the user, e.g. `Mr Foo`.
-        """
         return pulumi.get(self, "display_name")
 
     @property
     @pulumi.getter(name="externalId")
     def external_id(self) -> str:
-        """
-        ID of the user in an external identity provider.
-        """
         return pulumi.get(self, "external_id")
 
     @property
     @pulumi.getter
     def home(self) -> str:
-        """
-        Home folder of the user, e.g. `/Users/mr.foo@example.com`.
-        """
         return pulumi.get(self, "home")
 
     @property
@@ -89,9 +85,6 @@ class GetUserResult:
     @property
     @pulumi.getter
     def repos(self) -> str:
-        """
-        Personal Repos location of the user, e.g. `/Repos/mr.foo@example.com`.
-        """
         return pulumi.get(self, "repos")
 
     @property
@@ -102,9 +95,6 @@ class GetUserResult:
     @property
     @pulumi.getter(name="userName")
     def user_name(self) -> Optional[str]:
-        """
-        Name of the user, e.g. `mr.foo@example.com`.
-        """
         return pulumi.get(self, "user_name")
 
 
@@ -115,6 +105,7 @@ class AwaitableGetUserResult(GetUserResult):
             yield self
         return GetUserResult(
             alphanumeric=self.alphanumeric,
+            application_id=self.application_id,
             display_name=self.display_name,
             external_id=self.external_id,
             home=self.home,
@@ -129,9 +120,6 @@ def get_user(user_id: Optional[str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetUserResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str user_id: ID of the user.
-    :param str user_name: User name of the user. The user must exist before this resource can be planned.
     """
     __args__ = dict()
     __args__['userId'] = user_id
@@ -144,6 +132,7 @@ def get_user(user_id: Optional[str] = None,
 
     return AwaitableGetUserResult(
         alphanumeric=__ret__.alphanumeric,
+        application_id=__ret__.application_id,
         display_name=__ret__.display_name,
         external_id=__ret__.external_id,
         home=__ret__.home,
@@ -159,8 +148,5 @@ def get_user_output(user_id: Optional[pulumi.Input[Optional[str]]] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetUserResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str user_id: ID of the user.
-    :param str user_name: User name of the user. The user must exist before this resource can be planned.
     """
     ...

@@ -20,7 +20,7 @@ class GetNodeTypeResult:
     """
     A collection of values returned by getNodeType.
     """
-    def __init__(__self__, category=None, gb_per_core=None, graviton=None, id=None, is_io_cache_enabled=None, local_disk=None, min_cores=None, min_gpus=None, min_memory_gb=None, photon_driver_capable=None, photon_worker_capable=None, support_port_forwarding=None):
+    def __init__(__self__, category=None, gb_per_core=None, graviton=None, id=None, is_io_cache_enabled=None, local_disk=None, min_cores=None, min_gpus=None, min_memory_gb=None, photon_driver_capable=None, photon_worker_capable=None, support_port_forwarding=None, vcpu=None):
         if category and not isinstance(category, str):
             raise TypeError("Expected argument 'category' to be a str")
         pulumi.set(__self__, "category", category)
@@ -57,6 +57,9 @@ class GetNodeTypeResult:
         if support_port_forwarding and not isinstance(support_port_forwarding, bool):
             raise TypeError("Expected argument 'support_port_forwarding' to be a bool")
         pulumi.set(__self__, "support_port_forwarding", support_port_forwarding)
+        if vcpu and not isinstance(vcpu, bool):
+            raise TypeError("Expected argument 'vcpu' to be a bool")
+        pulumi.set(__self__, "vcpu", vcpu)
 
     @property
     @pulumi.getter
@@ -121,6 +124,11 @@ class GetNodeTypeResult:
     def support_port_forwarding(self) -> Optional[bool]:
         return pulumi.get(self, "support_port_forwarding")
 
+    @property
+    @pulumi.getter
+    def vcpu(self) -> Optional[bool]:
+        return pulumi.get(self, "vcpu")
+
 
 class AwaitableGetNodeTypeResult(GetNodeTypeResult):
     # pylint: disable=using-constant-test
@@ -139,7 +147,8 @@ class AwaitableGetNodeTypeResult(GetNodeTypeResult):
             min_memory_gb=self.min_memory_gb,
             photon_driver_capable=self.photon_driver_capable,
             photon_worker_capable=self.photon_worker_capable,
-            support_port_forwarding=self.support_port_forwarding)
+            support_port_forwarding=self.support_port_forwarding,
+            vcpu=self.vcpu)
 
 
 def get_node_type(category: Optional[str] = None,
@@ -153,28 +162,10 @@ def get_node_type(category: Optional[str] = None,
                   photon_driver_capable: Optional[bool] = None,
                   photon_worker_capable: Optional[bool] = None,
                   support_port_forwarding: Optional[bool] = None,
+                  vcpu: Optional[bool] = None,
                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetNodeTypeResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str category: Node category, which can be one of (depending on the cloud environment, could be checked with `databricks clusters list-node-types|jq '.node_types[]|.category'|sort |uniq`):
-           * `General Purpose` (all clouds)
-           * `General Purpose (HDD)` (Azure)
-           * `Compute Optimized` (all clouds)
-           * `Memory Optimized` (all clouds)
-           * `Memory Optimized (Remote HDD)` (Azure)
-           * `Storage Optimized` (AWS, Azure)
-           * `GPU Accelerated` (AWS, Azure)
-    :param int gb_per_core: Number of gigabytes per core available on instance. Conflicts with `min_memory_gb`. Defaults to *0*.
-    :param bool graviton: if we should limit the search only to nodes with AWS Graviton CPUs. Default to *false*.
-    :param bool is_io_cache_enabled: . Pick only nodes that have IO Cache. Defaults to *false*.
-    :param bool local_disk: Pick only nodes with local storage. Defaults to *false*.
-    :param int min_cores: Minimum number of CPU cores available on instance. Defaults to *0*.
-    :param int min_gpus: Minimum number of GPU's attached to instance. Defaults to *0*.
-    :param int min_memory_gb: Minimum amount of memory per node in gigabytes. Defaults to *0*.
-    :param bool photon_driver_capable: Pick only nodes that can run Photon driver. Defaults to *false*.
-    :param bool photon_worker_capable: Pick only nodes that can run Photon workers. Defaults to *false*.
-    :param bool support_port_forwarding: Pick only nodes that support port forwarding. Defaults to *false*.
     """
     __args__ = dict()
     __args__['category'] = category
@@ -188,6 +179,7 @@ def get_node_type(category: Optional[str] = None,
     __args__['photonDriverCapable'] = photon_driver_capable
     __args__['photonWorkerCapable'] = photon_worker_capable
     __args__['supportPortForwarding'] = support_port_forwarding
+    __args__['vcpu'] = vcpu
     if opts is None:
         opts = pulumi.InvokeOptions()
     if opts.version is None:
@@ -206,7 +198,8 @@ def get_node_type(category: Optional[str] = None,
         min_memory_gb=__ret__.min_memory_gb,
         photon_driver_capable=__ret__.photon_driver_capable,
         photon_worker_capable=__ret__.photon_worker_capable,
-        support_port_forwarding=__ret__.support_port_forwarding)
+        support_port_forwarding=__ret__.support_port_forwarding,
+        vcpu=__ret__.vcpu)
 
 
 @_utilities.lift_output_func(get_node_type)
@@ -221,27 +214,9 @@ def get_node_type_output(category: Optional[pulumi.Input[Optional[str]]] = None,
                          photon_driver_capable: Optional[pulumi.Input[Optional[bool]]] = None,
                          photon_worker_capable: Optional[pulumi.Input[Optional[bool]]] = None,
                          support_port_forwarding: Optional[pulumi.Input[Optional[bool]]] = None,
+                         vcpu: Optional[pulumi.Input[Optional[bool]]] = None,
                          opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetNodeTypeResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str category: Node category, which can be one of (depending on the cloud environment, could be checked with `databricks clusters list-node-types|jq '.node_types[]|.category'|sort |uniq`):
-           * `General Purpose` (all clouds)
-           * `General Purpose (HDD)` (Azure)
-           * `Compute Optimized` (all clouds)
-           * `Memory Optimized` (all clouds)
-           * `Memory Optimized (Remote HDD)` (Azure)
-           * `Storage Optimized` (AWS, Azure)
-           * `GPU Accelerated` (AWS, Azure)
-    :param int gb_per_core: Number of gigabytes per core available on instance. Conflicts with `min_memory_gb`. Defaults to *0*.
-    :param bool graviton: if we should limit the search only to nodes with AWS Graviton CPUs. Default to *false*.
-    :param bool is_io_cache_enabled: . Pick only nodes that have IO Cache. Defaults to *false*.
-    :param bool local_disk: Pick only nodes with local storage. Defaults to *false*.
-    :param int min_cores: Minimum number of CPU cores available on instance. Defaults to *0*.
-    :param int min_gpus: Minimum number of GPU's attached to instance. Defaults to *0*.
-    :param int min_memory_gb: Minimum amount of memory per node in gigabytes. Defaults to *0*.
-    :param bool photon_driver_capable: Pick only nodes that can run Photon driver. Defaults to *false*.
-    :param bool photon_worker_capable: Pick only nodes that can run Photon workers. Defaults to *false*.
-    :param bool support_port_forwarding: Pick only nodes that support port forwarding. Defaults to *false*.
     """
     ...

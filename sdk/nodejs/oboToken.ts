@@ -4,72 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * This resource creates [On-Behalf-Of tokens](https://docs.databricks.com/administration-guide/users-groups/service-principals.html#manage-personal-access-tokens-for-a-service-principal) for a databricks.ServicePrincipal in Databricks workspaces on AWS. It is very useful, when you want to provision resources within a workspace through narrowly-scoped service principal, that has no access to other workspaces within the same Databricks Account.
- *
- * ## Example Usage
- *
- * Creating a token for a narrowly-scoped service principal, that would be the only one (besides admins) allowed to use PAT token in this given workspace, keeping your automated deployment highly secure. Keep in mind, that given declaration of `databricks_permissions.token_usage` would remove permissions to use PAT tokens from `users` group.
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const thisServicePrincipal = new databricks.ServicePrincipal("thisServicePrincipal", {displayName: "Automation-only SP"});
- * const tokenUsage = new databricks.Permissions("tokenUsage", {
- *     authorization: "tokens",
- *     accessControls: [{
- *         servicePrincipalName: thisServicePrincipal.applicationId,
- *         permissionLevel: "CAN_USE",
- *     }],
- * });
- * const thisOboToken = new databricks.OboToken("thisOboToken", {
- *     applicationId: thisServicePrincipal.applicationId,
- *     comment: pulumi.interpolate`PAT on behalf of ${thisServicePrincipal.displayName}`,
- *     lifetimeSeconds: 3600,
- * }, {
- *     dependsOn: [tokenUsage],
- * });
- * export const obo = thisOboToken.tokenValue;
- * ```
- *
- * Creating a token for a service principal with admin privileges
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const thisServicePrincipal = new databricks.ServicePrincipal("thisServicePrincipal", {displayName: "Terraform"});
- * const admins = databricks.getGroup({
- *     displayName: "admins",
- * });
- * const thisGroupMember = new databricks.GroupMember("thisGroupMember", {
- *     groupId: admins.then(admins => admins.id),
- *     memberId: thisServicePrincipal.id,
- * });
- * const thisOboToken = new databricks.OboToken("thisOboToken", {
- *     applicationId: thisServicePrincipal.applicationId,
- *     comment: pulumi.interpolate`PAT on behalf of ${thisServicePrincipal.displayName}`,
- *     lifetimeSeconds: 3600,
- * }, {
- *     dependsOn: [thisGroupMember],
- * });
- * ```
- * ## Related Resources
- *
- * The following resources are often used in the same context:
- *
- * * End to end workspace management guide.
- * * databricks.Group data to retrieve information about databricks.Group members, entitlements and instance profiles.
- * * databricks.GroupMember to attach users and groups as group members.
- * * databricks.Permissions to manage [access control](https://docs.databricks.com/security/access-control/index.html) in Databricks workspace.
- * * databricks.ServicePrincipal to manage [Service Principals](https://docs.databricks.com/administration-guide/users-groups/service-principals.html) that could be added to databricks.Group within workspace.
- * * databricks.SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
- *
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class OboToken extends pulumi.CustomResource {
     /**
      * Get an existing OboToken resource's state with the given name, ID, and optional extra
@@ -98,21 +32,9 @@ export class OboToken extends pulumi.CustomResource {
         return obj['__pulumiType'] === OboToken.__pulumiType;
     }
 
-    /**
-     * Application ID of databricks.ServicePrincipal to create PAT token for.
-     */
     public readonly applicationId!: pulumi.Output<string>;
-    /**
-     * Comment that describes the purpose of the token.
-     */
     public readonly comment!: pulumi.Output<string>;
-    /**
-     * The number of seconds before the token expires. Token resource is re-created when it expires.
-     */
     public readonly lifetimeSeconds!: pulumi.Output<number>;
-    /**
-     * **Sensitive** value of the newly-created token.
-     */
     public /*out*/ readonly tokenValue!: pulumi.Output<string>;
 
     /**
@@ -157,21 +79,9 @@ export class OboToken extends pulumi.CustomResource {
  * Input properties used for looking up and filtering OboToken resources.
  */
 export interface OboTokenState {
-    /**
-     * Application ID of databricks.ServicePrincipal to create PAT token for.
-     */
     applicationId?: pulumi.Input<string>;
-    /**
-     * Comment that describes the purpose of the token.
-     */
     comment?: pulumi.Input<string>;
-    /**
-     * The number of seconds before the token expires. Token resource is re-created when it expires.
-     */
     lifetimeSeconds?: pulumi.Input<number>;
-    /**
-     * **Sensitive** value of the newly-created token.
-     */
     tokenValue?: pulumi.Input<string>;
 }
 
@@ -179,16 +89,7 @@ export interface OboTokenState {
  * The set of arguments for constructing a OboToken resource.
  */
 export interface OboTokenArgs {
-    /**
-     * Application ID of databricks.ServicePrincipal to create PAT token for.
-     */
     applicationId: pulumi.Input<string>;
-    /**
-     * Comment that describes the purpose of the token.
-     */
     comment: pulumi.Input<string>;
-    /**
-     * The number of seconds before the token expires. Token resource is re-created when it expires.
-     */
     lifetimeSeconds: pulumi.Input<number>;
 }

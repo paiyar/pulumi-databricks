@@ -17,8 +17,6 @@ class UserInstanceProfileArgs:
                  user_id: pulumi.Input[str]):
         """
         The set of arguments for constructing a UserInstanceProfile resource.
-        :param pulumi.Input[str] instance_profile_id: This is the id of the instance profile resource.
-        :param pulumi.Input[str] user_id: This is the id of the user resource.
         """
         pulumi.set(__self__, "instance_profile_id", instance_profile_id)
         pulumi.set(__self__, "user_id", user_id)
@@ -26,9 +24,6 @@ class UserInstanceProfileArgs:
     @property
     @pulumi.getter(name="instanceProfileId")
     def instance_profile_id(self) -> pulumi.Input[str]:
-        """
-        This is the id of the instance profile resource.
-        """
         return pulumi.get(self, "instance_profile_id")
 
     @instance_profile_id.setter
@@ -38,9 +33,6 @@ class UserInstanceProfileArgs:
     @property
     @pulumi.getter(name="userId")
     def user_id(self) -> pulumi.Input[str]:
-        """
-        This is the id of the user resource.
-        """
         return pulumi.get(self, "user_id")
 
     @user_id.setter
@@ -55,8 +47,6 @@ class _UserInstanceProfileState:
                  user_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering UserInstanceProfile resources.
-        :param pulumi.Input[str] instance_profile_id: This is the id of the instance profile resource.
-        :param pulumi.Input[str] user_id: This is the id of the user resource.
         """
         if instance_profile_id is not None:
             pulumi.set(__self__, "instance_profile_id", instance_profile_id)
@@ -66,9 +56,6 @@ class _UserInstanceProfileState:
     @property
     @pulumi.getter(name="instanceProfileId")
     def instance_profile_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is the id of the instance profile resource.
-        """
         return pulumi.get(self, "instance_profile_id")
 
     @instance_profile_id.setter
@@ -78,9 +65,6 @@ class _UserInstanceProfileState:
     @property
     @pulumi.getter(name="userId")
     def user_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is the id of the user resource.
-        """
         return pulumi.get(self, "user_id")
 
     @user_id.setter
@@ -97,41 +81,9 @@ class UserInstanceProfile(pulumi.CustomResource):
                  user_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        > **Deprecated** Please rewrite with databricks_user_role. This resource will be removed in v0.5.x
-
-        This resource allows you to attach InstanceProfile (AWS) to databricks_user.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        instance_profile = databricks.InstanceProfile("instanceProfile", instance_profile_arn="my_instance_profile_arn")
-        my_user = databricks.User("myUser", user_name="me@example.com")
-        my_user_instance_profile = databricks.UserInstanceProfile("myUserInstanceProfile",
-            user_id=my_user.id,
-            instance_profile_id=instance_profile.id)
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * GroupInstanceProfile to attach InstanceProfile (AWS) to databricks_group.
-        * GroupMember to attach users and groups as group members.
-        * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-        * User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to Group within the workspace.
-        * User data to retrieves information about databricks_user.
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a UserInstanceProfile resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] instance_profile_id: This is the id of the instance profile resource.
-        :param pulumi.Input[str] user_id: This is the id of the user resource.
         """
         ...
     @overload
@@ -140,37 +92,7 @@ class UserInstanceProfile(pulumi.CustomResource):
                  args: UserInstanceProfileArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        > **Deprecated** Please rewrite with databricks_user_role. This resource will be removed in v0.5.x
-
-        This resource allows you to attach InstanceProfile (AWS) to databricks_user.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        instance_profile = databricks.InstanceProfile("instanceProfile", instance_profile_arn="my_instance_profile_arn")
-        my_user = databricks.User("myUser", user_name="me@example.com")
-        my_user_instance_profile = databricks.UserInstanceProfile("myUserInstanceProfile",
-            user_id=my_user.id,
-            instance_profile_id=instance_profile.id)
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * GroupInstanceProfile to attach InstanceProfile (AWS) to databricks_group.
-        * GroupMember to attach users and groups as group members.
-        * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-        * User to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to Group within the workspace.
-        * User data to retrieves information about databricks_user.
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a UserInstanceProfile resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param UserInstanceProfileArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -225,8 +147,6 @@ class UserInstanceProfile(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] instance_profile_id: This is the id of the instance profile resource.
-        :param pulumi.Input[str] user_id: This is the id of the user resource.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -239,16 +159,10 @@ class UserInstanceProfile(pulumi.CustomResource):
     @property
     @pulumi.getter(name="instanceProfileId")
     def instance_profile_id(self) -> pulumi.Output[str]:
-        """
-        This is the id of the instance profile resource.
-        """
         return pulumi.get(self, "instance_profile_id")
 
     @property
     @pulumi.getter(name="userId")
     def user_id(self) -> pulumi.Output[str]:
-        """
-        This is the id of the user resource.
-        """
         return pulumi.get(self, "user_id")
 

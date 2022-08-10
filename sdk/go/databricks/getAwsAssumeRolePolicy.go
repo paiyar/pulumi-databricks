@@ -22,10 +22,8 @@ func GetAwsAssumeRolePolicy(ctx *pulumi.Context, args *GetAwsAssumeRolePolicyArg
 // A collection of arguments for invoking getAwsAssumeRolePolicy.
 type GetAwsAssumeRolePolicyArgs struct {
 	DatabricksAccountId *string `pulumi:"databricksAccountId"`
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-	ExternalId string `pulumi:"externalId"`
-	// Either or not this assume role policy should be created for usage log delivery. Defaults to false.
-	ForLogDelivery *bool `pulumi:"forLogDelivery"`
+	ExternalId          string  `pulumi:"externalId"`
+	ForLogDelivery      *bool   `pulumi:"forLogDelivery"`
 }
 
 // A collection of values returned by getAwsAssumeRolePolicy.
@@ -34,8 +32,7 @@ type GetAwsAssumeRolePolicyResult struct {
 	ExternalId          string  `pulumi:"externalId"`
 	ForLogDelivery      *bool   `pulumi:"forLogDelivery"`
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// AWS IAM Policy JSON document
+	Id   string `pulumi:"id"`
 	Json string `pulumi:"json"`
 }
 
@@ -51,10 +48,8 @@ func GetAwsAssumeRolePolicyOutput(ctx *pulumi.Context, args GetAwsAssumeRolePoli
 // A collection of arguments for invoking getAwsAssumeRolePolicy.
 type GetAwsAssumeRolePolicyOutputArgs struct {
 	DatabricksAccountId pulumi.StringPtrInput `pulumi:"databricksAccountId"`
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-	ExternalId pulumi.StringInput `pulumi:"externalId"`
-	// Either or not this assume role policy should be created for usage log delivery. Defaults to false.
-	ForLogDelivery pulumi.BoolPtrInput `pulumi:"forLogDelivery"`
+	ExternalId          pulumi.StringInput    `pulumi:"externalId"`
+	ForLogDelivery      pulumi.BoolPtrInput   `pulumi:"forLogDelivery"`
 }
 
 func (GetAwsAssumeRolePolicyOutputArgs) ElementType() reflect.Type {
@@ -93,7 +88,6 @@ func (o GetAwsAssumeRolePolicyResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAwsAssumeRolePolicyResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// AWS IAM Policy JSON document
 func (o GetAwsAssumeRolePolicyResultOutput) Json() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAwsAssumeRolePolicyResult) string { return v.Json }).(pulumi.StringOutput)
 }

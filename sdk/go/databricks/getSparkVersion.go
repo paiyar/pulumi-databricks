@@ -21,26 +21,16 @@ func GetSparkVersion(ctx *pulumi.Context, args *GetSparkVersionArgs, opts ...pul
 
 // A collection of arguments for invoking getSparkVersion.
 type GetSparkVersionArgs struct {
-	// if we should limit the search only to runtimes that are in Beta stage. Default to `false`.
-	Beta *bool `pulumi:"beta"`
-	// if we should limit the search only to Genomics (HLS) runtimes. Default to `false`.
-	Genomics *bool `pulumi:"genomics"`
-	// if we should limit the search only to runtimes that support GPUs. Default to `false`.
-	Gpu *bool `pulumi:"gpu"`
-	// if we should limit the search only to runtimes supporting AWS Graviton CPUs. Default to `false`.
-	Graviton *bool `pulumi:"graviton"`
-	// if we should return only the latest version if there is more than one result.  Default to `true`. If set to `false` and multiple versions are matching, throws an error.
-	Latest *bool `pulumi:"latest"`
-	// if we should limit the search only to LTS (long term support) & ESR (extended support) versions. Default to `false`.
-	LongTermSupport *bool `pulumi:"longTermSupport"`
-	// if we should limit the search only to ML runtimes. Default to `false`.
-	Ml *bool `pulumi:"ml"`
-	// if we should limit the search only to Photon runtimes. Default to `false`.
-	Photon *bool `pulumi:"photon"`
-	// if we should limit the search only to runtimes that are based on specific Scala version. Default to `2.12`.
-	Scala *string `pulumi:"scala"`
-	// if we should limit the search only to runtimes that are based on specific Spark version. Default to empty string.  It could be specified as `3`, or `3.0`, or full version, like, `3.0.1`.
-	SparkVersion *string `pulumi:"sparkVersion"`
+	Beta            *bool   `pulumi:"beta"`
+	Genomics        *bool   `pulumi:"genomics"`
+	Gpu             *bool   `pulumi:"gpu"`
+	Graviton        *bool   `pulumi:"graviton"`
+	Latest          *bool   `pulumi:"latest"`
+	LongTermSupport *bool   `pulumi:"longTermSupport"`
+	Ml              *bool   `pulumi:"ml"`
+	Photon          *bool   `pulumi:"photon"`
+	Scala           *string `pulumi:"scala"`
+	SparkVersion    *string `pulumi:"sparkVersion"`
 }
 
 // A collection of values returned by getSparkVersion.
@@ -70,26 +60,16 @@ func GetSparkVersionOutput(ctx *pulumi.Context, args GetSparkVersionOutputArgs, 
 
 // A collection of arguments for invoking getSparkVersion.
 type GetSparkVersionOutputArgs struct {
-	// if we should limit the search only to runtimes that are in Beta stage. Default to `false`.
-	Beta pulumi.BoolPtrInput `pulumi:"beta"`
-	// if we should limit the search only to Genomics (HLS) runtimes. Default to `false`.
-	Genomics pulumi.BoolPtrInput `pulumi:"genomics"`
-	// if we should limit the search only to runtimes that support GPUs. Default to `false`.
-	Gpu pulumi.BoolPtrInput `pulumi:"gpu"`
-	// if we should limit the search only to runtimes supporting AWS Graviton CPUs. Default to `false`.
-	Graviton pulumi.BoolPtrInput `pulumi:"graviton"`
-	// if we should return only the latest version if there is more than one result.  Default to `true`. If set to `false` and multiple versions are matching, throws an error.
-	Latest pulumi.BoolPtrInput `pulumi:"latest"`
-	// if we should limit the search only to LTS (long term support) & ESR (extended support) versions. Default to `false`.
-	LongTermSupport pulumi.BoolPtrInput `pulumi:"longTermSupport"`
-	// if we should limit the search only to ML runtimes. Default to `false`.
-	Ml pulumi.BoolPtrInput `pulumi:"ml"`
-	// if we should limit the search only to Photon runtimes. Default to `false`.
-	Photon pulumi.BoolPtrInput `pulumi:"photon"`
-	// if we should limit the search only to runtimes that are based on specific Scala version. Default to `2.12`.
-	Scala pulumi.StringPtrInput `pulumi:"scala"`
-	// if we should limit the search only to runtimes that are based on specific Spark version. Default to empty string.  It could be specified as `3`, or `3.0`, or full version, like, `3.0.1`.
-	SparkVersion pulumi.StringPtrInput `pulumi:"sparkVersion"`
+	Beta            pulumi.BoolPtrInput   `pulumi:"beta"`
+	Genomics        pulumi.BoolPtrInput   `pulumi:"genomics"`
+	Gpu             pulumi.BoolPtrInput   `pulumi:"gpu"`
+	Graviton        pulumi.BoolPtrInput   `pulumi:"graviton"`
+	Latest          pulumi.BoolPtrInput   `pulumi:"latest"`
+	LongTermSupport pulumi.BoolPtrInput   `pulumi:"longTermSupport"`
+	Ml              pulumi.BoolPtrInput   `pulumi:"ml"`
+	Photon          pulumi.BoolPtrInput   `pulumi:"photon"`
+	Scala           pulumi.StringPtrInput `pulumi:"scala"`
+	SparkVersion    pulumi.StringPtrInput `pulumi:"sparkVersion"`
 }
 
 func (GetSparkVersionOutputArgs) ElementType() reflect.Type {

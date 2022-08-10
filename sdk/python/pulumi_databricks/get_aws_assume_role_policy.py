@@ -63,9 +63,6 @@ class GetAwsAssumeRolePolicyResult:
     @property
     @pulumi.getter
     def json(self) -> str:
-        """
-        AWS IAM Policy JSON document
-        """
         return pulumi.get(self, "json")
 
 
@@ -88,9 +85,6 @@ def get_aws_assume_role_policy(databricks_account_id: Optional[str] = None,
                                opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAwsAssumeRolePolicyResult:
     """
     Use this data source to access information about an existing resource.
-
-    :param str external_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-    :param bool for_log_delivery: Either or not this assume role policy should be created for usage log delivery. Defaults to false.
     """
     __args__ = dict()
     __args__['databricksAccountId'] = databricks_account_id
@@ -117,8 +111,5 @@ def get_aws_assume_role_policy_output(databricks_account_id: Optional[pulumi.Inp
                                       opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAwsAssumeRolePolicyResult]:
     """
     Use this data source to access information about an existing resource.
-
-    :param str external_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/).
-    :param bool for_log_delivery: Either or not this assume role policy should be created for usage log delivery. Defaults to false.
     """
     ...

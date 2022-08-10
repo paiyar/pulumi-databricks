@@ -21,9 +21,6 @@ class SecretScopeArgs:
                  name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a SecretScope resource.
-        :param pulumi.Input[str] backend_type: Either `DATABRICKS` or `AZURE_KEYVAULT`
-        :param pulumi.Input[str] initial_manage_principal: The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        :param pulumi.Input[str] name: Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
         """
         if backend_type is not None:
             pulumi.set(__self__, "backend_type", backend_type)
@@ -37,9 +34,6 @@ class SecretScopeArgs:
     @property
     @pulumi.getter(name="backendType")
     def backend_type(self) -> Optional[pulumi.Input[str]]:
-        """
-        Either `DATABRICKS` or `AZURE_KEYVAULT`
-        """
         return pulumi.get(self, "backend_type")
 
     @backend_type.setter
@@ -49,9 +43,6 @@ class SecretScopeArgs:
     @property
     @pulumi.getter(name="initialManagePrincipal")
     def initial_manage_principal(self) -> Optional[pulumi.Input[str]]:
-        """
-        The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        """
         return pulumi.get(self, "initial_manage_principal")
 
     @initial_manage_principal.setter
@@ -70,9 +61,6 @@ class SecretScopeArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -89,9 +77,6 @@ class _SecretScopeState:
                  name: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering SecretScope resources.
-        :param pulumi.Input[str] backend_type: Either `DATABRICKS` or `AZURE_KEYVAULT`
-        :param pulumi.Input[str] initial_manage_principal: The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        :param pulumi.Input[str] name: Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
         """
         if backend_type is not None:
             pulumi.set(__self__, "backend_type", backend_type)
@@ -105,9 +90,6 @@ class _SecretScopeState:
     @property
     @pulumi.getter(name="backendType")
     def backend_type(self) -> Optional[pulumi.Input[str]]:
-        """
-        Either `DATABRICKS` or `AZURE_KEYVAULT`
-        """
         return pulumi.get(self, "backend_type")
 
     @backend_type.setter
@@ -117,9 +99,6 @@ class _SecretScopeState:
     @property
     @pulumi.getter(name="initialManagePrincipal")
     def initial_manage_principal(self) -> Optional[pulumi.Input[str]]:
-        """
-        The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        """
         return pulumi.get(self, "initial_manage_principal")
 
     @initial_manage_principal.setter
@@ -138,9 +117,6 @@ class _SecretScopeState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -159,19 +135,9 @@ class SecretScope(pulumi.CustomResource):
                  name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## Import
-
-        The secret resource scope can be imported using the scope name. `initial_manage_principal` state won't be imported, because the underlying API doesn't include it in the response. bash
-
-        ```sh
-         $ pulumi import databricks:index/secretScope:SecretScope object <scopeName>
-        ```
-
+        Create a SecretScope resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] backend_type: Either `DATABRICKS` or `AZURE_KEYVAULT`
-        :param pulumi.Input[str] initial_manage_principal: The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        :param pulumi.Input[str] name: Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
         """
         ...
     @overload
@@ -180,14 +146,7 @@ class SecretScope(pulumi.CustomResource):
                  args: Optional[SecretScopeArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        The secret resource scope can be imported using the scope name. `initial_manage_principal` state won't be imported, because the underlying API doesn't include it in the response. bash
-
-        ```sh
-         $ pulumi import databricks:index/secretScope:SecretScope object <scopeName>
-        ```
-
+        Create a SecretScope resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param SecretScopeArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -244,9 +203,6 @@ class SecretScope(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] backend_type: Either `DATABRICKS` or `AZURE_KEYVAULT`
-        :param pulumi.Input[str] initial_manage_principal: The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        :param pulumi.Input[str] name: Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -261,17 +217,11 @@ class SecretScope(pulumi.CustomResource):
     @property
     @pulumi.getter(name="backendType")
     def backend_type(self) -> pulumi.Output[str]:
-        """
-        Either `DATABRICKS` or `AZURE_KEYVAULT`
-        """
         return pulumi.get(self, "backend_type")
 
     @property
     @pulumi.getter(name="initialManagePrincipal")
     def initial_manage_principal(self) -> pulumi.Output[Optional[str]]:
-        """
-        The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
-        """
         return pulumi.get(self, "initial_manage_principal")
 
     @property
@@ -282,8 +232,5 @@ class SecretScope(pulumi.CustomResource):
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-        """
         return pulumi.get(self, "name")
 

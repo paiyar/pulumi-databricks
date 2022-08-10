@@ -4,11 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class MwsCredentials extends pulumi.CustomResource {
     /**
      * Get an existing MwsCredentials resource's state with the given name, ID, and optional extra
@@ -37,26 +32,11 @@ export class MwsCredentials extends pulumi.CustomResource {
         return obj['__pulumiType'] === MwsCredentials.__pulumiType;
     }
 
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     public readonly accountId!: pulumi.Output<string>;
-    /**
-     * (Integer) time of credentials registration
-     */
     public /*out*/ readonly creationTime!: pulumi.Output<number>;
-    /**
-     * (String) identifier of credentials
-     */
     public /*out*/ readonly credentialsId!: pulumi.Output<string>;
-    /**
-     * name of credentials to register
-     */
     public readonly credentialsName!: pulumi.Output<string>;
     public /*out*/ readonly externalId!: pulumi.Output<string>;
-    /**
-     * ARN of cross-account role
-     */
     public readonly roleArn!: pulumi.Output<string>;
 
     /**
@@ -105,26 +85,11 @@ export class MwsCredentials extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MwsCredentials resources.
  */
 export interface MwsCredentialsState {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId?: pulumi.Input<string>;
-    /**
-     * (Integer) time of credentials registration
-     */
     creationTime?: pulumi.Input<number>;
-    /**
-     * (String) identifier of credentials
-     */
     credentialsId?: pulumi.Input<string>;
-    /**
-     * name of credentials to register
-     */
     credentialsName?: pulumi.Input<string>;
     externalId?: pulumi.Input<string>;
-    /**
-     * ARN of cross-account role
-     */
     roleArn?: pulumi.Input<string>;
 }
 
@@ -132,16 +97,7 @@ export interface MwsCredentialsState {
  * The set of arguments for constructing a MwsCredentials resource.
  */
 export interface MwsCredentialsArgs {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId: pulumi.Input<string>;
-    /**
-     * name of credentials to register
-     */
     credentialsName: pulumi.Input<string>;
-    /**
-     * ARN of cross-account role
-     */
     roleArn: pulumi.Input<string>;
 }

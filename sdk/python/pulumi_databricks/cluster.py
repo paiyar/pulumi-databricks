@@ -42,27 +42,10 @@ class ClusterArgs:
                  single_user_name: Optional[pulumi.Input[str]] = None,
                  spark_conf: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  spark_env_vars: Optional[pulumi.Input[Mapping[str, Any]]] = None,
-                 ssh_public_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+                 ssh_public_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 workload_type: Optional[pulumi.Input['ClusterWorkloadTypeArgs']] = None):
         """
         The set of arguments for constructing a Cluster resource.
-        :param pulumi.Input[str] spark_version: [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster. Any supported get_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
-        :param pulumi.Input[int] autotermination_minutes: Automatically terminate the cluster after being inactive for this time in minutes. If not set, Databricks won't automatically terminate an inactive cluster. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. _We highly recommend having this setting present for Interactive/BI clusters._
-        :param pulumi.Input[str] cluster_name: Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.
-        :param pulumi.Input[Mapping[str, Any]] custom_tags: Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to `default_tags`.
-        :param pulumi.Input[str] data_security_mode: Select the security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
-        :param pulumi.Input[str] driver_instance_pool_id: similar to `instance_pool_id`, but for driver node. If omitted, and `instance_pool_id` is specified, then driver will be allocated from that pool.
-        :param pulumi.Input[str] driver_node_type_id: The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as `node_type_id` defined above.
-        :param pulumi.Input[bool] enable_elastic_disk: If you don’t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster’s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance’s local storage). To scale down EBS usage, make sure you have `autotermination_minutes` and `autoscale` attributes set. More documentation available at [cluster configuration page](https://docs.databricks.com/clusters/configure.html#autoscaling-local-storage-1).
-        :param pulumi.Input[bool] enable_local_disk_encryption: Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster’s local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and encrypting all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. _Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access._
-        :param pulumi.Input[str] idempotency_token: An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
-        :param pulumi.Input[str] instance_pool_id: - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to `TERMINATED`, the instances it used are returned to the pool and reused by a different cluster.
-        :param pulumi.Input[bool] is_pinned: boolean value specifying if cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is [limited to 20](https://docs.databricks.com/clusters/clusters-manage.html#pin-a-cluster), so `apply` may fail if you have more than that.
-        :param pulumi.Input[str] node_type_id: Any supported get_node_type id. If `instance_pool_id` is specified, this field is not needed.
-        :param pulumi.Input[str] policy_id: Identifier of Cluster Policy to validate cluster and preset certain defaults. *The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters.* For example, when you specify `policy_id` of [external metastore](https://docs.databricks.com/administration-guide/clusters/policies.html#external-metastore-policy) policy, you still have to fill in relevant keys for `spark_conf`.
-        :param pulumi.Input[str] single_user_name: The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
-        :param pulumi.Input[Mapping[str, Any]] spark_conf: Map with key-value pairs to fine-tune Spark clusters, where you can provide custom [Spark configuration properties](https://spark.apache.org/docs/latest/configuration.html) in a cluster configuration.
-        :param pulumi.Input[Mapping[str, Any]] spark_env_vars: Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] ssh_public_keys: SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
         """
         pulumi.set(__self__, "spark_version", spark_version)
         if autoscale is not None:
@@ -119,13 +102,12 @@ class ClusterArgs:
             pulumi.set(__self__, "spark_env_vars", spark_env_vars)
         if ssh_public_keys is not None:
             pulumi.set(__self__, "ssh_public_keys", ssh_public_keys)
+        if workload_type is not None:
+            pulumi.set(__self__, "workload_type", workload_type)
 
     @property
     @pulumi.getter(name="sparkVersion")
     def spark_version(self) -> pulumi.Input[str]:
-        """
-        [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster. Any supported get_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
-        """
         return pulumi.get(self, "spark_version")
 
     @spark_version.setter
@@ -144,9 +126,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="autoterminationMinutes")
     def autotermination_minutes(self) -> Optional[pulumi.Input[int]]:
-        """
-        Automatically terminate the cluster after being inactive for this time in minutes. If not set, Databricks won't automatically terminate an inactive cluster. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. _We highly recommend having this setting present for Interactive/BI clusters._
-        """
         return pulumi.get(self, "autotermination_minutes")
 
     @autotermination_minutes.setter
@@ -192,9 +171,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="clusterName")
     def cluster_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.
-        """
         return pulumi.get(self, "cluster_name")
 
     @cluster_name.setter
@@ -204,9 +180,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="customTags")
     def custom_tags(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to `default_tags`.
-        """
         return pulumi.get(self, "custom_tags")
 
     @custom_tags.setter
@@ -216,9 +189,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="dataSecurityMode")
     def data_security_mode(self) -> Optional[pulumi.Input[str]]:
-        """
-        Select the security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
-        """
         return pulumi.get(self, "data_security_mode")
 
     @data_security_mode.setter
@@ -237,9 +207,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="driverInstancePoolId")
     def driver_instance_pool_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        similar to `instance_pool_id`, but for driver node. If omitted, and `instance_pool_id` is specified, then driver will be allocated from that pool.
-        """
         return pulumi.get(self, "driver_instance_pool_id")
 
     @driver_instance_pool_id.setter
@@ -249,9 +216,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="driverNodeTypeId")
     def driver_node_type_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as `node_type_id` defined above.
-        """
         return pulumi.get(self, "driver_node_type_id")
 
     @driver_node_type_id.setter
@@ -261,9 +225,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="enableElasticDisk")
     def enable_elastic_disk(self) -> Optional[pulumi.Input[bool]]:
-        """
-        If you don’t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster’s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance’s local storage). To scale down EBS usage, make sure you have `autotermination_minutes` and `autoscale` attributes set. More documentation available at [cluster configuration page](https://docs.databricks.com/clusters/configure.html#autoscaling-local-storage-1).
-        """
         return pulumi.get(self, "enable_elastic_disk")
 
     @enable_elastic_disk.setter
@@ -273,9 +234,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="enableLocalDiskEncryption")
     def enable_local_disk_encryption(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster’s local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and encrypting all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. _Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access._
-        """
         return pulumi.get(self, "enable_local_disk_encryption")
 
     @enable_local_disk_encryption.setter
@@ -294,9 +252,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="idempotencyToken")
     def idempotency_token(self) -> Optional[pulumi.Input[str]]:
-        """
-        An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
-        """
         return pulumi.get(self, "idempotency_token")
 
     @idempotency_token.setter
@@ -315,9 +270,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="instancePoolId")
     def instance_pool_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to `TERMINATED`, the instances it used are returned to the pool and reused by a different cluster.
-        """
         return pulumi.get(self, "instance_pool_id")
 
     @instance_pool_id.setter
@@ -327,9 +279,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="isPinned")
     def is_pinned(self) -> Optional[pulumi.Input[bool]]:
-        """
-        boolean value specifying if cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is [limited to 20](https://docs.databricks.com/clusters/clusters-manage.html#pin-a-cluster), so `apply` may fail if you have more than that.
-        """
         return pulumi.get(self, "is_pinned")
 
     @is_pinned.setter
@@ -348,9 +297,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="nodeTypeId")
     def node_type_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Any supported get_node_type id. If `instance_pool_id` is specified, this field is not needed.
-        """
         return pulumi.get(self, "node_type_id")
 
     @node_type_id.setter
@@ -369,9 +315,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="policyId")
     def policy_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Identifier of Cluster Policy to validate cluster and preset certain defaults. *The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters.* For example, when you specify `policy_id` of [external metastore](https://docs.databricks.com/administration-guide/clusters/policies.html#external-metastore-policy) policy, you still have to fill in relevant keys for `spark_conf`.
-        """
         return pulumi.get(self, "policy_id")
 
     @policy_id.setter
@@ -381,9 +324,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="singleUserName")
     def single_user_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
-        """
         return pulumi.get(self, "single_user_name")
 
     @single_user_name.setter
@@ -393,9 +333,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="sparkConf")
     def spark_conf(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Map with key-value pairs to fine-tune Spark clusters, where you can provide custom [Spark configuration properties](https://spark.apache.org/docs/latest/configuration.html) in a cluster configuration.
-        """
         return pulumi.get(self, "spark_conf")
 
     @spark_conf.setter
@@ -405,9 +342,6 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="sparkEnvVars")
     def spark_env_vars(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
-        """
         return pulumi.get(self, "spark_env_vars")
 
     @spark_env_vars.setter
@@ -417,14 +351,20 @@ class ClusterArgs:
     @property
     @pulumi.getter(name="sshPublicKeys")
     def ssh_public_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        """
-        SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
-        """
         return pulumi.get(self, "ssh_public_keys")
 
     @ssh_public_keys.setter
     def ssh_public_keys(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "ssh_public_keys", value)
+
+    @property
+    @pulumi.getter(name="workloadType")
+    def workload_type(self) -> Optional[pulumi.Input['ClusterWorkloadTypeArgs']]:
+        return pulumi.get(self, "workload_type")
+
+    @workload_type.setter
+    def workload_type(self, value: Optional[pulumi.Input['ClusterWorkloadTypeArgs']]):
+        pulumi.set(self, "workload_type", value)
 
 
 @pulumi.input_type
@@ -460,29 +400,10 @@ class _ClusterState:
                  spark_version: Optional[pulumi.Input[str]] = None,
                  ssh_public_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  state: Optional[pulumi.Input[str]] = None,
-                 url: Optional[pulumi.Input[str]] = None):
+                 url: Optional[pulumi.Input[str]] = None,
+                 workload_type: Optional[pulumi.Input['ClusterWorkloadTypeArgs']] = None):
         """
         Input properties used for looking up and filtering Cluster resources.
-        :param pulumi.Input[int] autotermination_minutes: Automatically terminate the cluster after being inactive for this time in minutes. If not set, Databricks won't automatically terminate an inactive cluster. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. _We highly recommend having this setting present for Interactive/BI clusters._
-        :param pulumi.Input[str] cluster_name: Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.
-        :param pulumi.Input[Mapping[str, Any]] custom_tags: Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to `default_tags`.
-        :param pulumi.Input[str] data_security_mode: Select the security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
-        :param pulumi.Input[Mapping[str, Any]] default_tags: (map) Tags that are added by Databricks by default, regardless of any custom_tags that may have been added. These include: Vendor: Databricks, Creator: <username_of_creator>, ClusterName: <name_of_cluster>, ClusterId: <id_of_cluster>, Name: <Databricks internal use>
-        :param pulumi.Input[str] driver_instance_pool_id: similar to `instance_pool_id`, but for driver node. If omitted, and `instance_pool_id` is specified, then driver will be allocated from that pool.
-        :param pulumi.Input[str] driver_node_type_id: The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as `node_type_id` defined above.
-        :param pulumi.Input[bool] enable_elastic_disk: If you don’t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster’s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance’s local storage). To scale down EBS usage, make sure you have `autotermination_minutes` and `autoscale` attributes set. More documentation available at [cluster configuration page](https://docs.databricks.com/clusters/configure.html#autoscaling-local-storage-1).
-        :param pulumi.Input[bool] enable_local_disk_encryption: Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster’s local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and encrypting all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. _Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access._
-        :param pulumi.Input[str] idempotency_token: An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
-        :param pulumi.Input[str] instance_pool_id: - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to `TERMINATED`, the instances it used are returned to the pool and reused by a different cluster.
-        :param pulumi.Input[bool] is_pinned: boolean value specifying if cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is [limited to 20](https://docs.databricks.com/clusters/clusters-manage.html#pin-a-cluster), so `apply` may fail if you have more than that.
-        :param pulumi.Input[str] node_type_id: Any supported get_node_type id. If `instance_pool_id` is specified, this field is not needed.
-        :param pulumi.Input[str] policy_id: Identifier of Cluster Policy to validate cluster and preset certain defaults. *The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters.* For example, when you specify `policy_id` of [external metastore](https://docs.databricks.com/administration-guide/clusters/policies.html#external-metastore-policy) policy, you still have to fill in relevant keys for `spark_conf`.
-        :param pulumi.Input[str] single_user_name: The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
-        :param pulumi.Input[Mapping[str, Any]] spark_conf: Map with key-value pairs to fine-tune Spark clusters, where you can provide custom [Spark configuration properties](https://spark.apache.org/docs/latest/configuration.html) in a cluster configuration.
-        :param pulumi.Input[Mapping[str, Any]] spark_env_vars: Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
-        :param pulumi.Input[str] spark_version: [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster. Any supported get_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] ssh_public_keys: SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
-        :param pulumi.Input[str] state: (string) State of the cluster.
         """
         if autoscale is not None:
             pulumi.set(__self__, "autoscale", autoscale)
@@ -546,6 +467,8 @@ class _ClusterState:
             pulumi.set(__self__, "state", state)
         if url is not None:
             pulumi.set(__self__, "url", url)
+        if workload_type is not None:
+            pulumi.set(__self__, "workload_type", workload_type)
 
     @property
     @pulumi.getter
@@ -559,9 +482,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="autoterminationMinutes")
     def autotermination_minutes(self) -> Optional[pulumi.Input[int]]:
-        """
-        Automatically terminate the cluster after being inactive for this time in minutes. If not set, Databricks won't automatically terminate an inactive cluster. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. _We highly recommend having this setting present for Interactive/BI clusters._
-        """
         return pulumi.get(self, "autotermination_minutes")
 
     @autotermination_minutes.setter
@@ -607,9 +527,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="clusterName")
     def cluster_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.
-        """
         return pulumi.get(self, "cluster_name")
 
     @cluster_name.setter
@@ -619,9 +536,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="customTags")
     def custom_tags(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to `default_tags`.
-        """
         return pulumi.get(self, "custom_tags")
 
     @custom_tags.setter
@@ -631,9 +545,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="dataSecurityMode")
     def data_security_mode(self) -> Optional[pulumi.Input[str]]:
-        """
-        Select the security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
-        """
         return pulumi.get(self, "data_security_mode")
 
     @data_security_mode.setter
@@ -643,9 +554,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="defaultTags")
     def default_tags(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        (map) Tags that are added by Databricks by default, regardless of any custom_tags that may have been added. These include: Vendor: Databricks, Creator: <username_of_creator>, ClusterName: <name_of_cluster>, ClusterId: <id_of_cluster>, Name: <Databricks internal use>
-        """
         return pulumi.get(self, "default_tags")
 
     @default_tags.setter
@@ -664,9 +572,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="driverInstancePoolId")
     def driver_instance_pool_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        similar to `instance_pool_id`, but for driver node. If omitted, and `instance_pool_id` is specified, then driver will be allocated from that pool.
-        """
         return pulumi.get(self, "driver_instance_pool_id")
 
     @driver_instance_pool_id.setter
@@ -676,9 +581,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="driverNodeTypeId")
     def driver_node_type_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as `node_type_id` defined above.
-        """
         return pulumi.get(self, "driver_node_type_id")
 
     @driver_node_type_id.setter
@@ -688,9 +590,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="enableElasticDisk")
     def enable_elastic_disk(self) -> Optional[pulumi.Input[bool]]:
-        """
-        If you don’t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster’s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance’s local storage). To scale down EBS usage, make sure you have `autotermination_minutes` and `autoscale` attributes set. More documentation available at [cluster configuration page](https://docs.databricks.com/clusters/configure.html#autoscaling-local-storage-1).
-        """
         return pulumi.get(self, "enable_elastic_disk")
 
     @enable_elastic_disk.setter
@@ -700,9 +599,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="enableLocalDiskEncryption")
     def enable_local_disk_encryption(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster’s local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and encrypting all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. _Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access._
-        """
         return pulumi.get(self, "enable_local_disk_encryption")
 
     @enable_local_disk_encryption.setter
@@ -721,9 +617,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="idempotencyToken")
     def idempotency_token(self) -> Optional[pulumi.Input[str]]:
-        """
-        An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
-        """
         return pulumi.get(self, "idempotency_token")
 
     @idempotency_token.setter
@@ -742,9 +635,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="instancePoolId")
     def instance_pool_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to `TERMINATED`, the instances it used are returned to the pool and reused by a different cluster.
-        """
         return pulumi.get(self, "instance_pool_id")
 
     @instance_pool_id.setter
@@ -754,9 +644,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="isPinned")
     def is_pinned(self) -> Optional[pulumi.Input[bool]]:
-        """
-        boolean value specifying if cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is [limited to 20](https://docs.databricks.com/clusters/clusters-manage.html#pin-a-cluster), so `apply` may fail if you have more than that.
-        """
         return pulumi.get(self, "is_pinned")
 
     @is_pinned.setter
@@ -775,9 +662,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="nodeTypeId")
     def node_type_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Any supported get_node_type id. If `instance_pool_id` is specified, this field is not needed.
-        """
         return pulumi.get(self, "node_type_id")
 
     @node_type_id.setter
@@ -796,9 +680,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="policyId")
     def policy_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Identifier of Cluster Policy to validate cluster and preset certain defaults. *The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters.* For example, when you specify `policy_id` of [external metastore](https://docs.databricks.com/administration-guide/clusters/policies.html#external-metastore-policy) policy, you still have to fill in relevant keys for `spark_conf`.
-        """
         return pulumi.get(self, "policy_id")
 
     @policy_id.setter
@@ -808,9 +689,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="singleUserName")
     def single_user_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
-        """
         return pulumi.get(self, "single_user_name")
 
     @single_user_name.setter
@@ -820,9 +698,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="sparkConf")
     def spark_conf(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Map with key-value pairs to fine-tune Spark clusters, where you can provide custom [Spark configuration properties](https://spark.apache.org/docs/latest/configuration.html) in a cluster configuration.
-        """
         return pulumi.get(self, "spark_conf")
 
     @spark_conf.setter
@@ -832,9 +707,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="sparkEnvVars")
     def spark_env_vars(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
-        """
         return pulumi.get(self, "spark_env_vars")
 
     @spark_env_vars.setter
@@ -844,9 +716,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="sparkVersion")
     def spark_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster. Any supported get_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
-        """
         return pulumi.get(self, "spark_version")
 
     @spark_version.setter
@@ -856,9 +725,6 @@ class _ClusterState:
     @property
     @pulumi.getter(name="sshPublicKeys")
     def ssh_public_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        """
-        SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
-        """
         return pulumi.get(self, "ssh_public_keys")
 
     @ssh_public_keys.setter
@@ -868,9 +734,6 @@ class _ClusterState:
     @property
     @pulumi.getter
     def state(self) -> Optional[pulumi.Input[str]]:
-        """
-        (string) State of the cluster.
-        """
         return pulumi.get(self, "state")
 
     @state.setter
@@ -885,6 +748,15 @@ class _ClusterState:
     @url.setter
     def url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "url", value)
+
+    @property
+    @pulumi.getter(name="workloadType")
+    def workload_type(self) -> Optional[pulumi.Input['ClusterWorkloadTypeArgs']]:
+        return pulumi.get(self, "workload_type")
+
+    @workload_type.setter
+    def workload_type(self, value: Optional[pulumi.Input['ClusterWorkloadTypeArgs']]):
+        pulumi.set(self, "workload_type", value)
 
 
 class Cluster(pulumi.CustomResource):
@@ -920,36 +792,12 @@ class Cluster(pulumi.CustomResource):
                  spark_env_vars: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  spark_version: Optional[pulumi.Input[str]] = None,
                  ssh_public_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 workload_type: Optional[pulumi.Input[pulumi.InputType['ClusterWorkloadTypeArgs']]] = None,
                  __props__=None):
         """
-        ## Import
-
-        The resource cluster can be imported using cluster id. bash
-
-        ```sh
-         $ pulumi import databricks:index/cluster:Cluster this <cluster-id>
-        ```
-
+        Create a Cluster resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[int] autotermination_minutes: Automatically terminate the cluster after being inactive for this time in minutes. If not set, Databricks won't automatically terminate an inactive cluster. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. _We highly recommend having this setting present for Interactive/BI clusters._
-        :param pulumi.Input[str] cluster_name: Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.
-        :param pulumi.Input[Mapping[str, Any]] custom_tags: Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to `default_tags`.
-        :param pulumi.Input[str] data_security_mode: Select the security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
-        :param pulumi.Input[str] driver_instance_pool_id: similar to `instance_pool_id`, but for driver node. If omitted, and `instance_pool_id` is specified, then driver will be allocated from that pool.
-        :param pulumi.Input[str] driver_node_type_id: The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as `node_type_id` defined above.
-        :param pulumi.Input[bool] enable_elastic_disk: If you don’t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster’s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance’s local storage). To scale down EBS usage, make sure you have `autotermination_minutes` and `autoscale` attributes set. More documentation available at [cluster configuration page](https://docs.databricks.com/clusters/configure.html#autoscaling-local-storage-1).
-        :param pulumi.Input[bool] enable_local_disk_encryption: Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster’s local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and encrypting all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. _Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access._
-        :param pulumi.Input[str] idempotency_token: An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
-        :param pulumi.Input[str] instance_pool_id: - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to `TERMINATED`, the instances it used are returned to the pool and reused by a different cluster.
-        :param pulumi.Input[bool] is_pinned: boolean value specifying if cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is [limited to 20](https://docs.databricks.com/clusters/clusters-manage.html#pin-a-cluster), so `apply` may fail if you have more than that.
-        :param pulumi.Input[str] node_type_id: Any supported get_node_type id. If `instance_pool_id` is specified, this field is not needed.
-        :param pulumi.Input[str] policy_id: Identifier of Cluster Policy to validate cluster and preset certain defaults. *The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters.* For example, when you specify `policy_id` of [external metastore](https://docs.databricks.com/administration-guide/clusters/policies.html#external-metastore-policy) policy, you still have to fill in relevant keys for `spark_conf`.
-        :param pulumi.Input[str] single_user_name: The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
-        :param pulumi.Input[Mapping[str, Any]] spark_conf: Map with key-value pairs to fine-tune Spark clusters, where you can provide custom [Spark configuration properties](https://spark.apache.org/docs/latest/configuration.html) in a cluster configuration.
-        :param pulumi.Input[Mapping[str, Any]] spark_env_vars: Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
-        :param pulumi.Input[str] spark_version: [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster. Any supported get_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] ssh_public_keys: SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
         """
         ...
     @overload
@@ -958,14 +806,7 @@ class Cluster(pulumi.CustomResource):
                  args: ClusterArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        The resource cluster can be imported using cluster id. bash
-
-        ```sh
-         $ pulumi import databricks:index/cluster:Cluster this <cluster-id>
-        ```
-
+        Create a Cluster resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ClusterArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1009,6 +850,7 @@ class Cluster(pulumi.CustomResource):
                  spark_env_vars: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  spark_version: Optional[pulumi.Input[str]] = None,
                  ssh_public_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 workload_type: Optional[pulumi.Input[pulumi.InputType['ClusterWorkloadTypeArgs']]] = None,
                  __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
@@ -1051,6 +893,7 @@ class Cluster(pulumi.CustomResource):
                 raise TypeError("Missing required property 'spark_version'")
             __props__.__dict__["spark_version"] = spark_version
             __props__.__dict__["ssh_public_keys"] = ssh_public_keys
+            __props__.__dict__["workload_type"] = workload_type
             __props__.__dict__["default_tags"] = None
             __props__.__dict__["state"] = None
             __props__.__dict__["url"] = None
@@ -1094,7 +937,8 @@ class Cluster(pulumi.CustomResource):
             spark_version: Optional[pulumi.Input[str]] = None,
             ssh_public_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             state: Optional[pulumi.Input[str]] = None,
-            url: Optional[pulumi.Input[str]] = None) -> 'Cluster':
+            url: Optional[pulumi.Input[str]] = None,
+            workload_type: Optional[pulumi.Input[pulumi.InputType['ClusterWorkloadTypeArgs']]] = None) -> 'Cluster':
         """
         Get an existing Cluster resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1102,26 +946,6 @@ class Cluster(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[int] autotermination_minutes: Automatically terminate the cluster after being inactive for this time in minutes. If not set, Databricks won't automatically terminate an inactive cluster. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. _We highly recommend having this setting present for Interactive/BI clusters._
-        :param pulumi.Input[str] cluster_name: Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.
-        :param pulumi.Input[Mapping[str, Any]] custom_tags: Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to `default_tags`.
-        :param pulumi.Input[str] data_security_mode: Select the security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
-        :param pulumi.Input[Mapping[str, Any]] default_tags: (map) Tags that are added by Databricks by default, regardless of any custom_tags that may have been added. These include: Vendor: Databricks, Creator: <username_of_creator>, ClusterName: <name_of_cluster>, ClusterId: <id_of_cluster>, Name: <Databricks internal use>
-        :param pulumi.Input[str] driver_instance_pool_id: similar to `instance_pool_id`, but for driver node. If omitted, and `instance_pool_id` is specified, then driver will be allocated from that pool.
-        :param pulumi.Input[str] driver_node_type_id: The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as `node_type_id` defined above.
-        :param pulumi.Input[bool] enable_elastic_disk: If you don’t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster’s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance’s local storage). To scale down EBS usage, make sure you have `autotermination_minutes` and `autoscale` attributes set. More documentation available at [cluster configuration page](https://docs.databricks.com/clusters/configure.html#autoscaling-local-storage-1).
-        :param pulumi.Input[bool] enable_local_disk_encryption: Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster’s local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and encrypting all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. _Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access._
-        :param pulumi.Input[str] idempotency_token: An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
-        :param pulumi.Input[str] instance_pool_id: - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to `TERMINATED`, the instances it used are returned to the pool and reused by a different cluster.
-        :param pulumi.Input[bool] is_pinned: boolean value specifying if cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is [limited to 20](https://docs.databricks.com/clusters/clusters-manage.html#pin-a-cluster), so `apply` may fail if you have more than that.
-        :param pulumi.Input[str] node_type_id: Any supported get_node_type id. If `instance_pool_id` is specified, this field is not needed.
-        :param pulumi.Input[str] policy_id: Identifier of Cluster Policy to validate cluster and preset certain defaults. *The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters.* For example, when you specify `policy_id` of [external metastore](https://docs.databricks.com/administration-guide/clusters/policies.html#external-metastore-policy) policy, you still have to fill in relevant keys for `spark_conf`.
-        :param pulumi.Input[str] single_user_name: The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
-        :param pulumi.Input[Mapping[str, Any]] spark_conf: Map with key-value pairs to fine-tune Spark clusters, where you can provide custom [Spark configuration properties](https://spark.apache.org/docs/latest/configuration.html) in a cluster configuration.
-        :param pulumi.Input[Mapping[str, Any]] spark_env_vars: Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
-        :param pulumi.Input[str] spark_version: [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster. Any supported get_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] ssh_public_keys: SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
-        :param pulumi.Input[str] state: (string) State of the cluster.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1158,6 +982,7 @@ class Cluster(pulumi.CustomResource):
         __props__.__dict__["ssh_public_keys"] = ssh_public_keys
         __props__.__dict__["state"] = state
         __props__.__dict__["url"] = url
+        __props__.__dict__["workload_type"] = workload_type
         return Cluster(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -1168,9 +993,6 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="autoterminationMinutes")
     def autotermination_minutes(self) -> pulumi.Output[Optional[int]]:
-        """
-        Automatically terminate the cluster after being inactive for this time in minutes. If not set, Databricks won't automatically terminate an inactive cluster. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. _We highly recommend having this setting present for Interactive/BI clusters._
-        """
         return pulumi.get(self, "autotermination_minutes")
 
     @property
@@ -1196,33 +1018,21 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="clusterName")
     def cluster_name(self) -> pulumi.Output[Optional[str]]:
-        """
-        Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.
-        """
         return pulumi.get(self, "cluster_name")
 
     @property
     @pulumi.getter(name="customTags")
     def custom_tags(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
-        """
-        Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to `default_tags`.
-        """
         return pulumi.get(self, "custom_tags")
 
     @property
     @pulumi.getter(name="dataSecurityMode")
     def data_security_mode(self) -> pulumi.Output[Optional[str]]:
-        """
-        Select the security features of the cluster. Unity Catalog requires `SINGLE_USER` or `USER_ISOLATION` mode. `LEGACY_PASSTHROUGH` for passthrough cluster and `LEGACY_TABLE_ACL` for Table ACL cluster. Default to `NONE`, i.e. no security feature enabled.
-        """
         return pulumi.get(self, "data_security_mode")
 
     @property
     @pulumi.getter(name="defaultTags")
     def default_tags(self) -> pulumi.Output[Mapping[str, Any]]:
-        """
-        (map) Tags that are added by Databricks by default, regardless of any custom_tags that may have been added. These include: Vendor: Databricks, Creator: <username_of_creator>, ClusterName: <name_of_cluster>, ClusterId: <id_of_cluster>, Name: <Databricks internal use>
-        """
         return pulumi.get(self, "default_tags")
 
     @property
@@ -1233,33 +1043,21 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="driverInstancePoolId")
     def driver_instance_pool_id(self) -> pulumi.Output[str]:
-        """
-        similar to `instance_pool_id`, but for driver node. If omitted, and `instance_pool_id` is specified, then driver will be allocated from that pool.
-        """
         return pulumi.get(self, "driver_instance_pool_id")
 
     @property
     @pulumi.getter(name="driverNodeTypeId")
     def driver_node_type_id(self) -> pulumi.Output[str]:
-        """
-        The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as `node_type_id` defined above.
-        """
         return pulumi.get(self, "driver_node_type_id")
 
     @property
     @pulumi.getter(name="enableElasticDisk")
     def enable_elastic_disk(self) -> pulumi.Output[bool]:
-        """
-        If you don’t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster’s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance’s local storage). To scale down EBS usage, make sure you have `autotermination_minutes` and `autoscale` attributes set. More documentation available at [cluster configuration page](https://docs.databricks.com/clusters/configure.html#autoscaling-local-storage-1).
-        """
         return pulumi.get(self, "enable_elastic_disk")
 
     @property
     @pulumi.getter(name="enableLocalDiskEncryption")
     def enable_local_disk_encryption(self) -> pulumi.Output[bool]:
-        """
-        Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster’s local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and encrypting all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. _Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access._
-        """
         return pulumi.get(self, "enable_local_disk_encryption")
 
     @property
@@ -1270,9 +1068,6 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="idempotencyToken")
     def idempotency_token(self) -> pulumi.Output[Optional[str]]:
-        """
-        An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
-        """
         return pulumi.get(self, "idempotency_token")
 
     @property
@@ -1283,17 +1078,11 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="instancePoolId")
     def instance_pool_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to `TERMINATED`, the instances it used are returned to the pool and reused by a different cluster.
-        """
         return pulumi.get(self, "instance_pool_id")
 
     @property
     @pulumi.getter(name="isPinned")
     def is_pinned(self) -> pulumi.Output[Optional[bool]]:
-        """
-        boolean value specifying if cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is [limited to 20](https://docs.databricks.com/clusters/clusters-manage.html#pin-a-cluster), so `apply` may fail if you have more than that.
-        """
         return pulumi.get(self, "is_pinned")
 
     @property
@@ -1304,9 +1093,6 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="nodeTypeId")
     def node_type_id(self) -> pulumi.Output[str]:
-        """
-        Any supported get_node_type id. If `instance_pool_id` is specified, this field is not needed.
-        """
         return pulumi.get(self, "node_type_id")
 
     @property
@@ -1317,61 +1103,45 @@ class Cluster(pulumi.CustomResource):
     @property
     @pulumi.getter(name="policyId")
     def policy_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        Identifier of Cluster Policy to validate cluster and preset certain defaults. *The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters.* For example, when you specify `policy_id` of [external metastore](https://docs.databricks.com/administration-guide/clusters/policies.html#external-metastore-policy) policy, you still have to fill in relevant keys for `spark_conf`.
-        """
         return pulumi.get(self, "policy_id")
 
     @property
     @pulumi.getter(name="singleUserName")
     def single_user_name(self) -> pulumi.Output[Optional[str]]:
-        """
-        The optional user name of the user to assign to an interactive cluster. This field is required when using standard AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
-        """
         return pulumi.get(self, "single_user_name")
 
     @property
     @pulumi.getter(name="sparkConf")
     def spark_conf(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
-        """
-        Map with key-value pairs to fine-tune Spark clusters, where you can provide custom [Spark configuration properties](https://spark.apache.org/docs/latest/configuration.html) in a cluster configuration.
-        """
         return pulumi.get(self, "spark_conf")
 
     @property
     @pulumi.getter(name="sparkEnvVars")
     def spark_env_vars(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
-        """
-        Map with environment variable key-value pairs to fine-tune Spark clusters. Key-value pairs of the form (X,Y) are exported (i.e., X='Y') while launching the driver and workers.
-        """
         return pulumi.get(self, "spark_env_vars")
 
     @property
     @pulumi.getter(name="sparkVersion")
     def spark_version(self) -> pulumi.Output[str]:
-        """
-        [Runtime version](https://docs.databricks.com/runtime/index.html) of the cluster. Any supported get_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
-        """
         return pulumi.get(self, "spark_version")
 
     @property
     @pulumi.getter(name="sshPublicKeys")
     def ssh_public_keys(self) -> pulumi.Output[Optional[Sequence[str]]]:
-        """
-        SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
-        """
         return pulumi.get(self, "ssh_public_keys")
 
     @property
     @pulumi.getter
     def state(self) -> pulumi.Output[str]:
-        """
-        (string) State of the cluster.
-        """
         return pulumi.get(self, "state")
 
     @property
     @pulumi.getter
     def url(self) -> pulumi.Output[str]:
         return pulumi.get(self, "url")
+
+    @property
+    @pulumi.getter(name="workloadType")
+    def workload_type(self) -> pulumi.Output[Optional['outputs.ClusterWorkloadType']]:
+        return pulumi.get(self, "workload_type")
 

@@ -79,8 +79,8 @@ namespace Pulumi.Databricks.Inputs
         [Input("nodeTypeId")]
         public Input<string>? NodeTypeId { get; set; }
 
-        [Input("numWorkers", required: true)]
-        public Input<int> NumWorkers { get; set; } = null!;
+        [Input("numWorkers")]
+        public Input<int>? NumWorkers { get; set; }
 
         [Input("policyId")]
         public Input<string>? PolicyId { get; set; }
@@ -114,6 +114,9 @@ namespace Pulumi.Databricks.Inputs
             get => _sshPublicKeys ?? (_sshPublicKeys = new InputList<string>());
             set => _sshPublicKeys = value;
         }
+
+        [Input("workloadType")]
+        public Input<Inputs.JobJobClusterNewClusterWorkloadTypeArgs>? WorkloadType { get; set; }
 
         public JobJobClusterNewClusterArgs()
         {

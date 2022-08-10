@@ -18,10 +18,8 @@ func GetZones(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetZonesResult
 
 // A collection of values returned by getZones.
 type GetZonesResult struct {
-	// This is the default zone that gets assigned to your workspace. This is the zone used by default for clusters and instance pools.
 	DefaultZone string `pulumi:"defaultZone"`
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// This is a list of all the zones available for your subnets in your Databricks workspace.
+	Id    string   `pulumi:"id"`
 	Zones []string `pulumi:"zones"`
 }

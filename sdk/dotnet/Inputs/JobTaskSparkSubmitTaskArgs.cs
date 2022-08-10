@@ -14,10 +14,6 @@ namespace Pulumi.Databricks.Inputs
     {
         [Input("parameters")]
         private InputList<string>? _parameters;
-
-        /// <summary>
-        /// Parameters for the task
-        /// </summary>
         public InputList<string> Parameters
         {
             get => _parameters ?? (_parameters = new InputList<string>());

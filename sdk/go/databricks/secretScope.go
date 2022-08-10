@@ -10,23 +10,13 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The secret resource scope can be imported using the scope name. `initial_manage_principal` state won't be imported, because the underlying API doesn't include it in the response. bash
-//
-// ```sh
-//  $ pulumi import databricks:index/secretScope:SecretScope object <scopeName>
-// ```
 type SecretScope struct {
 	pulumi.CustomResourceState
 
-	// Either `DATABRICKS` or `AZURE_KEYVAULT`
-	BackendType pulumi.StringOutput `pulumi:"backendType"`
-	// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
+	BackendType            pulumi.StringOutput                  `pulumi:"backendType"`
 	InitialManagePrincipal pulumi.StringPtrOutput               `pulumi:"initialManagePrincipal"`
 	KeyvaultMetadata       SecretScopeKeyvaultMetadataPtrOutput `pulumi:"keyvaultMetadata"`
-	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Name pulumi.StringOutput `pulumi:"name"`
+	Name                   pulumi.StringOutput                  `pulumi:"name"`
 }
 
 // NewSecretScope registers a new resource with the given unique name, arguments, and options.
@@ -58,23 +48,17 @@ func GetSecretScope(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering SecretScope resources.
 type secretScopeState struct {
-	// Either `DATABRICKS` or `AZURE_KEYVAULT`
-	BackendType *string `pulumi:"backendType"`
-	// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
+	BackendType            *string                      `pulumi:"backendType"`
 	InitialManagePrincipal *string                      `pulumi:"initialManagePrincipal"`
 	KeyvaultMetadata       *SecretScopeKeyvaultMetadata `pulumi:"keyvaultMetadata"`
-	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Name *string `pulumi:"name"`
+	Name                   *string                      `pulumi:"name"`
 }
 
 type SecretScopeState struct {
-	// Either `DATABRICKS` or `AZURE_KEYVAULT`
-	BackendType pulumi.StringPtrInput
-	// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
+	BackendType            pulumi.StringPtrInput
 	InitialManagePrincipal pulumi.StringPtrInput
 	KeyvaultMetadata       SecretScopeKeyvaultMetadataPtrInput
-	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Name pulumi.StringPtrInput
+	Name                   pulumi.StringPtrInput
 }
 
 func (SecretScopeState) ElementType() reflect.Type {
@@ -82,24 +66,18 @@ func (SecretScopeState) ElementType() reflect.Type {
 }
 
 type secretScopeArgs struct {
-	// Either `DATABRICKS` or `AZURE_KEYVAULT`
-	BackendType *string `pulumi:"backendType"`
-	// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
+	BackendType            *string                      `pulumi:"backendType"`
 	InitialManagePrincipal *string                      `pulumi:"initialManagePrincipal"`
 	KeyvaultMetadata       *SecretScopeKeyvaultMetadata `pulumi:"keyvaultMetadata"`
-	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Name *string `pulumi:"name"`
+	Name                   *string                      `pulumi:"name"`
 }
 
 // The set of arguments for constructing a SecretScope resource.
 type SecretScopeArgs struct {
-	// Either `DATABRICKS` or `AZURE_KEYVAULT`
-	BackendType pulumi.StringPtrInput
-	// The principal with the only possible value `users` that is initially granted `MANAGE` permission to the created scope.  If it's omitted, then the SecretAcl with `MANAGE` permission applied to the scope is assigned to the API request issuer's user identity (see [documentation](https://docs.databricks.com/dev-tools/api/latest/secrets.html#create-secret-scope)). This part of the state cannot be imported.
+	BackendType            pulumi.StringPtrInput
 	InitialManagePrincipal pulumi.StringPtrInput
 	KeyvaultMetadata       SecretScopeKeyvaultMetadataPtrInput
-	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
-	Name pulumi.StringPtrInput
+	Name                   pulumi.StringPtrInput
 }
 
 func (SecretScopeArgs) ElementType() reflect.Type {

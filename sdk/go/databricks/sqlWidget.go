@@ -11,68 +11,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// To manage [SQLA resources](https://docs.databricks.com/sql/get-started/concepts.html) you must have `databricksSqlAccess` on your Group or databricks_user.
-//
-// **Note:** documentation for this resource is a work in progress.
-//
-// A widget is always tied to a dashboard. Every dashboard may have one or more widgets.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/paiyar/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi-databricks/sdk/go/databricks"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := databricks.NewSqlWidget(ctx, "d1w1", &databricks.SqlWidgetArgs{
-// 			DashboardId: pulumi.Any(databricks_sql_dashboard.D1.Id),
-// 			Text:        pulumi.String("Hello! I'm a **text widget**!"),
-// 			Position: &SqlWidgetPositionArgs{
-// 				SizeX: pulumi.Int(3),
-// 				SizeY: pulumi.Int(4),
-// 				PosX:  pulumi.Int(0),
-// 				PosY:  pulumi.Int(0),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = databricks.NewSqlWidget(ctx, "d1w2", &databricks.SqlWidgetArgs{
-// 			DashboardId:     pulumi.Any(databricks_sql_dashboard.D1.Id),
-// 			VisualizationId: pulumi.Any(databricks_sql_visualization.Q1v1.Id),
-// 			Position: &SqlWidgetPositionArgs{
-// 				SizeX: pulumi.Int(3),
-// 				SizeY: pulumi.Int(4),
-// 				PosX:  pulumi.Int(3),
-// 				PosY:  pulumi.Int(0),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-// ## Related Resources
-//
-// The following resources are often used in the same context:
-//
-// * End to end workspace management guide.
-// * SqlDashboard to manage Databricks SQL [Dashboards](https://docs.databricks.com/sql/user/dashboards/index.html).
-// * SqlEndpoint to manage Databricks SQL [Endpoints](https://docs.databricks.com/sql/admin/sql-endpoints.html).
-// * SqlGlobalConfig to configure the security policy, databricks_instance_profile, and [data access properties](https://docs.databricks.com/sql/admin/data-access-configuration.html) for all SqlEndpoint of workspace.
-// * SqlPermissions to manage data object access control lists in Databricks workspaces for things like tables, views, databases, and [more](https://docs.databricks.com/security/access-control/table-acls/object-privileges.html).
-//
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type SqlWidget struct {
 	pulumi.CustomResourceState
 

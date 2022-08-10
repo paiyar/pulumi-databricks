@@ -9,38 +9,21 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/mwsStorageConfigurations:MwsStorageConfigurations")]
     public partial class MwsStorageConfigurations : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Output("accountId")]
         public Output<string> AccountId { get; private set; } = null!;
 
-        /// <summary>
-        /// name of AWS S3 bucket
-        /// </summary>
         [Output("bucketName")]
         public Output<string> BucketName { get; private set; } = null!;
 
         [Output("creationTime")]
         public Output<int> CreationTime { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) id of storage config to be used for `databricks_mws_workspace` resource.
-        /// </summary>
         [Output("storageConfigurationId")]
         public Output<string> StorageConfigurationId { get; private set; } = null!;
 
-        /// <summary>
-        /// name under which this storage configuration is stored
-        /// </summary>
         [Output("storageConfigurationName")]
         public Output<string> StorageConfigurationName { get; private set; } = null!;
 
@@ -90,21 +73,12 @@ namespace Pulumi.Databricks
 
     public sealed class MwsStorageConfigurationsArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId", required: true)]
         public Input<string> AccountId { get; set; } = null!;
 
-        /// <summary>
-        /// name of AWS S3 bucket
-        /// </summary>
         [Input("bucketName", required: true)]
         public Input<string> BucketName { get; set; } = null!;
 
-        /// <summary>
-        /// name under which this storage configuration is stored
-        /// </summary>
         [Input("storageConfigurationName", required: true)]
         public Input<string> StorageConfigurationName { get; set; } = null!;
 
@@ -115,30 +89,18 @@ namespace Pulumi.Databricks
 
     public sealed class MwsStorageConfigurationsState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
 
-        /// <summary>
-        /// name of AWS S3 bucket
-        /// </summary>
         [Input("bucketName")]
         public Input<string>? BucketName { get; set; }
 
         [Input("creationTime")]
         public Input<int>? CreationTime { get; set; }
 
-        /// <summary>
-        /// (String) id of storage config to be used for `databricks_mws_workspace` resource.
-        /// </summary>
         [Input("storageConfigurationId")]
         public Input<string>? StorageConfigurationId { get; set; }
 
-        /// <summary>
-        /// name under which this storage configuration is stored
-        /// </summary>
         [Input("storageConfigurationName")]
         public Input<string>? StorageConfigurationName { get; set; }
 

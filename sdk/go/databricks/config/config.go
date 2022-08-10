@@ -57,6 +57,9 @@ func GetDebugTruncateBytes(ctx *pulumi.Context) int {
 	}
 	return getEnvOrDefault(0, parseEnvInt, "DATABRICKS_DEBUG_TRUNCATE_BYTES").(int)
 }
+func GetGoogleCredentials(ctx *pulumi.Context) string {
+	return config.Get(ctx, "databricks:googleCredentials")
+}
 func GetGoogleServiceAccount(ctx *pulumi.Context) string {
 	return config.Get(ctx, "databricks:googleServiceAccount")
 }

@@ -4,38 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * > **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
- *
- * A metastore is the top-level container of objects in Unity Catalog. It stores data assets (tables and views) and the permissions that govern access to them. Databricks account admins can create metastores and assign them to Databricks workspaces in order to control which workloads use each metastore.
- *
- * Unity Catalog offers a new metastore with built in security and auditing. This is distinct to the metastore used in previous versions of Databricks (based on the Hive Metastore).
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const thisMetastore = new databricks.Metastore("thisMetastore", {
- *     storageRoot: `s3://${aws_s3_bucket.metastore.id}/metastore`,
- *     owner: "uc admins",
- *     forceDestroy: true,
- * });
- * const thisMetastoreAssignment = new databricks.MetastoreAssignment("thisMetastoreAssignment", {
- *     metastoreId: thisMetastore.id,
- *     workspaceId: local.workspace_id,
- * });
- * ```
- *
- * ## Import
- *
- * This resource can be imported by IDbash
- *
- * ```sh
- *  $ pulumi import databricks:index/metastore:Metastore this <id>
- * ```
- */
 export class Metastore extends pulumi.CustomResource {
     /**
      * Get an existing Metastore resource's state with the given name, ID, and optional extra
@@ -64,23 +32,21 @@ export class Metastore extends pulumi.CustomResource {
         return obj['__pulumiType'] === Metastore.__pulumiType;
     }
 
+    public readonly cloud!: pulumi.Output<string>;
+    public readonly createdAt!: pulumi.Output<number>;
+    public readonly createdBy!: pulumi.Output<string>;
     public readonly defaultDataAccessConfigId!: pulumi.Output<string | undefined>;
-    /**
-     * Destroy metastore regardless of its contents.
-     */
+    public readonly deltaSharingOrganizationName!: pulumi.Output<string | undefined>;
+    public readonly deltaSharingRecipientTokenLifetimeInSeconds!: pulumi.Output<number | undefined>;
+    public readonly deltaSharingScope!: pulumi.Output<string | undefined>;
     public readonly forceDestroy!: pulumi.Output<boolean | undefined>;
-    /**
-     * Name of metastore.
-     */
+    public readonly globalMetastoreId!: pulumi.Output<string>;
     public readonly name!: pulumi.Output<string>;
-    /**
-     * Username/groupname of Metastore owner.
-     */
     public readonly owner!: pulumi.Output<string>;
-    /**
-     * Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
-     */
+    public readonly region!: pulumi.Output<string>;
     public readonly storageRoot!: pulumi.Output<string>;
+    public readonly updatedAt!: pulumi.Output<number>;
+    public readonly updatedBy!: pulumi.Output<string>;
 
     /**
      * Create a Metastore resource with the given unique name, arguments, and options.
@@ -95,21 +61,41 @@ export class Metastore extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as MetastoreState | undefined;
+            resourceInputs["cloud"] = state ? state.cloud : undefined;
+            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
+            resourceInputs["createdBy"] = state ? state.createdBy : undefined;
             resourceInputs["defaultDataAccessConfigId"] = state ? state.defaultDataAccessConfigId : undefined;
+            resourceInputs["deltaSharingOrganizationName"] = state ? state.deltaSharingOrganizationName : undefined;
+            resourceInputs["deltaSharingRecipientTokenLifetimeInSeconds"] = state ? state.deltaSharingRecipientTokenLifetimeInSeconds : undefined;
+            resourceInputs["deltaSharingScope"] = state ? state.deltaSharingScope : undefined;
             resourceInputs["forceDestroy"] = state ? state.forceDestroy : undefined;
+            resourceInputs["globalMetastoreId"] = state ? state.globalMetastoreId : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["owner"] = state ? state.owner : undefined;
+            resourceInputs["region"] = state ? state.region : undefined;
             resourceInputs["storageRoot"] = state ? state.storageRoot : undefined;
+            resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
+            resourceInputs["updatedBy"] = state ? state.updatedBy : undefined;
         } else {
             const args = argsOrState as MetastoreArgs | undefined;
             if ((!args || args.storageRoot === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'storageRoot'");
             }
+            resourceInputs["cloud"] = args ? args.cloud : undefined;
+            resourceInputs["createdAt"] = args ? args.createdAt : undefined;
+            resourceInputs["createdBy"] = args ? args.createdBy : undefined;
             resourceInputs["defaultDataAccessConfigId"] = args ? args.defaultDataAccessConfigId : undefined;
+            resourceInputs["deltaSharingOrganizationName"] = args ? args.deltaSharingOrganizationName : undefined;
+            resourceInputs["deltaSharingRecipientTokenLifetimeInSeconds"] = args ? args.deltaSharingRecipientTokenLifetimeInSeconds : undefined;
+            resourceInputs["deltaSharingScope"] = args ? args.deltaSharingScope : undefined;
             resourceInputs["forceDestroy"] = args ? args.forceDestroy : undefined;
+            resourceInputs["globalMetastoreId"] = args ? args.globalMetastoreId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["owner"] = args ? args.owner : undefined;
+            resourceInputs["region"] = args ? args.region : undefined;
             resourceInputs["storageRoot"] = args ? args.storageRoot : undefined;
+            resourceInputs["updatedAt"] = args ? args.updatedAt : undefined;
+            resourceInputs["updatedBy"] = args ? args.updatedBy : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Metastore.__pulumiType, name, resourceInputs, opts);
@@ -120,44 +106,40 @@ export class Metastore extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Metastore resources.
  */
 export interface MetastoreState {
+    cloud?: pulumi.Input<string>;
+    createdAt?: pulumi.Input<number>;
+    createdBy?: pulumi.Input<string>;
     defaultDataAccessConfigId?: pulumi.Input<string>;
-    /**
-     * Destroy metastore regardless of its contents.
-     */
+    deltaSharingOrganizationName?: pulumi.Input<string>;
+    deltaSharingRecipientTokenLifetimeInSeconds?: pulumi.Input<number>;
+    deltaSharingScope?: pulumi.Input<string>;
     forceDestroy?: pulumi.Input<boolean>;
-    /**
-     * Name of metastore.
-     */
+    globalMetastoreId?: pulumi.Input<string>;
     name?: pulumi.Input<string>;
-    /**
-     * Username/groupname of Metastore owner.
-     */
     owner?: pulumi.Input<string>;
-    /**
-     * Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
-     */
+    region?: pulumi.Input<string>;
     storageRoot?: pulumi.Input<string>;
+    updatedAt?: pulumi.Input<number>;
+    updatedBy?: pulumi.Input<string>;
 }
 
 /**
  * The set of arguments for constructing a Metastore resource.
  */
 export interface MetastoreArgs {
+    cloud?: pulumi.Input<string>;
+    createdAt?: pulumi.Input<number>;
+    createdBy?: pulumi.Input<string>;
     defaultDataAccessConfigId?: pulumi.Input<string>;
-    /**
-     * Destroy metastore regardless of its contents.
-     */
+    deltaSharingOrganizationName?: pulumi.Input<string>;
+    deltaSharingRecipientTokenLifetimeInSeconds?: pulumi.Input<number>;
+    deltaSharingScope?: pulumi.Input<string>;
     forceDestroy?: pulumi.Input<boolean>;
-    /**
-     * Name of metastore.
-     */
+    globalMetastoreId?: pulumi.Input<string>;
     name?: pulumi.Input<string>;
-    /**
-     * Username/groupname of Metastore owner.
-     */
     owner?: pulumi.Input<string>;
-    /**
-     * Path on cloud storage account, where managed databricks.Table are stored. Change forces creation of a new resource.
-     */
+    region?: pulumi.Input<string>;
     storageRoot: pulumi.Input<string>;
+    updatedAt?: pulumi.Input<number>;
+    updatedBy?: pulumi.Input<string>;
 }

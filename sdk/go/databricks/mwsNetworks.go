@@ -11,29 +11,20 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type MwsNetworks struct {
 	pulumi.CustomResourceState
 
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId     pulumi.StringOutput                `pulumi:"accountId"`
-	CreationTime  pulumi.IntOutput                   `pulumi:"creationTime"`
-	ErrorMessages MwsNetworksErrorMessageArrayOutput `pulumi:"errorMessages"`
-	// (String) id of network to be used for databricksMwsWorkspace resource.
-	NetworkId pulumi.StringOutput `pulumi:"networkId"`
-	// name under which this network is regisstered
-	NetworkName      pulumi.StringOutput      `pulumi:"networkName"`
-	SecurityGroupIds pulumi.StringArrayOutput `pulumi:"securityGroupIds"`
-	SubnetIds        pulumi.StringArrayOutput `pulumi:"subnetIds"`
-	// mapping of MwsVpcEndpoint for PrivateLink connections
-	VpcEndpoints MwsNetworksVpcEndpointsOutput `pulumi:"vpcEndpoints"`
-	VpcId        pulumi.StringOutput           `pulumi:"vpcId"`
-	// (String) VPC attachment status
-	VpcStatus pulumi.StringOutput `pulumi:"vpcStatus"`
-	// (Integer) id of associated workspace
-	WorkspaceId pulumi.IntOutput `pulumi:"workspaceId"`
+	AccountId        pulumi.StringOutput                `pulumi:"accountId"`
+	CreationTime     pulumi.IntOutput                   `pulumi:"creationTime"`
+	ErrorMessages    MwsNetworksErrorMessageArrayOutput `pulumi:"errorMessages"`
+	NetworkId        pulumi.StringOutput                `pulumi:"networkId"`
+	NetworkName      pulumi.StringOutput                `pulumi:"networkName"`
+	SecurityGroupIds pulumi.StringArrayOutput           `pulumi:"securityGroupIds"`
+	SubnetIds        pulumi.StringArrayOutput           `pulumi:"subnetIds"`
+	VpcEndpoints     MwsNetworksVpcEndpointsOutput      `pulumi:"vpcEndpoints"`
+	VpcId            pulumi.StringOutput                `pulumi:"vpcId"`
+	VpcStatus        pulumi.StringOutput                `pulumi:"vpcStatus"`
+	WorkspaceId      pulumi.IntOutput                   `pulumi:"workspaceId"`
 }
 
 // NewMwsNetworks registers a new resource with the given unique name, arguments, and options.
@@ -80,43 +71,31 @@ func GetMwsNetworks(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering MwsNetworks resources.
 type mwsNetworksState struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId     *string                   `pulumi:"accountId"`
-	CreationTime  *int                      `pulumi:"creationTime"`
-	ErrorMessages []MwsNetworksErrorMessage `pulumi:"errorMessages"`
-	// (String) id of network to be used for databricksMwsWorkspace resource.
-	NetworkId *string `pulumi:"networkId"`
-	// name under which this network is regisstered
-	NetworkName      *string  `pulumi:"networkName"`
-	SecurityGroupIds []string `pulumi:"securityGroupIds"`
-	SubnetIds        []string `pulumi:"subnetIds"`
-	// mapping of MwsVpcEndpoint for PrivateLink connections
-	VpcEndpoints *MwsNetworksVpcEndpoints `pulumi:"vpcEndpoints"`
-	VpcId        *string                  `pulumi:"vpcId"`
-	// (String) VPC attachment status
-	VpcStatus *string `pulumi:"vpcStatus"`
-	// (Integer) id of associated workspace
-	WorkspaceId *int `pulumi:"workspaceId"`
+	AccountId        *string                   `pulumi:"accountId"`
+	CreationTime     *int                      `pulumi:"creationTime"`
+	ErrorMessages    []MwsNetworksErrorMessage `pulumi:"errorMessages"`
+	NetworkId        *string                   `pulumi:"networkId"`
+	NetworkName      *string                   `pulumi:"networkName"`
+	SecurityGroupIds []string                  `pulumi:"securityGroupIds"`
+	SubnetIds        []string                  `pulumi:"subnetIds"`
+	VpcEndpoints     *MwsNetworksVpcEndpoints  `pulumi:"vpcEndpoints"`
+	VpcId            *string                   `pulumi:"vpcId"`
+	VpcStatus        *string                   `pulumi:"vpcStatus"`
+	WorkspaceId      *int                      `pulumi:"workspaceId"`
 }
 
 type MwsNetworksState struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId     pulumi.StringPtrInput
-	CreationTime  pulumi.IntPtrInput
-	ErrorMessages MwsNetworksErrorMessageArrayInput
-	// (String) id of network to be used for databricksMwsWorkspace resource.
-	NetworkId pulumi.StringPtrInput
-	// name under which this network is regisstered
+	AccountId        pulumi.StringPtrInput
+	CreationTime     pulumi.IntPtrInput
+	ErrorMessages    MwsNetworksErrorMessageArrayInput
+	NetworkId        pulumi.StringPtrInput
 	NetworkName      pulumi.StringPtrInput
 	SecurityGroupIds pulumi.StringArrayInput
 	SubnetIds        pulumi.StringArrayInput
-	// mapping of MwsVpcEndpoint for PrivateLink connections
-	VpcEndpoints MwsNetworksVpcEndpointsPtrInput
-	VpcId        pulumi.StringPtrInput
-	// (String) VPC attachment status
-	VpcStatus pulumi.StringPtrInput
-	// (Integer) id of associated workspace
-	WorkspaceId pulumi.IntPtrInput
+	VpcEndpoints     MwsNetworksVpcEndpointsPtrInput
+	VpcId            pulumi.StringPtrInput
+	VpcStatus        pulumi.StringPtrInput
+	WorkspaceId      pulumi.IntPtrInput
 }
 
 func (MwsNetworksState) ElementType() reflect.Type {
@@ -124,44 +103,32 @@ func (MwsNetworksState) ElementType() reflect.Type {
 }
 
 type mwsNetworksArgs struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId     string                    `pulumi:"accountId"`
-	CreationTime  *int                      `pulumi:"creationTime"`
-	ErrorMessages []MwsNetworksErrorMessage `pulumi:"errorMessages"`
-	// (String) id of network to be used for databricksMwsWorkspace resource.
-	NetworkId *string `pulumi:"networkId"`
-	// name under which this network is regisstered
-	NetworkName      string   `pulumi:"networkName"`
-	SecurityGroupIds []string `pulumi:"securityGroupIds"`
-	SubnetIds        []string `pulumi:"subnetIds"`
-	// mapping of MwsVpcEndpoint for PrivateLink connections
-	VpcEndpoints *MwsNetworksVpcEndpoints `pulumi:"vpcEndpoints"`
-	VpcId        string                   `pulumi:"vpcId"`
-	// (String) VPC attachment status
-	VpcStatus *string `pulumi:"vpcStatus"`
-	// (Integer) id of associated workspace
-	WorkspaceId *int `pulumi:"workspaceId"`
+	AccountId        string                    `pulumi:"accountId"`
+	CreationTime     *int                      `pulumi:"creationTime"`
+	ErrorMessages    []MwsNetworksErrorMessage `pulumi:"errorMessages"`
+	NetworkId        *string                   `pulumi:"networkId"`
+	NetworkName      string                    `pulumi:"networkName"`
+	SecurityGroupIds []string                  `pulumi:"securityGroupIds"`
+	SubnetIds        []string                  `pulumi:"subnetIds"`
+	VpcEndpoints     *MwsNetworksVpcEndpoints  `pulumi:"vpcEndpoints"`
+	VpcId            string                    `pulumi:"vpcId"`
+	VpcStatus        *string                   `pulumi:"vpcStatus"`
+	WorkspaceId      *int                      `pulumi:"workspaceId"`
 }
 
 // The set of arguments for constructing a MwsNetworks resource.
 type MwsNetworksArgs struct {
-	// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-	AccountId     pulumi.StringInput
-	CreationTime  pulumi.IntPtrInput
-	ErrorMessages MwsNetworksErrorMessageArrayInput
-	// (String) id of network to be used for databricksMwsWorkspace resource.
-	NetworkId pulumi.StringPtrInput
-	// name under which this network is regisstered
+	AccountId        pulumi.StringInput
+	CreationTime     pulumi.IntPtrInput
+	ErrorMessages    MwsNetworksErrorMessageArrayInput
+	NetworkId        pulumi.StringPtrInput
 	NetworkName      pulumi.StringInput
 	SecurityGroupIds pulumi.StringArrayInput
 	SubnetIds        pulumi.StringArrayInput
-	// mapping of MwsVpcEndpoint for PrivateLink connections
-	VpcEndpoints MwsNetworksVpcEndpointsPtrInput
-	VpcId        pulumi.StringInput
-	// (String) VPC attachment status
-	VpcStatus pulumi.StringPtrInput
-	// (Integer) id of associated workspace
-	WorkspaceId pulumi.IntPtrInput
+	VpcEndpoints     MwsNetworksVpcEndpointsPtrInput
+	VpcId            pulumi.StringInput
+	VpcStatus        pulumi.StringPtrInput
+	WorkspaceId      pulumi.IntPtrInput
 }
 
 func (MwsNetworksArgs) ElementType() reflect.Type {

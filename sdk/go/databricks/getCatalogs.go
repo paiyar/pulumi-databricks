@@ -21,15 +21,13 @@ func GetCatalogs(ctx *pulumi.Context, args *GetCatalogsArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getCatalogs.
 type GetCatalogsArgs struct {
-	// set of Catalog names
 	Ids []string `pulumi:"ids"`
 }
 
 // A collection of values returned by getCatalogs.
 type GetCatalogsResult struct {
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// set of Catalog names
+	Id  string   `pulumi:"id"`
 	Ids []string `pulumi:"ids"`
 }
 
@@ -44,7 +42,6 @@ func GetCatalogsOutput(ctx *pulumi.Context, args GetCatalogsOutputArgs, opts ...
 
 // A collection of arguments for invoking getCatalogs.
 type GetCatalogsOutputArgs struct {
-	// set of Catalog names
 	Ids pulumi.StringArrayInput `pulumi:"ids"`
 }
 
@@ -72,7 +69,6 @@ func (o GetCatalogsResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetCatalogsResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// set of Catalog names
 func (o GetCatalogsResultOutput) Ids() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetCatalogsResult) []string { return v.Ids }).(pulumi.StringArrayOutput)
 }

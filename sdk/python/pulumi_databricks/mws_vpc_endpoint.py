@@ -24,12 +24,6 @@ class MwsVpcEndpointArgs:
                  vpc_endpoint_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a MwsVpcEndpoint resource.
-        :param pulumi.Input[str] region: Region of AWS VPC
-        :param pulumi.Input[str] vpc_endpoint_name: Name of VPC Endpoint in Databricks Account
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] aws_endpoint_service_id: ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-        :param pulumi.Input[str] state: State of VPC Endpoint
-        :param pulumi.Input[str] vpc_endpoint_id: Canonical unique identifier of VPC Endpoint in Databricks Account
         """
         pulumi.set(__self__, "aws_vpc_endpoint_id", aws_vpc_endpoint_id)
         pulumi.set(__self__, "region", region)
@@ -59,9 +53,6 @@ class MwsVpcEndpointArgs:
     @property
     @pulumi.getter
     def region(self) -> pulumi.Input[str]:
-        """
-        Region of AWS VPC
-        """
         return pulumi.get(self, "region")
 
     @region.setter
@@ -71,9 +62,6 @@ class MwsVpcEndpointArgs:
     @property
     @pulumi.getter(name="vpcEndpointName")
     def vpc_endpoint_name(self) -> pulumi.Input[str]:
-        """
-        Name of VPC Endpoint in Databricks Account
-        """
         return pulumi.get(self, "vpc_endpoint_name")
 
     @vpc_endpoint_name.setter
@@ -83,9 +71,6 @@ class MwsVpcEndpointArgs:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -104,9 +89,6 @@ class MwsVpcEndpointArgs:
     @property
     @pulumi.getter(name="awsEndpointServiceId")
     def aws_endpoint_service_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-        """
         return pulumi.get(self, "aws_endpoint_service_id")
 
     @aws_endpoint_service_id.setter
@@ -116,9 +98,6 @@ class MwsVpcEndpointArgs:
     @property
     @pulumi.getter
     def state(self) -> Optional[pulumi.Input[str]]:
-        """
-        State of VPC Endpoint
-        """
         return pulumi.get(self, "state")
 
     @state.setter
@@ -137,9 +116,6 @@ class MwsVpcEndpointArgs:
     @property
     @pulumi.getter(name="vpcEndpointId")
     def vpc_endpoint_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Canonical unique identifier of VPC Endpoint in Databricks Account
-        """
         return pulumi.get(self, "vpc_endpoint_id")
 
     @vpc_endpoint_id.setter
@@ -161,12 +137,6 @@ class _MwsVpcEndpointState:
                  vpc_endpoint_name: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering MwsVpcEndpoint resources.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] aws_endpoint_service_id: ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-        :param pulumi.Input[str] region: Region of AWS VPC
-        :param pulumi.Input[str] state: State of VPC Endpoint
-        :param pulumi.Input[str] vpc_endpoint_id: Canonical unique identifier of VPC Endpoint in Databricks Account
-        :param pulumi.Input[str] vpc_endpoint_name: Name of VPC Endpoint in Databricks Account
         """
         if account_id is not None:
             pulumi.set(__self__, "account_id", account_id)
@@ -190,9 +160,6 @@ class _MwsVpcEndpointState:
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -211,9 +178,6 @@ class _MwsVpcEndpointState:
     @property
     @pulumi.getter(name="awsEndpointServiceId")
     def aws_endpoint_service_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-        """
         return pulumi.get(self, "aws_endpoint_service_id")
 
     @aws_endpoint_service_id.setter
@@ -232,9 +196,6 @@ class _MwsVpcEndpointState:
     @property
     @pulumi.getter
     def region(self) -> Optional[pulumi.Input[str]]:
-        """
-        Region of AWS VPC
-        """
         return pulumi.get(self, "region")
 
     @region.setter
@@ -244,9 +205,6 @@ class _MwsVpcEndpointState:
     @property
     @pulumi.getter
     def state(self) -> Optional[pulumi.Input[str]]:
-        """
-        State of VPC Endpoint
-        """
         return pulumi.get(self, "state")
 
     @state.setter
@@ -265,9 +223,6 @@ class _MwsVpcEndpointState:
     @property
     @pulumi.getter(name="vpcEndpointId")
     def vpc_endpoint_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Canonical unique identifier of VPC Endpoint in Databricks Account
-        """
         return pulumi.get(self, "vpc_endpoint_id")
 
     @vpc_endpoint_id.setter
@@ -277,9 +232,6 @@ class _MwsVpcEndpointState:
     @property
     @pulumi.getter(name="vpcEndpointName")
     def vpc_endpoint_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Name of VPC Endpoint in Databricks Account
-        """
         return pulumi.get(self, "vpc_endpoint_name")
 
     @vpc_endpoint_name.setter
@@ -303,18 +255,9 @@ class MwsVpcEndpoint(pulumi.CustomResource):
                  vpc_endpoint_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsVpcEndpoint resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] aws_endpoint_service_id: ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-        :param pulumi.Input[str] region: Region of AWS VPC
-        :param pulumi.Input[str] state: State of VPC Endpoint
-        :param pulumi.Input[str] vpc_endpoint_id: Canonical unique identifier of VPC Endpoint in Databricks Account
-        :param pulumi.Input[str] vpc_endpoint_name: Name of VPC Endpoint in Databricks Account
         """
         ...
     @overload
@@ -323,10 +266,7 @@ class MwsVpcEndpoint(pulumi.CustomResource):
                  args: MwsVpcEndpointArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a MwsVpcEndpoint resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param MwsVpcEndpointArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -404,12 +344,6 @@ class MwsVpcEndpoint(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] account_id: Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        :param pulumi.Input[str] aws_endpoint_service_id: ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-        :param pulumi.Input[str] region: Region of AWS VPC
-        :param pulumi.Input[str] state: State of VPC Endpoint
-        :param pulumi.Input[str] vpc_endpoint_id: Canonical unique identifier of VPC Endpoint in Databricks Account
-        :param pulumi.Input[str] vpc_endpoint_name: Name of VPC Endpoint in Databricks Account
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -429,9 +363,6 @@ class MwsVpcEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        """
         return pulumi.get(self, "account_id")
 
     @property
@@ -442,9 +373,6 @@ class MwsVpcEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter(name="awsEndpointServiceId")
     def aws_endpoint_service_id(self) -> pulumi.Output[str]:
-        """
-        ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-        """
         return pulumi.get(self, "aws_endpoint_service_id")
 
     @property
@@ -455,17 +383,11 @@ class MwsVpcEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter
     def region(self) -> pulumi.Output[str]:
-        """
-        Region of AWS VPC
-        """
         return pulumi.get(self, "region")
 
     @property
     @pulumi.getter
     def state(self) -> pulumi.Output[str]:
-        """
-        State of VPC Endpoint
-        """
         return pulumi.get(self, "state")
 
     @property
@@ -476,16 +398,10 @@ class MwsVpcEndpoint(pulumi.CustomResource):
     @property
     @pulumi.getter(name="vpcEndpointId")
     def vpc_endpoint_id(self) -> pulumi.Output[str]:
-        """
-        Canonical unique identifier of VPC Endpoint in Databricks Account
-        """
         return pulumi.get(self, "vpc_endpoint_id")
 
     @property
     @pulumi.getter(name="vpcEndpointName")
     def vpc_endpoint_name(self) -> pulumi.Output[str]:
-        """
-        Name of VPC Endpoint in Databricks Account
-        """
         return pulumi.get(self, "vpc_endpoint_name")
 

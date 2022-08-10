@@ -12,18 +12,11 @@ namespace Pulumi.Databricks.Inputs
 
     public sealed class SqlPermissionsPrivilegeAssignmentArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// `display_name` of databricks.Group or databricks_user.
-        /// </summary>
         [Input("principal", required: true)]
         public Input<string> Principal { get; set; } = null!;
 
         [Input("privileges", required: true)]
         private InputList<string>? _privileges;
-
-        /// <summary>
-        /// set of available privilege names in upper case.
-        /// </summary>
         public InputList<string> Privileges
         {
             get => _privileges ?? (_privileges = new InputList<string>());

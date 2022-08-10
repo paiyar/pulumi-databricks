@@ -12,24 +12,15 @@ namespace Pulumi.Databricks.Inputs
 
     public sealed class PermissionsAccessControlGetArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// name of the group, which should be used if the user name is not used. We recommend setting permissions on groups.
-        /// </summary>
         [Input("groupName")]
         public Input<string>? GroupName { get; set; }
 
-        /// <summary>
-        /// permission level according to specific resource. See examples above for the reference.
-        /// </summary>
         [Input("permissionLevel", required: true)]
         public Input<string> PermissionLevel { get; set; } = null!;
 
         [Input("servicePrincipalName")]
         public Input<string>? ServicePrincipalName { get; set; }
 
-        /// <summary>
-        /// name of the user, which should be used if group name is not used
-        /// </summary>
         [Input("userName")]
         public Input<string>? UserName { get; set; }
 

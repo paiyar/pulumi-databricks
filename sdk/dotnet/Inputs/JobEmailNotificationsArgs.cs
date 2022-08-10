@@ -12,18 +12,14 @@ namespace Pulumi.Databricks.Inputs
 
     public sealed class JobEmailNotificationsArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// (Bool) don't send alert for skipped runs
-        /// </summary>
+        [Input("alertOnLastAttempt")]
+        public Input<bool>? AlertOnLastAttempt { get; set; }
+
         [Input("noAlertForSkippedRuns")]
         public Input<bool>? NoAlertForSkippedRuns { get; set; }
 
         [Input("onFailures")]
         private InputList<string>? _onFailures;
-
-        /// <summary>
-        /// (List) list of emails to notify on failure
-        /// </summary>
         public InputList<string> OnFailures
         {
             get => _onFailures ?? (_onFailures = new InputList<string>());
@@ -32,10 +28,6 @@ namespace Pulumi.Databricks.Inputs
 
         [Input("onStarts")]
         private InputList<string>? _onStarts;
-
-        /// <summary>
-        /// (List) list of emails to notify on failure
-        /// </summary>
         public InputList<string> OnStarts
         {
             get => _onStarts ?? (_onStarts = new InputList<string>());
@@ -44,10 +36,6 @@ namespace Pulumi.Databricks.Inputs
 
         [Input("onSuccesses")]
         private InputList<string>? _onSuccesses;
-
-        /// <summary>
-        /// (List) list of emails to notify on failure
-        /// </summary>
         public InputList<string> OnSuccesses
         {
             get => _onSuccesses ?? (_onSuccesses = new InputList<string>());

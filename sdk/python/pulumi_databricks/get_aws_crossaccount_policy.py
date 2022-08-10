@@ -42,9 +42,6 @@ class GetAwsCrossaccountPolicyResult:
     @property
     @pulumi.getter
     def json(self) -> str:
-        """
-        AWS IAM Policy JSON document
-        """
         return pulumi.get(self, "json")
 
     @property
@@ -67,31 +64,7 @@ class AwaitableGetAwsCrossaccountPolicyResult(GetAwsCrossaccountPolicyResult):
 def get_aws_crossaccount_policy(pass_roles: Optional[Sequence[str]] = None,
                                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAwsCrossaccountPolicyResult:
     """
-    > **Note** This resource has an evolving API, which may change in future versions of the provider. Please always consult [latest documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default) in case of any questions.
-
-    This data source constructs necessary AWS cross-account policy for you, which is based on [official documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default).
-
-    ## Example Usage
-
-    For more detailed usage please see get_aws_assume_role_policy or AwsS3Mount pages.
-
-    ```python
-    import pulumi
-    import pulumi_databricks as databricks
-
-    this = databricks.get_aws_crossaccount_policy()
-    ```
-    ## Related Resources
-
-    The following resources are used in the same context:
-
-    * Provisioning AWS Databricks E2 with a Hub & Spoke firewall for data exfiltration protection guide
-    * get_aws_assume_role_policy data to construct the necessary AWS STS assume role policy.
-    * get_aws_bucket_policy data to configure a simple access policy for AWS S3 buckets, so that Databricks can access data in it.
-    * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-
-
-    :param Sequence[str] pass_roles: List of Data IAM role ARNs that are explicitly granted `iam:PassRole` action.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['passRoles'] = pass_roles
@@ -111,30 +84,6 @@ def get_aws_crossaccount_policy(pass_roles: Optional[Sequence[str]] = None,
 def get_aws_crossaccount_policy_output(pass_roles: Optional[pulumi.Input[Optional[Sequence[str]]]] = None,
                                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAwsCrossaccountPolicyResult]:
     """
-    > **Note** This resource has an evolving API, which may change in future versions of the provider. Please always consult [latest documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default) in case of any questions.
-
-    This data source constructs necessary AWS cross-account policy for you, which is based on [official documentation](https://docs.databricks.com/administration-guide/account-api/iam-role.html#language-Your%C2%A0VPC,%C2%A0default).
-
-    ## Example Usage
-
-    For more detailed usage please see get_aws_assume_role_policy or AwsS3Mount pages.
-
-    ```python
-    import pulumi
-    import pulumi_databricks as databricks
-
-    this = databricks.get_aws_crossaccount_policy()
-    ```
-    ## Related Resources
-
-    The following resources are used in the same context:
-
-    * Provisioning AWS Databricks E2 with a Hub & Spoke firewall for data exfiltration protection guide
-    * get_aws_assume_role_policy data to construct the necessary AWS STS assume role policy.
-    * get_aws_bucket_policy data to configure a simple access policy for AWS S3 buckets, so that Databricks can access data in it.
-    * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-
-
-    :param Sequence[str] pass_roles: List of Data IAM role ARNs that are explicitly granted `iam:PassRole` action.
+    Use this data source to access information about an existing resource.
     """
     ...

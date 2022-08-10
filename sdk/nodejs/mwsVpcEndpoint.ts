@@ -4,11 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class MwsVpcEndpoint extends pulumi.CustomResource {
     /**
      * Get an existing MwsVpcEndpoint resource's state with the given name, ID, and optional extra
@@ -37,32 +32,14 @@ export class MwsVpcEndpoint extends pulumi.CustomResource {
         return obj['__pulumiType'] === MwsVpcEndpoint.__pulumiType;
     }
 
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     public readonly accountId!: pulumi.Output<string | undefined>;
     public readonly awsAccountId!: pulumi.Output<string>;
-    /**
-     * ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-     */
     public readonly awsEndpointServiceId!: pulumi.Output<string>;
     public readonly awsVpcEndpointId!: pulumi.Output<string>;
-    /**
-     * Region of AWS VPC
-     */
     public readonly region!: pulumi.Output<string>;
-    /**
-     * State of VPC Endpoint
-     */
     public readonly state!: pulumi.Output<string>;
     public readonly useCase!: pulumi.Output<string>;
-    /**
-     * Canonical unique identifier of VPC Endpoint in Databricks Account
-     */
     public readonly vpcEndpointId!: pulumi.Output<string>;
-    /**
-     * Name of VPC Endpoint in Databricks Account
-     */
     public readonly vpcEndpointName!: pulumi.Output<string>;
 
     /**
@@ -117,32 +94,14 @@ export class MwsVpcEndpoint extends pulumi.CustomResource {
  * Input properties used for looking up and filtering MwsVpcEndpoint resources.
  */
 export interface MwsVpcEndpointState {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId?: pulumi.Input<string>;
     awsAccountId?: pulumi.Input<string>;
-    /**
-     * ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-     */
     awsEndpointServiceId?: pulumi.Input<string>;
     awsVpcEndpointId?: pulumi.Input<string>;
-    /**
-     * Region of AWS VPC
-     */
     region?: pulumi.Input<string>;
-    /**
-     * State of VPC Endpoint
-     */
     state?: pulumi.Input<string>;
     useCase?: pulumi.Input<string>;
-    /**
-     * Canonical unique identifier of VPC Endpoint in Databricks Account
-     */
     vpcEndpointId?: pulumi.Input<string>;
-    /**
-     * Name of VPC Endpoint in Databricks Account
-     */
     vpcEndpointName?: pulumi.Input<string>;
 }
 
@@ -150,31 +109,13 @@ export interface MwsVpcEndpointState {
  * The set of arguments for constructing a MwsVpcEndpoint resource.
  */
 export interface MwsVpcEndpointArgs {
-    /**
-     * Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-     */
     accountId?: pulumi.Input<string>;
     awsAccountId?: pulumi.Input<string>;
-    /**
-     * ID of Databricks VPC endpoint service to connect to. Please contact your Databricks representative to request mapping
-     */
     awsEndpointServiceId?: pulumi.Input<string>;
     awsVpcEndpointId: pulumi.Input<string>;
-    /**
-     * Region of AWS VPC
-     */
     region: pulumi.Input<string>;
-    /**
-     * State of VPC Endpoint
-     */
     state?: pulumi.Input<string>;
     useCase?: pulumi.Input<string>;
-    /**
-     * Canonical unique identifier of VPC Endpoint in Databricks Account
-     */
     vpcEndpointId?: pulumi.Input<string>;
-    /**
-     * Name of VPC Endpoint in Databricks Account
-     */
     vpcEndpointName: pulumi.Input<string>;
 }

@@ -20,8 +20,6 @@ class TokenArgs:
                  token_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Token resource.
-        :param pulumi.Input[str] comment: (String) Comment that will appear on the user’s settings page for this token.
-        :param pulumi.Input[int] lifetime_seconds: (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -37,9 +35,6 @@ class TokenArgs:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) Comment that will appear on the user’s settings page for this token.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -67,9 +62,6 @@ class TokenArgs:
     @property
     @pulumi.getter(name="lifetimeSeconds")
     def lifetime_seconds(self) -> Optional[pulumi.Input[int]]:
-        """
-        (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-        """
         return pulumi.get(self, "lifetime_seconds")
 
     @lifetime_seconds.setter
@@ -97,9 +89,6 @@ class _TokenState:
                  token_value: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Token resources.
-        :param pulumi.Input[str] comment: (String) Comment that will appear on the user’s settings page for this token.
-        :param pulumi.Input[int] lifetime_seconds: (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-        :param pulumi.Input[str] token_value: **Sensitive** value of the newly-created token.
         """
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
@@ -117,9 +106,6 @@ class _TokenState:
     @property
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        (String) Comment that will appear on the user’s settings page for this token.
-        """
         return pulumi.get(self, "comment")
 
     @comment.setter
@@ -147,9 +133,6 @@ class _TokenState:
     @property
     @pulumi.getter(name="lifetimeSeconds")
     def lifetime_seconds(self) -> Optional[pulumi.Input[int]]:
-        """
-        (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-        """
         return pulumi.get(self, "lifetime_seconds")
 
     @lifetime_seconds.setter
@@ -168,9 +151,6 @@ class _TokenState:
     @property
     @pulumi.getter(name="tokenValue")
     def token_value(self) -> Optional[pulumi.Input[str]]:
-        """
-        **Sensitive** value of the newly-created token.
-        """
         return pulumi.get(self, "token_value")
 
     @token_value.setter
@@ -190,33 +170,9 @@ class Token(pulumi.CustomResource):
                  token_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        This resource creates [Personal Access Tokens](https://docs.databricks.com/sql/user/security/personal-access-tokens.html) for the same user, that is authenticated with the provider. Most likely you should use OboToken to create [On-Behalf-Of tokens](https://docs.databricks.com/administration-guide/users-groups/service-principals.html#manage-personal-access-tokens-for-a-service-principal) for a ServicePrincipal in Databricks workspaces on AWS. Databricks workspaces on other clouds use their own native OAuth token flows.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-        import pulumi_pulumi as pulumi
-
-        # initialize provider in normal mode
-        created_workspace = pulumi.providers.Databricks("createdWorkspace", host=databricks_mws_workspaces["this"]["workspace_url"])
-        # create PAT token to provision entities within workspace
-        pat = databricks.Token("pat",
-            comment="Terraform Provisioning",
-            lifetime_seconds=8640000,
-            opts=pulumi.ResourceOptions(provider=databricks["created_workspace"]))
-        pulumi.export("databricksToken", pat.token_value)
-        ```
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a Token resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] comment: (String) Comment that will appear on the user’s settings page for this token.
-        :param pulumi.Input[int] lifetime_seconds: (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
         """
         ...
     @overload
@@ -225,29 +181,7 @@ class Token(pulumi.CustomResource):
                  args: Optional[TokenArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        This resource creates [Personal Access Tokens](https://docs.databricks.com/sql/user/security/personal-access-tokens.html) for the same user, that is authenticated with the provider. Most likely you should use OboToken to create [On-Behalf-Of tokens](https://docs.databricks.com/administration-guide/users-groups/service-principals.html#manage-personal-access-tokens-for-a-service-principal) for a ServicePrincipal in Databricks workspaces on AWS. Databricks workspaces on other clouds use their own native OAuth token flows.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-        import pulumi_pulumi as pulumi
-
-        # initialize provider in normal mode
-        created_workspace = pulumi.providers.Databricks("createdWorkspace", host=databricks_mws_workspaces["this"]["workspace_url"])
-        # create PAT token to provision entities within workspace
-        pat = databricks.Token("pat",
-            comment="Terraform Provisioning",
-            lifetime_seconds=8640000,
-            opts=pulumi.ResourceOptions(provider=databricks["created_workspace"]))
-        pulumi.export("databricksToken", pat.token_value)
-        ```
-
-        ## Import
-
-        -> **Note** Importing this resource is not currently supported.
-
+        Create a Token resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param TokenArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -309,9 +243,6 @@ class Token(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] comment: (String) Comment that will appear on the user’s settings page for this token.
-        :param pulumi.Input[int] lifetime_seconds: (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-        :param pulumi.Input[str] token_value: **Sensitive** value of the newly-created token.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -328,9 +259,6 @@ class Token(pulumi.CustomResource):
     @property
     @pulumi.getter
     def comment(self) -> pulumi.Output[Optional[str]]:
-        """
-        (String) Comment that will appear on the user’s settings page for this token.
-        """
         return pulumi.get(self, "comment")
 
     @property
@@ -346,9 +274,6 @@ class Token(pulumi.CustomResource):
     @property
     @pulumi.getter(name="lifetimeSeconds")
     def lifetime_seconds(self) -> pulumi.Output[Optional[int]]:
-        """
-        (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
-        """
         return pulumi.get(self, "lifetime_seconds")
 
     @property
@@ -359,8 +284,5 @@ class Token(pulumi.CustomResource):
     @property
     @pulumi.getter(name="tokenValue")
     def token_value(self) -> pulumi.Output[str]:
-        """
-        **Sensitive** value of the newly-created token.
-        """
         return pulumi.get(self, "token_value")
 

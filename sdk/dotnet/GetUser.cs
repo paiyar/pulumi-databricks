@@ -21,15 +21,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetUserArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// ID of the user.
-        /// </summary>
         [Input("userId")]
         public string? UserId { get; set; }
 
-        /// <summary>
-        /// User name of the user. The user must exist before this resource can be planned.
-        /// </summary>
         [Input("userName")]
         public string? UserName { get; set; }
 
@@ -40,15 +34,9 @@ namespace Pulumi.Databricks
 
     public sealed class GetUserInvokeArgs : Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// ID of the user.
-        /// </summary>
         [Input("userId")]
         public Input<string>? UserId { get; set; }
 
-        /// <summary>
-        /// User name of the user. The user must exist before this resource can be planned.
-        /// </summary>
         [Input("userName")]
         public Input<string>? UserName { get; set; }
 
@@ -61,39 +49,24 @@ namespace Pulumi.Databricks
     [OutputType]
     public sealed class GetUserResult
     {
-        /// <summary>
-        /// Alphanumeric representation of user local name. e.g. `mr_foo`.
-        /// </summary>
         public readonly string Alphanumeric;
-        /// <summary>
-        /// Display name of the user, e.g. `Mr Foo`.
-        /// </summary>
+        public readonly string ApplicationId;
         public readonly string DisplayName;
-        /// <summary>
-        /// ID of the user in an external identity provider.
-        /// </summary>
         public readonly string ExternalId;
-        /// <summary>
-        /// Home folder of the user, e.g. `/Users/mr.foo@example.com`.
-        /// </summary>
         public readonly string Home;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// Personal Repos location of the user, e.g. `/Repos/mr.foo@example.com`.
-        /// </summary>
         public readonly string Repos;
         public readonly string? UserId;
-        /// <summary>
-        /// Name of the user, e.g. `mr.foo@example.com`.
-        /// </summary>
         public readonly string? UserName;
 
         [OutputConstructor]
         private GetUserResult(
             string alphanumeric,
+
+            string applicationId,
 
             string displayName,
 
@@ -110,6 +83,7 @@ namespace Pulumi.Databricks
             string? userName)
         {
             Alphanumeric = alphanumeric;
+            ApplicationId = applicationId;
             DisplayName = displayName;
             ExternalId = externalId;
             Home = home;

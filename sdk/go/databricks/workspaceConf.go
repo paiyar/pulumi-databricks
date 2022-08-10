@@ -10,13 +10,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// -> **Note** Importing this resource is not currently supported.
 type WorkspaceConf struct {
 	pulumi.CustomResourceState
 
-	// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
 	CustomConfig pulumi.MapOutput `pulumi:"customConfig"`
 }
 
@@ -49,12 +45,10 @@ func GetWorkspaceConf(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering WorkspaceConf resources.
 type workspaceConfState struct {
-	// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
 	CustomConfig map[string]interface{} `pulumi:"customConfig"`
 }
 
 type WorkspaceConfState struct {
-	// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
 	CustomConfig pulumi.MapInput
 }
 
@@ -63,13 +57,11 @@ func (WorkspaceConfState) ElementType() reflect.Type {
 }
 
 type workspaceConfArgs struct {
-	// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
 	CustomConfig map[string]interface{} `pulumi:"customConfig"`
 }
 
 // The set of arguments for constructing a WorkspaceConf resource.
 type WorkspaceConfArgs struct {
-	// Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
 	CustomConfig pulumi.MapInput
 }
 

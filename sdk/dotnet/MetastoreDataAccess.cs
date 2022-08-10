@@ -9,50 +9,14 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// &gt; **Private Preview** This feature is in [Private Preview](https://docs.databricks.com/release-notes/release-types.html). Contact your Databricks representative to request access.
-    /// 
-    /// Each databricks.Metastore requires an IAM role that will be assumed by Unity Catalog to access data. `databricks.MetastoreDataAccess` defines this
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Databricks = Pulumi.Databricks;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var thisMetastore = new Databricks.Metastore("thisMetastore", new Databricks.MetastoreArgs
-    ///         {
-    ///             StorageRoot = $"s3://{aws_s3_bucket.Metastore.Id}/metastore",
-    ///             Owner = "uc admins",
-    ///             ForceDestroy = true,
-    ///         });
-    ///         var thisMetastoreDataAccess = new Databricks.MetastoreDataAccess("thisMetastoreDataAccess", new Databricks.MetastoreDataAccessArgs
-    ///         {
-    ///             MetastoreId = thisMetastore.Id,
-    ///             AwsIamRole = new Databricks.Inputs.MetastoreDataAccessAwsIamRoleArgs
-    ///             {
-    ///                 RoleArn = aws_iam_role.Metastore_data_access.Arn,
-    ///             },
-    ///             IsDefault = true,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/metastoreDataAccess:MetastoreDataAccess")]
     public partial class MetastoreDataAccess : Pulumi.CustomResource
     {
         [Output("awsIamRole")]
         public Output<Outputs.MetastoreDataAccessAwsIamRole?> AwsIamRole { get; private set; } = null!;
+
+        [Output("azureManagedIdentity")]
+        public Output<Outputs.MetastoreDataAccessAzureManagedIdentity?> AzureManagedIdentity { get; private set; } = null!;
 
         [Output("azureServicePrincipal")]
         public Output<Outputs.MetastoreDataAccessAzureServicePrincipal?> AzureServicePrincipal { get; private set; } = null!;
@@ -66,15 +30,9 @@ namespace Pulumi.Databricks
         [Output("isDefault")]
         public Output<bool?> IsDefault { get; private set; } = null!;
 
-        /// <summary>
-        /// Unique identifier of the parent Metastore
-        /// </summary>
         [Output("metastoreId")]
         public Output<string> MetastoreId { get; private set; } = null!;
 
-        /// <summary>
-        /// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
@@ -127,6 +85,9 @@ namespace Pulumi.Databricks
         [Input("awsIamRole")]
         public Input<Inputs.MetastoreDataAccessAwsIamRoleArgs>? AwsIamRole { get; set; }
 
+        [Input("azureManagedIdentity")]
+        public Input<Inputs.MetastoreDataAccessAzureManagedIdentityArgs>? AzureManagedIdentity { get; set; }
+
         [Input("azureServicePrincipal")]
         public Input<Inputs.MetastoreDataAccessAzureServicePrincipalArgs>? AzureServicePrincipal { get; set; }
 
@@ -139,15 +100,9 @@ namespace Pulumi.Databricks
         [Input("isDefault")]
         public Input<bool>? IsDefault { get; set; }
 
-        /// <summary>
-        /// Unique identifier of the parent Metastore
-        /// </summary>
         [Input("metastoreId", required: true)]
         public Input<string> MetastoreId { get; set; } = null!;
 
-        /// <summary>
-        /// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -161,6 +116,9 @@ namespace Pulumi.Databricks
         [Input("awsIamRole")]
         public Input<Inputs.MetastoreDataAccessAwsIamRoleGetArgs>? AwsIamRole { get; set; }
 
+        [Input("azureManagedIdentity")]
+        public Input<Inputs.MetastoreDataAccessAzureManagedIdentityGetArgs>? AzureManagedIdentity { get; set; }
+
         [Input("azureServicePrincipal")]
         public Input<Inputs.MetastoreDataAccessAzureServicePrincipalGetArgs>? AzureServicePrincipal { get; set; }
 
@@ -173,15 +131,9 @@ namespace Pulumi.Databricks
         [Input("isDefault")]
         public Input<bool>? IsDefault { get; set; }
 
-        /// <summary>
-        /// Unique identifier of the parent Metastore
-        /// </summary>
         [Input("metastoreId")]
         public Input<string>? MetastoreId { get; set; }
 
-        /// <summary>
-        /// Name of Data Access Configuration, which must be unique within the databricks_metastore. Change forces creation of a new resource.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

@@ -18,16 +18,10 @@ export function getZones(opts?: pulumi.InvokeOptions): Promise<GetZonesResult> {
  * A collection of values returned by getZones.
  */
 export interface GetZonesResult {
-    /**
-     * This is the default zone that gets assigned to your workspace. This is the zone used by default for clusters and instance pools.
-     */
     readonly defaultZone: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * This is a list of all the zones available for your subnets in your Databricks workspace.
-     */
     readonly zones: string[];
 }

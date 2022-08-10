@@ -9,17 +9,9 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// -&gt; **Note** Importing this resource is not currently supported.
-    /// </summary>
     [DatabricksResourceType("databricks:index/mwsNetworks:MwsNetworks")]
     public partial class MwsNetworks : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Output("accountId")]
         public Output<string> AccountId { get; private set; } = null!;
 
@@ -29,15 +21,9 @@ namespace Pulumi.Databricks
         [Output("errorMessages")]
         public Output<ImmutableArray<Outputs.MwsNetworksErrorMessage>> ErrorMessages { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) id of network to be used for databricks_mws_workspace resource.
-        /// </summary>
         [Output("networkId")]
         public Output<string> NetworkId { get; private set; } = null!;
 
-        /// <summary>
-        /// name under which this network is regisstered
-        /// </summary>
         [Output("networkName")]
         public Output<string> NetworkName { get; private set; } = null!;
 
@@ -47,24 +33,15 @@ namespace Pulumi.Databricks
         [Output("subnetIds")]
         public Output<ImmutableArray<string>> SubnetIds { get; private set; } = null!;
 
-        /// <summary>
-        /// mapping of databricks.MwsVpcEndpoint for PrivateLink connections
-        /// </summary>
         [Output("vpcEndpoints")]
         public Output<Outputs.MwsNetworksVpcEndpoints> VpcEndpoints { get; private set; } = null!;
 
         [Output("vpcId")]
         public Output<string> VpcId { get; private set; } = null!;
 
-        /// <summary>
-        /// (String) VPC attachment status
-        /// </summary>
         [Output("vpcStatus")]
         public Output<string> VpcStatus { get; private set; } = null!;
 
-        /// <summary>
-        /// (Integer) id of associated workspace
-        /// </summary>
         [Output("workspaceId")]
         public Output<int> WorkspaceId { get; private set; } = null!;
 
@@ -114,9 +91,6 @@ namespace Pulumi.Databricks
 
     public sealed class MwsNetworksArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId", required: true)]
         public Input<string> AccountId { get; set; } = null!;
 
@@ -131,15 +105,9 @@ namespace Pulumi.Databricks
             set => _errorMessages = value;
         }
 
-        /// <summary>
-        /// (String) id of network to be used for databricks_mws_workspace resource.
-        /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
 
-        /// <summary>
-        /// name under which this network is regisstered
-        /// </summary>
         [Input("networkName", required: true)]
         public Input<string> NetworkName { get; set; } = null!;
 
@@ -159,24 +127,15 @@ namespace Pulumi.Databricks
             set => _subnetIds = value;
         }
 
-        /// <summary>
-        /// mapping of databricks.MwsVpcEndpoint for PrivateLink connections
-        /// </summary>
         [Input("vpcEndpoints")]
         public Input<Inputs.MwsNetworksVpcEndpointsArgs>? VpcEndpoints { get; set; }
 
         [Input("vpcId", required: true)]
         public Input<string> VpcId { get; set; } = null!;
 
-        /// <summary>
-        /// (String) VPC attachment status
-        /// </summary>
         [Input("vpcStatus")]
         public Input<string>? VpcStatus { get; set; }
 
-        /// <summary>
-        /// (Integer) id of associated workspace
-        /// </summary>
         [Input("workspaceId")]
         public Input<int>? WorkspaceId { get; set; }
 
@@ -187,9 +146,6 @@ namespace Pulumi.Databricks
 
     public sealed class MwsNetworksState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Account Id that could be found in the bottom left corner of [Accounts Console](https://accounts.cloud.databricks.com/)
-        /// </summary>
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
 
@@ -204,15 +160,9 @@ namespace Pulumi.Databricks
             set => _errorMessages = value;
         }
 
-        /// <summary>
-        /// (String) id of network to be used for databricks_mws_workspace resource.
-        /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
 
-        /// <summary>
-        /// name under which this network is regisstered
-        /// </summary>
         [Input("networkName")]
         public Input<string>? NetworkName { get; set; }
 
@@ -232,24 +182,15 @@ namespace Pulumi.Databricks
             set => _subnetIds = value;
         }
 
-        /// <summary>
-        /// mapping of databricks.MwsVpcEndpoint for PrivateLink connections
-        /// </summary>
         [Input("vpcEndpoints")]
         public Input<Inputs.MwsNetworksVpcEndpointsGetArgs>? VpcEndpoints { get; set; }
 
         [Input("vpcId")]
         public Input<string>? VpcId { get; set; }
 
-        /// <summary>
-        /// (String) VPC attachment status
-        /// </summary>
         [Input("vpcStatus")]
         public Input<string>? VpcStatus { get; set; }
 
-        /// <summary>
-        /// (Integer) id of associated workspace
-        /// </summary>
         [Input("workspaceId")]
         public Input<int>? WorkspaceId { get; set; }
 

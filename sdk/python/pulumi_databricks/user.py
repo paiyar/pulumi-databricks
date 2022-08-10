@@ -24,13 +24,6 @@ class UserArgs:
                  workspace_access: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a User resource.
-        :param pulumi.Input[str] user_name: This is the username of the given user and will be their form of access and identity.
-        :param pulumi.Input[bool] active: Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the username that can be the full name of the user.
-        :param pulumi.Input[str] external_id: ID of the user in an external identity provider.
         """
         pulumi.set(__self__, "user_name", user_name)
         if active is not None:
@@ -53,9 +46,6 @@ class UserArgs:
     @property
     @pulumi.getter(name="userName")
     def user_name(self) -> pulumi.Input[str]:
-        """
-        This is the username of the given user and will be their form of access and identity.
-        """
         return pulumi.get(self, "user_name")
 
     @user_name.setter
@@ -65,9 +55,6 @@ class UserArgs:
     @property
     @pulumi.getter
     def active(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-        """
         return pulumi.get(self, "active")
 
     @active.setter
@@ -77,9 +64,6 @@ class UserArgs:
     @property
     @pulumi.getter(name="allowClusterCreate")
     def allow_cluster_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        """
         return pulumi.get(self, "allow_cluster_create")
 
     @allow_cluster_create.setter
@@ -89,9 +73,6 @@ class UserArgs:
     @property
     @pulumi.getter(name="allowInstancePoolCreate")
     def allow_instance_pool_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        """
         return pulumi.get(self, "allow_instance_pool_create")
 
     @allow_instance_pool_create.setter
@@ -101,9 +82,6 @@ class UserArgs:
     @property
     @pulumi.getter(name="databricksSqlAccess")
     def databricks_sql_access(self) -> Optional[pulumi.Input[bool]]:
-        """
-        This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        """
         return pulumi.get(self, "databricks_sql_access")
 
     @databricks_sql_access.setter
@@ -113,9 +91,6 @@ class UserArgs:
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is an alias for the username that can be the full name of the user.
-        """
         return pulumi.get(self, "display_name")
 
     @display_name.setter
@@ -125,9 +100,6 @@ class UserArgs:
     @property
     @pulumi.getter(name="externalId")
     def external_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the user in an external identity provider.
-        """
         return pulumi.get(self, "external_id")
 
     @external_id.setter
@@ -167,13 +139,6 @@ class _UserState:
                  workspace_access: Optional[pulumi.Input[bool]] = None):
         """
         Input properties used for looking up and filtering User resources.
-        :param pulumi.Input[bool] active: Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the username that can be the full name of the user.
-        :param pulumi.Input[str] external_id: ID of the user in an external identity provider.
-        :param pulumi.Input[str] user_name: This is the username of the given user and will be their form of access and identity.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -197,9 +162,6 @@ class _UserState:
     @property
     @pulumi.getter
     def active(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-        """
         return pulumi.get(self, "active")
 
     @active.setter
@@ -209,9 +171,6 @@ class _UserState:
     @property
     @pulumi.getter(name="allowClusterCreate")
     def allow_cluster_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        """
         return pulumi.get(self, "allow_cluster_create")
 
     @allow_cluster_create.setter
@@ -221,9 +180,6 @@ class _UserState:
     @property
     @pulumi.getter(name="allowInstancePoolCreate")
     def allow_instance_pool_create(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        """
         return pulumi.get(self, "allow_instance_pool_create")
 
     @allow_instance_pool_create.setter
@@ -233,9 +189,6 @@ class _UserState:
     @property
     @pulumi.getter(name="databricksSqlAccess")
     def databricks_sql_access(self) -> Optional[pulumi.Input[bool]]:
-        """
-        This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        """
         return pulumi.get(self, "databricks_sql_access")
 
     @databricks_sql_access.setter
@@ -245,9 +198,6 @@ class _UserState:
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is an alias for the username that can be the full name of the user.
-        """
         return pulumi.get(self, "display_name")
 
     @display_name.setter
@@ -257,9 +207,6 @@ class _UserState:
     @property
     @pulumi.getter(name="externalId")
     def external_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of the user in an external identity provider.
-        """
         return pulumi.get(self, "external_id")
 
     @external_id.setter
@@ -278,9 +225,6 @@ class _UserState:
     @property
     @pulumi.getter(name="userName")
     def user_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        This is the username of the given user and will be their form of access and identity.
-        """
         return pulumi.get(self, "user_name")
 
     @user_name.setter
@@ -313,72 +257,9 @@ class User(pulumi.CustomResource):
                  workspace_access: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        This resource is used to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to Group within the workspace. Upon user creation the user will receive a password reset email. You can also get information about caller identity using get_current_user data source.
-
-        ## Example Usage
-
-        Creating regular user:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        me = databricks.User("me", user_name="me@example.com")
-        ```
-
-        Creating user with administrative permissions - referencing special `admins` Group in GroupMember resource:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        admins = databricks.get_group(display_name="admins")
-        me = databricks.User("me", user_name="me@example.com")
-        i_am_admin = databricks.GroupMember("i-am-admin",
-            group_id=admins.id,
-            member_id=me.id)
-        ```
-
-        Creating user with cluster create permissions:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        me = databricks.User("me",
-            allow_cluster_create=True,
-            display_name="Example user",
-            user_name="me@example.com")
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-        * Group data to retrieve information about Group members, entitlements and instance profiles.
-        * GroupInstanceProfile to attach InstanceProfile (AWS) to databricks_group.
-        * GroupMember to attach users and groups as group members.
-        * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-        * User data to retrieves information about databricks_user.
-
-        ## Import
-
-        The resource scim user can be imported using idbash
-
-        ```sh
-         $ pulumi import databricks:index/user:User me <user-id>
-        ```
-
+        Create a User resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] active: Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the username that can be the full name of the user.
-        :param pulumi.Input[str] external_id: ID of the user in an external identity provider.
-        :param pulumi.Input[str] user_name: This is the username of the given user and will be their form of access and identity.
         """
         ...
     @overload
@@ -387,63 +268,7 @@ class User(pulumi.CustomResource):
                  args: UserArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        This resource is used to [manage users](https://docs.databricks.com/administration-guide/users-groups/users.html), that could be added to Group within the workspace. Upon user creation the user will receive a password reset email. You can also get information about caller identity using get_current_user data source.
-
-        ## Example Usage
-
-        Creating regular user:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        me = databricks.User("me", user_name="me@example.com")
-        ```
-
-        Creating user with administrative permissions - referencing special `admins` Group in GroupMember resource:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        admins = databricks.get_group(display_name="admins")
-        me = databricks.User("me", user_name="me@example.com")
-        i_am_admin = databricks.GroupMember("i-am-admin",
-            group_id=admins.id,
-            member_id=me.id)
-        ```
-
-        Creating user with cluster create permissions:
-
-        ```python
-        import pulumi
-        import pulumi_databricks as databricks
-
-        me = databricks.User("me",
-            allow_cluster_create=True,
-            display_name="Example user",
-            user_name="me@example.com")
-        ```
-        ## Related Resources
-
-        The following resources are often used in the same context:
-
-        * End to end workspace management guide.
-        * Group to manage [groups in Databricks Workspace](https://docs.databricks.com/administration-guide/users-groups/groups.html) or [Account Console](https://accounts.cloud.databricks.com/) (for AWS deployments).
-        * Group data to retrieve information about Group members, entitlements and instance profiles.
-        * GroupInstanceProfile to attach InstanceProfile (AWS) to databricks_group.
-        * GroupMember to attach users and groups as group members.
-        * InstanceProfile to manage AWS EC2 instance profiles that users can launch Cluster and access data, like databricks_mount.
-        * User data to retrieves information about databricks_user.
-
-        ## Import
-
-        The resource scim user can be imported using idbash
-
-        ```sh
-         $ pulumi import databricks:index/user:User me <user-id>
-        ```
-
+        Create a User resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param UserArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -517,13 +342,6 @@ class User(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] active: Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-        :param pulumi.Input[bool] allow_cluster_create: Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        :param pulumi.Input[bool] allow_instance_pool_create: Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        :param pulumi.Input[bool] databricks_sql_access: This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        :param pulumi.Input[str] display_name: This is an alias for the username that can be the full name of the user.
-        :param pulumi.Input[str] external_id: ID of the user in an external identity provider.
-        :param pulumi.Input[str] user_name: This is the username of the given user and will be their form of access and identity.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -543,49 +361,31 @@ class User(pulumi.CustomResource):
     @property
     @pulumi.getter
     def active(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
-        """
         return pulumi.get(self, "active")
 
     @property
     @pulumi.getter(name="allowClusterCreate")
     def allow_cluster_create(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Allow the user to have cluster create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and `cluster_id` argument. Everyone without `allow_cluster_create` argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
-        """
         return pulumi.get(self, "allow_cluster_create")
 
     @property
     @pulumi.getter(name="allowInstancePoolCreate")
     def allow_instance_pool_create(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Allow the user to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with Permissions and instance_pool_id argument.
-        """
         return pulumi.get(self, "allow_instance_pool_create")
 
     @property
     @pulumi.getter(name="databricksSqlAccess")
     def databricks_sql_access(self) -> pulumi.Output[Optional[bool]]:
-        """
-        This is a field to allow the group to have access to [Databricks SQL](https://databricks.com/product/databricks-sql) feature in User Interface and through databricks_sql_endpoint.
-        """
         return pulumi.get(self, "databricks_sql_access")
 
     @property
     @pulumi.getter(name="displayName")
     def display_name(self) -> pulumi.Output[str]:
-        """
-        This is an alias for the username that can be the full name of the user.
-        """
         return pulumi.get(self, "display_name")
 
     @property
     @pulumi.getter(name="externalId")
     def external_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        ID of the user in an external identity provider.
-        """
         return pulumi.get(self, "external_id")
 
     @property
@@ -596,9 +396,6 @@ class User(pulumi.CustomResource):
     @property
     @pulumi.getter(name="userName")
     def user_name(self) -> pulumi.Output[str]:
-        """
-        This is the username of the given user and will be their form of access and identity.
-        """
         return pulumi.get(self, "user_name")
 
     @property

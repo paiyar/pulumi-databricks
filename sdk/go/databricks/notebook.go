@@ -11,33 +11,20 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Import
-//
-// The resource notebook can be imported using notebook path bash
-//
-// ```sh
-//  $ pulumi import databricks:index/notebook:Notebook this /path/to/notebook
-// ```
 type Notebook struct {
 	pulumi.CustomResourceState
 
 	ContentBase64 pulumi.StringPtrOutput `pulumi:"contentBase64"`
 	Format        pulumi.StringPtrOutput `pulumi:"format"`
-	// One of `SCALA`, `PYTHON`, `SQL`, `R`.
-	Language pulumi.StringPtrOutput `pulumi:"language"`
-	Md5      pulumi.StringPtrOutput `pulumi:"md5"`
-	// Unique identifier for a NOTEBOOK
-	//
+	Language      pulumi.StringPtrOutput `pulumi:"language"`
+	Md5           pulumi.StringPtrOutput `pulumi:"md5"`
 	// Deprecated: Use id argument to retrieve object id
 	ObjectId pulumi.IntOutput `pulumi:"objectId"`
 	// Deprecated: Always is a notebook
-	ObjectType pulumi.StringOutput `pulumi:"objectType"`
-	// The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-	Path pulumi.StringOutput `pulumi:"path"`
-	// Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-	Source pulumi.StringPtrOutput `pulumi:"source"`
-	// Routable URL of the notebook
-	Url pulumi.StringOutput `pulumi:"url"`
+	ObjectType pulumi.StringOutput    `pulumi:"objectType"`
+	Path       pulumi.StringOutput    `pulumi:"path"`
+	Source     pulumi.StringPtrOutput `pulumi:"source"`
+	Url        pulumi.StringOutput    `pulumi:"url"`
 }
 
 // NewNotebook registers a new resource with the given unique name, arguments, and options.
@@ -74,41 +61,29 @@ func GetNotebook(ctx *pulumi.Context,
 type notebookState struct {
 	ContentBase64 *string `pulumi:"contentBase64"`
 	Format        *string `pulumi:"format"`
-	// One of `SCALA`, `PYTHON`, `SQL`, `R`.
-	Language *string `pulumi:"language"`
-	Md5      *string `pulumi:"md5"`
-	// Unique identifier for a NOTEBOOK
-	//
+	Language      *string `pulumi:"language"`
+	Md5           *string `pulumi:"md5"`
 	// Deprecated: Use id argument to retrieve object id
 	ObjectId *int `pulumi:"objectId"`
 	// Deprecated: Always is a notebook
 	ObjectType *string `pulumi:"objectType"`
-	// The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-	Path *string `pulumi:"path"`
-	// Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-	Source *string `pulumi:"source"`
-	// Routable URL of the notebook
-	Url *string `pulumi:"url"`
+	Path       *string `pulumi:"path"`
+	Source     *string `pulumi:"source"`
+	Url        *string `pulumi:"url"`
 }
 
 type NotebookState struct {
 	ContentBase64 pulumi.StringPtrInput
 	Format        pulumi.StringPtrInput
-	// One of `SCALA`, `PYTHON`, `SQL`, `R`.
-	Language pulumi.StringPtrInput
-	Md5      pulumi.StringPtrInput
-	// Unique identifier for a NOTEBOOK
-	//
+	Language      pulumi.StringPtrInput
+	Md5           pulumi.StringPtrInput
 	// Deprecated: Use id argument to retrieve object id
 	ObjectId pulumi.IntPtrInput
 	// Deprecated: Always is a notebook
 	ObjectType pulumi.StringPtrInput
-	// The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-	Path pulumi.StringPtrInput
-	// Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-	Source pulumi.StringPtrInput
-	// Routable URL of the notebook
-	Url pulumi.StringPtrInput
+	Path       pulumi.StringPtrInput
+	Source     pulumi.StringPtrInput
+	Url        pulumi.StringPtrInput
 }
 
 func (NotebookState) ElementType() reflect.Type {
@@ -118,38 +93,28 @@ func (NotebookState) ElementType() reflect.Type {
 type notebookArgs struct {
 	ContentBase64 *string `pulumi:"contentBase64"`
 	Format        *string `pulumi:"format"`
-	// One of `SCALA`, `PYTHON`, `SQL`, `R`.
-	Language *string `pulumi:"language"`
-	Md5      *string `pulumi:"md5"`
-	// Unique identifier for a NOTEBOOK
-	//
+	Language      *string `pulumi:"language"`
+	Md5           *string `pulumi:"md5"`
 	// Deprecated: Use id argument to retrieve object id
 	ObjectId *int `pulumi:"objectId"`
 	// Deprecated: Always is a notebook
 	ObjectType *string `pulumi:"objectType"`
-	// The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-	Path string `pulumi:"path"`
-	// Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-	Source *string `pulumi:"source"`
+	Path       string  `pulumi:"path"`
+	Source     *string `pulumi:"source"`
 }
 
 // The set of arguments for constructing a Notebook resource.
 type NotebookArgs struct {
 	ContentBase64 pulumi.StringPtrInput
 	Format        pulumi.StringPtrInput
-	// One of `SCALA`, `PYTHON`, `SQL`, `R`.
-	Language pulumi.StringPtrInput
-	Md5      pulumi.StringPtrInput
-	// Unique identifier for a NOTEBOOK
-	//
+	Language      pulumi.StringPtrInput
+	Md5           pulumi.StringPtrInput
 	// Deprecated: Use id argument to retrieve object id
 	ObjectId pulumi.IntPtrInput
 	// Deprecated: Always is a notebook
 	ObjectType pulumi.StringPtrInput
-	// The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
-	Path pulumi.StringInput
-	// Path to notebook in source code format on local filesystem. Conflicts with `contentBase64`.
-	Source pulumi.StringPtrInput
+	Path       pulumi.StringInput
+	Source     pulumi.StringPtrInput
 }
 
 func (NotebookArgs) ElementType() reflect.Type {

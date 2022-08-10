@@ -21,18 +21,14 @@ func LookupDbfsFile(ctx *pulumi.Context, args *LookupDbfsFileArgs, opts ...pulum
 
 // A collection of arguments for invoking getDbfsFile.
 type LookupDbfsFileArgs struct {
-	// Do lot load content for files smaller than this in bytes
-	LimitFileSize bool `pulumi:"limitFileSize"`
-	// Path on DBFS for the file to get content of
-	Path string `pulumi:"path"`
+	LimitFileSize bool   `pulumi:"limitFileSize"`
+	Path          string `pulumi:"path"`
 }
 
 // A collection of values returned by getDbfsFile.
 type LookupDbfsFileResult struct {
-	// base64-encoded file contents
-	Content string `pulumi:"content"`
-	// size of the file in bytes
-	FileSize int `pulumi:"fileSize"`
+	Content  string `pulumi:"content"`
+	FileSize int    `pulumi:"fileSize"`
 	// The provider-assigned unique ID for this managed resource.
 	Id            string `pulumi:"id"`
 	LimitFileSize bool   `pulumi:"limitFileSize"`
@@ -50,10 +46,8 @@ func LookupDbfsFileOutput(ctx *pulumi.Context, args LookupDbfsFileOutputArgs, op
 
 // A collection of arguments for invoking getDbfsFile.
 type LookupDbfsFileOutputArgs struct {
-	// Do lot load content for files smaller than this in bytes
-	LimitFileSize pulumi.BoolInput `pulumi:"limitFileSize"`
-	// Path on DBFS for the file to get content of
-	Path pulumi.StringInput `pulumi:"path"`
+	LimitFileSize pulumi.BoolInput   `pulumi:"limitFileSize"`
+	Path          pulumi.StringInput `pulumi:"path"`
 }
 
 func (LookupDbfsFileOutputArgs) ElementType() reflect.Type {
@@ -75,12 +69,10 @@ func (o LookupDbfsFileResultOutput) ToLookupDbfsFileResultOutputWithContext(ctx 
 	return o
 }
 
-// base64-encoded file contents
 func (o LookupDbfsFileResultOutput) Content() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupDbfsFileResult) string { return v.Content }).(pulumi.StringOutput)
 }
 
-// size of the file in bytes
 func (o LookupDbfsFileResultOutput) FileSize() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupDbfsFileResult) int { return v.FileSize }).(pulumi.IntOutput)
 }

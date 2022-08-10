@@ -4,11 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## Import
- *
- * -> **Note** Importing this resource is not currently supported.
- */
 export class WorkspaceConf extends pulumi.CustomResource {
     /**
      * Get an existing WorkspaceConf resource's state with the given name, ID, and optional extra
@@ -37,9 +32,6 @@ export class WorkspaceConf extends pulumi.CustomResource {
         return obj['__pulumiType'] === WorkspaceConf.__pulumiType;
     }
 
-    /**
-     * Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
-     */
     public readonly customConfig!: pulumi.Output<{[key: string]: any} | undefined>;
 
     /**
@@ -69,9 +61,6 @@ export class WorkspaceConf extends pulumi.CustomResource {
  * Input properties used for looking up and filtering WorkspaceConf resources.
  */
 export interface WorkspaceConfState {
-    /**
-     * Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
-     */
     customConfig?: pulumi.Input<{[key: string]: any}>;
 }
 
@@ -79,8 +68,5 @@ export interface WorkspaceConfState {
  * The set of arguments for constructing a WorkspaceConf resource.
  */
 export interface WorkspaceConfArgs {
-    /**
-     * Key-value map of strings, that represent workspace configuration. Upon resource deletion, properties that start with `enable` or `enforce` will be reset to `false` value, regardless of initial default one.
-     */
     customConfig?: pulumi.Input<{[key: string]: any}>;
 }

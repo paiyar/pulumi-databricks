@@ -24,9 +24,6 @@ namespace Pulumi.Databricks.Inputs
         [Input("tag")]
         public Input<string>? Tag { get; set; }
 
-        /// <summary>
-        /// URL of the job on the given workspace
-        /// </summary>
         [Input("url", required: true)]
         public Input<string> Url { get; set; } = null!;
 

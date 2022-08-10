@@ -21,17 +21,14 @@ func GetNotebookPaths(ctx *pulumi.Context, args *GetNotebookPathsArgs, opts ...p
 
 // A collection of arguments for invoking getNotebookPaths.
 type GetNotebookPathsArgs struct {
-	// Path to workspace directory
-	Path string `pulumi:"path"`
-	// Either or recursively walk given path
-	Recursive bool `pulumi:"recursive"`
+	Path      string `pulumi:"path"`
+	Recursive bool   `pulumi:"recursive"`
 }
 
 // A collection of values returned by getNotebookPaths.
 type GetNotebookPathsResult struct {
 	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
-	// list of objects with `path` and `language` attributes
+	Id                string                             `pulumi:"id"`
 	NotebookPathLists []GetNotebookPathsNotebookPathList `pulumi:"notebookPathLists"`
 	Path              string                             `pulumi:"path"`
 	Recursive         bool                               `pulumi:"recursive"`
@@ -48,10 +45,8 @@ func GetNotebookPathsOutput(ctx *pulumi.Context, args GetNotebookPathsOutputArgs
 
 // A collection of arguments for invoking getNotebookPaths.
 type GetNotebookPathsOutputArgs struct {
-	// Path to workspace directory
-	Path pulumi.StringInput `pulumi:"path"`
-	// Either or recursively walk given path
-	Recursive pulumi.BoolInput `pulumi:"recursive"`
+	Path      pulumi.StringInput `pulumi:"path"`
+	Recursive pulumi.BoolInput   `pulumi:"recursive"`
 }
 
 func (GetNotebookPathsOutputArgs) ElementType() reflect.Type {
@@ -78,7 +73,6 @@ func (o GetNotebookPathsResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetNotebookPathsResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// list of objects with `path` and `language` attributes
 func (o GetNotebookPathsResultOutput) NotebookPathLists() GetNotebookPathsNotebookPathListArrayOutput {
 	return o.ApplyT(func(v GetNotebookPathsResult) []GetNotebookPathsNotebookPathList { return v.NotebookPathLists }).(GetNotebookPathsNotebookPathListArrayOutput)
 }

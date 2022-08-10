@@ -5,68 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * Use `databricks.Pipeline` to deploy [Delta Live Tables](https://docs.databricks.com/data-engineering/delta-live-tables/index.html).
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as databricks from "@pulumi/databricks";
- *
- * const dltDemo = new databricks.Notebook("dltDemo", {});
- * //...
- * const _this = new databricks.Pipeline("this", {
- *     storage: "/test/first-pipeline",
- *     configuration: {
- *         key1: "value1",
- *         key2: "value2",
- *     },
- *     clusters: [
- *         {
- *             label: "default",
- *             numWorkers: 2,
- *             customTags: {
- *                 cluster_type: "default",
- *             },
- *         },
- *         {
- *             label: "maintenance",
- *             numWorkers: 1,
- *             customTags: {
- *                 cluster_type: "maintenance",
- *             },
- *         },
- *     ],
- *     libraries: [{
- *         notebook: {
- *             path: dltDemo.id,
- *         },
- *     }],
- *     filters: {
- *         includes: ["com.databricks.include"],
- *         excludes: ["com.databricks.exclude"],
- *     },
- *     continuous: false,
- * });
- * ```
- * ## Related Resources
- *
- * The following resources are often used in the same context:
- *
- * * End to end workspace management guide.
- * * databricks.Cluster to create [Databricks Clusters](https://docs.databricks.com/clusters/index.html).
- * * databricks.Job to manage [Databricks Jobs](https://docs.databricks.com/jobs.html) to run non-interactive code in a databricks_cluster.
- * * databricks.Notebook to manage [Databricks Notebooks](https://docs.databricks.com/notebooks/index.html).
- *
- * ## Import
- *
- * The resource job can be imported using the id of the pipeline bash
- *
- * ```sh
- *  $ pulumi import databricks:index/pipeline:Pipeline this <pipeline-id>
- * ```
- */
 export class Pipeline extends pulumi.CustomResource {
     /**
      * Get an existing Pipeline resource's state with the given name, ID, and optional extra
@@ -96,35 +34,18 @@ export class Pipeline extends pulumi.CustomResource {
     }
 
     public readonly allowDuplicateNames!: pulumi.Output<boolean | undefined>;
-    /**
-     * blocks - Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline.
-     */
+    public readonly channel!: pulumi.Output<string | undefined>;
     public readonly clusters!: pulumi.Output<outputs.PipelineCluster[] | undefined>;
-    /**
-     * An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.
-     */
     public readonly configuration!: pulumi.Output<{[key: string]: any} | undefined>;
-    /**
-     * A flag indicating whether to run the pipeline continuously. The default value is `false`.
-     */
     public readonly continuous!: pulumi.Output<boolean | undefined>;
-    public readonly filters!: pulumi.Output<outputs.PipelineFilters>;
+    public readonly development!: pulumi.Output<boolean | undefined>;
+    public readonly edition!: pulumi.Output<string | undefined>;
+    public readonly filters!: pulumi.Output<outputs.PipelineFilters | undefined>;
     public readonly id!: pulumi.Output<string>;
-    /**
-     * blocks - Specifies pipeline code and required artifacts. Syntax resembles library configuration block with the addition of a special `notebook` type of library that should have `path` attribute.
-     */
     public readonly libraries!: pulumi.Output<outputs.PipelineLibrary[] | undefined>;
-    /**
-     * A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
-     */
     public readonly name!: pulumi.Output<string>;
-    /**
-     * A location on DBFS or cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location.
-     */
+    public readonly photon!: pulumi.Output<boolean | undefined>;
     public readonly storage!: pulumi.Output<string | undefined>;
-    /**
-     * The name of a database for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
-     */
     public readonly target!: pulumi.Output<string | undefined>;
     public /*out*/ readonly url!: pulumi.Output<string>;
 
@@ -135,36 +56,41 @@ export class Pipeline extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: PipelineArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, args?: PipelineArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: PipelineArgs | PipelineState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as PipelineState | undefined;
             resourceInputs["allowDuplicateNames"] = state ? state.allowDuplicateNames : undefined;
+            resourceInputs["channel"] = state ? state.channel : undefined;
             resourceInputs["clusters"] = state ? state.clusters : undefined;
             resourceInputs["configuration"] = state ? state.configuration : undefined;
             resourceInputs["continuous"] = state ? state.continuous : undefined;
+            resourceInputs["development"] = state ? state.development : undefined;
+            resourceInputs["edition"] = state ? state.edition : undefined;
             resourceInputs["filters"] = state ? state.filters : undefined;
             resourceInputs["id"] = state ? state.id : undefined;
             resourceInputs["libraries"] = state ? state.libraries : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["photon"] = state ? state.photon : undefined;
             resourceInputs["storage"] = state ? state.storage : undefined;
             resourceInputs["target"] = state ? state.target : undefined;
             resourceInputs["url"] = state ? state.url : undefined;
         } else {
             const args = argsOrState as PipelineArgs | undefined;
-            if ((!args || args.filters === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'filters'");
-            }
             resourceInputs["allowDuplicateNames"] = args ? args.allowDuplicateNames : undefined;
+            resourceInputs["channel"] = args ? args.channel : undefined;
             resourceInputs["clusters"] = args ? args.clusters : undefined;
             resourceInputs["configuration"] = args ? args.configuration : undefined;
             resourceInputs["continuous"] = args ? args.continuous : undefined;
+            resourceInputs["development"] = args ? args.development : undefined;
+            resourceInputs["edition"] = args ? args.edition : undefined;
             resourceInputs["filters"] = args ? args.filters : undefined;
             resourceInputs["id"] = args ? args.id : undefined;
             resourceInputs["libraries"] = args ? args.libraries : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["photon"] = args ? args.photon : undefined;
             resourceInputs["storage"] = args ? args.storage : undefined;
             resourceInputs["target"] = args ? args.target : undefined;
             resourceInputs["url"] = undefined /*out*/;
@@ -179,35 +105,18 @@ export class Pipeline extends pulumi.CustomResource {
  */
 export interface PipelineState {
     allowDuplicateNames?: pulumi.Input<boolean>;
-    /**
-     * blocks - Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline.
-     */
+    channel?: pulumi.Input<string>;
     clusters?: pulumi.Input<pulumi.Input<inputs.PipelineCluster>[]>;
-    /**
-     * An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.
-     */
     configuration?: pulumi.Input<{[key: string]: any}>;
-    /**
-     * A flag indicating whether to run the pipeline continuously. The default value is `false`.
-     */
     continuous?: pulumi.Input<boolean>;
+    development?: pulumi.Input<boolean>;
+    edition?: pulumi.Input<string>;
     filters?: pulumi.Input<inputs.PipelineFilters>;
     id?: pulumi.Input<string>;
-    /**
-     * blocks - Specifies pipeline code and required artifacts. Syntax resembles library configuration block with the addition of a special `notebook` type of library that should have `path` attribute.
-     */
     libraries?: pulumi.Input<pulumi.Input<inputs.PipelineLibrary>[]>;
-    /**
-     * A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
-     */
     name?: pulumi.Input<string>;
-    /**
-     * A location on DBFS or cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location.
-     */
+    photon?: pulumi.Input<boolean>;
     storage?: pulumi.Input<string>;
-    /**
-     * The name of a database for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
-     */
     target?: pulumi.Input<string>;
     url?: pulumi.Input<string>;
 }
@@ -217,34 +126,17 @@ export interface PipelineState {
  */
 export interface PipelineArgs {
     allowDuplicateNames?: pulumi.Input<boolean>;
-    /**
-     * blocks - Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline.
-     */
+    channel?: pulumi.Input<string>;
     clusters?: pulumi.Input<pulumi.Input<inputs.PipelineCluster>[]>;
-    /**
-     * An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.
-     */
     configuration?: pulumi.Input<{[key: string]: any}>;
-    /**
-     * A flag indicating whether to run the pipeline continuously. The default value is `false`.
-     */
     continuous?: pulumi.Input<boolean>;
-    filters: pulumi.Input<inputs.PipelineFilters>;
+    development?: pulumi.Input<boolean>;
+    edition?: pulumi.Input<string>;
+    filters?: pulumi.Input<inputs.PipelineFilters>;
     id?: pulumi.Input<string>;
-    /**
-     * blocks - Specifies pipeline code and required artifacts. Syntax resembles library configuration block with the addition of a special `notebook` type of library that should have `path` attribute.
-     */
     libraries?: pulumi.Input<pulumi.Input<inputs.PipelineLibrary>[]>;
-    /**
-     * A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
-     */
     name?: pulumi.Input<string>;
-    /**
-     * A location on DBFS or cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location.
-     */
+    photon?: pulumi.Input<boolean>;
     storage?: pulumi.Input<string>;
-    /**
-     * The name of a database for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
-     */
     target?: pulumi.Input<string>;
 }

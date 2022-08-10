@@ -9,30 +9,15 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Databricks
 {
-    /// <summary>
-    /// ## Import
-    /// 
-    /// The resource directory can be imported using directory path bash
-    /// 
-    /// ```sh
-    ///  $ pulumi import databricks:index/directory:Directory this /path/to/directory
-    /// ```
-    /// </summary>
     [DatabricksResourceType("databricks:index/directory:Directory")]
     public partial class Directory : Pulumi.CustomResource
     {
         [Output("deleteRecursive")]
         public Output<bool?> DeleteRecursive { get; private set; } = null!;
 
-        /// <summary>
-        /// Unique identifier for a DIRECTORY
-        /// </summary>
         [Output("objectId")]
         public Output<int> ObjectId { get; private set; } = null!;
 
-        /// <summary>
-        /// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-        /// </summary>
         [Output("path")]
         public Output<string> Path { get; private set; } = null!;
 
@@ -85,15 +70,9 @@ namespace Pulumi.Databricks
         [Input("deleteRecursive")]
         public Input<bool>? DeleteRecursive { get; set; }
 
-        /// <summary>
-        /// Unique identifier for a DIRECTORY
-        /// </summary>
         [Input("objectId")]
         public Input<int>? ObjectId { get; set; }
 
-        /// <summary>
-        /// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-        /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
@@ -107,15 +86,9 @@ namespace Pulumi.Databricks
         [Input("deleteRecursive")]
         public Input<bool>? DeleteRecursive { get; set; }
 
-        /// <summary>
-        /// Unique identifier for a DIRECTORY
-        /// </summary>
         [Input("objectId")]
         public Input<int>? ObjectId { get; set; }
 
-        /// <summary>
-        /// The absolute path of the directory, beginning with "/", e.g. "/Demo".
-        /// </summary>
         [Input("path")]
         public Input<string>? Path { get; set; }
 
