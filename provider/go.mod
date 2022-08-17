@@ -9,9 +9,7 @@ replace (
 
 require (
 	github.com/databricks/terraform-provider-databricks v1.2.0
-	github.com/iancoleman/strcase v0.2.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.26.1
-	github.com/pulumi/pulumi/sdk/v3 v3.36.0
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.27.0
 )
 
 require (
@@ -38,7 +36,7 @@ require (
 	github.com/Masterminds/goutils v1.1.0 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/sprig v2.22.0+incompatible // indirect
-	github.com/Microsoft/go-winio v0.5.1 // indirect
+	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-cidr v1.1.0 // indirect
@@ -117,6 +115,7 @@ require (
 	github.com/hashicorp/vault/sdk v0.2.1 // indirect
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
+	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/ijc/Gotty v0.0.0-20170406111628-a8b993ba6abd // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
@@ -153,9 +152,10 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/posener/complete v1.2.1 // indirect
-	github.com/pulumi/pulumi-java/pkg v0.4.2-0.20220706212453-8046ed6407d4 // indirect
+	github.com/pulumi/pulumi-java/pkg v0.5.0 // indirect
 	github.com/pulumi/pulumi-yaml v0.5.3 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.36.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.37.3-0.20220808143631-f4f5f808b652 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.37.2 // indirect
 	github.com/pulumi/terraform-diff-reader v0.0.0-20201211191010-ad4715e9285e // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rjeczalik/notify v0.9.2 // indirect
@@ -198,7 +198,7 @@ require (
 	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
 	golang.org/x/oauth2 v0.0.0-20220622183110-fd043fe589d2 // indirect
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f // indirect
-	golang.org/x/sys v0.0.0-20220624220833-87e55d714810 // indirect
+	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
